@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package v2http
 
 import (
@@ -19,26 +5,28 @@ import (
 	"net/http"
 	"path"
 	"strings"
-
 	"github.com/coreos/etcd/etcdserver/api"
 	"github.com/coreos/etcd/etcdserver/api/v2http/httptypes"
 	"github.com/coreos/etcd/etcdserver/auth"
 )
 
 type authHandler struct {
-	sec                   auth.Store
-	cluster               api.Cluster
-	clientCertAuthEnabled bool
+	sec			auth.Store
+	cluster			api.Cluster
+	clientCertAuthEnabled	bool
 }
 
 func hasWriteRootAccess(sec auth.Store, r *http.Request, clientCertAuthEnabled bool) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if r.Method == "GET" || r.Method == "HEAD" {
 		return true
 	}
 	return hasRootAccess(sec, r, clientCertAuthEnabled)
 }
-
 func userFromBasicAuth(sec auth.Store, r *http.Request) *auth.User {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	username, password, ok := r.BasicAuth()
 	if !ok {
 		plog.Warningf("auth: malformed basic auth encoding")
@@ -48,7 +36,6 @@ func userFromBasicAuth(sec auth.Store, r *http.Request) *auth.User {
 	if err != nil {
 		return nil
 	}
-
 	ok = sec.CheckPassword(user, password)
 	if !ok {
 		plog.Warningf("auth: incorrect password for user: %s", username)
@@ -56,12 +43,12 @@ func userFromBasicAuth(sec auth.Store, r *http.Request) *auth.User {
 	}
 	return &user
 }
-
 func userFromClientCertificate(sec auth.Store, r *http.Request) *auth.User {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if r.TLS == nil {
 		return nil
 	}
-
 	for _, chains := range r.TLS.VerifiedChains {
 		for _, chain := range chains {
 			plog.Debugf("auth: found common name %s.\n", chain.Subject.CommonName)
@@ -74,16 +61,15 @@ func userFromClientCertificate(sec auth.Store, r *http.Request) *auth.User {
 	}
 	return nil
 }
-
 func hasRootAccess(sec auth.Store, r *http.Request, clientCertAuthEnabled bool) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if sec == nil {
-		// No store means no auth available, eg, tests.
 		return true
 	}
 	if !sec.AuthEnabled() {
 		return true
 	}
-
 	var rootUser *auth.User
 	if r.Header.Get("Authorization") == "" && clientCertAuthEnabled {
 		rootUser = userFromClientCertificate(sec, r)
@@ -96,7 +82,6 @@ func hasRootAccess(sec auth.Store, r *http.Request, clientCertAuthEnabled bool) 
 			return false
 		}
 	}
-
 	for _, role := range rootUser.Roles {
 		if role == auth.RootRoleName {
 			return true
@@ -105,16 +90,15 @@ func hasRootAccess(sec auth.Store, r *http.Request, clientCertAuthEnabled bool) 
 	plog.Warningf("auth: user %s does not have the %s role for resource %s.", rootUser.User, auth.RootRoleName, r.URL.Path)
 	return false
 }
-
 func hasKeyPrefixAccess(sec auth.Store, r *http.Request, key string, recursive, clientCertAuthEnabled bool) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if sec == nil {
-		// No store means no auth available, eg, tests.
 		return true
 	}
 	if !sec.AuthEnabled() {
 		return true
 	}
-
 	var user *auth.User
 	if r.Header.Get("Authorization") == "" {
 		if clientCertAuthEnabled {
@@ -129,7 +113,6 @@ func hasKeyPrefixAccess(sec auth.Store, r *http.Request, key string, recursive, 
 			return false
 		}
 	}
-
 	writeAccess := r.Method != "GET" && r.Method != "HEAD"
 	for _, roleName := range user.Roles {
 		role, err := sec.GetRole(roleName)
@@ -147,8 +130,9 @@ func hasKeyPrefixAccess(sec auth.Store, r *http.Request, key string, recursive, 
 	plog.Warningf("auth: invalid access for user %s on key %s.", user.User, key)
 	return false
 }
-
 func hasGuestAccess(sec auth.Store, r *http.Request, key string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	writeAccess := r.Method != "GET" && r.Method != "HEAD"
 	role, err := sec.GetRole(auth.GuestRoleName)
 	if err != nil {
@@ -160,23 +144,26 @@ func hasGuestAccess(sec auth.Store, r *http.Request, key string) bool {
 	plog.Warningf("auth: invalid access for unauthenticated user on resource %s.", key)
 	return false
 }
-
 func writeNoAuth(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	herr := httptypes.NewHTTPError(http.StatusUnauthorized, "Insufficient credentials")
 	if err := herr.WriteTo(w); err != nil {
 		plog.Debugf("error writing HTTPError (%v) to %s", err, r.RemoteAddr)
 	}
 }
-
 func handleAuth(mux *http.ServeMux, sh *authHandler) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mux.HandleFunc(authPrefix+"/roles", capabilityHandler(api.AuthCapability, sh.baseRoles))
 	mux.HandleFunc(authPrefix+"/roles/", capabilityHandler(api.AuthCapability, sh.handleRoles))
 	mux.HandleFunc(authPrefix+"/users", capabilityHandler(api.AuthCapability, sh.baseUsers))
 	mux.HandleFunc(authPrefix+"/users/", capabilityHandler(api.AuthCapability, sh.handleUsers))
 	mux.HandleFunc(authPrefix+"/enable", capabilityHandler(api.AuthCapability, sh.enableDisable))
 }
-
 func (sh *authHandler) baseRoles(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET") {
 		return
 	}
@@ -184,10 +171,8 @@ func (sh *authHandler) baseRoles(w http.ResponseWriter, r *http.Request) {
 		writeNoAuth(w, r)
 		return
 	}
-
 	w.Header().Set("X-Etcd-Cluster-ID", sh.cluster.ID().String())
 	w.Header().Set("Content-Type", "application/json")
-
 	roles, err := sh.sec.AllRoles()
 	if err != nil {
 		writeError(w, r, err)
@@ -196,13 +181,11 @@ func (sh *authHandler) baseRoles(w http.ResponseWriter, r *http.Request) {
 	if roles == nil {
 		roles = make([]string, 0)
 	}
-
 	err = r.ParseForm()
 	if err != nil {
 		writeError(w, r, err)
 		return
 	}
-
 	var rolesCollections struct {
 		Roles []auth.Role `json:"roles"`
 	}
@@ -216,18 +199,16 @@ func (sh *authHandler) baseRoles(w http.ResponseWriter, r *http.Request) {
 		rolesCollections.Roles = append(rolesCollections.Roles, role)
 	}
 	err = json.NewEncoder(w).Encode(rolesCollections)
-
 	if err != nil {
 		plog.Warningf("baseRoles error encoding on %s", r.URL)
 		writeError(w, r, err)
 		return
 	}
 }
-
 func (sh *authHandler) handleRoles(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	subpath := path.Clean(r.URL.Path[len(authPrefix):])
-	// Split "/roles/rolename/command".
-	// First item is an empty string, second is "roles"
 	pieces := strings.Split(subpath, "/")
 	if len(pieces) == 2 {
 		sh.baseRoles(w, r)
@@ -239,8 +220,9 @@ func (sh *authHandler) handleRoles(w http.ResponseWriter, r *http.Request) {
 	}
 	sh.forRole(w, r, pieces[2])
 }
-
 func (sh *authHandler) forRole(w http.ResponseWriter, r *http.Request, role string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET", "PUT", "DELETE") {
 		return
 	}
@@ -250,7 +232,6 @@ func (sh *authHandler) forRole(w http.ResponseWriter, r *http.Request, role stri
 	}
 	w.Header().Set("X-Etcd-Cluster-ID", sh.cluster.ID().String())
 	w.Header().Set("Content-Type", "application/json")
-
 	switch r.Method {
 	case "GET":
 		data, err := sh.sec.GetRole(role)
@@ -275,10 +256,7 @@ func (sh *authHandler) forRole(w http.ResponseWriter, r *http.Request, role stri
 			writeError(w, r, httptypes.NewHTTPError(http.StatusBadRequest, "Role JSON name does not match the name in the URL"))
 			return
 		}
-
 		var out auth.Role
-
-		// create
 		if in.Grant.IsEmpty() && in.Revoke.IsEmpty() {
 			err = sh.sec.CreateRole(in)
 			if err != nil {
@@ -299,7 +277,6 @@ func (sh *authHandler) forRole(w http.ResponseWriter, r *http.Request, role stri
 			}
 			w.WriteHeader(http.StatusOK)
 		}
-
 		err = json.NewEncoder(w).Encode(out)
 		if err != nil {
 			plog.Warningf("forRole error encoding on %s", r.URL)
@@ -316,15 +293,16 @@ func (sh *authHandler) forRole(w http.ResponseWriter, r *http.Request, role stri
 }
 
 type userWithRoles struct {
-	User  string      `json:"user"`
-	Roles []auth.Role `json:"roles,omitempty"`
+	User	string		`json:"user"`
+	Roles	[]auth.Role	`json:"roles,omitempty"`
 }
-
 type usersCollections struct {
 	Users []userWithRoles `json:"users"`
 }
 
 func (sh *authHandler) baseUsers(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET") {
 		return
 	}
@@ -334,7 +312,6 @@ func (sh *authHandler) baseUsers(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("X-Etcd-Cluster-ID", sh.cluster.ID().String())
 	w.Header().Set("Content-Type", "application/json")
-
 	users, err := sh.sec.AllUsers()
 	if err != nil {
 		writeError(w, r, err)
@@ -343,13 +320,11 @@ func (sh *authHandler) baseUsers(w http.ResponseWriter, r *http.Request) {
 	if users == nil {
 		users = make([]string, 0)
 	}
-
 	err = r.ParseForm()
 	if err != nil {
 		writeError(w, r, err)
 		return
 	}
-
 	ucs := usersCollections{}
 	for _, userName := range users {
 		var user auth.User
@@ -358,7 +333,6 @@ func (sh *authHandler) baseUsers(w http.ResponseWriter, r *http.Request) {
 			writeError(w, r, err)
 			return
 		}
-
 		uwr := userWithRoles{User: user.User}
 		for _, roleName := range user.Roles {
 			var role auth.Role
@@ -368,22 +342,19 @@ func (sh *authHandler) baseUsers(w http.ResponseWriter, r *http.Request) {
 			}
 			uwr.Roles = append(uwr.Roles, role)
 		}
-
 		ucs.Users = append(ucs.Users, uwr)
 	}
 	err = json.NewEncoder(w).Encode(ucs)
-
 	if err != nil {
 		plog.Warningf("baseUsers error encoding on %s", r.URL)
 		writeError(w, r, err)
 		return
 	}
 }
-
 func (sh *authHandler) handleUsers(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	subpath := path.Clean(r.URL.Path[len(authPrefix):])
-	// Split "/users/username".
-	// First item is an empty string, second is "users"
 	pieces := strings.Split(subpath, "/")
 	if len(pieces) == 2 {
 		sh.baseUsers(w, r)
@@ -395,8 +366,9 @@ func (sh *authHandler) handleUsers(w http.ResponseWriter, r *http.Request) {
 	}
 	sh.forUser(w, r, pieces[2])
 }
-
 func (sh *authHandler) forUser(w http.ResponseWriter, r *http.Request, user string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET", "PUT", "DELETE") {
 		return
 	}
@@ -406,7 +378,6 @@ func (sh *authHandler) forUser(w http.ResponseWriter, r *http.Request, user stri
 	}
 	w.Header().Set("X-Etcd-Cluster-ID", sh.cluster.ID().String())
 	w.Header().Set("Content-Type", "application/json")
-
 	switch r.Method {
 	case "GET":
 		u, err := sh.sec.GetUser(user)
@@ -414,13 +385,11 @@ func (sh *authHandler) forUser(w http.ResponseWriter, r *http.Request, user stri
 			writeError(w, r, err)
 			return
 		}
-
 		err = r.ParseForm()
 		if err != nil {
 			writeError(w, r, err)
 			return
 		}
-
 		uwr := userWithRoles{User: u.User}
 		for _, roleName := range u.Roles {
 			var role auth.Role
@@ -432,7 +401,6 @@ func (sh *authHandler) forUser(w http.ResponseWriter, r *http.Request, user stri
 			uwr.Roles = append(uwr.Roles, role)
 		}
 		err = json.NewEncoder(w).Encode(uwr)
-
 		if err != nil {
 			plog.Warningf("forUser error encoding on %s", r.URL)
 			return
@@ -449,28 +417,21 @@ func (sh *authHandler) forUser(w http.ResponseWriter, r *http.Request, user stri
 			writeError(w, r, httptypes.NewHTTPError(http.StatusBadRequest, "User JSON name does not match the name in the URL"))
 			return
 		}
-
 		var (
-			out     auth.User
-			created bool
+			out	auth.User
+			created	bool
 		)
-
 		if len(u.Grant) == 0 && len(u.Revoke) == 0 {
-			// create or update
 			if len(u.Roles) != 0 {
 				out, err = sh.sec.CreateUser(u)
 			} else {
-				// if user passes in both password and roles, we are unsure about his/her
-				// intention.
 				out, created, err = sh.sec.CreateOrUpdateUser(u)
 			}
-
 			if err != nil {
 				writeError(w, r, err)
 				return
 			}
 		} else {
-			// update case
 			if len(u.Roles) != 0 {
 				writeError(w, r, httptypes.NewHTTPError(http.StatusBadRequest, "User JSON contains both roles and grant/revoke"))
 				return
@@ -481,15 +442,12 @@ func (sh *authHandler) forUser(w http.ResponseWriter, r *http.Request, user stri
 				return
 			}
 		}
-
 		if created {
 			w.WriteHeader(http.StatusCreated)
 		} else {
 			w.WriteHeader(http.StatusOK)
 		}
-
 		out.Password = ""
-
 		err = json.NewEncoder(w).Encode(out)
 		if err != nil {
 			plog.Warningf("forUser error encoding on %s", r.URL)
@@ -510,6 +468,8 @@ type enabled struct {
 }
 
 func (sh *authHandler) enableDisable(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET", "PUT", "DELETE") {
 		return
 	}

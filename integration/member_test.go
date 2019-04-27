@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package integration
 
 import (
@@ -21,17 +7,17 @@ import (
 	"os"
 	"reflect"
 	"testing"
-
 	"github.com/coreos/etcd/client"
 	"github.com/coreos/etcd/pkg/testutil"
 )
 
 func TestPauseMember(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	c := NewCluster(t, 5)
 	c.Launch(t)
 	defer c.Terminate(t)
-
 	for i := 0; i < 5; i++ {
 		c.Members[i].Pause()
 		membs := append([]*member{}, c.Members[:i]...)
@@ -43,13 +29,13 @@ func TestPauseMember(t *testing.T) {
 	c.waitLeader(t, c.Members)
 	clusterMustProgress(t, c.Members)
 }
-
 func TestRestartMember(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	c := NewCluster(t, 3)
 	c.Launch(t)
 	defer c.Terminate(t)
-
 	for i := 0; i < 3; i++ {
 		c.Members[i].Stop(t)
 		membs := append([]*member{}, c.Members[:i]...)
@@ -64,8 +50,9 @@ func TestRestartMember(t *testing.T) {
 	c.waitLeader(t, c.Members)
 	clusterMustProgress(t, c.Members)
 }
-
 func TestLaunchDuplicateMemberShouldFail(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := 3
 	c := NewCluster(t, size)
 	m := c.Members[0].Clone(t)
@@ -76,20 +63,19 @@ func TestLaunchDuplicateMemberShouldFail(t *testing.T) {
 	}
 	c.Launch(t)
 	defer c.Terminate(t)
-
 	if err := m.Launch(); err == nil {
 		t.Errorf("unexpect successful launch")
 	}
 }
-
 func TestSnapshotAndRestartMember(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	m := mustNewMember(t, memberConfig{name: "snapAndRestartTest"})
 	m.SnapCount = 100
 	m.Launch()
 	defer m.Terminate(t)
 	m.WaitOK(t)
-
 	resps := make([]*client.Response, 120)
 	var err error
 	for i := 0; i < 120; i++ {
@@ -105,7 +91,6 @@ func TestSnapshotAndRestartMember(t *testing.T) {
 	}
 	m.Stop(t)
 	m.Restart(t)
-
 	m.WaitOK(t)
 	for i := 0; i < 120; i++ {
 		cc := MustNewHTTPClient(t, []string{m.URL()}, nil)
@@ -117,7 +102,6 @@ func TestSnapshotAndRestartMember(t *testing.T) {
 			t.Fatalf("#%d: get on %s error: %v", i, m.URL(), err)
 		}
 		cancel()
-
 		if !reflect.DeepEqual(resp.Node, resps[i].Node) {
 			t.Errorf("#%d: node = %v, want %v", i, resp.Node, resps[i].Node)
 		}

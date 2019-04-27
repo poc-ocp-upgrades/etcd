@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package rafthttp
 
 import (
@@ -21,7 +7,6 @@ import (
 	"io/ioutil"
 	"sync"
 	"time"
-
 	"github.com/coreos/etcd/etcdserver/stats"
 	"github.com/coreos/etcd/pkg/pbutil"
 	"github.com/coreos/etcd/pkg/types"
@@ -30,34 +15,28 @@ import (
 )
 
 const (
-	connPerPipeline = 4
-	// pipelineBufSize is the size of pipeline buffer, which helps hold the
-	// temporary network latency.
-	// The size ensures that pipeline does not drop messages when the network
-	// is out of work for less than 1 second in good path.
-	pipelineBufSize = 64
+	connPerPipeline	= 4
+	pipelineBufSize	= 64
 )
 
 var errStopped = errors.New("stopped")
 
 type pipeline struct {
-	peerID types.ID
-
-	tr     *Transport
-	picker *urlPicker
-	status *peerStatus
-	raft   Raft
-	errorc chan error
-	// deprecate when we depercate v2 API
-	followerStats *stats.FollowerStats
-
-	msgc chan raftpb.Message
-	// wait for the handling routines
-	wg    sync.WaitGroup
-	stopc chan struct{}
+	peerID		types.ID
+	tr		*Transport
+	picker		*urlPicker
+	status		*peerStatus
+	raft		Raft
+	errorc		chan error
+	followerStats	*stats.FollowerStats
+	msgc		chan raftpb.Message
+	wg		sync.WaitGroup
+	stopc		chan struct{}
 }
 
 func (p *pipeline) start() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.stopc = make(chan struct{})
 	p.msgc = make(chan raftpb.Message, pipelineBufSize)
 	p.wg.Add(connPerPipeline)
@@ -66,26 +45,25 @@ func (p *pipeline) start() {
 	}
 	plog.Infof("started HTTP pipelining with peer %s", p.peerID)
 }
-
 func (p *pipeline) stop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	close(p.stopc)
 	p.wg.Wait()
 	plog.Infof("stopped HTTP pipelining with peer %s", p.peerID)
 }
-
 func (p *pipeline) handle() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer p.wg.Done()
-
 	for {
 		select {
 		case m := <-p.msgc:
 			start := time.Now()
 			err := p.post(pbutil.MustMarshal(&m))
 			end := time.Now()
-
 			if err != nil {
 				p.status.deactivate(failureType{source: pipelineMsg, action: "write"}, err.Error())
-
 				if m.Type == raftpb.MsgApp && p.followerStats != nil {
 					p.followerStats.Fail()
 				}
@@ -96,7 +74,6 @@ func (p *pipeline) handle() {
 				sentFailures.WithLabelValues(types.ID(m.To).String()).Inc()
 				continue
 			}
-
 			p.status.activate()
 			if m.Type == raftpb.MsgApp && p.followerStats != nil {
 				p.followerStats.Succ(end.Sub(start))
@@ -110,13 +87,11 @@ func (p *pipeline) handle() {
 		}
 	}
 }
-
-// post POSTs a data payload to a url. Returns nil if the POST succeeds,
-// error on any failure.
 func (p *pipeline) post(data []byte) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u := p.picker.pick()
 	req := createPostRequest(u, RaftPrefix, bytes.NewBuffer(data), "application/protobuf", p.tr.URLs, p.tr.ID, p.tr.ClusterID)
-
 	done := make(chan struct{}, 1)
 	ctx, cancel := context.WithCancel(context.Background())
 	req = req.WithContext(ctx)
@@ -128,7 +103,6 @@ func (p *pipeline) post(data []byte) (err error) {
 			cancel()
 		}
 	}()
-
 	resp, err := p.tr.pipelineRt.RoundTrip(req)
 	done <- struct{}{}
 	if err != nil {
@@ -141,20 +115,18 @@ func (p *pipeline) post(data []byte) (err error) {
 		return err
 	}
 	resp.Body.Close()
-
 	err = checkPostResponse(resp, b, req, p.peerID)
 	if err != nil {
 		p.picker.unreachable(u)
-		// errMemberRemoved is a critical error since a removed member should
-		// always be stopped. So we use reportCriticalError to report it to errorc.
 		if err == errMemberRemoved {
 			reportCriticalError(err, p.errorc)
 		}
 		return err
 	}
-
 	return nil
 }
-
-// waitSchedule waits other goroutines to be scheduled for a while
-func waitSchedule() { time.Sleep(time.Millisecond) }
+func waitSchedule() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	time.Sleep(time.Millisecond)
+}

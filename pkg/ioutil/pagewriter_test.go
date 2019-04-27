@@ -1,17 +1,3 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package ioutil
 
 import (
@@ -20,7 +6,8 @@ import (
 )
 
 func TestPageWriterRandom(t *testing.T) {
-	// smaller buffer for stress testing
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defaultBufferBytes = 8 * 1024
 	pageBytes := 128
 	buf := make([]byte, 4*defaultBufferBytes)
@@ -43,16 +30,14 @@ func TestPageWriterRandom(t *testing.T) {
 	t.Logf("total writes: %d", cw.writes)
 	t.Logf("total write bytes: %d (of %d)", cw.writeBytes, n)
 }
-
-// TestPageWriterPariallack tests the case where a write overflows the buffer
-// but there is not enough data to complete the slack write.
 func TestPageWriterPartialSlack(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defaultBufferBytes = 1024
 	pageBytes := 128
 	buf := make([]byte, defaultBufferBytes)
 	cw := &checkPageWriter{pageBytes: 64, t: t}
 	w := NewPageWriter(cw, pageBytes, 0)
-	// put writer in non-zero page offset
 	if _, err := w.Write(buf[:64]); err != nil {
 		t.Fatal(err)
 	}
@@ -62,18 +47,15 @@ func TestPageWriterPartialSlack(t *testing.T) {
 	if cw.writes != 1 {
 		t.Fatalf("got %d writes, expected 1", cw.writes)
 	}
-	// nearly fill buffer
 	if _, err := w.Write(buf[:1022]); err != nil {
 		t.Fatal(err)
 	}
-	// overflow buffer, but without enough to write as aligned
 	if _, err := w.Write(buf[:8]); err != nil {
 		t.Fatal(err)
 	}
 	if cw.writes != 1 {
 		t.Fatalf("got %d writes, expected 1", cw.writes)
 	}
-	// finish writing slack space
 	if _, err := w.Write(buf[:128]); err != nil {
 		t.Fatal(err)
 	}
@@ -81,9 +63,9 @@ func TestPageWriterPartialSlack(t *testing.T) {
 		t.Fatalf("got %d writes, expected 2", cw.writes)
 	}
 }
-
-// TestPageWriterOffset tests if page writer correctly repositions when offset is given.
 func TestPageWriterOffset(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defaultBufferBytes = 1024
 	pageBytes := 128
 	buf := make([]byte, defaultBufferBytes)
@@ -98,7 +80,6 @@ func TestPageWriterOffset(t *testing.T) {
 	if w.pageOffset != 64 {
 		t.Fatalf("w.pageOffset expected 64, got %d", w.pageOffset)
 	}
-
 	w = NewPageWriter(cw, w.pageOffset, pageBytes)
 	if _, err := w.Write(buf[:64]); err != nil {
 		t.Fatal(err)
@@ -111,15 +92,16 @@ func TestPageWriterOffset(t *testing.T) {
 	}
 }
 
-// checkPageWriter implements an io.Writer that fails a test on unaligned writes.
 type checkPageWriter struct {
-	pageBytes  int
-	writes     int
-	writeBytes int
-	t          *testing.T
+	pageBytes	int
+	writes		int
+	writeBytes	int
+	t		*testing.T
 }
 
 func (cw *checkPageWriter) Write(p []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(p)%cw.pageBytes != 0 {
 		cw.t.Fatalf("got write len(p) = %d, expected len(p) == k*cw.pageBytes", len(p))
 	}

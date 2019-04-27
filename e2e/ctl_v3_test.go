@@ -1,17 +1,3 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package e2e
 
 import (
@@ -20,31 +6,37 @@ import (
 	"strings"
 	"testing"
 	"time"
-
 	"github.com/coreos/etcd/pkg/flags"
 	"github.com/coreos/etcd/pkg/testutil"
 	"github.com/coreos/etcd/version"
 )
 
-func TestCtlV3Version(t *testing.T) { testCtl(t, versionTest) }
-
+func TestCtlV3Version(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	testCtl(t, versionTest)
+}
 func versionTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := ctlV3Version(cx); err != nil {
 		cx.t.Fatalf("versionTest ctlV3Version error (%v)", err)
 	}
 }
-
 func ctlV3Version(cx ctlCtx) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "version")
 	return spawnWithExpect(cmdArgs, version.Version)
 }
-
-// TestCtlV3DialWithHTTPScheme ensures that client handles endpoints with HTTPS scheme.
 func TestCtlV3DialWithHTTPScheme(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, dialWithSchemeTest, withCfg(configClientTLS))
 }
-
 func dialWithSchemeTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(cx.prefixArgs(cx.epc.EndpointsV3()), "put", "foo", "bar")
 	if err := spawnWithExpect(cmdArgs, "OK"); err != nil {
 		cx.t.Fatal(err)
@@ -52,89 +44,107 @@ func dialWithSchemeTest(cx ctlCtx) {
 }
 
 type ctlCtx struct {
-	t                 *testing.T
-	cfg               etcdProcessClusterConfig
-	quotaBackendBytes int64
-	corruptFunc       func(string) error
-	noStrictReconfig  bool
-
-	epc *etcdProcessCluster
-
-	envMap map[string]struct{}
-
-	dialTimeout time.Duration
-
-	quorum      bool // if true, set up 3-node cluster and linearizable read
-	interactive bool
-
-	user string
-	pass string
-
-	initialCorruptCheck bool
-
-	// for compaction
-	compactPhysical bool
+	t			*testing.T
+	cfg			etcdProcessClusterConfig
+	quotaBackendBytes	int64
+	corruptFunc		func(string) error
+	noStrictReconfig	bool
+	epc			*etcdProcessCluster
+	envMap			map[string]struct{}
+	dialTimeout		time.Duration
+	quorum			bool
+	interactive		bool
+	user			string
+	pass			string
+	initialCorruptCheck	bool
+	compactPhysical		bool
 }
-
 type ctlOption func(*ctlCtx)
 
 func (cx *ctlCtx) applyOpts(opts []ctlOption) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, opt := range opts {
 		opt(cx)
 	}
 	cx.initialCorruptCheck = true
 }
-
 func withCfg(cfg etcdProcessClusterConfig) ctlOption {
-	return func(cx *ctlCtx) { cx.cfg = cfg }
-}
-
-func withDialTimeout(timeout time.Duration) ctlOption {
-	return func(cx *ctlCtx) { cx.dialTimeout = timeout }
-}
-
-func withQuorum() ctlOption {
-	return func(cx *ctlCtx) { cx.quorum = true }
-}
-
-func withInteractive() ctlOption {
-	return func(cx *ctlCtx) { cx.interactive = true }
-}
-
-func withQuota(b int64) ctlOption {
-	return func(cx *ctlCtx) { cx.quotaBackendBytes = b }
-}
-
-func withCompactPhysical() ctlOption {
-	return func(cx *ctlCtx) { cx.compactPhysical = true }
-}
-
-func withInitialCorruptCheck() ctlOption {
-	return func(cx *ctlCtx) { cx.initialCorruptCheck = true }
-}
-
-func withCorruptFunc(f func(string) error) ctlOption {
-	return func(cx *ctlCtx) { cx.corruptFunc = f }
-}
-
-func withNoStrictReconfig() ctlOption {
-	return func(cx *ctlCtx) { cx.noStrictReconfig = true }
-}
-
-func withFlagByEnv() ctlOption {
-	return func(cx *ctlCtx) { cx.envMap = make(map[string]struct{}) }
-}
-
-func testCtl(t *testing.T, testFunc func(ctlCtx), opts ...ctlOption) {
-	defer testutil.AfterTest(t)
-
-	ret := ctlCtx{
-		t:           t,
-		cfg:         configAutoTLS,
-		dialTimeout: 7 * time.Second,
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return func(cx *ctlCtx) {
+		cx.cfg = cfg
 	}
+}
+func withDialTimeout(timeout time.Duration) ctlOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return func(cx *ctlCtx) {
+		cx.dialTimeout = timeout
+	}
+}
+func withQuorum() ctlOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return func(cx *ctlCtx) {
+		cx.quorum = true
+	}
+}
+func withInteractive() ctlOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return func(cx *ctlCtx) {
+		cx.interactive = true
+	}
+}
+func withQuota(b int64) ctlOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return func(cx *ctlCtx) {
+		cx.quotaBackendBytes = b
+	}
+}
+func withCompactPhysical() ctlOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return func(cx *ctlCtx) {
+		cx.compactPhysical = true
+	}
+}
+func withInitialCorruptCheck() ctlOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return func(cx *ctlCtx) {
+		cx.initialCorruptCheck = true
+	}
+}
+func withCorruptFunc(f func(string) error) ctlOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return func(cx *ctlCtx) {
+		cx.corruptFunc = f
+	}
+}
+func withNoStrictReconfig() ctlOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return func(cx *ctlCtx) {
+		cx.noStrictReconfig = true
+	}
+}
+func withFlagByEnv() ctlOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return func(cx *ctlCtx) {
+		cx.envMap = make(map[string]struct{})
+	}
+}
+func testCtl(t *testing.T, testFunc func(ctlCtx), opts ...ctlOption) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	defer testutil.AfterTest(t)
+	ret := ctlCtx{t: t, cfg: configAutoTLS, dialTimeout: 7 * time.Second}
 	ret.applyOpts(opts)
-
 	mustEtcdctl(t)
 	if !ret.quorum {
 		ret.cfg = *configStandalone(ret.cfg)
@@ -146,13 +156,11 @@ func testCtl(t *testing.T, testFunc func(ctlCtx), opts ...ctlOption) {
 	if ret.initialCorruptCheck {
 		ret.cfg.initialCorruptCheck = ret.initialCorruptCheck
 	}
-
 	epc, err := newEtcdProcessCluster(&ret.cfg)
 	if err != nil {
 		t.Fatalf("could not start etcd process cluster (%v)", err)
 	}
 	ret.epc = epc
-
 	defer func() {
 		if ret.envMap != nil {
 			for k := range ret.envMap {
@@ -163,13 +171,11 @@ func testCtl(t *testing.T, testFunc func(ctlCtx), opts ...ctlOption) {
 			t.Fatalf("error closing etcd processes (%v)", errC)
 		}
 	}()
-
 	donec := make(chan struct{})
 	go func() {
 		defer close(donec)
 		testFunc(ret)
 	}()
-
 	timeout := 2*ret.dialTimeout + time.Second
 	if ret.dialTimeout == 0 {
 		timeout = 30 * time.Second
@@ -180,8 +186,9 @@ func testCtl(t *testing.T, testFunc func(ctlCtx), opts ...ctlOption) {
 	case <-donec:
 	}
 }
-
 func (cx *ctlCtx) prefixArgs(eps []string) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmap := make(map[string]string)
 	fmap["endpoints"] = strings.Join(eps, ",")
 	fmap["dial-timeout"] = cx.dialTimeout.String()
@@ -202,9 +209,7 @@ func (cx *ctlCtx) prefixArgs(eps []string) []string {
 	if cx.user != "" {
 		fmap["user"] = cx.user + ":" + cx.pass
 	}
-
 	useEnv := cx.envMap != nil
-
 	cmdArgs := []string{ctlBinPath + "3"}
 	for k, v := range fmap {
 		if useEnv {
@@ -217,23 +222,23 @@ func (cx *ctlCtx) prefixArgs(eps []string) []string {
 	}
 	return cmdArgs
 }
-
-// PrefixArgs prefixes etcdctl command.
-// Make sure to unset environment variables after tests.
 func (cx *ctlCtx) PrefixArgs() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cx.prefixArgs(cx.epc.EndpointsV3())
 }
-
 func isGRPCTimedout(err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return strings.Contains(err.Error(), "grpc: timed out trying to connect")
 }
-
 func (cx *ctlCtx) memberToRemove() (ep string, memberID string, clusterID string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n1 := cx.cfg.clusterSize
 	if n1 < 2 {
 		cx.t.Fatalf("%d-node is too small to test 'member remove'", n1)
 	}
-
 	resp, err := getMemberList(*cx)
 	if err != nil {
 		cx.t.Fatal(err)
@@ -241,10 +246,8 @@ func (cx *ctlCtx) memberToRemove() (ep string, memberID string, clusterID string
 	if n1 != len(resp.Members) {
 		cx.t.Fatalf("expected %d, got %d", n1, len(resp.Members))
 	}
-
 	ep = resp.Members[0].ClientURLs[0]
 	clusterID = fmt.Sprintf("%x", resp.Header.ClusterId)
 	memberID = fmt.Sprintf("%x", resp.Members[1].ID)
-
 	return ep, memberID, clusterID
 }

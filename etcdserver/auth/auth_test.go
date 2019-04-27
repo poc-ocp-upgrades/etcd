@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package auth
 
 import (
@@ -19,7 +5,6 @@ import (
 	"reflect"
 	"testing"
 	"time"
-
 	etcderr "github.com/coreos/etcd/error"
 	"github.com/coreos/etcd/etcdserver"
 	"github.com/coreos/etcd/etcdserver/etcdserverpb"
@@ -29,10 +14,13 @@ import (
 type fakeDoer struct{}
 
 func (_ fakeDoer) Do(context.Context, etcdserverpb.Request) (etcdserver.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return etcdserver.Response{}, nil
 }
-
 func TestCheckPassword(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	st := NewStore(fakeDoer{}, 5*time.Second)
 	u := User{Password: "$2a$10$I3iddh1D..EIOXXQtsra4u8AjOtgEa2ERxVvYGfXFBJDo1omXwP.q"}
 	matched := st.CheckPassword(u, "foo")
@@ -44,56 +32,14 @@ func TestCheckPassword(t *testing.T) {
 const testTimeout = time.Millisecond
 
 func TestMergeUser(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tbl := []struct {
-		input  User
-		merge  User
-		expect User
-		iserr  bool
-	}{
-		{
-			User{User: "foo"},
-			User{User: "bar"},
-			User{},
-			true,
-		},
-		{
-			User{User: "foo"},
-			User{User: "foo"},
-			User{User: "foo", Roles: []string{}},
-			false,
-		},
-		{
-			User{User: "foo"},
-			User{User: "foo", Grant: []string{"role1"}},
-			User{User: "foo", Roles: []string{"role1"}},
-			false,
-		},
-		{
-			User{User: "foo", Roles: []string{"role1"}},
-			User{User: "foo", Grant: []string{"role1"}},
-			User{},
-			true,
-		},
-		{
-			User{User: "foo", Roles: []string{"role1"}},
-			User{User: "foo", Revoke: []string{"role2"}},
-			User{},
-			true,
-		},
-		{
-			User{User: "foo", Roles: []string{"role1"}},
-			User{User: "foo", Grant: []string{"role2"}},
-			User{User: "foo", Roles: []string{"role1", "role2"}},
-			false,
-		},
-		{ // empty password will not overwrite the previous password
-			User{User: "foo", Password: "foo", Roles: []string{}},
-			User{User: "foo", Password: ""},
-			User{User: "foo", Password: "foo", Roles: []string{}},
-			false,
-		},
-	}
-
+		input	User
+		merge	User
+		expect	User
+		iserr	bool
+	}{{User{User: "foo"}, User{User: "bar"}, User{}, true}, {User{User: "foo"}, User{User: "foo"}, User{User: "foo", Roles: []string{}}, false}, {User{User: "foo"}, User{User: "foo", Grant: []string{"role1"}}, User{User: "foo", Roles: []string{"role1"}}, false}, {User{User: "foo", Roles: []string{"role1"}}, User{User: "foo", Grant: []string{"role1"}}, User{}, true}, {User{User: "foo", Roles: []string{"role1"}}, User{User: "foo", Revoke: []string{"role2"}}, User{}, true}, {User{User: "foo", Roles: []string{"role1"}}, User{User: "foo", Grant: []string{"role2"}}, User{User: "foo", Roles: []string{"role1", "role2"}}, false}, {User{User: "foo", Password: "foo", Roles: []string{}}, User{User: "foo", Password: ""}, User{User: "foo", Password: "foo", Roles: []string{}}, false}}
 	for i, tt := range tbl {
 		out, err := tt.input.merge(tt.merge, passwordStore{})
 		if err != nil && !tt.iserr {
@@ -106,39 +52,15 @@ func TestMergeUser(t *testing.T) {
 		}
 	}
 }
-
 func TestMergeRole(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tbl := []struct {
-		input  Role
-		merge  Role
-		expect Role
-		iserr  bool
-	}{
-		{
-			Role{Role: "foo"},
-			Role{Role: "bar"},
-			Role{},
-			true,
-		},
-		{
-			Role{Role: "foo"},
-			Role{Role: "foo", Grant: &Permissions{KV: RWPermission{Read: []string{"/foodir"}, Write: []string{"/foodir"}}}},
-			Role{Role: "foo", Permissions: Permissions{KV: RWPermission{Read: []string{"/foodir"}, Write: []string{"/foodir"}}}},
-			false,
-		},
-		{
-			Role{Role: "foo", Permissions: Permissions{KV: RWPermission{Read: []string{"/foodir"}, Write: []string{"/foodir"}}}},
-			Role{Role: "foo", Revoke: &Permissions{KV: RWPermission{Read: []string{"/foodir"}, Write: []string{"/foodir"}}}},
-			Role{Role: "foo", Permissions: Permissions{KV: RWPermission{Read: []string{}, Write: []string{}}}},
-			false,
-		},
-		{
-			Role{Role: "foo", Permissions: Permissions{KV: RWPermission{Read: []string{"/bardir"}}}},
-			Role{Role: "foo", Revoke: &Permissions{KV: RWPermission{Read: []string{"/foodir"}}}},
-			Role{},
-			true,
-		},
-	}
+		input	Role
+		merge	Role
+		expect	Role
+		iserr	bool
+	}{{Role{Role: "foo"}, Role{Role: "bar"}, Role{}, true}, {Role{Role: "foo"}, Role{Role: "foo", Grant: &Permissions{KV: RWPermission{Read: []string{"/foodir"}, Write: []string{"/foodir"}}}}, Role{Role: "foo", Permissions: Permissions{KV: RWPermission{Read: []string{"/foodir"}, Write: []string{"/foodir"}}}}, false}, {Role{Role: "foo", Permissions: Permissions{KV: RWPermission{Read: []string{"/foodir"}, Write: []string{"/foodir"}}}}, Role{Role: "foo", Revoke: &Permissions{KV: RWPermission{Read: []string{"/foodir"}, Write: []string{"/foodir"}}}}, Role{Role: "foo", Permissions: Permissions{KV: RWPermission{Read: []string{}, Write: []string{}}}}, false}, {Role{Role: "foo", Permissions: Permissions{KV: RWPermission{Read: []string{"/bardir"}}}}, Role{Role: "foo", Revoke: &Permissions{KV: RWPermission{Read: []string{"/foodir"}}}}, Role{}, true}}
 	for i, tt := range tbl {
 		out, err := tt.input.merge(tt.merge)
 		if err != nil && !tt.iserr {
@@ -153,33 +75,25 @@ func TestMergeRole(t *testing.T) {
 }
 
 type testDoer struct {
-	get               []etcdserver.Response
-	put               []etcdserver.Response
-	getindex          int
-	putindex          int
-	explicitlyEnabled bool
+	get			[]etcdserver.Response
+	put			[]etcdserver.Response
+	getindex		int
+	putindex		int
+	explicitlyEnabled	bool
 }
 
 func (td *testDoer) Do(_ context.Context, req etcdserverpb.Request) (etcdserver.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if td.explicitlyEnabled && (req.Path == StorePermsPrefix+"/enabled") {
 		t := "true"
-		return etcdserver.Response{
-			Event: &etcdstore.Event{
-				Action: etcdstore.Get,
-				Node: &etcdstore.NodeExtern{
-					Key:   StorePermsPrefix + "/users/cat",
-					Value: &t,
-				},
-			},
-		}, nil
+		return etcdserver.Response{Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/users/cat", Value: &t}}}, nil
 	}
 	if (req.Method == "GET" || req.Method == "QGET") && td.get != nil {
 		res := td.get[td.getindex]
 		if res.Event == nil {
 			td.getindex++
-			return etcdserver.Response{}, &etcderr.Error{
-				ErrorCode: etcderr.EcodeKeyNotFound,
-			}
+			return etcdserver.Response{}, &etcderr.Error{ErrorCode: etcderr.EcodeKeyNotFound}
 		}
 		td.getindex++
 		return res, nil
@@ -188,38 +102,18 @@ func (td *testDoer) Do(_ context.Context, req etcdserverpb.Request) (etcdserver.
 		res := td.put[td.putindex]
 		if res.Event == nil {
 			td.putindex++
-			return etcdserver.Response{}, &etcderr.Error{
-				ErrorCode: etcderr.EcodeNodeExist,
-			}
+			return etcdserver.Response{}, &etcderr.Error{ErrorCode: etcderr.EcodeNodeExist}
 		}
 		td.putindex++
 		return res, nil
 	}
 	return etcdserver.Response{}, nil
 }
-
 func TestAllUsers(t *testing.T) {
-	d := &testDoer{
-		get: []etcdserver.Response{
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Get,
-					Node: &etcdstore.NodeExtern{
-						Nodes: etcdstore.NodeExterns([]*etcdstore.NodeExtern{
-							{
-								Key: StorePermsPrefix + "/users/cat",
-							},
-							{
-								Key: StorePermsPrefix + "/users/dog",
-							},
-						}),
-					},
-				},
-			},
-		},
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	d := &testDoer{get: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Nodes: etcdstore.NodeExterns([]*etcdstore.NodeExtern{{Key: StorePermsPrefix + "/users/cat"}, {Key: StorePermsPrefix + "/users/dog"}})}}}}}
 	expected := []string{"cat", "dog"}
-
 	s := store{server: d, timeout: testTimeout, ensuredOnce: false}
 	users, err := s.AllUsers()
 	if err != nil {
@@ -229,25 +123,12 @@ func TestAllUsers(t *testing.T) {
 		t.Error("AllUsers doesn't match given store. Got", users, "expected", expected)
 	}
 }
-
 func TestGetAndDeleteUser(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data := `{"user": "cat", "roles" : ["animal"]}`
-	d := &testDoer{
-		get: []etcdserver.Response{
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Get,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/users/cat",
-						Value: &data,
-					},
-				},
-			},
-		},
-		explicitlyEnabled: true,
-	}
+	d := &testDoer{get: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/users/cat", Value: &data}}}}, explicitlyEnabled: true}
 	expected := User{User: "cat", Roles: []string{"animal"}}
-
 	s := store{server: d, timeout: testTimeout, ensuredOnce: false}
 	out, err := s.GetUser("cat")
 	if err != nil {
@@ -261,30 +142,11 @@ func TestGetAndDeleteUser(t *testing.T) {
 		t.Error("Unexpected error", err)
 	}
 }
-
 func TestAllRoles(t *testing.T) {
-	d := &testDoer{
-		get: []etcdserver.Response{
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Get,
-					Node: &etcdstore.NodeExtern{
-						Nodes: etcdstore.NodeExterns([]*etcdstore.NodeExtern{
-							{
-								Key: StorePermsPrefix + "/roles/animal",
-							},
-							{
-								Key: StorePermsPrefix + "/roles/human",
-							},
-						}),
-					},
-				},
-			},
-		},
-		explicitlyEnabled: true,
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	d := &testDoer{get: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Nodes: etcdstore.NodeExterns([]*etcdstore.NodeExtern{{Key: StorePermsPrefix + "/roles/animal"}, {Key: StorePermsPrefix + "/roles/human"}})}}}}, explicitlyEnabled: true}
 	expected := []string{"animal", "human", "root"}
-
 	s := store{server: d, timeout: testTimeout, ensuredOnce: false}
 	out, err := s.AllRoles()
 	if err != nil {
@@ -294,25 +156,12 @@ func TestAllRoles(t *testing.T) {
 		t.Error("AllRoles doesn't match given store. Got", out, "expected", expected)
 	}
 }
-
 func TestGetAndDeleteRole(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data := `{"role": "animal"}`
-	d := &testDoer{
-		get: []etcdserver.Response{
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Get,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/roles/animal",
-						Value: &data,
-					},
-				},
-			},
-		},
-		explicitlyEnabled: true,
-	}
+	d := &testDoer{get: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/roles/animal", Value: &data}}}}, explicitlyEnabled: true}
 	expected := Role{Role: "animal"}
-
 	s := store{server: d, timeout: testTimeout, ensuredOnce: false}
 	out, err := s.GetRole("animal")
 	if err != nil {
@@ -326,40 +175,10 @@ func TestGetAndDeleteRole(t *testing.T) {
 		t.Error("Unexpected error", err)
 	}
 }
-
 func TestEnsure(t *testing.T) {
-	d := &testDoer{
-		get: []etcdserver.Response{
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Set,
-					Node: &etcdstore.NodeExtern{
-						Key: StorePermsPrefix,
-						Dir: true,
-					},
-				},
-			},
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Set,
-					Node: &etcdstore.NodeExtern{
-						Key: StorePermsPrefix + "/users/",
-						Dir: true,
-					},
-				},
-			},
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Set,
-					Node: &etcdstore.NodeExtern{
-						Key: StorePermsPrefix + "/roles/",
-						Dir: true,
-					},
-				},
-			},
-		},
-	}
-
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	d := &testDoer{get: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Set, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix, Dir: true}}}, {Event: &etcdstore.Event{Action: etcdstore.Set, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/users/", Dir: true}}}, {Event: &etcdstore.Event{Action: etcdstore.Set, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/roles/", Dir: true}}}}}
 	s := store{server: d, timeout: testTimeout, ensuredOnce: false}
 	err := s.ensureAuthDirectories()
 	if err != nil {
@@ -367,68 +186,27 @@ func TestEnsure(t *testing.T) {
 	}
 }
 
-type fastPasswordStore struct {
-}
+type fastPasswordStore struct{}
 
 func (_ fastPasswordStore) CheckPassword(user User, password string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return user.Password == password
 }
-
-func (_ fastPasswordStore) HashPassword(password string) (string, error) { return password, nil }
-
+func (_ fastPasswordStore) HashPassword(password string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return password, nil
+}
 func TestCreateAndUpdateUser(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	olduser := `{"user": "cat", "roles" : ["animal"]}`
 	newuser := `{"user": "cat", "roles" : ["animal", "pet"]}`
-	d := &testDoer{
-		get: []etcdserver.Response{
-			{
-				Event: nil,
-			},
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Get,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/users/cat",
-						Value: &olduser,
-					},
-				},
-			},
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Get,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/users/cat",
-						Value: &olduser,
-					},
-				},
-			},
-		},
-		put: []etcdserver.Response{
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Update,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/users/cat",
-						Value: &olduser,
-					},
-				},
-			},
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Update,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/users/cat",
-						Value: &newuser,
-					},
-				},
-			},
-		},
-		explicitlyEnabled: true,
-	}
+	d := &testDoer{get: []etcdserver.Response{{Event: nil}, {Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/users/cat", Value: &olduser}}}, {Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/users/cat", Value: &olduser}}}}, put: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Update, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/users/cat", Value: &olduser}}}, {Event: &etcdstore.Event{Action: etcdstore.Update, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/users/cat", Value: &newuser}}}}, explicitlyEnabled: true}
 	user := User{User: "cat", Password: "meow", Roles: []string{"animal"}}
 	update := User{User: "cat", Grant: []string{"pet"}}
 	expected := User{User: "cat", Roles: []string{"animal", "pet"}}
-
 	s := store{server: d, timeout: testTimeout, ensuredOnce: true, PasswordStore: fastPasswordStore{}}
 	out, created, err := s.CreateOrUpdateUser(user)
 	if !created {
@@ -452,38 +230,14 @@ func TestCreateAndUpdateUser(t *testing.T) {
 		t.Error("UpdateUser doesn't match given update. Got", out, "expected", expected)
 	}
 }
-
 func TestUpdateRole(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	oldrole := `{"role": "animal", "permissions" : {"kv": {"read": ["/animal"], "write": []}}}`
 	newrole := `{"role": "animal", "permissions" : {"kv": {"read": ["/animal"], "write": ["/animal"]}}}`
-	d := &testDoer{
-		get: []etcdserver.Response{
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Get,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/roles/animal",
-						Value: &oldrole,
-					},
-				},
-			},
-		},
-		put: []etcdserver.Response{
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Update,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/roles/animal",
-						Value: &newrole,
-					},
-				},
-			},
-		},
-		explicitlyEnabled: true,
-	}
+	d := &testDoer{get: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/roles/animal", Value: &oldrole}}}}, put: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Update, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/roles/animal", Value: &newrole}}}}, explicitlyEnabled: true}
 	update := Role{Role: "animal", Grant: &Permissions{KV: RWPermission{Read: []string{}, Write: []string{"/animal"}}}}
 	expected := Role{Role: "animal", Permissions: Permissions{KV: RWPermission{Read: []string{"/animal"}, Write: []string{"/animal"}}}}
-
 	s := store{server: d, timeout: testTimeout, ensuredOnce: true}
 	out, err := s.UpdateRole(update)
 	if err != nil {
@@ -493,28 +247,12 @@ func TestUpdateRole(t *testing.T) {
 		t.Error("UpdateRole doesn't match given update. Got", out, "expected", expected)
 	}
 }
-
 func TestCreateRole(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	role := `{"role": "animal", "permissions" : {"kv": {"read": ["/animal"], "write": []}}}`
-	d := &testDoer{
-		put: []etcdserver.Response{
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Create,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/roles/animal",
-						Value: &role,
-					},
-				},
-			},
-			{
-				Event: nil,
-			},
-		},
-		explicitlyEnabled: true,
-	}
+	d := &testDoer{put: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Create, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/roles/animal", Value: &role}}}, {Event: nil}}, explicitlyEnabled: true}
 	r := Role{Role: "animal", Permissions: Permissions{KV: RWPermission{Read: []string{"/animal"}, Write: []string{}}}}
-
 	s := store{server: d, timeout: testTimeout, ensuredOnce: true}
 	err := s.CreateRole(Role{Role: "root"})
 	if err == nil {
@@ -529,115 +267,39 @@ func TestCreateRole(t *testing.T) {
 		t.Error("Creating duplicate role, should error")
 	}
 }
-
 func TestEnableAuth(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rootUser := `{"user": "root", "password": ""}`
 	guestRole := `{"role": "guest", "permissions" : {"kv": {"read": ["*"], "write": ["*"]}}}`
 	trueval := "true"
 	falseval := "false"
-	d := &testDoer{
-		get: []etcdserver.Response{
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Get,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/enabled",
-						Value: &falseval,
-					},
-				},
-			},
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Get,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/user/root",
-						Value: &rootUser,
-					},
-				},
-			},
-			{
-				Event: nil,
-			},
-		},
-		put: []etcdserver.Response{
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Create,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/roles/guest",
-						Value: &guestRole,
-					},
-				},
-			},
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Update,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/enabled",
-						Value: &trueval,
-					},
-				},
-			},
-		},
-		explicitlyEnabled: false,
-	}
+	d := &testDoer{get: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/enabled", Value: &falseval}}}, {Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/user/root", Value: &rootUser}}}, {Event: nil}}, put: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Create, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/roles/guest", Value: &guestRole}}}, {Event: &etcdstore.Event{Action: etcdstore.Update, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/enabled", Value: &trueval}}}}, explicitlyEnabled: false}
 	s := store{server: d, timeout: testTimeout, ensuredOnce: true}
 	err := s.EnableAuth()
 	if err != nil {
 		t.Error("Unexpected error", err)
 	}
 }
-
 func TestDisableAuth(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	trueval := "true"
 	falseval := "false"
-	d := &testDoer{
-		get: []etcdserver.Response{
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Get,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/enabled",
-						Value: &falseval,
-					},
-				},
-			},
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Get,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/enabled",
-						Value: &trueval,
-					},
-				},
-			},
-		},
-		put: []etcdserver.Response{
-			{
-				Event: &etcdstore.Event{
-					Action: etcdstore.Update,
-					Node: &etcdstore.NodeExtern{
-						Key:   StorePermsPrefix + "/enabled",
-						Value: &falseval,
-					},
-				},
-			},
-		},
-		explicitlyEnabled: false,
-	}
+	d := &testDoer{get: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/enabled", Value: &falseval}}}, {Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/enabled", Value: &trueval}}}}, put: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Update, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/enabled", Value: &falseval}}}}, explicitlyEnabled: false}
 	s := store{server: d, timeout: testTimeout, ensuredOnce: true}
 	err := s.DisableAuth()
 	if err == nil {
 		t.Error("Expected error; already disabled")
 	}
-
 	err = s.DisableAuth()
 	if err != nil {
 		t.Error("Unexpected error", err)
 	}
 }
-
 func TestSimpleMatch(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	role := Role{Role: "foo", Permissions: Permissions{KV: RWPermission{Read: []string{"/foodir/*", "/fookey"}, Write: []string{"/bardir/*", "/barkey"}}}}
 	if !role.HasKeyAccess("/foodir/foo/bar", false) {
 		t.Fatal("role lacks expected access")
@@ -660,7 +322,6 @@ func TestSimpleMatch(t *testing.T) {
 	if !role.HasKeyAccess("/barkey", true) {
 		t.Fatal("role lacks expected access")
 	}
-
 	if role.HasKeyAccess("/bardir/bar/foo", false) {
 		t.Fatal("role has unexpected access")
 	}

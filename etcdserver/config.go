@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package etcdserver
 
 import (
@@ -21,92 +7,47 @@ import (
 	"sort"
 	"strings"
 	"time"
-
 	"github.com/coreos/etcd/pkg/netutil"
 	"github.com/coreos/etcd/pkg/transport"
 	"github.com/coreos/etcd/pkg/types"
 )
 
-// ServerConfig holds the configuration of etcd as taken from the command line or discovery.
 type ServerConfig struct {
-	Name           string
-	DiscoveryURL   string
-	DiscoveryProxy string
-	ClientURLs     types.URLs
-	PeerURLs       types.URLs
-	DataDir        string
-	// DedicatedWALDir config will make the etcd to write the WAL to the WALDir
-	// rather than the dataDir/member/wal.
-	DedicatedWALDir     string
-	SnapCount           uint64
-	MaxSnapFiles        uint
-	MaxWALFiles         uint
-	InitialPeerURLsMap  types.URLsMap
-	InitialClusterToken string
-	NewCluster          bool
-	ForceNewCluster     bool
-	PeerTLSInfo         transport.TLSInfo
-
-	TickMs        uint
-	ElectionTicks int
-
-	// InitialElectionTickAdvance is true, then local member fast-forwards
-	// election ticks to speed up "initial" leader election trigger. This
-	// benefits the case of larger election ticks. For instance, cross
-	// datacenter deployment may require longer election timeout of 10-second.
-	// If true, local node does not need wait up to 10-second. Instead,
-	// forwards its election ticks to 8-second, and have only 2-second left
-	// before leader election.
-	//
-	// Major assumptions are that:
-	//  - cluster has no active leader thus advancing ticks enables faster
-	//    leader election, or
-	//  - cluster already has an established leader, and rejoining follower
-	//    is likely to receive heartbeats from the leader after tick advance
-	//    and before election timeout.
-	//
-	// However, when network from leader to rejoining follower is congested,
-	// and the follower does not receive leader heartbeat within left election
-	// ticks, disruptive election has to happen thus affecting cluster
-	// availabilities.
-	//
-	// Disabling this would slow down initial bootstrap process for cross
-	// datacenter deployments. Make your own tradeoffs by configuring
-	// --initial-election-tick-advance at the cost of slow initial bootstrap.
-	//
-	// If single-node, it advances ticks regardless.
-	//
-	// See https://github.com/coreos/etcd/issues/9333 for more detail.
-	InitialElectionTickAdvance bool
-
-	BootstrapTimeout time.Duration
-
-	AutoCompactionRetention time.Duration
-	AutoCompactionMode      string
-	QuotaBackendBytes       int64
-	MaxTxnOps               uint
-
-	// MaxRequestBytes is the maximum request size to send over raft.
-	MaxRequestBytes uint
-
-	StrictReconfigCheck bool
-
-	// ClientCertAuthEnabled is true when cert has been signed by the client CA.
-	ClientCertAuthEnabled bool
-
-	AuthToken string
-
-	// InitialCorruptCheck is true to check data corruption on boot
-	// before serving any peer/client traffic.
-	InitialCorruptCheck bool
-	CorruptCheckTime    time.Duration
-
-	Debug bool
+	Name				string
+	DiscoveryURL			string
+	DiscoveryProxy			string
+	ClientURLs			types.URLs
+	PeerURLs			types.URLs
+	DataDir				string
+	DedicatedWALDir			string
+	SnapCount			uint64
+	MaxSnapFiles			uint
+	MaxWALFiles			uint
+	InitialPeerURLsMap		types.URLsMap
+	InitialClusterToken		string
+	NewCluster			bool
+	ForceNewCluster			bool
+	PeerTLSInfo			transport.TLSInfo
+	TickMs				uint
+	ElectionTicks			int
+	InitialElectionTickAdvance	bool
+	BootstrapTimeout		time.Duration
+	AutoCompactionRetention		time.Duration
+	AutoCompactionMode		string
+	QuotaBackendBytes		int64
+	MaxTxnOps			uint
+	MaxRequestBytes			uint
+	StrictReconfigCheck		bool
+	ClientCertAuthEnabled		bool
+	AuthToken			string
+	InitialCorruptCheck		bool
+	CorruptCheckTime		time.Duration
+	Debug				bool
 }
 
-// VerifyBootstrap sanity-checks the initial config for bootstrap case
-// and returns an error for things that should never happen.
 func (c *ServerConfig) VerifyBootstrap() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := c.hasLocalMember(); err != nil {
 		return err
 	}
@@ -121,12 +62,9 @@ func (c *ServerConfig) VerifyBootstrap() error {
 	}
 	return nil
 }
-
-// VerifyJoinExisting sanity-checks the initial config for join existing cluster
-// case and returns an error for things that should never happen.
 func (c *ServerConfig) VerifyJoinExisting() error {
-	// The member has announced its peer urls to the cluster before starting; no need to
-	// set the configuration again.
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := c.hasLocalMember(); err != nil {
 		return err
 	}
@@ -138,17 +76,17 @@ func (c *ServerConfig) VerifyJoinExisting() error {
 	}
 	return nil
 }
-
-// hasLocalMember checks that the cluster at least contains the local server.
 func (c *ServerConfig) hasLocalMember() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if urls := c.InitialPeerURLsMap[c.Name]; urls == nil {
 		return fmt.Errorf("couldn't find local name %q in the initial cluster configuration", c.Name)
 	}
 	return nil
 }
-
-// advertiseMatchesCluster confirms peer URLs match those in the cluster peer list.
 func (c *ServerConfig) advertiseMatchesCluster() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	urls, apurls := c.InitialPeerURLsMap[c.Name], c.PeerURLs.StringSlice()
 	urls.Sort()
 	sort.Strings(apurls)
@@ -158,7 +96,6 @@ func (c *ServerConfig) advertiseMatchesCluster() error {
 	if ok {
 		return nil
 	}
-
 	initMap, apMap := make(map[string]struct{}), make(map[string]struct{})
 	for _, url := range c.PeerURLs {
 		apMap[url.String()] = struct{}{}
@@ -166,7 +103,6 @@ func (c *ServerConfig) advertiseMatchesCluster() error {
 	for _, url := range c.InitialPeerURLsMap[c.Name] {
 		initMap[url.String()] = struct{}{}
 	}
-
 	missing := []string{}
 	for url := range initMap {
 		if _, ok := apMap[url]; !ok {
@@ -181,7 +117,6 @@ func (c *ServerConfig) advertiseMatchesCluster() error {
 		apStr := strings.Join(apurls, ",")
 		return fmt.Errorf("--initial-cluster has %s but missing from --initial-advertise-peer-urls=%s (%v)", mstr, apStr, err)
 	}
-
 	for url := range apMap {
 		if _, ok := initMap[url]; !ok {
 			missing = append(missing, url)
@@ -192,47 +127,61 @@ func (c *ServerConfig) advertiseMatchesCluster() error {
 		umap := types.URLsMap(map[string]types.URLs{c.Name: c.PeerURLs})
 		return fmt.Errorf("--initial-advertise-peer-urls has %s but missing from --initial-cluster=%s", mstr, umap.String())
 	}
-
-	// resolved URLs from "--initial-advertise-peer-urls" and "--initial-cluster" did not match or failed
 	apStr := strings.Join(apurls, ",")
 	umap := types.URLsMap(map[string]types.URLs{c.Name: c.PeerURLs})
 	return fmt.Errorf("failed to resolve %s to match --initial-cluster=%s (%v)", apStr, umap.String(), err)
 }
-
-func (c *ServerConfig) MemberDir() string { return filepath.Join(c.DataDir, "member") }
-
+func (c *ServerConfig) MemberDir() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return filepath.Join(c.DataDir, "member")
+}
 func (c *ServerConfig) WALDir() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.DedicatedWALDir != "" {
 		return c.DedicatedWALDir
 	}
 	return filepath.Join(c.MemberDir(), "wal")
 }
-
-func (c *ServerConfig) SnapDir() string { return filepath.Join(c.MemberDir(), "snap") }
-
-func (c *ServerConfig) ShouldDiscover() bool { return c.DiscoveryURL != "" }
-
-// ReqTimeout returns timeout for request to finish.
+func (c *ServerConfig) SnapDir() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return filepath.Join(c.MemberDir(), "snap")
+}
+func (c *ServerConfig) ShouldDiscover() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return c.DiscoveryURL != ""
+}
 func (c *ServerConfig) ReqTimeout() time.Duration {
-	// 5s for queue waiting, computation and disk IO delay
-	// + 2 * election timeout for possible leader election
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 5*time.Second + 2*time.Duration(c.ElectionTicks*int(c.TickMs))*time.Millisecond
 }
-
 func (c *ServerConfig) electionTimeout() time.Duration {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return time.Duration(c.ElectionTicks*int(c.TickMs)) * time.Millisecond
 }
-
 func (c *ServerConfig) peerDialTimeout() time.Duration {
-	// 1s for queue wait and election timeout
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return time.Second + time.Duration(c.ElectionTicks*int(c.TickMs))*time.Millisecond
 }
-
-func (c *ServerConfig) PrintWithInitial() { c.print(true) }
-
-func (c *ServerConfig) Print() { c.print(false) }
-
+func (c *ServerConfig) PrintWithInitial() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	c.print(true)
+}
+func (c *ServerConfig) Print() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	c.print(false)
+}
 func (c *ServerConfig) print(initial bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	plog.Infof("name = %s", c.Name)
 	if c.ForceNewCluster {
 		plog.Infof("force new cluster")
@@ -257,8 +206,9 @@ func (c *ServerConfig) print(initial bool) {
 		plog.Infof("initial cluster = %s", c.InitialPeerURLsMap)
 	}
 }
-
 func checkDuplicateURL(urlsmap types.URLsMap) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	um := make(map[string]bool)
 	for _, urls := range urlsmap {
 		for _, url := range urls {
@@ -271,12 +221,16 @@ func checkDuplicateURL(urlsmap types.URLsMap) bool {
 	}
 	return false
 }
-
 func (c *ServerConfig) bootstrapTimeout() time.Duration {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.BootstrapTimeout != 0 {
 		return c.BootstrapTimeout
 	}
 	return time.Second
 }
-
-func (c *ServerConfig) backendPath() string { return filepath.Join(c.SnapDir(), "db") }
+func (c *ServerConfig) backendPath() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return filepath.Join(c.SnapDir(), "db")
+}

@@ -1,17 +1,3 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package clientv3
 
 import (
@@ -20,51 +6,37 @@ import (
 	"net"
 	"testing"
 	"time"
-
 	"github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes"
 	"github.com/coreos/etcd/pkg/testutil"
 )
 
 func TestDialCancel(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
-
-	// accept first connection so client is created with dial timeout
 	ln, err := net.Listen("unix", "dialcancel:12345")
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer ln.Close()
-
 	ep := "unix://dialcancel:12345"
-	cfg := Config{
-		Endpoints:   []string{ep},
-		DialTimeout: 30 * time.Second}
+	cfg := Config{Endpoints: []string{ep}, DialTimeout: 30 * time.Second}
 	c, err := New(cfg)
 	if err != nil {
 		t.Fatal(err)
 	}
-
-	// connect to ipv4 black hole so dial blocks
 	c.SetEndpoints("http://254.0.0.1:12345")
-
-	// issue Get to force redial attempts
 	getc := make(chan struct{})
 	go func() {
 		defer close(getc)
-		// Get may hang forever on grpc's Stream.Header() if its
-		// context is never canceled.
 		c.Get(c.Ctx(), "abc")
 	}()
-
-	// wait a little bit so client close is after dial starts
 	time.Sleep(100 * time.Millisecond)
-
 	donec := make(chan struct{})
 	go func() {
 		defer close(donec)
 		c.Close()
 	}()
-
 	select {
 	case <-time.After(5 * time.Second):
 		t.Fatalf("failed to close")
@@ -76,42 +48,26 @@ func TestDialCancel(t *testing.T) {
 	case <-getc:
 	}
 }
-
 func TestDialTimeout(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
-
-	testCfgs := []Config{
-		{
-			Endpoints:   []string{"http://254.0.0.1:12345"},
-			DialTimeout: 2 * time.Second,
-		},
-		{
-			Endpoints:   []string{"http://254.0.0.1:12345"},
-			DialTimeout: time.Second,
-			Username:    "abc",
-			Password:    "def",
-		},
-	}
-
+	testCfgs := []Config{{Endpoints: []string{"http://254.0.0.1:12345"}, DialTimeout: 2 * time.Second}, {Endpoints: []string{"http://254.0.0.1:12345"}, DialTimeout: time.Second, Username: "abc", Password: "def"}}
 	for i, cfg := range testCfgs {
 		donec := make(chan error)
 		go func() {
-			// without timeout, dial continues forever on ipv4 black hole
 			c, err := New(cfg)
 			if c != nil || err == nil {
 				t.Errorf("#%d: new client should fail", i)
 			}
 			donec <- err
 		}()
-
 		time.Sleep(10 * time.Millisecond)
-
 		select {
 		case err := <-donec:
 			t.Errorf("#%d: dial didn't wait (%v)", i, err)
 		default:
 		}
-
 		select {
 		case <-time.After(5 * time.Second):
 			t.Errorf("#%d: failed to timeout dial on time", i)
@@ -122,8 +78,9 @@ func TestDialTimeout(t *testing.T) {
 		}
 	}
 }
-
 func TestDialNoTimeout(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := Config{Endpoints: []string{"127.0.0.1:12345"}}
 	c, err := New(cfg)
 	if c == nil || err != nil {
@@ -131,8 +88,9 @@ func TestDialNoTimeout(t *testing.T) {
 	}
 	c.Close()
 }
-
 func TestIsHaltErr(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !isHaltErr(nil, fmt.Errorf("etcdserver: some etcdserver error")) {
 		t.Errorf(`error prefixed with "etcdserver: " should be Halted by default`)
 	}

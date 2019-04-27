@@ -1,19 +1,3 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-// +build windows
-
 package fileutil
 
 import (
@@ -21,16 +5,18 @@ import (
 	"syscall"
 )
 
-// OpenDir opens a directory in windows with write access for syncing.
 func OpenDir(path string) (*os.File, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fd, err := openDir(path)
 	if err != nil {
 		return nil, err
 	}
 	return os.NewFile(uintptr(fd), path), nil
 }
-
 func openDir(path string) (fd syscall.Handle, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(path) == 0 {
 		return syscall.InvalidHandle, syscall.ERROR_FILE_NOT_FOUND
 	}

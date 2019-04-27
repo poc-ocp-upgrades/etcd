@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package etcdserver
 
 import (
@@ -19,7 +5,6 @@ import (
 	"reflect"
 	"strings"
 	"time"
-
 	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
 	"github.com/coreos/etcd/etcdserver/membership"
 	"github.com/coreos/etcd/pkg/types"
@@ -27,28 +12,25 @@ import (
 	"github.com/golang/protobuf/proto"
 )
 
-// isConnectedToQuorumSince checks whether the local member is connected to the
-// quorum of the cluster since the given time.
 func isConnectedToQuorumSince(transport rafthttp.Transporter, since time.Time, self types.ID, members []*membership.Member) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return numConnectedSince(transport, since, self, members) >= (len(members)/2)+1
 }
-
-// isConnectedSince checks whether the local member is connected to the
-// remote member since the given time.
 func isConnectedSince(transport rafthttp.Transporter, since time.Time, remote types.ID) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t := transport.ActiveSince(remote)
 	return !t.IsZero() && t.Before(since)
 }
-
-// isConnectedFullySince checks whether the local member is connected to all
-// members in the cluster since the given time.
 func isConnectedFullySince(transport rafthttp.Transporter, since time.Time, self types.ID, members []*membership.Member) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return numConnectedSince(transport, since, self, members) == len(members)
 }
-
-// numConnectedSince counts how many members are connected to the local member
-// since the given time.
 func numConnectedSince(transport rafthttp.Transporter, since time.Time, self types.ID, members []*membership.Member) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	connectedNum := 0
 	for _, m := range members {
 		if m.ID == self || isConnectedSince(transport, since, m.ID) {
@@ -57,23 +39,20 @@ func numConnectedSince(transport rafthttp.Transporter, since time.Time, self typ
 	}
 	return connectedNum
 }
-
-// longestConnected chooses the member with longest active-since-time.
-// It returns false, if nothing is active.
 func longestConnected(tp rafthttp.Transporter, membs []types.ID) (types.ID, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var longest types.ID
 	var oldest time.Time
 	for _, id := range membs {
 		tm := tp.ActiveSince(id)
-		if tm.IsZero() { // inactive
+		if tm.IsZero() {
 			continue
 		}
-
-		if oldest.IsZero() { // first longest candidate
+		if oldest.IsZero() {
 			oldest = tm
 			longest = id
 		}
-
 		if tm.Before(oldest) {
 			oldest = tm
 			longest = id
@@ -86,30 +65,33 @@ func longestConnected(tp rafthttp.Transporter, membs []types.ID) (types.ID, bool
 }
 
 type notifier struct {
-	c   chan struct{}
-	err error
+	c	chan struct{}
+	err	error
 }
 
 func newNotifier() *notifier {
-	return &notifier{
-		c: make(chan struct{}),
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return &notifier{c: make(chan struct{})}
 }
-
 func (nc *notifier) notify(err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nc.err = err
 	close(nc.c)
 }
-
 func warnOfExpensiveRequest(now time.Time, reqStringer fmt.Stringer, respMsg proto.Message, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var resp string
 	if !isNil(respMsg) {
 		resp = fmt.Sprintf("size:%d", proto.Size(respMsg))
 	}
 	warnOfExpensiveGenericRequest(now, reqStringer, "", resp, err)
 }
-
 func warnOfExpensiveReadOnlyTxnRequest(now time.Time, r *pb.TxnRequest, txnResponse *pb.TxnResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	reqStringer := pb.NewLoggableTxnRequest(r)
 	var resp string
 	if !isNil(txnResponse) {
@@ -119,24 +101,24 @@ func warnOfExpensiveReadOnlyTxnRequest(now time.Time, r *pb.TxnRequest, txnRespo
 			case *pb.ResponseOp_ResponseRange:
 				resps = append(resps, fmt.Sprintf("range_response_count:%d", len(op.ResponseRange.Kvs)))
 			default:
-				// only range responses should be in a read only txn request
 			}
 		}
 		resp = fmt.Sprintf("responses:<%s> size:%d", strings.Join(resps, " "), proto.Size(txnResponse))
 	}
 	warnOfExpensiveGenericRequest(now, reqStringer, "read-only range ", resp, err)
 }
-
 func warnOfExpensiveReadOnlyRangeRequest(now time.Time, reqStringer fmt.Stringer, rangeResponse *pb.RangeResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var resp string
 	if !isNil(rangeResponse) {
 		resp = fmt.Sprintf("range_response_count:%d size:%d", len(rangeResponse.Kvs), proto.Size(rangeResponse))
 	}
 	warnOfExpensiveGenericRequest(now, reqStringer, "read-only range ", resp, err)
 }
-
 func warnOfExpensiveGenericRequest(now time.Time, reqStringer fmt.Stringer, prefix string, resp string, err error) {
-	// TODO: add metrics
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d := time.Since(now)
 	if d > warnApplyDuration {
 		var result string
@@ -149,7 +131,8 @@ func warnOfExpensiveGenericRequest(now time.Time, reqStringer fmt.Stringer, pref
 		slowApplies.Inc()
 	}
 }
-
 func isNil(msg proto.Message) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return msg == nil || reflect.ValueOf(msg).IsNil()
 }

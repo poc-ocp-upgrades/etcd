@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package snap
 
 import (
@@ -22,22 +8,14 @@ import (
 	"path/filepath"
 	"reflect"
 	"testing"
-
 	"github.com/coreos/etcd/raft/raftpb"
 )
 
-var testSnap = &raftpb.Snapshot{
-	Data: []byte("some snapshot"),
-	Metadata: raftpb.SnapshotMetadata{
-		ConfState: raftpb.ConfState{
-			Nodes: []uint64{1, 2, 3},
-		},
-		Index: 1,
-		Term:  1,
-	},
-}
+var testSnap = &raftpb.Snapshot{Data: []byte("some snapshot"), Metadata: raftpb.SnapshotMetadata{ConfState: raftpb.ConfState{Nodes: []uint64{1, 2, 3}}, Index: 1, Term: 1}}
 
 func TestSaveAndLoad(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
 	err := os.Mkdir(dir, 0700)
 	if err != nil {
@@ -49,7 +27,6 @@ func TestSaveAndLoad(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-
 	g, err := ss.Load()
 	if err != nil {
 		t.Errorf("err = %v, want nil", err)
@@ -58,8 +35,9 @@ func TestSaveAndLoad(t *testing.T) {
 		t.Errorf("snap = %#v, want %#v", g, testSnap)
 	}
 }
-
 func TestBadCRC(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
 	err := os.Mkdir(dir, 0700)
 	if err != nil {
@@ -71,37 +49,34 @@ func TestBadCRC(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer func() { crcTable = crc32.MakeTable(crc32.Castagnoli) }()
-	// switch to use another crc table
-	// fake a crc mismatch
+	defer func() {
+		crcTable = crc32.MakeTable(crc32.Castagnoli)
+	}()
 	crcTable = crc32.MakeTable(crc32.Koopman)
-
 	_, err = Read(filepath.Join(dir, fmt.Sprintf("%016x-%016x.snap", 1, 1)))
 	if err == nil || err != ErrCRCMismatch {
 		t.Errorf("err = %v, want %v", err, ErrCRCMismatch)
 	}
 }
-
 func TestFailback(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
 	err := os.Mkdir(dir, 0700)
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer os.RemoveAll(dir)
-
 	large := fmt.Sprintf("%016x-%016x-%016x.snap", 0xFFFF, 0xFFFF, 0xFFFF)
 	err = ioutil.WriteFile(filepath.Join(dir, large), []byte("bad data"), 0666)
 	if err != nil {
 		t.Fatal(err)
 	}
-
 	ss := New(dir)
 	err = ss.save(testSnap)
 	if err != nil {
 		t.Fatal(err)
 	}
-
 	g, err := ss.Load()
 	if err != nil {
 		t.Errorf("err = %v, want nil", err)
@@ -115,8 +90,9 @@ func TestFailback(t *testing.T) {
 		f.Close()
 	}
 }
-
 func TestSnapNames(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
 	err := os.Mkdir(dir, 0700)
 	if err != nil {
@@ -144,8 +120,9 @@ func TestSnapNames(t *testing.T) {
 		t.Errorf("names = %v, want %v", names, w)
 	}
 }
-
 func TestLoadNewestSnap(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
 	err := os.Mkdir(dir, 0700)
 	if err != nil {
@@ -157,14 +134,12 @@ func TestLoadNewestSnap(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-
 	newSnap := *testSnap
 	newSnap.Metadata.Index = 5
 	err = ss.save(&newSnap)
 	if err != nil {
 		t.Fatal(err)
 	}
-
 	g, err := ss.Load()
 	if err != nil {
 		t.Errorf("err = %v, want nil", err)
@@ -173,8 +148,9 @@ func TestLoadNewestSnap(t *testing.T) {
 		t.Errorf("snap = %#v, want %#v", g, &newSnap)
 	}
 }
-
 func TestNoSnapshot(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
 	err := os.Mkdir(dir, 0700)
 	if err != nil {
@@ -187,41 +163,37 @@ func TestNoSnapshot(t *testing.T) {
 		t.Errorf("err = %v, want %v", err, ErrNoSnapshot)
 	}
 }
-
 func TestEmptySnapshot(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
 	err := os.Mkdir(dir, 0700)
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer os.RemoveAll(dir)
-
 	err = ioutil.WriteFile(filepath.Join(dir, "1.snap"), []byte(""), 0x700)
 	if err != nil {
 		t.Fatal(err)
 	}
-
 	_, err = Read(filepath.Join(dir, "1.snap"))
 	if err != ErrEmptySnapshot {
 		t.Errorf("err = %v, want %v", err, ErrEmptySnapshot)
 	}
 }
-
-// TestAllSnapshotBroken ensures snapshotter returns
-// ErrNoSnapshot if all the snapshots are broken.
 func TestAllSnapshotBroken(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
 	err := os.Mkdir(dir, 0700)
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer os.RemoveAll(dir)
-
 	err = ioutil.WriteFile(filepath.Join(dir, "1.snap"), []byte("bad"), 0x700)
 	if err != nil {
 		t.Fatal(err)
 	}
-
 	ss := New(dir)
 	_, err = ss.Load()
 	if err != ErrNoSnapshot {

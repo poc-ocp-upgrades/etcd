@@ -1,60 +1,49 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package command
 
 import (
 	"fmt"
 	"strings"
-
 	v3 "github.com/coreos/etcd/clientv3"
 	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
 	"github.com/coreos/etcd/pkg/types"
 )
 
 type simplePrinter struct {
-	isHex     bool
-	valueOnly bool
+	isHex		bool
+	valueOnly	bool
 }
 
 func (s *simplePrinter) Del(resp v3.DeleteResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Println(resp.Deleted)
 	for _, kv := range resp.PrevKvs {
 		printKV(s.isHex, s.valueOnly, kv)
 	}
 }
-
 func (s *simplePrinter) Get(resp v3.GetResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, kv := range resp.Kvs {
 		printKV(s.isHex, s.valueOnly, kv)
 	}
 }
-
 func (s *simplePrinter) Put(r v3.PutResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Println("OK")
 	if r.PrevKv != nil {
 		printKV(s.isHex, s.valueOnly, r.PrevKv)
 	}
 }
-
 func (s *simplePrinter) Txn(resp v3.TxnResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if resp.Succeeded {
 		fmt.Println("SUCCESS")
 	} else {
 		fmt.Println("FAILURE")
 	}
-
 	for _, r := range resp.Responses {
 		fmt.Println("")
 		switch v := r.Response.(type) {
@@ -69,8 +58,9 @@ func (s *simplePrinter) Txn(resp v3.TxnResponse) {
 		}
 	}
 }
-
 func (s *simplePrinter) Watch(resp v3.WatchResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, e := range resp.Events {
 		fmt.Println(e.Type)
 		if e.PrevKv != nil {
@@ -79,25 +69,28 @@ func (s *simplePrinter) Watch(resp v3.WatchResponse) {
 		printKV(s.isHex, s.valueOnly, e.Kv)
 	}
 }
-
 func (s *simplePrinter) Grant(resp v3.LeaseGrantResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("lease %016x granted with TTL(%ds)\n", resp.ID, resp.TTL)
 }
-
 func (p *simplePrinter) Revoke(id v3.LeaseID, r v3.LeaseRevokeResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("lease %016x revoked\n", id)
 }
-
 func (p *simplePrinter) KeepAlive(resp v3.LeaseKeepAliveResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("lease %016x keepalived with TTL(%d)\n", resp.ID, resp.TTL)
 }
-
 func (s *simplePrinter) TimeToLive(resp v3.LeaseTimeToLiveResponse, keys bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if resp.GrantedTTL == 0 && resp.TTL == -1 {
 		fmt.Printf("lease %016x already expired\n", resp.ID)
 		return
 	}
-
 	txt := fmt.Sprintf("lease %016x granted with TTL(%ds), remaining(%ds)", resp.ID, resp.GrantedTTL, resp.TTL)
 	if keys {
 		ks := make([]string, len(resp.Keys))
@@ -108,72 +101,83 @@ func (s *simplePrinter) TimeToLive(resp v3.LeaseTimeToLiveResponse, keys bool) {
 	}
 	fmt.Println(txt)
 }
-
 func (s *simplePrinter) Leases(resp v3.LeaseLeasesResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("found %d leases\n", len(resp.Leases))
 	for _, item := range resp.Leases {
 		fmt.Printf("%016x\n", item.ID)
 	}
 }
-
 func (s *simplePrinter) Alarm(resp v3.AlarmResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, e := range resp.Alarms {
 		fmt.Printf("%+v\n", e)
 	}
 }
-
 func (s *simplePrinter) MemberAdd(r v3.MemberAddResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("Member %16x added to cluster %16x\n", r.Member.ID, r.Header.ClusterId)
 }
-
 func (s *simplePrinter) MemberRemove(id uint64, r v3.MemberRemoveResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("Member %16x removed from cluster %16x\n", id, r.Header.ClusterId)
 }
-
 func (s *simplePrinter) MemberUpdate(id uint64, r v3.MemberUpdateResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("Member %16x updated in cluster %16x\n", id, r.Header.ClusterId)
 }
-
 func (s *simplePrinter) MemberList(resp v3.MemberListResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, rows := makeMemberListTable(resp)
 	for _, row := range rows {
 		fmt.Println(strings.Join(row, ", "))
 	}
 }
-
 func (s *simplePrinter) EndpointStatus(statusList []epStatus) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, rows := makeEndpointStatusTable(statusList)
 	for _, row := range rows {
 		fmt.Println(strings.Join(row, ", "))
 	}
 }
-
 func (s *simplePrinter) EndpointHashKV(hashList []epHashKV) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, rows := makeEndpointHashKVTable(hashList)
 	for _, row := range rows {
 		fmt.Println(strings.Join(row, ", "))
 	}
 }
-
 func (s *simplePrinter) DBStatus(ds dbstatus) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, rows := makeDBStatusTable(ds)
 	for _, row := range rows {
 		fmt.Println(strings.Join(row, ", "))
 	}
 }
-
 func (s *simplePrinter) MoveLeader(leader, target uint64, r v3.MoveLeaderResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("Leadership transferred from %s to %s\n", types.ID(leader), types.ID(target))
 }
-
 func (s *simplePrinter) RoleAdd(role string, r v3.AuthRoleAddResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("Role %s created\n", role)
 }
-
 func (s *simplePrinter) RoleGet(role string, r v3.AuthRoleGetResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("Role %s\n", role)
 	fmt.Println("KV Read:")
-
 	printRange := func(perm *v3.Permission) {
 		sKey := string(perm.Key)
 		sRangeEnd := string(perm.RangeEnd)
@@ -187,7 +191,6 @@ func (s *simplePrinter) RoleGet(role string, r v3.AuthRoleGetResponse) {
 		}
 		fmt.Printf("\n")
 	}
-
 	for _, perm := range r.Perm {
 		if perm.PermType == v3.PermRead || perm.PermType == v3.PermReadWrite {
 			if len(perm.RangeEnd) == 0 {
@@ -208,22 +211,26 @@ func (s *simplePrinter) RoleGet(role string, r v3.AuthRoleGetResponse) {
 		}
 	}
 }
-
 func (s *simplePrinter) RoleList(r v3.AuthRoleListResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, role := range r.Roles {
 		fmt.Printf("%s\n", role)
 	}
 }
-
 func (s *simplePrinter) RoleDelete(role string, r v3.AuthRoleDeleteResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("Role %s deleted\n", role)
 }
-
 func (s *simplePrinter) RoleGrantPermission(role string, r v3.AuthRoleGrantPermissionResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("Role %s updated\n", role)
 }
-
 func (s *simplePrinter) RoleRevokePermission(role string, key string, end string, r v3.AuthRoleRevokePermissionResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(end) == 0 {
 		fmt.Printf("Permission of key %s is revoked from role %s\n", key, role)
 		return
@@ -234,12 +241,14 @@ func (s *simplePrinter) RoleRevokePermission(role string, key string, end string
 		fmt.Printf("Permission of range [%s, <open ended> is revoked from role %s\n", key, role)
 	}
 }
-
 func (s *simplePrinter) UserAdd(name string, r v3.AuthUserAddResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("User %s created\n", name)
 }
-
 func (s *simplePrinter) UserGet(name string, r v3.AuthUserGetResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("User: %s\n", name)
 	fmt.Printf("Roles:")
 	for _, role := range r.Roles {
@@ -247,24 +256,29 @@ func (s *simplePrinter) UserGet(name string, r v3.AuthUserGetResponse) {
 	}
 	fmt.Printf("\n")
 }
-
 func (s *simplePrinter) UserChangePassword(v3.AuthUserChangePasswordResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Println("Password updated")
 }
-
 func (s *simplePrinter) UserGrantRole(user string, role string, r v3.AuthUserGrantRoleResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("Role %s is granted to user %s\n", role, user)
 }
-
 func (s *simplePrinter) UserRevokeRole(user string, role string, r v3.AuthUserRevokeRoleResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("Role %s is revoked from user %s\n", role, user)
 }
-
 func (s *simplePrinter) UserDelete(user string, r v3.AuthUserDeleteResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("User %s deleted\n", user)
 }
-
 func (s *simplePrinter) UserList(r v3.AuthUserListResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, user := range r.Users {
 		fmt.Printf("%s\n", user)
 	}

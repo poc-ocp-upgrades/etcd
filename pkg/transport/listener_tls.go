@@ -1,17 +1,3 @@
-// Copyright 2017 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package transport
 
 import (
@@ -25,27 +11,27 @@ import (
 	"sync"
 )
 
-// tlsListener overrides a TLS listener so it will reject client
-// certificates with insufficient SAN credentials or CRL revoked
-// certificates.
 type tlsListener struct {
 	net.Listener
-	connc            chan net.Conn
-	donec            chan struct{}
-	err              error
-	handshakeFailure func(*tls.Conn, error)
-	check            tlsCheckFunc
+	connc			chan net.Conn
+	donec			chan struct{}
+	err			error
+	handshakeFailure	func(*tls.Conn, error)
+	check			tlsCheckFunc
 }
-
 type tlsCheckFunc func(context.Context, *tls.Conn) error
 
-// NewTLSListener handshakes TLS connections and performs optional CRL checking.
 func NewTLSListener(l net.Listener, tlsinfo *TLSInfo) (net.Listener, error) {
-	check := func(context.Context, *tls.Conn) error { return nil }
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	check := func(context.Context, *tls.Conn) error {
+		return nil
+	}
 	return newTLSListener(l, tlsinfo, check)
 }
-
 func newTLSListener(l net.Listener, tlsinfo *TLSInfo, check tlsCheckFunc) (net.Listener, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if tlsinfo == nil || tlsinfo.Empty() {
 		l.Close()
 		return nil, fmt.Errorf("cannot listen on TLS for %s: KeyFile and CertFile are not presented", l.Addr().String())
@@ -54,12 +40,11 @@ func newTLSListener(l net.Listener, tlsinfo *TLSInfo, check tlsCheckFunc) (net.L
 	if err != nil {
 		return nil, err
 	}
-
 	hf := tlsinfo.HandshakeFailure
 	if hf == nil {
-		hf = func(*tls.Conn, error) {}
+		hf = func(*tls.Conn, error) {
+		}
 	}
-
 	if len(tlsinfo.CRLFile) > 0 {
 		prevCheck := check
 		check = func(ctx context.Context, tlsConn *tls.Conn) error {
@@ -73,19 +58,13 @@ func newTLSListener(l net.Listener, tlsinfo *TLSInfo, check tlsCheckFunc) (net.L
 			return nil
 		}
 	}
-
-	tlsl := &tlsListener{
-		Listener:         tls.NewListener(l, tlscfg),
-		connc:            make(chan net.Conn),
-		donec:            make(chan struct{}),
-		handshakeFailure: hf,
-		check:            check,
-	}
+	tlsl := &tlsListener{Listener: tls.NewListener(l, tlscfg), connc: make(chan net.Conn), donec: make(chan struct{}), handshakeFailure: hf, check: check}
 	go tlsl.acceptLoop()
 	return tlsl, nil
 }
-
 func (l *tlsListener) Accept() (net.Conn, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case conn := <-l.connc:
 		return conn, nil
@@ -93,8 +72,9 @@ func (l *tlsListener) Accept() (net.Conn, error) {
 		return nil, l.err
 	}
 }
-
 func checkSAN(ctx context.Context, tlsConn *tls.Conn) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	st := tlsConn.ConnectionState()
 	if certs := st.PeerCertificates; len(certs) > 0 {
 		addr := tlsConn.RemoteAddr().String()
@@ -102,13 +82,11 @@ func checkSAN(ctx context.Context, tlsConn *tls.Conn) error {
 	}
 	return nil
 }
-
-// acceptLoop launches each TLS handshake in a separate goroutine
-// to prevent a hanging TLS connection from blocking other connections.
 func (l *tlsListener) acceptLoop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var wg sync.WaitGroup
 	var pendingMu sync.Mutex
-
 	pending := make(map[net.Conn]struct{})
 	ctx, cancel := context.WithCancel(context.Background())
 	defer func() {
@@ -121,18 +99,15 @@ func (l *tlsListener) acceptLoop() {
 		wg.Wait()
 		close(l.donec)
 	}()
-
 	for {
 		conn, err := l.Listener.Accept()
 		if err != nil {
 			l.err = err
 			return
 		}
-
 		pendingMu.Lock()
 		pending[conn] = struct{}{}
 		pendingMu.Unlock()
-
 		wg.Add(1)
 		go func() {
 			defer func() {
@@ -141,13 +116,11 @@ func (l *tlsListener) acceptLoop() {
 				}
 				wg.Done()
 			}()
-
 			tlsConn := conn.(*tls.Conn)
 			herr := tlsConn.Handshake()
 			pendingMu.Lock()
 			delete(pending, conn)
 			pendingMu.Unlock()
-
 			if herr != nil {
 				l.handshakeFailure(tlsConn, herr)
 				return
@@ -156,7 +129,6 @@ func (l *tlsListener) acceptLoop() {
 				l.handshakeFailure(tlsConn, err)
 				return
 			}
-
 			select {
 			case l.connc <- tlsConn:
 				conn = nil
@@ -165,9 +137,9 @@ func (l *tlsListener) acceptLoop() {
 		}()
 	}
 }
-
 func checkCRL(crlPath string, cert []*x509.Certificate) error {
-	// TODO: cache
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	crlBytes, err := ioutil.ReadFile(crlPath)
 	if err != nil {
 		return err
@@ -188,8 +160,9 @@ func checkCRL(crlPath string, cert []*x509.Certificate) error {
 	}
 	return nil
 }
-
 func checkCertSAN(ctx context.Context, cert *x509.Certificate, remoteAddr string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(cert.IPAddresses) == 0 && len(cert.DNSNames) == 0 {
 		return nil
 	}
@@ -219,9 +192,9 @@ func checkCertSAN(ctx context.Context, cert *x509.Certificate, remoteAddr string
 	}
 	return nil
 }
-
 func isHostInDNS(ctx context.Context, host string, dnsNames []string) (ok bool, err error) {
-	// reverse lookup
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wildcards, names := []string{}, []string{}
 	for _, dns := range dnsNames {
 		if strings.HasPrefix(dns, "*.") {
@@ -232,7 +205,6 @@ func isHostInDNS(ctx context.Context, host string, dnsNames []string) (ok bool, 
 	}
 	lnames, lerr := net.DefaultResolver.LookupAddr(ctx, host)
 	for _, name := range lnames {
-		// strip trailing '.' from PTR record
 		if name[len(name)-1] == '.' {
 			name = name[:len(name)-1]
 		}
@@ -248,8 +220,6 @@ func isHostInDNS(ctx context.Context, host string, dnsNames []string) (ok bool, 
 		}
 	}
 	err = lerr
-
-	// forward lookup
 	for _, dns := range names {
 		addrs, lerr := net.DefaultResolver.LookupHost(ctx, dns)
 		if lerr != nil {
@@ -264,8 +234,9 @@ func isHostInDNS(ctx context.Context, host string, dnsNames []string) (ok bool, 
 	}
 	return false, err
 }
-
 func (l *tlsListener) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := l.Listener.Close()
 	<-l.donec
 	return err

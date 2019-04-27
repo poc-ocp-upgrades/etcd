@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package etcdserver
 
 import (
@@ -19,7 +5,6 @@ import (
 	"reflect"
 	"testing"
 	"time"
-
 	"github.com/coreos/etcd/etcdserver/membership"
 	"github.com/coreos/etcd/pkg/mock/mockstorage"
 	"github.com/coreos/etcd/pkg/pbutil"
@@ -30,6 +15,8 @@ import (
 )
 
 func TestGetIDs(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	addcc := &raftpb.ConfChange{Type: raftpb.ConfChangeAddNode, NodeID: 2}
 	addEntry := raftpb.Entry{Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(addcc)}
 	removecc := &raftpb.ConfChange{Type: raftpb.ConfChangeRemoveNode, NodeID: 2}
@@ -37,28 +24,11 @@ func TestGetIDs(t *testing.T) {
 	normalEntry := raftpb.Entry{Type: raftpb.EntryNormal}
 	updatecc := &raftpb.ConfChange{Type: raftpb.ConfChangeUpdateNode, NodeID: 2}
 	updateEntry := raftpb.Entry{Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(updatecc)}
-
 	tests := []struct {
-		confState *raftpb.ConfState
-		ents      []raftpb.Entry
-
-		widSet []uint64
-	}{
-		{nil, []raftpb.Entry{}, []uint64{}},
-		{&raftpb.ConfState{Nodes: []uint64{1}},
-			[]raftpb.Entry{}, []uint64{1}},
-		{&raftpb.ConfState{Nodes: []uint64{1}},
-			[]raftpb.Entry{addEntry}, []uint64{1, 2}},
-		{&raftpb.ConfState{Nodes: []uint64{1}},
-			[]raftpb.Entry{addEntry, removeEntry}, []uint64{1}},
-		{&raftpb.ConfState{Nodes: []uint64{1}},
-			[]raftpb.Entry{addEntry, normalEntry}, []uint64{1, 2}},
-		{&raftpb.ConfState{Nodes: []uint64{1}},
-			[]raftpb.Entry{addEntry, normalEntry, updateEntry}, []uint64{1, 2}},
-		{&raftpb.ConfState{Nodes: []uint64{1}},
-			[]raftpb.Entry{addEntry, removeEntry, normalEntry}, []uint64{1}},
-	}
-
+		confState	*raftpb.ConfState
+		ents		[]raftpb.Entry
+		widSet		[]uint64
+	}{{nil, []raftpb.Entry{}, []uint64{}}, {&raftpb.ConfState{Nodes: []uint64{1}}, []raftpb.Entry{}, []uint64{1}}, {&raftpb.ConfState{Nodes: []uint64{1}}, []raftpb.Entry{addEntry}, []uint64{1, 2}}, {&raftpb.ConfState{Nodes: []uint64{1}}, []raftpb.Entry{addEntry, removeEntry}, []uint64{1}}, {&raftpb.ConfState{Nodes: []uint64{1}}, []raftpb.Entry{addEntry, normalEntry}, []uint64{1, 2}}, {&raftpb.ConfState{Nodes: []uint64{1}}, []raftpb.Entry{addEntry, normalEntry, updateEntry}, []uint64{1, 2}}, {&raftpb.ConfState{Nodes: []uint64{1}}, []raftpb.Entry{addEntry, removeEntry, normalEntry}, []uint64{1}}}
 	for i, tt := range tests {
 		var snap raftpb.Snapshot
 		if tt.confState != nil {
@@ -70,12 +40,10 @@ func TestGetIDs(t *testing.T) {
 		}
 	}
 }
-
 func TestCreateConfigChangeEnts(t *testing.T) {
-	m := membership.Member{
-		ID:             types.ID(1),
-		RaftAttributes: membership.RaftAttributes{PeerURLs: []string{"http://localhost:2380"}},
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	m := membership.Member{ID: types.ID(1), RaftAttributes: membership.RaftAttributes{PeerURLs: []string{"http://localhost:2380"}}}
 	ctx, err := json.Marshal(m)
 	if err != nil {
 		t.Fatal(err)
@@ -84,65 +52,11 @@ func TestCreateConfigChangeEnts(t *testing.T) {
 	removecc2 := &raftpb.ConfChange{Type: raftpb.ConfChangeRemoveNode, NodeID: 2}
 	removecc3 := &raftpb.ConfChange{Type: raftpb.ConfChangeRemoveNode, NodeID: 3}
 	tests := []struct {
-		ids         []uint64
-		self        uint64
-		term, index uint64
-
-		wents []raftpb.Entry
-	}{
-		{
-			[]uint64{1},
-			1,
-			1, 1,
-
-			[]raftpb.Entry{},
-		},
-		{
-			[]uint64{1, 2},
-			1,
-			1, 1,
-
-			[]raftpb.Entry{{Term: 1, Index: 2, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(removecc2)}},
-		},
-		{
-			[]uint64{1, 2},
-			1,
-			2, 2,
-
-			[]raftpb.Entry{{Term: 2, Index: 3, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(removecc2)}},
-		},
-		{
-			[]uint64{1, 2, 3},
-			1,
-			2, 2,
-
-			[]raftpb.Entry{
-				{Term: 2, Index: 3, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(removecc2)},
-				{Term: 2, Index: 4, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(removecc3)},
-			},
-		},
-		{
-			[]uint64{2, 3},
-			2,
-			2, 2,
-
-			[]raftpb.Entry{
-				{Term: 2, Index: 3, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(removecc3)},
-			},
-		},
-		{
-			[]uint64{2, 3},
-			1,
-			2, 2,
-
-			[]raftpb.Entry{
-				{Term: 2, Index: 3, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(removecc2)},
-				{Term: 2, Index: 4, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(removecc3)},
-				{Term: 2, Index: 5, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(addcc1)},
-			},
-		},
-	}
-
+		ids		[]uint64
+		self		uint64
+		term, index	uint64
+		wents		[]raftpb.Entry
+	}{{[]uint64{1}, 1, 1, 1, []raftpb.Entry{}}, {[]uint64{1, 2}, 1, 1, 1, []raftpb.Entry{{Term: 1, Index: 2, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(removecc2)}}}, {[]uint64{1, 2}, 1, 2, 2, []raftpb.Entry{{Term: 2, Index: 3, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(removecc2)}}}, {[]uint64{1, 2, 3}, 1, 2, 2, []raftpb.Entry{{Term: 2, Index: 3, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(removecc2)}, {Term: 2, Index: 4, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(removecc3)}}}, {[]uint64{2, 3}, 2, 2, 2, []raftpb.Entry{{Term: 2, Index: 3, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(removecc3)}}}, {[]uint64{2, 3}, 1, 2, 2, []raftpb.Entry{{Term: 2, Index: 3, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(removecc2)}, {Term: 2, Index: 4, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(removecc3)}, {Term: 2, Index: 5, Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(addcc1)}}}}
 	for i, tt := range tests {
 		gents := createConfigChangeEnts(tt.ids, tt.self, tt.term, tt.index)
 		if !reflect.DeepEqual(gents, tt.wents) {
@@ -150,15 +64,11 @@ func TestCreateConfigChangeEnts(t *testing.T) {
 		}
 	}
 }
-
 func TestStopRaftWhenWaitingForApplyDone(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n := newNopReadyNode()
-	r := newRaftNode(raftNodeConfig{
-		Node:        n,
-		storage:     mockstorage.NewStorageRecorder(""),
-		raftStorage: raft.NewMemoryStorage(),
-		transport:   rafthttp.NewNopTransporter(),
-	})
+	r := newRaftNode(raftNodeConfig{Node: n, storage: mockstorage.NewStorageRecorder(""), raftStorage: raft.NewMemoryStorage(), transport: rafthttp.NewNopTransporter()})
 	srv := &EtcdServer{r: *r}
 	srv.r.start(nil)
 	n.readyc <- raft.Ready{}
@@ -167,7 +77,6 @@ func TestStopRaftWhenWaitingForApplyDone(t *testing.T) {
 	case <-time.After(time.Second):
 		t.Fatalf("failed to receive apply struct")
 	}
-
 	srv.r.stopped <- struct{}{}
 	select {
 	case <-srv.r.done:
@@ -175,44 +84,29 @@ func TestStopRaftWhenWaitingForApplyDone(t *testing.T) {
 		t.Fatalf("failed to stop raft loop")
 	}
 }
-
-// TestConfgChangeBlocksApply ensures apply blocks if committed entries contain config-change.
 func TestConfgChangeBlocksApply(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n := newNopReadyNode()
-
-	r := newRaftNode(raftNodeConfig{
-		Node:        n,
-		storage:     mockstorage.NewStorageRecorder(""),
-		raftStorage: raft.NewMemoryStorage(),
-		transport:   rafthttp.NewNopTransporter(),
-	})
+	r := newRaftNode(raftNodeConfig{Node: n, storage: mockstorage.NewStorageRecorder(""), raftStorage: raft.NewMemoryStorage(), transport: rafthttp.NewNopTransporter()})
 	srv := &EtcdServer{r: *r}
-
-	srv.r.start(&raftReadyHandler{updateLeadership: func(bool) {}})
+	srv.r.start(&raftReadyHandler{updateLeadership: func(bool) {
+	}})
 	defer srv.r.Stop()
-
-	n.readyc <- raft.Ready{
-		SoftState:        &raft.SoftState{RaftState: raft.StateFollower},
-		CommittedEntries: []raftpb.Entry{{Type: raftpb.EntryConfChange}},
-	}
+	n.readyc <- raft.Ready{SoftState: &raft.SoftState{RaftState: raft.StateFollower}, CommittedEntries: []raftpb.Entry{{Type: raftpb.EntryConfChange}}}
 	ap := <-srv.r.applyc
-
 	continueC := make(chan struct{})
 	go func() {
 		n.readyc <- raft.Ready{}
 		<-srv.r.applyc
 		close(continueC)
 	}()
-
 	select {
 	case <-continueC:
 		t.Fatalf("unexpected execution: raft routine should block waiting for apply")
 	case <-time.After(time.Second):
 	}
-
-	// finish apply, unblock raft routine
 	<-ap.notifyc
-
 	select {
 	case <-continueC:
 	case <-time.After(time.Second):

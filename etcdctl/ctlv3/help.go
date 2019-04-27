@@ -1,19 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-// copied from https://github.com/rkt/rkt/blob/master/rkt/help.go
-
 package ctlv3
 
 import (
@@ -24,31 +8,28 @@ import (
 	"strings"
 	"text/tabwriter"
 	"text/template"
-
 	"github.com/coreos/etcd/version"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
 
 var (
-	commandUsageTemplate *template.Template
-	templFuncs           = template.FuncMap{
-		"descToLines": func(s string) []string {
-			// trim leading/trailing whitespace and split into slice of lines
-			return strings.Split(strings.Trim(s, "\n\t "), "\n")
-		},
-		"cmdName": func(cmd *cobra.Command, startCmd *cobra.Command) string {
-			parts := []string{cmd.Name()}
-			for cmd.HasParent() && cmd.Parent().Name() != startCmd.Name() {
-				cmd = cmd.Parent()
-				parts = append([]string{cmd.Name()}, parts...)
-			}
-			return strings.Join(parts, " ")
-		},
-	}
+	commandUsageTemplate	*template.Template
+	templFuncs		= template.FuncMap{"descToLines": func(s string) []string {
+		return strings.Split(strings.Trim(s, "\n\t "), "\n")
+	}, "cmdName": func(cmd *cobra.Command, startCmd *cobra.Command) string {
+		parts := []string{cmd.Name()}
+		for cmd.HasParent() && cmd.Parent().Name() != startCmd.Name() {
+			cmd = cmd.Parent()
+			parts = append([]string{cmd.Name()}, parts...)
+		}
+		return strings.Join(parts, " ")
+	}}
 )
 
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	commandUsage := `
 {{ $cmd := .Cmd }}\
 {{ $cmdname := cmdName .Cmd .Cmd.Root }}\
@@ -99,13 +80,12 @@ GLOBAL OPTIONS:
 {{.GlobalFlags}}\
 {{end}}
 `[1:]
-
 	commandUsageTemplate = template.Must(template.New("command_usage").Funcs(templFuncs).Parse(strings.Replace(commandUsage, "\\\n", "", -1)))
 }
-
 func etcdFlagUsages(flagSet *pflag.FlagSet) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	x := new(bytes.Buffer)
-
 	flagSet.VisitAll(func(flag *pflag.Flag) {
 		if len(flag.Deprecated) > 0 {
 			return
@@ -120,7 +100,6 @@ func etcdFlagUsages(flagSet *pflag.FlagSet) string {
 			format = format + "["
 		}
 		if flag.Value.Type() == "string" {
-			// put quotes on the value
 			format = format + "=%q"
 		} else {
 			format = format + "=%s"
@@ -132,11 +111,11 @@ func etcdFlagUsages(flagSet *pflag.FlagSet) string {
 		shorthand := flag.Shorthand
 		fmt.Fprintf(x, format, shorthand, flag.Name, flag.DefValue, flag.Usage)
 	})
-
 	return x.String()
 }
-
 func getSubCommands(cmd *cobra.Command) []*cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var subCommands []*cobra.Command
 	for _, subCmd := range cmd.Commands() {
 		subCommands = append(subCommands, subCmd)
@@ -144,30 +123,25 @@ func getSubCommands(cmd *cobra.Command) []*cobra.Command {
 	}
 	return subCommands
 }
-
 func usageFunc(cmd *cobra.Command) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	subCommands := getSubCommands(cmd)
 	tabOut := getTabOutWithWriter(os.Stdout)
 	commandUsageTemplate.Execute(tabOut, struct {
-		Cmd         *cobra.Command
-		LocalFlags  string
-		GlobalFlags string
-		SubCommands []*cobra.Command
-		Version     string
-		APIVersion  string
-	}{
-		cmd,
-		etcdFlagUsages(cmd.LocalFlags()),
-		etcdFlagUsages(cmd.InheritedFlags()),
-		subCommands,
-		version.Version,
-		version.APIVersion,
-	})
+		Cmd		*cobra.Command
+		LocalFlags	string
+		GlobalFlags	string
+		SubCommands	[]*cobra.Command
+		Version		string
+		APIVersion	string
+	}{cmd, etcdFlagUsages(cmd.LocalFlags()), etcdFlagUsages(cmd.InheritedFlags()), subCommands, version.Version, version.APIVersion})
 	tabOut.Flush()
 	return nil
 }
-
 func getTabOutWithWriter(writer io.Writer) *tabwriter.Writer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	aTabOut := new(tabwriter.Writer)
 	aTabOut.Init(writer, 0, 8, 1, '\t', 0)
 	return aTabOut

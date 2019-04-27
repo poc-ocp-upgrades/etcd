@@ -1,17 +1,3 @@
-// Copyright 2017 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package backend
 
 import (
@@ -19,33 +5,33 @@ import (
 	"sort"
 )
 
-// txBuffer handles functionality shared between txWriteBuffer and txReadBuffer.
-type txBuffer struct {
-	buckets map[string]*bucketBuffer
-}
+type txBuffer struct{ buckets map[string]*bucketBuffer }
 
 func (txb *txBuffer) reset() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for k, v := range txb.buckets {
 		if v.used == 0 {
-			// demote
 			delete(txb.buckets, k)
 		}
 		v.used = 0
 	}
 }
 
-// txWriteBuffer buffers writes of pending updates that have not yet committed.
 type txWriteBuffer struct {
 	txBuffer
-	seq bool
+	seq	bool
 }
 
 func (txw *txWriteBuffer) put(bucket, k, v []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	txw.seq = false
 	txw.putSeq(bucket, k, v)
 }
-
 func (txw *txWriteBuffer) putSeq(bucket, k, v []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, ok := txw.buckets[string(bucket)]
 	if !ok {
 		b = newBucketBuffer()
@@ -53,8 +39,9 @@ func (txw *txWriteBuffer) putSeq(bucket, k, v []byte) {
 	}
 	b.add(k, v)
 }
-
 func (txw *txWriteBuffer) writeback(txr *txReadBuffer) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for k, wb := range txw.buckets {
 		rb, ok := txr.buckets[k]
 		if !ok {
@@ -63,7 +50,6 @@ func (txw *txWriteBuffer) writeback(txr *txReadBuffer) {
 			continue
 		}
 		if !txw.seq && wb.used > 1 {
-			// assume no duplicate keys
 			sort.Sort(wb)
 		}
 		rb.merge(wb)
@@ -71,17 +57,19 @@ func (txw *txWriteBuffer) writeback(txr *txReadBuffer) {
 	txw.reset()
 }
 
-// txReadBuffer accesses buffered updates.
 type txReadBuffer struct{ txBuffer }
 
 func (txr *txReadBuffer) Range(bucketName, key, endKey []byte, limit int64) ([][]byte, [][]byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if b := txr.buckets[string(bucketName)]; b != nil {
 		return b.Range(key, endKey, limit)
 	}
 	return nil, nil
 }
-
 func (txr *txReadBuffer) ForEach(bucketName []byte, visitor func(k, v []byte) error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if b := txr.buckets[string(bucketName)]; b != nil {
 		return b.ForEach(visitor)
 	}
@@ -89,23 +77,25 @@ func (txr *txReadBuffer) ForEach(bucketName []byte, visitor func(k, v []byte) er
 }
 
 type kv struct {
-	key []byte
-	val []byte
+	key	[]byte
+	val	[]byte
 }
-
-// bucketBuffer buffers key-value pairs that are pending commit.
 type bucketBuffer struct {
-	buf []kv
-	// used tracks number of elements in use so buf can be reused without reallocation.
-	used int
+	buf	[]kv
+	used	int
 }
 
 func newBucketBuffer() *bucketBuffer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &bucketBuffer{buf: make([]kv, 512), used: 0}
 }
-
 func (bb *bucketBuffer) Range(key, endKey []byte, limit int64) (keys [][]byte, vals [][]byte) {
-	f := func(i int) bool { return bytes.Compare(bb.buf[i].key, key) >= 0 }
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	f := func(i int) bool {
+		return bytes.Compare(bb.buf[i].key, key) >= 0
+	}
 	idx := sort.Search(bb.used, f)
 	if idx < 0 {
 		return nil, nil
@@ -129,8 +119,9 @@ func (bb *bucketBuffer) Range(key, endKey []byte, limit int64) (keys [][]byte, v
 	}
 	return keys, vals
 }
-
 func (bb *bucketBuffer) ForEach(visitor func(k, v []byte) error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i := 0; i < bb.used; i++ {
 		if err := visitor(bb.buf[i].key, bb.buf[i].val); err != nil {
 			return err
@@ -138,8 +129,9 @@ func (bb *bucketBuffer) ForEach(visitor func(k, v []byte) error) error {
 	}
 	return nil
 }
-
 func (bb *bucketBuffer) add(k, v []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bb.buf[bb.used].key, bb.buf[bb.used].val = k, v
 	bb.used++
 	if bb.used == len(bb.buf) {
@@ -148,9 +140,9 @@ func (bb *bucketBuffer) add(k, v []byte) {
 		bb.buf = buf
 	}
 }
-
-// merge merges data from bb into bbsrc.
 func (bb *bucketBuffer) merge(bbsrc *bucketBuffer) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i := 0; i < bbsrc.used; i++ {
 		bb.add(bbsrc.buf[i].key, bbsrc.buf[i].val)
 	}
@@ -160,10 +152,7 @@ func (bb *bucketBuffer) merge(bbsrc *bucketBuffer) {
 	if bytes.Compare(bb.buf[(bb.used-bbsrc.used)-1].key, bbsrc.buf[0].key) < 0 {
 		return
 	}
-
 	sort.Stable(bb)
-
-	// remove duplicates, using only newest update
 	widx := 0
 	for ridx := 1; ridx < bb.used; ridx++ {
 		if !bytes.Equal(bb.buf[ridx].key, bb.buf[widx].key) {
@@ -173,9 +162,18 @@ func (bb *bucketBuffer) merge(bbsrc *bucketBuffer) {
 	}
 	bb.used = widx + 1
 }
-
-func (bb *bucketBuffer) Len() int { return bb.used }
+func (bb *bucketBuffer) Len() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return bb.used
+}
 func (bb *bucketBuffer) Less(i, j int) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return bytes.Compare(bb.buf[i].key, bb.buf[j].key) < 0
 }
-func (bb *bucketBuffer) Swap(i, j int) { bb.buf[i], bb.buf[j] = bb.buf[j], bb.buf[i] }
+func (bb *bucketBuffer) Swap(i, j int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	bb.buf[i], bb.buf[j] = bb.buf[j], bb.buf[i]
+}

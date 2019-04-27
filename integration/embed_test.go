@@ -1,21 +1,3 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-// +build !cluster_proxy
-
-// TODO: fix race conditions with setupLogging
-
 package integration
 
 import (
@@ -27,37 +9,23 @@ import (
 	"strings"
 	"testing"
 	"time"
-
 	"github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/embed"
 )
 
 func TestEmbedEtcd(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
-		cfg embed.Config
-
-		werr     string
-		wpeers   int
-		wclients int
-	}{
-		{werr: "multiple discovery"},
-		{werr: "advertise-client-urls is required"},
-		{werr: "should be at least"},
-		{werr: "is too long"},
-		{wpeers: 1, wclients: 1},
-		{wpeers: 2, wclients: 1},
-		{wpeers: 1, wclients: 2},
-		{werr: "expected IP"},
-		{werr: "expected IP"},
-	}
-
+		cfg		embed.Config
+		werr		string
+		wpeers		int
+		wclients	int
+	}{{werr: "multiple discovery"}, {werr: "advertise-client-urls is required"}, {werr: "should be at least"}, {werr: "is too long"}, {wpeers: 1, wclients: 1}, {wpeers: 2, wclients: 1}, {wpeers: 1, wclients: 2}, {werr: "expected IP"}, {werr: "expected IP"}}
 	urls := newEmbedURLs(false, 10)
-
-	// setup defaults
 	for i := range tests {
 		tests[i].cfg = *embed.NewConfig()
 	}
-
 	tests[0].cfg.Durl = "abc"
 	setupEmbedCfg(&tests[1].cfg, []url.URL{urls[0]}, []url.URL{urls[1]})
 	tests[1].cfg.ACUrls = nil
@@ -66,20 +34,17 @@ func TestEmbedEtcd(t *testing.T) {
 	setupEmbedCfg(&tests[4].cfg, []url.URL{urls[2]}, []url.URL{urls[3]})
 	setupEmbedCfg(&tests[5].cfg, []url.URL{urls[4]}, []url.URL{urls[5], urls[6]})
 	setupEmbedCfg(&tests[6].cfg, []url.URL{urls[7], urls[8]}, []url.URL{urls[9]})
-
 	dnsURL, _ := url.Parse("http://whatever.test:12345")
 	tests[7].cfg.LCUrls = []url.URL{*dnsURL}
 	tests[8].cfg.LPUrls = []url.URL{*dnsURL}
-
 	dir := filepath.Join(os.TempDir(), fmt.Sprintf("embed-etcd"))
 	os.RemoveAll(dir)
 	defer os.RemoveAll(dir)
-
 	for i, tt := range tests {
 		tests[i].cfg.Dir = dir
 		e, err := embed.StartEtcd(&tests[i].cfg)
 		if e != nil {
-			<-e.Server.ReadyNotify() // wait for e.Server to join the cluster
+			<-e.Server.ReadyNotify()
 		}
 		if tt.werr != "" {
 			if err == nil || !strings.Contains(err.Error(), tt.werr) {
@@ -108,35 +73,35 @@ func TestEmbedEtcd(t *testing.T) {
 		}
 	}
 }
-
-func TestEmbedEtcdGracefulStopSecure(t *testing.T)   { testEmbedEtcdGracefulStop(t, true) }
-func TestEmbedEtcdGracefulStopInsecure(t *testing.T) { testEmbedEtcdGracefulStop(t, false) }
-
-// testEmbedEtcdGracefulStop ensures embedded server stops
-// cutting existing transports.
+func TestEmbedEtcdGracefulStopSecure(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	testEmbedEtcdGracefulStop(t, true)
+}
+func TestEmbedEtcdGracefulStopInsecure(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	testEmbedEtcdGracefulStop(t, false)
+}
 func testEmbedEtcdGracefulStop(t *testing.T, secure bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := embed.NewConfig()
 	if secure {
 		cfg.ClientTLSInfo = testTLSInfo
 		cfg.PeerTLSInfo = testTLSInfo
 	}
-
 	urls := newEmbedURLs(secure, 2)
 	setupEmbedCfg(cfg, []url.URL{urls[0]}, []url.URL{urls[1]})
-
 	cfg.Dir = filepath.Join(os.TempDir(), fmt.Sprintf("embed-etcd"))
 	os.RemoveAll(cfg.Dir)
 	defer os.RemoveAll(cfg.Dir)
-
 	e, err := embed.StartEtcd(cfg)
 	if err != nil {
 		t.Fatal(err)
 	}
-	<-e.Server.ReadyNotify() // wait for e.Server to join the cluster
-
-	clientCfg := clientv3.Config{
-		Endpoints: []string{urls[0].String()},
-	}
+	<-e.Server.ReadyNotify()
+	clientCfg := clientv3.Config{Endpoints: []string{urls[0].String()}}
 	if secure {
 		clientCfg.TLS, err = testTLSInfo.ClientConfig()
 		if err != nil {
@@ -148,10 +113,7 @@ func testEmbedEtcdGracefulStop(t *testing.T, secure bool) {
 		t.Fatal(err)
 	}
 	defer cli.Close()
-
-	// open watch connection
 	cli.Watch(context.Background(), "foo")
-
 	donec := make(chan struct{})
 	go func() {
 		e.Close()
@@ -165,8 +127,9 @@ func testEmbedEtcdGracefulStop(t *testing.T, secure bool) {
 		t.Fatalf("took too long to close server")
 	}
 }
-
 func newEmbedURLs(secure bool, n int) (urls []url.URL) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	scheme := "unix"
 	if secure {
 		scheme = "unixs"
@@ -177,8 +140,9 @@ func newEmbedURLs(secure bool, n int) (urls []url.URL) {
 	}
 	return urls
 }
-
 func setupEmbedCfg(cfg *embed.Config, curls []url.URL, purls []url.URL) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg.ClusterState = "new"
 	cfg.LCUrls, cfg.ACUrls = curls, curls
 	cfg.LPUrls, cfg.APUrls = purls, purls

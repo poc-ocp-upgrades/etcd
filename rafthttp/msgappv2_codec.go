@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package rafthttp
 
 import (
@@ -19,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"time"
-
 	"github.com/coreos/etcd/etcdserver/stats"
 	"github.com/coreos/etcd/pkg/pbutil"
 	"github.com/coreos/etcd/pkg/types"
@@ -27,62 +12,30 @@ import (
 )
 
 const (
-	msgTypeLinkHeartbeat uint8 = 0
-	msgTypeAppEntries    uint8 = 1
-	msgTypeApp           uint8 = 2
-
-	msgAppV2BufSize = 1024 * 1024
+	msgTypeLinkHeartbeat	uint8	= 0
+	msgTypeAppEntries	uint8	= 1
+	msgTypeApp		uint8	= 2
+	msgAppV2BufSize			= 1024 * 1024
 )
 
-// msgappv2 stream sends three types of message: linkHeartbeatMessage,
-// AppEntries and MsgApp. AppEntries is the MsgApp that is sent in
-// replicate state in raft, whose index and term are fully predictable.
-//
-// Data format of linkHeartbeatMessage:
-// | offset | bytes | description |
-// +--------+-------+-------------+
-// | 0      | 1     | \x00        |
-//
-// Data format of AppEntries:
-// | offset | bytes | description |
-// +--------+-------+-------------+
-// | 0      | 1     | \x01        |
-// | 1      | 8     | length of entries |
-// | 9      | 8     | length of first entry |
-// | 17     | n1    | first entry |
-// ...
-// | x      | 8     | length of k-th entry data |
-// | x+8    | nk    | k-th entry data |
-// | x+8+nk | 8     | commit index |
-//
-// Data format of MsgApp:
-// | offset | bytes | description |
-// +--------+-------+-------------+
-// | 0      | 1     | \x02        |
-// | 1      | 8     | length of encoded message |
-// | 9      | n     | encoded message |
 type msgAppV2Encoder struct {
-	w  io.Writer
-	fs *stats.FollowerStats
-
-	term      uint64
-	index     uint64
-	buf       []byte
-	uint64buf []byte
-	uint8buf  []byte
+	w		io.Writer
+	fs		*stats.FollowerStats
+	term		uint64
+	index		uint64
+	buf		[]byte
+	uint64buf	[]byte
+	uint8buf	[]byte
 }
 
 func newMsgAppV2Encoder(w io.Writer, fs *stats.FollowerStats) *msgAppV2Encoder {
-	return &msgAppV2Encoder{
-		w:         w,
-		fs:        fs,
-		buf:       make([]byte, msgAppV2BufSize),
-		uint64buf: make([]byte, 8),
-		uint8buf:  make([]byte, 1),
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return &msgAppV2Encoder{w: w, fs: fs, buf: make([]byte, msgAppV2BufSize), uint64buf: make([]byte, 8), uint8buf: make([]byte, 1)}
 }
-
 func (enc *msgAppV2Encoder) encode(m *raftpb.Message) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	start := time.Now()
 	switch {
 	case isLinkHeartbeatMessage(m):
@@ -95,13 +48,11 @@ func (enc *msgAppV2Encoder) encode(m *raftpb.Message) error {
 		if _, err := enc.w.Write(enc.uint8buf); err != nil {
 			return err
 		}
-		// write length of entries
 		binary.BigEndian.PutUint64(enc.uint64buf, uint64(len(m.Entries)))
 		if _, err := enc.w.Write(enc.uint64buf); err != nil {
 			return err
 		}
 		for i := 0; i < len(m.Entries); i++ {
-			// write length of entry
 			binary.BigEndian.PutUint64(enc.uint64buf, uint64(m.Entries[i].Size()))
 			if _, err := enc.w.Write(enc.uint64buf); err != nil {
 				return err
@@ -120,7 +71,6 @@ func (enc *msgAppV2Encoder) encode(m *raftpb.Message) error {
 			}
 			enc.index++
 		}
-		// write commit index
 		binary.BigEndian.PutUint64(enc.uint64buf, m.Commit)
 		if _, err := enc.w.Write(enc.uint64buf); err != nil {
 			return err
@@ -130,15 +80,12 @@ func (enc *msgAppV2Encoder) encode(m *raftpb.Message) error {
 		if err := binary.Write(enc.w, binary.BigEndian, msgTypeApp); err != nil {
 			return err
 		}
-		// write size of message
 		if err := binary.Write(enc.w, binary.BigEndian, uint64(m.Size())); err != nil {
 			return err
 		}
-		// write message
 		if _, err := enc.w.Write(pbutil.MustMarshal(m)); err != nil {
 			return err
 		}
-
 		enc.term = m.Term
 		enc.index = m.Index
 		if l := len(m.Entries); l > 0 {
@@ -150,31 +97,26 @@ func (enc *msgAppV2Encoder) encode(m *raftpb.Message) error {
 }
 
 type msgAppV2Decoder struct {
-	r             io.Reader
-	local, remote types.ID
-
-	term      uint64
-	index     uint64
-	buf       []byte
-	uint64buf []byte
-	uint8buf  []byte
+	r		io.Reader
+	local, remote	types.ID
+	term		uint64
+	index		uint64
+	buf		[]byte
+	uint64buf	[]byte
+	uint8buf	[]byte
 }
 
 func newMsgAppV2Decoder(r io.Reader, local, remote types.ID) *msgAppV2Decoder {
-	return &msgAppV2Decoder{
-		r:         r,
-		local:     local,
-		remote:    remote,
-		buf:       make([]byte, msgAppV2BufSize),
-		uint64buf: make([]byte, 8),
-		uint8buf:  make([]byte, 1),
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return &msgAppV2Decoder{r: r, local: local, remote: remote, buf: make([]byte, msgAppV2BufSize), uint64buf: make([]byte, 8), uint8buf: make([]byte, 1)}
 }
-
 func (dec *msgAppV2Decoder) decode() (raftpb.Message, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var (
-		m   raftpb.Message
-		typ uint8
+		m	raftpb.Message
+		typ	uint8
 	)
 	if _, err := io.ReadFull(dec.r, dec.uint8buf); err != nil {
 		return m, err
@@ -184,16 +126,7 @@ func (dec *msgAppV2Decoder) decode() (raftpb.Message, error) {
 	case msgTypeLinkHeartbeat:
 		return linkHeartbeatMessage, nil
 	case msgTypeAppEntries:
-		m = raftpb.Message{
-			Type:    raftpb.MsgApp,
-			From:    uint64(dec.remote),
-			To:      uint64(dec.local),
-			Term:    dec.term,
-			LogTerm: dec.term,
-			Index:   dec.index,
-		}
-
-		// decode entries
+		m = raftpb.Message{Type: raftpb.MsgApp, From: uint64(dec.remote), To: uint64(dec.local), Term: dec.term, LogTerm: dec.term, Index: dec.index}
 		if _, err := io.ReadFull(dec.r, dec.uint64buf); err != nil {
 			return m, err
 		}
@@ -217,10 +150,8 @@ func (dec *msgAppV2Decoder) decode() (raftpb.Message, error) {
 				}
 			}
 			dec.index++
-			// 1 alloc
 			pbutil.MustUnmarshal(&m.Entries[i], buf)
 		}
-		// decode commit index
 		if _, err := io.ReadFull(dec.r, dec.uint64buf); err != nil {
 			return m, err
 		}
@@ -235,7 +166,6 @@ func (dec *msgAppV2Decoder) decode() (raftpb.Message, error) {
 			return m, err
 		}
 		pbutil.MustUnmarshal(&m, buf)
-
 		dec.term = m.Term
 		dec.index = m.Index
 		if l := len(m.Entries); l > 0 {

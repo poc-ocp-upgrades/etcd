@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package wal
 
 import (
@@ -21,34 +7,25 @@ import (
 	"io/ioutil"
 	"reflect"
 	"testing"
-
 	"github.com/coreos/etcd/wal/walpb"
 )
 
 var (
-	infoData   = []byte("\b\xef\xfd\x02")
-	infoRecord = append([]byte("\x0e\x00\x00\x00\x00\x00\x00\x00\b\x01\x10\x99\xb5\xe4\xd0\x03\x1a\x04"), infoData...)
+	infoData	= []byte("\b\xef\xfd\x02")
+	infoRecord	= append([]byte("\x0e\x00\x00\x00\x00\x00\x00\x00\b\x01\x10\x99\xb5\xe4\xd0\x03\x1a\x04"), infoData...)
 )
 
 func TestReadRecord(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	badInfoRecord := make([]byte, len(infoRecord))
 	copy(badInfoRecord, infoRecord)
 	badInfoRecord[len(badInfoRecord)-1] = 'a'
-
 	tests := []struct {
-		data []byte
-		wr   *walpb.Record
-		we   error
-	}{
-		{infoRecord, &walpb.Record{Type: 1, Crc: crc32.Checksum(infoData, crcTable), Data: infoData}, nil},
-		{[]byte(""), &walpb.Record{}, io.EOF},
-		{infoRecord[:8], &walpb.Record{}, io.ErrUnexpectedEOF},
-		{infoRecord[:len(infoRecord)-len(infoData)-8], &walpb.Record{}, io.ErrUnexpectedEOF},
-		{infoRecord[:len(infoRecord)-len(infoData)], &walpb.Record{}, io.ErrUnexpectedEOF},
-		{infoRecord[:len(infoRecord)-8], &walpb.Record{}, io.ErrUnexpectedEOF},
-		{badInfoRecord, &walpb.Record{}, walpb.ErrCRCMismatch},
-	}
-
+		data	[]byte
+		wr	*walpb.Record
+		we	error
+	}{{infoRecord, &walpb.Record{Type: 1, Crc: crc32.Checksum(infoData, crcTable), Data: infoData}, nil}, {[]byte(""), &walpb.Record{}, io.EOF}, {infoRecord[:8], &walpb.Record{}, io.ErrUnexpectedEOF}, {infoRecord[:len(infoRecord)-len(infoData)-8], &walpb.Record{}, io.ErrUnexpectedEOF}, {infoRecord[:len(infoRecord)-len(infoData)], &walpb.Record{}, io.ErrUnexpectedEOF}, {infoRecord[:len(infoRecord)-8], &walpb.Record{}, io.ErrUnexpectedEOF}, {badInfoRecord, &walpb.Record{}, walpb.ErrCRCMismatch}}
 	rec := &walpb.Record{}
 	for i, tt := range tests {
 		buf := bytes.NewBuffer(tt.data)
@@ -63,8 +40,9 @@ func TestReadRecord(t *testing.T) {
 		rec = &walpb.Record{}
 	}
 }
-
 func TestWriteRecord(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b := &walpb.Record{}
 	typ := int64(0xABCD)
 	d := []byte("Hello world!")

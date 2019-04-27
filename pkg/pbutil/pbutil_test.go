@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package pbutil
 
 import (
@@ -21,14 +7,17 @@ import (
 )
 
 func TestMarshaler(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data := []byte("test data")
 	m := &fakeMarshaler{data: data}
 	if g := MustMarshal(m); !reflect.DeepEqual(g, data) {
 		t.Errorf("data = %s, want %s", g, m.data)
 	}
 }
-
 func TestMarshalerPanic(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer func() {
 		if r := recover(); r == nil {
 			t.Errorf("recover = nil, want error")
@@ -37,8 +26,9 @@ func TestMarshalerPanic(t *testing.T) {
 	m := &fakeMarshaler{err: errors.New("blah")}
 	MustMarshal(m)
 }
-
 func TestUnmarshaler(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data := []byte("test data")
 	m := &fakeUnmarshaler{}
 	MustUnmarshal(m, data)
@@ -46,8 +36,9 @@ func TestUnmarshaler(t *testing.T) {
 		t.Errorf("data = %s, want %s", m.data, data)
 	}
 }
-
 func TestUnmarshalerPanic(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer func() {
 		if r := recover(); r == nil {
 			t.Errorf("recover = nil, want error")
@@ -56,17 +47,14 @@ func TestUnmarshalerPanic(t *testing.T) {
 	m := &fakeUnmarshaler{err: errors.New("blah")}
 	MustUnmarshal(m, nil)
 }
-
 func TestGetBool(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
-		b    *bool
-		wb   bool
-		wset bool
-	}{
-		{nil, false, false},
-		{Boolp(true), true, true},
-		{Boolp(false), false, true},
-	}
+		b	*bool
+		wb	bool
+		wset	bool
+	}{{nil, false, false}, {Boolp(true), true, true}, {Boolp(false), false, true}}
 	for i, tt := range tests {
 		b, set := GetBool(tt.b)
 		if b != tt.wb {
@@ -79,20 +67,24 @@ func TestGetBool(t *testing.T) {
 }
 
 type fakeMarshaler struct {
-	data []byte
-	err  error
+	data	[]byte
+	err	error
 }
 
 func (m *fakeMarshaler) Marshal() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.data, m.err
 }
 
 type fakeUnmarshaler struct {
-	data []byte
-	err  error
+	data	[]byte
+	err	error
 }
 
 func (m *fakeUnmarshaler) Unmarshal(data []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.data = data
 	return m.err
 }

@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package cors
 
 import (
@@ -22,23 +8,13 @@ import (
 )
 
 func TestCORSInfo(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
-		s     string
-		winfo CORSInfo
-		ws    string
-	}{
-		{"", CORSInfo{}, ""},
-		{"http://127.0.0.1", CORSInfo{"http://127.0.0.1": true}, "http://127.0.0.1"},
-		{"*", CORSInfo{"*": true}, "*"},
-		// with space around
-		{" http://127.0.0.1 ", CORSInfo{"http://127.0.0.1": true}, "http://127.0.0.1"},
-		// multiple addrs
-		{
-			"http://127.0.0.1,http://127.0.0.2",
-			CORSInfo{"http://127.0.0.1": true, "http://127.0.0.2": true},
-			"http://127.0.0.1,http://127.0.0.2",
-		},
-	}
+		s	string
+		winfo	CORSInfo
+		ws	string
+	}{{"", CORSInfo{}, ""}, {"http://127.0.0.1", CORSInfo{"http://127.0.0.1": true}, "http://127.0.0.1"}, {"*", CORSInfo{"*": true}, "*"}, {" http://127.0.0.1 ", CORSInfo{"http://127.0.0.1": true}, "http://127.0.0.1"}, {"http://127.0.0.1,http://127.0.0.2", CORSInfo{"http://127.0.0.1": true, "http://127.0.0.2": true}, "http://127.0.0.1,http://127.0.0.2"}}
 	for i, tt := range tests {
 		info := CORSInfo{}
 		if err := info.Set(tt.s); err != nil {
@@ -52,20 +28,14 @@ func TestCORSInfo(t *testing.T) {
 		}
 	}
 }
-
 func TestCORSInfoOriginAllowed(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
-		set      string
-		origin   string
-		wallowed bool
-	}{
-		{"http://127.0.0.1,http://127.0.0.2", "http://127.0.0.1", true},
-		{"http://127.0.0.1,http://127.0.0.2", "http://127.0.0.2", true},
-		{"http://127.0.0.1,http://127.0.0.2", "*", false},
-		{"http://127.0.0.1,http://127.0.0.2", "http://127.0.0.3", false},
-		{"*", "*", true},
-		{"*", "http://127.0.0.1", true},
-	}
+		set		string
+		origin		string
+		wallowed	bool
+	}{{"http://127.0.0.1,http://127.0.0.2", "http://127.0.0.1", true}, {"http://127.0.0.1,http://127.0.0.2", "http://127.0.0.2", true}, {"http://127.0.0.1,http://127.0.0.2", "*", false}, {"http://127.0.0.1,http://127.0.0.2", "http://127.0.0.3", false}, {"*", "*", true}, {"*", "http://127.0.0.1", true}}
 	for i, tt := range tests {
 		info := CORSInfo{}
 		if err := info.Set(tt.set); err != nil {
@@ -76,46 +46,30 @@ func TestCORSInfoOriginAllowed(t *testing.T) {
 		}
 	}
 }
-
 func TestCORSHandler(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	info := &CORSInfo{}
 	if err := info.Set("http://127.0.0.1,http://127.0.0.2"); err != nil {
 		t.Fatalf("unexpected set error: %v", err)
 	}
-	h := &CORSHandler{
-		Handler: http.NotFoundHandler(),
-		Info:    info,
-	}
-
+	h := &CORSHandler{Handler: http.NotFoundHandler(), Info: info}
 	header := func(origin string) http.Header {
-		return http.Header{
-			"Access-Control-Allow-Methods": []string{"POST, GET, OPTIONS, PUT, DELETE"},
-			"Access-Control-Allow-Origin":  []string{origin},
-			"Access-Control-Allow-Headers": []string{"accept, content-type, authorization"},
-		}
+		return http.Header{"Access-Control-Allow-Methods": []string{"POST, GET, OPTIONS, PUT, DELETE"}, "Access-Control-Allow-Origin": []string{origin}, "Access-Control-Allow-Headers": []string{"accept, content-type, authorization"}}
 	}
 	tests := []struct {
-		method  string
-		origin  string
-		wcode   int
-		wheader http.Header
-	}{
-		{"GET", "http://127.0.0.1", http.StatusNotFound, header("http://127.0.0.1")},
-		{"GET", "http://127.0.0.2", http.StatusNotFound, header("http://127.0.0.2")},
-		{"GET", "http://127.0.0.3", http.StatusNotFound, http.Header{}},
-		{"OPTIONS", "http://127.0.0.1", http.StatusOK, header("http://127.0.0.1")},
-	}
+		method	string
+		origin	string
+		wcode	int
+		wheader	http.Header
+	}{{"GET", "http://127.0.0.1", http.StatusNotFound, header("http://127.0.0.1")}, {"GET", "http://127.0.0.2", http.StatusNotFound, header("http://127.0.0.2")}, {"GET", "http://127.0.0.3", http.StatusNotFound, http.Header{}}, {"OPTIONS", "http://127.0.0.1", http.StatusOK, header("http://127.0.0.1")}}
 	for i, tt := range tests {
 		rr := httptest.NewRecorder()
-		req := &http.Request{
-			Method: tt.method,
-			Header: http.Header{"Origin": []string{tt.origin}},
-		}
+		req := &http.Request{Method: tt.method, Header: http.Header{"Origin": []string{tt.origin}}}
 		h.ServeHTTP(rr, req)
 		if rr.Code != tt.wcode {
 			t.Errorf("#%d: code = %v, want %v", i, rr.Code, tt.wcode)
 		}
-		// it is set by http package, and there is no need to test it
 		rr.HeaderMap.Del("Content-Type")
 		rr.HeaderMap.Del("X-Content-Type-Options")
 		if !reflect.DeepEqual(rr.HeaderMap, tt.wheader) {

@@ -1,19 +1,3 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-// build !windows
-
 package expect
 
 import (
@@ -23,12 +7,16 @@ import (
 )
 
 func TestExpectFunc(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ep, err := NewExpect("/bin/echo", "hello world")
 	if err != nil {
 		t.Fatal(err)
 	}
 	wstr := "hello world\r\n"
-	l, eerr := ep.ExpectFunc(func(a string) bool { return len(a) > 10 })
+	l, eerr := ep.ExpectFunc(func(a string) bool {
+		return len(a) > 10
+	})
 	if eerr != nil {
 		t.Fatal(eerr)
 	}
@@ -39,8 +27,9 @@ func TestExpectFunc(t *testing.T) {
 		t.Fatal(cerr)
 	}
 }
-
 func TestEcho(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ep, err := NewExpect("/bin/echo", "hello world")
 	if err != nil {
 		t.Fatal(err)
@@ -60,8 +49,9 @@ func TestEcho(t *testing.T) {
 		t.Fatalf("expected error on closed expect process")
 	}
 }
-
 func TestLineCount(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ep, err := NewExpect("/usr/bin/printf", "1\n2\n3")
 	if err != nil {
 		t.Fatal(err)
@@ -81,8 +71,9 @@ func TestLineCount(t *testing.T) {
 		t.Fatal(cerr)
 	}
 }
-
 func TestSend(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ep, err := NewExpect("/usr/bin/tr", "a", "b")
 	if err != nil {
 		t.Fatal(err)
@@ -97,8 +88,9 @@ func TestSend(t *testing.T) {
 		t.Fatal(err)
 	}
 }
-
 func TestSignal(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ep, err := NewExpect("/bin/sleep", "100")
 	if err != nil {
 		t.Fatal(err)

@@ -1,17 +1,3 @@
-// Copyright 2017 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package v2v3
 
 import (
@@ -20,7 +6,6 @@ import (
 	"path"
 	"strings"
 	"time"
-
 	"github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/clientv3/concurrency"
 	etcdErr "github.com/coreos/etcd/error"
@@ -28,35 +13,39 @@ import (
 	"github.com/coreos/etcd/store"
 )
 
-// store implements the Store interface for V2 using
-// a v3 client.
 type v2v3Store struct {
-	c *clientv3.Client
-	// pfx is the v3 prefix where keys should be stored.
-	pfx string
-	ctx context.Context
+	c	*clientv3.Client
+	pfx	string
+	ctx	context.Context
 }
 
 const maxPathDepth = 63
 
 var errUnsupported = fmt.Errorf("TTLs are unsupported")
 
-func NewStore(c *clientv3.Client, pfx string) store.Store { return newStore(c, pfx) }
-
-func newStore(c *clientv3.Client, pfx string) *v2v3Store { return &v2v3Store{c, pfx, c.Ctx()} }
-
-func (s *v2v3Store) Index() uint64 { panic("STUB") }
-
+func NewStore(c *clientv3.Client, pfx string) store.Store {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return newStore(c, pfx)
+}
+func newStore(c *clientv3.Client, pfx string) *v2v3Store {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return &v2v3Store{c, pfx, c.Ctx()}
+}
+func (s *v2v3Store) Index() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	panic("STUB")
+}
 func (s *v2v3Store) Get(nodePath string, recursive, sorted bool) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := s.mkPath(nodePath)
-	resp, err := s.c.Txn(s.ctx).Then(
-		clientv3.OpGet(key+"/"),
-		clientv3.OpGet(key),
-	).Commit()
+	resp, err := s.c.Txn(s.ctx).Then(clientv3.OpGet(key+"/"), clientv3.OpGet(key)).Commit()
 	if err != nil {
 		return nil, err
 	}
-
 	if kvs := resp.Responses[0].GetResponseRange().Kvs; len(kvs) != 0 || isRoot(nodePath) {
 		nodes, err := s.getDir(nodePath, recursive, sorted, resp.Header.Revision)
 		if err != nil {
@@ -66,39 +55,23 @@ func (s *v2v3Store) Get(nodePath string, recursive, sorted bool) (*store.Event, 
 		if len(kvs) > 0 {
 			cidx, midx = mkV2Rev(kvs[0].CreateRevision), mkV2Rev(kvs[0].ModRevision)
 		}
-		return &store.Event{
-			Action: store.Get,
-			Node: &store.NodeExtern{
-				Key:           nodePath,
-				Dir:           true,
-				Nodes:         nodes,
-				CreatedIndex:  cidx,
-				ModifiedIndex: midx,
-			},
-			EtcdIndex: mkV2Rev(resp.Header.Revision),
-		}, nil
+		return &store.Event{Action: store.Get, Node: &store.NodeExtern{Key: nodePath, Dir: true, Nodes: nodes, CreatedIndex: cidx, ModifiedIndex: midx}, EtcdIndex: mkV2Rev(resp.Header.Revision)}, nil
 	}
-
 	kvs := resp.Responses[1].GetResponseRange().Kvs
 	if len(kvs) == 0 {
 		return nil, etcdErr.NewError(etcdErr.EcodeKeyNotFound, nodePath, mkV2Rev(resp.Header.Revision))
 	}
-
-	return &store.Event{
-		Action:    store.Get,
-		Node:      s.mkV2Node(kvs[0]),
-		EtcdIndex: mkV2Rev(resp.Header.Revision),
-	}, nil
+	return &store.Event{Action: store.Get, Node: s.mkV2Node(kvs[0]), EtcdIndex: mkV2Rev(resp.Header.Revision)}, nil
 }
-
 func (s *v2v3Store) getDir(nodePath string, recursive, sorted bool, rev int64) ([]*store.NodeExtern, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rootNodes, err := s.getDirDepth(nodePath, 1, rev)
 	if err != nil || !recursive {
 		return rootNodes, err
 	}
 	nextNodes := rootNodes
 	nodes := make(map[string]*store.NodeExtern)
-	// Breadth walk the subdirectories
 	for i := 2; len(nextNodes) > 0; i++ {
 		for _, n := range nextNodes {
 			nodes[n.Key] = n
@@ -112,35 +85,29 @@ func (s *v2v3Store) getDir(nodePath string, recursive, sorted bool, rev int64) (
 	}
 	return rootNodes, nil
 }
-
 func (s *v2v3Store) getDirDepth(nodePath string, depth int, rev int64) ([]*store.NodeExtern, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pd := s.mkPathDepth(nodePath, depth)
 	resp, err := s.c.Get(s.ctx, pd, clientv3.WithPrefix(), clientv3.WithRev(rev))
 	if err != nil {
 		return nil, err
 	}
-
 	nodes := make([]*store.NodeExtern, len(resp.Kvs))
 	for i, kv := range resp.Kvs {
 		nodes[i] = s.mkV2Node(kv)
 	}
 	return nodes, nil
 }
-
-func (s *v2v3Store) Set(
-	nodePath string,
-	dir bool,
-	value string,
-	expireOpts store.TTLOptionSet,
-) (*store.Event, error) {
+func (s *v2v3Store) Set(nodePath string, dir bool, value string, expireOpts store.TTLOptionSet) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if expireOpts.Refresh || !expireOpts.ExpireTime.IsZero() {
 		return nil, errUnsupported
 	}
-
 	if isRoot(nodePath) {
 		return nil, etcdErr.NewError(etcdErr.EcodeRootROnly, nodePath, 0)
 	}
-
 	ecode := 0
 	applyf := func(stm concurrency.STM) error {
 		parent := path.Dir(nodePath)
@@ -148,11 +115,9 @@ func (s *v2v3Store) Set(
 			ecode = etcdErr.EcodeKeyNotFound
 			return nil
 		}
-
 		key := s.mkPath(nodePath)
 		if dir {
 			if stm.Rev(key) != 0 {
-				// exists as non-dir
 				ecode = etcdErr.EcodeNotDir
 				return nil
 			}
@@ -165,7 +130,6 @@ func (s *v2v3Store) Set(
 		stm.Put(s.mkActionKey(), store.Set)
 		return nil
 	}
-
 	resp, err := s.newSTM(applyf)
 	if err != nil {
 		return nil, err
@@ -173,41 +137,27 @@ func (s *v2v3Store) Set(
 	if ecode != 0 {
 		return nil, etcdErr.NewError(ecode, nodePath, mkV2Rev(resp.Header.Revision))
 	}
-
 	createRev := resp.Header.Revision
 	var pn *store.NodeExtern
 	if pkv := prevKeyFromPuts(resp); pkv != nil {
 		pn = s.mkV2Node(pkv)
 		createRev = pkv.CreateRevision
 	}
-
 	vp := &value
 	if dir {
 		vp = nil
 	}
-	return &store.Event{
-		Action: store.Set,
-		Node: &store.NodeExtern{
-			Key:           nodePath,
-			Value:         vp,
-			Dir:           dir,
-			ModifiedIndex: mkV2Rev(resp.Header.Revision),
-			CreatedIndex:  mkV2Rev(createRev),
-		},
-		PrevNode:  pn,
-		EtcdIndex: mkV2Rev(resp.Header.Revision),
-	}, nil
+	return &store.Event{Action: store.Set, Node: &store.NodeExtern{Key: nodePath, Value: vp, Dir: dir, ModifiedIndex: mkV2Rev(resp.Header.Revision), CreatedIndex: mkV2Rev(createRev)}, PrevNode: pn, EtcdIndex: mkV2Rev(resp.Header.Revision)}, nil
 }
-
 func (s *v2v3Store) Update(nodePath, newValue string, expireOpts store.TTLOptionSet) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if isRoot(nodePath) {
 		return nil, etcdErr.NewError(etcdErr.EcodeRootROnly, nodePath, 0)
 	}
-
 	if expireOpts.Refresh || !expireOpts.ExpireTime.IsZero() {
 		return nil, errUnsupported
 	}
-
 	key := s.mkPath(nodePath)
 	ecode := 0
 	applyf := func(stm concurrency.STM) error {
@@ -223,7 +173,6 @@ func (s *v2v3Store) Update(nodePath, newValue string, expireOpts store.TTLOption
 		stm.Put(s.mkActionKey(), store.Update)
 		return nil
 	}
-
 	resp, err := s.newSTM(applyf)
 	if err != nil {
 		return nil, err
@@ -231,28 +180,12 @@ func (s *v2v3Store) Update(nodePath, newValue string, expireOpts store.TTLOption
 	if ecode != 0 {
 		return nil, etcdErr.NewError(etcdErr.EcodeNotFile, nodePath, mkV2Rev(resp.Header.Revision))
 	}
-
 	pkv := prevKeyFromPuts(resp)
-	return &store.Event{
-		Action: store.Update,
-		Node: &store.NodeExtern{
-			Key:           nodePath,
-			Value:         &newValue,
-			ModifiedIndex: mkV2Rev(resp.Header.Revision),
-			CreatedIndex:  mkV2Rev(pkv.CreateRevision),
-		},
-		PrevNode:  s.mkV2Node(pkv),
-		EtcdIndex: mkV2Rev(resp.Header.Revision),
-	}, nil
+	return &store.Event{Action: store.Update, Node: &store.NodeExtern{Key: nodePath, Value: &newValue, ModifiedIndex: mkV2Rev(resp.Header.Revision), CreatedIndex: mkV2Rev(pkv.CreateRevision)}, PrevNode: s.mkV2Node(pkv), EtcdIndex: mkV2Rev(resp.Header.Revision)}, nil
 }
-
-func (s *v2v3Store) Create(
-	nodePath string,
-	dir bool,
-	value string,
-	unique bool,
-	expireOpts store.TTLOptionSet,
-) (*store.Event, error) {
+func (s *v2v3Store) Create(nodePath string, dir bool, value string, unique bool, expireOpts store.TTLOptionSet) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if isRoot(nodePath) {
 		return nil, etcdErr.NewError(etcdErr.EcodeRootROnly, nodePath, 0)
 	}
@@ -264,7 +197,6 @@ func (s *v2v3Store) Create(
 		ecode = 0
 		key := s.mkPath(nodePath)
 		if unique {
-			// append unique item under the node path
 			for {
 				key = nodePath + "/" + fmt.Sprintf("%020s", time.Now())
 				key = path.Clean(path.Join("/", key))
@@ -278,7 +210,6 @@ func (s *v2v3Store) Create(
 			ecode = etcdErr.EcodeNodeExist
 			return nil
 		}
-		// build path if any directories in path do not exist
 		dirs := []string{}
 		for p := path.Dir(nodePath); !isRoot(p); p = path.Dir(p) {
 			pp := s.mkPath(p)
@@ -293,16 +224,13 @@ func (s *v2v3Store) Create(
 		for _, d := range dirs {
 			stm.Put(d, "")
 		}
-
 		if dir {
-			// directories marked with extra slash in key name
 			key += "/"
 		}
 		stm.Put(key, value)
 		stm.Put(s.mkActionKey(), store.Create)
 		return nil
 	}
-
 	resp, err := s.newSTM(applyf)
 	if err != nil {
 		return nil, err
@@ -310,72 +238,35 @@ func (s *v2v3Store) Create(
 	if ecode != 0 {
 		return nil, etcdErr.NewError(ecode, nodePath, mkV2Rev(resp.Header.Revision))
 	}
-
 	var v *string
 	if !dir {
 		v = &value
 	}
-
-	return &store.Event{
-		Action: store.Create,
-		Node: &store.NodeExtern{
-			Key:           nodePath,
-			Value:         v,
-			Dir:           dir,
-			ModifiedIndex: mkV2Rev(resp.Header.Revision),
-			CreatedIndex:  mkV2Rev(resp.Header.Revision),
-		},
-		EtcdIndex: mkV2Rev(resp.Header.Revision),
-	}, nil
+	return &store.Event{Action: store.Create, Node: &store.NodeExtern{Key: nodePath, Value: v, Dir: dir, ModifiedIndex: mkV2Rev(resp.Header.Revision), CreatedIndex: mkV2Rev(resp.Header.Revision)}, EtcdIndex: mkV2Rev(resp.Header.Revision)}, nil
 }
-
-func (s *v2v3Store) CompareAndSwap(
-	nodePath string,
-	prevValue string,
-	prevIndex uint64,
-	value string,
-	expireOpts store.TTLOptionSet,
-) (*store.Event, error) {
+func (s *v2v3Store) CompareAndSwap(nodePath string, prevValue string, prevIndex uint64, value string, expireOpts store.TTLOptionSet) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if isRoot(nodePath) {
 		return nil, etcdErr.NewError(etcdErr.EcodeRootROnly, nodePath, 0)
 	}
 	if expireOpts.Refresh || !expireOpts.ExpireTime.IsZero() {
 		return nil, errUnsupported
 	}
-
 	key := s.mkPath(nodePath)
-	resp, err := s.c.Txn(s.ctx).If(
-		s.mkCompare(nodePath, prevValue, prevIndex)...,
-	).Then(
-		clientv3.OpPut(key, value, clientv3.WithPrevKV()),
-		clientv3.OpPut(s.mkActionKey(), store.CompareAndSwap),
-	).Else(
-		clientv3.OpGet(key),
-		clientv3.OpGet(key+"/"),
-	).Commit()
-
+	resp, err := s.c.Txn(s.ctx).If(s.mkCompare(nodePath, prevValue, prevIndex)...).Then(clientv3.OpPut(key, value, clientv3.WithPrevKV()), clientv3.OpPut(s.mkActionKey(), store.CompareAndSwap)).Else(clientv3.OpGet(key), clientv3.OpGet(key+"/")).Commit()
 	if err != nil {
 		return nil, err
 	}
 	if !resp.Succeeded {
 		return nil, compareFail(nodePath, prevValue, prevIndex, resp)
 	}
-
 	pkv := resp.Responses[0].GetResponsePut().PrevKv
-	return &store.Event{
-		Action: store.CompareAndSwap,
-		Node: &store.NodeExtern{
-			Key:           nodePath,
-			Value:         &value,
-			CreatedIndex:  mkV2Rev(pkv.CreateRevision),
-			ModifiedIndex: mkV2Rev(resp.Header.Revision),
-		},
-		PrevNode:  s.mkV2Node(pkv),
-		EtcdIndex: mkV2Rev(resp.Header.Revision),
-	}, nil
+	return &store.Event{Action: store.CompareAndSwap, Node: &store.NodeExtern{Key: nodePath, Value: &value, CreatedIndex: mkV2Rev(pkv.CreateRevision), ModifiedIndex: mkV2Rev(resp.Header.Revision)}, PrevNode: s.mkV2Node(pkv), EtcdIndex: mkV2Rev(resp.Header.Revision)}, nil
 }
-
 func (s *v2v3Store) Delete(nodePath string, dir, recursive bool) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if isRoot(nodePath) {
 		return nil, etcdErr.NewError(etcdErr.EcodeRootROnly, nodePath, 0)
 	}
@@ -385,20 +276,13 @@ func (s *v2v3Store) Delete(nodePath string, dir, recursive bool) (*store.Event, 
 	if !recursive {
 		return s.deleteEmptyDir(nodePath)
 	}
-
 	dels := make([]clientv3.Op, maxPathDepth+1)
 	dels[0] = clientv3.OpDelete(s.mkPath(nodePath)+"/", clientv3.WithPrevKV())
 	for i := 1; i < maxPathDepth; i++ {
 		dels[i] = clientv3.OpDelete(s.mkPathDepth(nodePath, i), clientv3.WithPrefix())
 	}
 	dels[maxPathDepth] = clientv3.OpPut(s.mkActionKey(), store.Delete)
-
-	resp, err := s.c.Txn(s.ctx).If(
-		clientv3.Compare(clientv3.Version(s.mkPath(nodePath)+"/"), ">", 0),
-		clientv3.Compare(clientv3.Version(s.mkPathDepth(nodePath, maxPathDepth)+"/"), "=", 0),
-	).Then(
-		dels...,
-	).Commit()
+	resp, err := s.c.Txn(s.ctx).If(clientv3.Compare(clientv3.Version(s.mkPath(nodePath)+"/"), ">", 0), clientv3.Compare(clientv3.Version(s.mkPathDepth(nodePath, maxPathDepth)+"/"), "=", 0)).Then(dels...).Commit()
 	if err != nil {
 		return nil, err
 	}
@@ -406,20 +290,12 @@ func (s *v2v3Store) Delete(nodePath string, dir, recursive bool) (*store.Event, 
 		return nil, etcdErr.NewError(etcdErr.EcodeNodeExist, nodePath, mkV2Rev(resp.Header.Revision))
 	}
 	dresp := resp.Responses[0].GetResponseDeleteRange()
-	return &store.Event{
-		Action:    store.Delete,
-		PrevNode:  s.mkV2Node(dresp.PrevKvs[0]),
-		EtcdIndex: mkV2Rev(resp.Header.Revision),
-	}, nil
+	return &store.Event{Action: store.Delete, PrevNode: s.mkV2Node(dresp.PrevKvs[0]), EtcdIndex: mkV2Rev(resp.Header.Revision)}, nil
 }
-
 func (s *v2v3Store) deleteEmptyDir(nodePath string) (*store.Event, error) {
-	resp, err := s.c.Txn(s.ctx).If(
-		clientv3.Compare(clientv3.Version(s.mkPathDepth(nodePath, 1)), "=", 0).WithPrefix(),
-	).Then(
-		clientv3.OpDelete(s.mkPath(nodePath)+"/", clientv3.WithPrevKV()),
-		clientv3.OpPut(s.mkActionKey(), store.Delete),
-	).Commit()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	resp, err := s.c.Txn(s.ctx).If(clientv3.Compare(clientv3.Version(s.mkPathDepth(nodePath, 1)), "=", 0).WithPrefix()).Then(clientv3.OpDelete(s.mkPath(nodePath)+"/", clientv3.WithPrevKV()), clientv3.OpPut(s.mkActionKey(), store.Delete)).Commit()
 	if err != nil {
 		return nil, err
 	}
@@ -430,20 +306,12 @@ func (s *v2v3Store) deleteEmptyDir(nodePath string) (*store.Event, error) {
 	if len(dresp.PrevKvs) == 0 {
 		return nil, etcdErr.NewError(etcdErr.EcodeNodeExist, nodePath, mkV2Rev(resp.Header.Revision))
 	}
-	return &store.Event{
-		Action:    store.Delete,
-		PrevNode:  s.mkV2Node(dresp.PrevKvs[0]),
-		EtcdIndex: mkV2Rev(resp.Header.Revision),
-	}, nil
+	return &store.Event{Action: store.Delete, PrevNode: s.mkV2Node(dresp.PrevKvs[0]), EtcdIndex: mkV2Rev(resp.Header.Revision)}, nil
 }
-
 func (s *v2v3Store) deleteNode(nodePath string) (*store.Event, error) {
-	resp, err := s.c.Txn(s.ctx).If(
-		clientv3.Compare(clientv3.Version(s.mkPath(nodePath)+"/"), "=", 0),
-	).Then(
-		clientv3.OpDelete(s.mkPath(nodePath), clientv3.WithPrevKV()),
-		clientv3.OpPut(s.mkActionKey(), store.Delete),
-	).Commit()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	resp, err := s.c.Txn(s.ctx).If(clientv3.Compare(clientv3.Version(s.mkPath(nodePath)+"/"), "=", 0)).Then(clientv3.OpDelete(s.mkPath(nodePath), clientv3.WithPrevKV()), clientv3.OpPut(s.mkActionKey(), store.Delete)).Commit()
 	if err != nil {
 		return nil, err
 	}
@@ -455,56 +323,28 @@ func (s *v2v3Store) deleteNode(nodePath string) (*store.Event, error) {
 		return nil, etcdErr.NewError(etcdErr.EcodeKeyNotFound, nodePath, mkV2Rev(resp.Header.Revision))
 	}
 	pkv := pkvs[0]
-	return &store.Event{
-		Action: store.Delete,
-		Node: &store.NodeExtern{
-			Key:           nodePath,
-			CreatedIndex:  mkV2Rev(pkv.CreateRevision),
-			ModifiedIndex: mkV2Rev(resp.Header.Revision),
-		},
-		PrevNode:  s.mkV2Node(pkv),
-		EtcdIndex: mkV2Rev(resp.Header.Revision),
-	}, nil
+	return &store.Event{Action: store.Delete, Node: &store.NodeExtern{Key: nodePath, CreatedIndex: mkV2Rev(pkv.CreateRevision), ModifiedIndex: mkV2Rev(resp.Header.Revision)}, PrevNode: s.mkV2Node(pkv), EtcdIndex: mkV2Rev(resp.Header.Revision)}, nil
 }
-
 func (s *v2v3Store) CompareAndDelete(nodePath, prevValue string, prevIndex uint64) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if isRoot(nodePath) {
 		return nil, etcdErr.NewError(etcdErr.EcodeRootROnly, nodePath, 0)
 	}
-
 	key := s.mkPath(nodePath)
-	resp, err := s.c.Txn(s.ctx).If(
-		s.mkCompare(nodePath, prevValue, prevIndex)...,
-	).Then(
-		clientv3.OpDelete(key, clientv3.WithPrevKV()),
-		clientv3.OpPut(s.mkActionKey(), store.CompareAndDelete),
-	).Else(
-		clientv3.OpGet(key),
-		clientv3.OpGet(key+"/"),
-	).Commit()
-
+	resp, err := s.c.Txn(s.ctx).If(s.mkCompare(nodePath, prevValue, prevIndex)...).Then(clientv3.OpDelete(key, clientv3.WithPrevKV()), clientv3.OpPut(s.mkActionKey(), store.CompareAndDelete)).Else(clientv3.OpGet(key), clientv3.OpGet(key+"/")).Commit()
 	if err != nil {
 		return nil, err
 	}
 	if !resp.Succeeded {
 		return nil, compareFail(nodePath, prevValue, prevIndex, resp)
 	}
-
-	// len(pkvs) > 1 since txn only succeeds when key exists
 	pkv := resp.Responses[0].GetResponseDeleteRange().PrevKvs[0]
-	return &store.Event{
-		Action: store.CompareAndDelete,
-		Node: &store.NodeExtern{
-			Key:           nodePath,
-			CreatedIndex:  mkV2Rev(pkv.CreateRevision),
-			ModifiedIndex: mkV2Rev(resp.Header.Revision),
-		},
-		PrevNode:  s.mkV2Node(pkv),
-		EtcdIndex: mkV2Rev(resp.Header.Revision),
-	}, nil
+	return &store.Event{Action: store.CompareAndDelete, Node: &store.NodeExtern{Key: nodePath, CreatedIndex: mkV2Rev(pkv.CreateRevision), ModifiedIndex: mkV2Rev(resp.Header.Revision)}, PrevNode: s.mkV2Node(pkv), EtcdIndex: mkV2Rev(resp.Header.Revision)}, nil
 }
-
 func compareFail(nodePath, prevValue string, prevIndex uint64, resp *clientv3.TxnResponse) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if dkvs := resp.Responses[1].GetResponseRange().Kvs; len(dkvs) > 0 {
 		return etcdErr.NewError(etcdErr.EcodeNotFile, nodePath, mkV2Rev(resp.Header.Revision))
 	}
@@ -526,8 +366,9 @@ func compareFail(nodePath, prevValue string, prevIndex uint64, resp *clientv3.Tx
 	}
 	return etcdErr.NewError(etcdErr.EcodeTestFailed, cause, mkV2Rev(resp.Header.Revision))
 }
-
 func (s *v2v3Store) mkCompare(nodePath, prevValue string, prevIndex uint64) []clientv3.Cmp {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := s.mkPath(nodePath)
 	cmps := []clientv3.Cmp{clientv3.Compare(clientv3.Version(key), ">", 0)}
 	if prevIndex != 0 {
@@ -538,74 +379,105 @@ func (s *v2v3Store) mkCompare(nodePath, prevValue string, prevIndex uint64) []cl
 	}
 	return cmps
 }
-
-func (s *v2v3Store) JsonStats() []byte                  { panic("STUB") }
-func (s *v2v3Store) DeleteExpiredKeys(cutoff time.Time) { panic("STUB") }
-
-func (s *v2v3Store) Version() int { return 2 }
-
-// TODO: move this out of the Store interface?
-
-func (s *v2v3Store) Save() ([]byte, error)       { panic("STUB") }
-func (s *v2v3Store) Recovery(state []byte) error { panic("STUB") }
-func (s *v2v3Store) Clone() store.Store          { panic("STUB") }
-func (s *v2v3Store) SaveNoCopy() ([]byte, error) { panic("STUB") }
-func (s *v2v3Store) HasTTLKeys() bool            { panic("STUB") }
-
-func (s *v2v3Store) mkPath(nodePath string) string { return s.mkPathDepth(nodePath, 0) }
-
+func (s *v2v3Store) JsonStats() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	panic("STUB")
+}
+func (s *v2v3Store) DeleteExpiredKeys(cutoff time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	panic("STUB")
+}
+func (s *v2v3Store) Version() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return 2
+}
+func (s *v2v3Store) Save() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	panic("STUB")
+}
+func (s *v2v3Store) Recovery(state []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	panic("STUB")
+}
+func (s *v2v3Store) Clone() store.Store {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	panic("STUB")
+}
+func (s *v2v3Store) SaveNoCopy() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	panic("STUB")
+}
+func (s *v2v3Store) HasTTLKeys() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	panic("STUB")
+}
+func (s *v2v3Store) mkPath(nodePath string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return s.mkPathDepth(nodePath, 0)
+}
 func (s *v2v3Store) mkNodePath(p string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return path.Clean(p[len(s.pfx)+len("/k/000/"):])
 }
-
-// mkPathDepth makes a path to a key that encodes its directory depth
-// for fast directory listing. If a depth is provided, it is added
-// to the computed depth.
 func (s *v2v3Store) mkPathDepth(nodePath string, depth int) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	normalForm := path.Clean(path.Join("/", nodePath))
 	n := strings.Count(normalForm, "/") + depth
 	return fmt.Sprintf("%s/%03d/k/%s", s.pfx, n, normalForm)
 }
-
-func (s *v2v3Store) mkActionKey() string { return s.pfx + "/act" }
-
-func isRoot(s string) bool { return len(s) == 0 || s == "/" || s == "/0" || s == "/1" }
-
+func (s *v2v3Store) mkActionKey() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return s.pfx + "/act"
+}
+func isRoot(s string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return len(s) == 0 || s == "/" || s == "/0" || s == "/1"
+}
 func mkV2Rev(v3Rev int64) uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if v3Rev == 0 {
 		return 0
 	}
 	return uint64(v3Rev - 1)
 }
-
 func mkV3Rev(v2Rev uint64) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if v2Rev == 0 {
 		return 0
 	}
 	return int64(v2Rev + 1)
 }
-
-// mkV2Node creates a V2 NodeExtern from a V3 KeyValue
 func (s *v2v3Store) mkV2Node(kv *mvccpb.KeyValue) *store.NodeExtern {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if kv == nil {
 		return nil
 	}
-	n := &store.NodeExtern{
-		Key:           string(s.mkNodePath(string(kv.Key))),
-		Dir:           kv.Key[len(kv.Key)-1] == '/',
-		CreatedIndex:  mkV2Rev(kv.CreateRevision),
-		ModifiedIndex: mkV2Rev(kv.ModRevision),
-	}
+	n := &store.NodeExtern{Key: string(s.mkNodePath(string(kv.Key))), Dir: kv.Key[len(kv.Key)-1] == '/', CreatedIndex: mkV2Rev(kv.CreateRevision), ModifiedIndex: mkV2Rev(kv.ModRevision)}
 	if !n.Dir {
 		v := string(kv.Value)
 		n.Value = &v
 	}
 	return n
 }
-
-// prevKeyFromPuts gets the prev key that is being put; ignores
-// the put action response.
 func prevKeyFromPuts(resp *clientv3.TxnResponse) *mvccpb.KeyValue {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, r := range resp.Responses {
 		pkv := r.GetResponsePut().PrevKv
 		if pkv != nil && pkv.CreateRevision > 0 {
@@ -614,7 +486,8 @@ func prevKeyFromPuts(resp *clientv3.TxnResponse) *mvccpb.KeyValue {
 	}
 	return nil
 }
-
 func (s *v2v3Store) newSTM(applyf func(concurrency.STM) error) (*clientv3.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return concurrency.NewSTM(s.c, applyf, concurrency.WithIsolation(concurrency.Serializable))
 }

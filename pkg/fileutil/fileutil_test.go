@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package fileutil
 
 import (
@@ -27,6 +13,8 @@ import (
 )
 
 func TestIsDirWriteable(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tmpdir, err := ioutil.TempDir("", "")
 	if err != nil {
 		t.Fatalf("unexpected ioutil.TempDir error: %v", err)
@@ -40,22 +28,18 @@ func TestIsDirWriteable(t *testing.T) {
 	}
 	me, err := user.Current()
 	if err != nil {
-		// err can be non-nil when cross compiled
-		// http://stackoverflow.com/questions/20609415/cross-compiling-user-current-not-implemented-on-linux-amd64
 		t.Skipf("failed to get current user: %v", err)
 	}
 	if me.Name == "root" || runtime.GOOS == "windows" {
-		// ideally we should check CAP_DAC_OVERRIDE.
-		// but it does not matter for tests.
-		// Chmod is not supported under windows.
 		t.Skipf("running as a superuser or in windows")
 	}
 	if err := IsDirWriteable(tmpdir); err == nil {
 		t.Fatalf("expected IsDirWriteable to error")
 	}
 }
-
 func TestReadDir(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tmpdir, err := ioutil.TempDir("", "")
 	defer os.RemoveAll(tmpdir)
 	if err != nil {
@@ -81,57 +65,52 @@ func TestReadDir(t *testing.T) {
 		t.Fatalf("ReadDir: got %v, want %v", fs, wfs)
 	}
 }
-
 func TestCreateDirAll(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tmpdir, err := ioutil.TempDir(os.TempDir(), "foo")
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer os.RemoveAll(tmpdir)
-
 	tmpdir2 := filepath.Join(tmpdir, "testdir")
 	if err = CreateDirAll(tmpdir2); err != nil {
 		t.Fatal(err)
 	}
-
 	if err = ioutil.WriteFile(filepath.Join(tmpdir2, "text.txt"), []byte("test text"), PrivateFileMode); err != nil {
 		t.Fatal(err)
 	}
-
 	if err = CreateDirAll(tmpdir2); err == nil || !strings.Contains(err.Error(), "to be empty, got") {
 		t.Fatalf("unexpected error %v", err)
 	}
 }
-
 func TestExist(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f, err := ioutil.TempFile(os.TempDir(), "fileutil")
 	if err != nil {
 		t.Fatal(err)
 	}
 	f.Close()
-
 	if g := Exist(f.Name()); !g {
 		t.Errorf("exist = %v, want true", g)
 	}
-
 	os.Remove(f.Name())
 	if g := Exist(f.Name()); g {
 		t.Errorf("exist = %v, want false", g)
 	}
 }
-
 func TestZeroToEnd(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f, err := ioutil.TempFile(os.TempDir(), "fileutil")
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer f.Close()
-
-	// Ensure 0 size is a nop so zero-to-end on an empty file won't give EINVAL.
 	if err = ZeroToEnd(f); err != nil {
 		t.Fatal(err)
 	}
-
 	b := make([]byte, 1024)
 	for i := range b {
 		b[i] = 12
@@ -152,7 +131,6 @@ func TestZeroToEnd(t *testing.T) {
 	if off != 512 {
 		t.Fatalf("expected offset 512, got %d", off)
 	}
-
 	b = make([]byte, 512)
 	if _, err = f.Read(b); err != nil {
 		t.Fatal(err)

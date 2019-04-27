@@ -1,17 +1,3 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package e2e
 
 import (
@@ -19,23 +5,44 @@ import (
 	"math/rand"
 	"strings"
 	"testing"
-
 	"github.com/coreos/etcd/pkg/testutil"
 )
 
-func TestV2CurlNoTLS(t *testing.T)      { testCurlPutGet(t, &configNoTLS) }
-func TestV2CurlAutoTLS(t *testing.T)    { testCurlPutGet(t, &configAutoTLS) }
-func TestV2CurlAllTLS(t *testing.T)     { testCurlPutGet(t, &configTLS) }
-func TestV2CurlPeerTLS(t *testing.T)    { testCurlPutGet(t, &configPeerTLS) }
-func TestV2CurlClientTLS(t *testing.T)  { testCurlPutGet(t, &configClientTLS) }
-func TestV2CurlClientBoth(t *testing.T) { testCurlPutGet(t, &configClientBoth) }
+func TestV2CurlNoTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	testCurlPutGet(t, &configNoTLS)
+}
+func TestV2CurlAutoTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	testCurlPutGet(t, &configAutoTLS)
+}
+func TestV2CurlAllTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	testCurlPutGet(t, &configTLS)
+}
+func TestV2CurlPeerTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	testCurlPutGet(t, &configPeerTLS)
+}
+func TestV2CurlClientTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	testCurlPutGet(t, &configClientTLS)
+}
+func TestV2CurlClientBoth(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	testCurlPutGet(t, &configClientBoth)
+}
 func testCurlPutGet(t *testing.T, cfg *etcdProcessClusterConfig) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
-
-	// test doesn't use quorum gets, so ensure there are no followers to avoid
-	// stale reads that will break the test
 	cfg = configStandalone(*cfg)
-
 	epc, err := newEtcdProcessCluster(cfg)
 	if err != nil {
 		t.Fatalf("could not start etcd process cluster (%v)", err)
@@ -45,10 +52,9 @@ func testCurlPutGet(t *testing.T, cfg *etcdProcessClusterConfig) {
 			t.Fatalf("error closing etcd processes (%v)", err)
 		}
 	}()
-
 	var (
-		expectPut = `{"action":"set","node":{"key":"/foo","value":"bar","`
-		expectGet = `{"action":"get","node":{"key":"/foo","value":"bar","`
+		expectPut	= `{"action":"set","node":{"key":"/foo","value":"bar","`
+		expectGet	= `{"action":"get","node":{"key":"/foo","value":"bar","`
 	)
 	if err := cURLPut(epc, cURLReq{endpoint: "/v2/keys/foo", value: "bar", expected: expectPut}); err != nil {
 		t.Fatalf("failed put with curl (%v)", err)
@@ -62,22 +68,20 @@ func testCurlPutGet(t *testing.T, cfg *etcdProcessClusterConfig) {
 		}
 	}
 }
-
 func TestV2CurlIssue5182(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
-
 	epc := setupEtcdctlTest(t, &configNoTLS, false)
 	defer func() {
 		if err := epc.Close(); err != nil {
 			t.Fatalf("error closing etcd processes (%v)", err)
 		}
 	}()
-
 	expectPut := `{"action":"set","node":{"key":"/foo","value":"bar","`
 	if err := cURLPut(epc, cURLReq{endpoint: "/v2/keys/foo", value: "bar", expected: expectPut}); err != nil {
 		t.Fatal(err)
 	}
-
 	expectUserAdd := `{"user":"foo","roles":null}`
 	if err := cURLPut(epc, cURLReq{endpoint: "/v2/auth/users/foo", value: `{"user":"foo", "password":"pass"}`, expected: expectUserAdd}); err != nil {
 		t.Fatal(err)
@@ -90,14 +94,12 @@ func TestV2CurlIssue5182(t *testing.T) {
 	if err := cURLPut(epc, cURLReq{endpoint: "/v2/auth/users/foo", value: `{"user": "foo", "grant": ["foo"]}`, expected: expectUserUpdate}); err != nil {
 		t.Fatal(err)
 	}
-
 	if err := etcdctlUserAdd(epc, "root", "a"); err != nil {
 		t.Fatal(err)
 	}
 	if err := etcdctlAuthEnable(epc); err != nil {
 		t.Fatal(err)
 	}
-
 	if err := cURLGet(epc, cURLReq{endpoint: "/v2/keys/foo/", username: "root", password: "a", expected: "bar"}); err != nil {
 		t.Fatal(err)
 	}
@@ -114,29 +116,24 @@ func TestV2CurlIssue5182(t *testing.T) {
 }
 
 type cURLReq struct {
-	username string
-	password string
-
-	isTLS   bool
-	timeout int
-
-	endpoint string
-
-	value    string
-	expected string
-	header   string
-
-	metricsURLScheme string
-
-	ciphers string
+	username		string
+	password		string
+	isTLS			bool
+	timeout			int
+	endpoint		string
+	value			string
+	expected		string
+	header			string
+	metricsURLScheme	string
+	ciphers			string
 }
 
-// cURLPrefixArgs builds the beginning of a curl command for a given key
-// addressed to a random URL in the given cluster.
 func cURLPrefixArgs(clus *etcdProcessCluster, method string, req cURLReq) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var (
-		cmdArgs = []string{"curl"}
-		acurl   = clus.procs[rand.Intn(clus.cfg.clusterSize)].Config().acurl
+		cmdArgs	= []string{"curl"}
+		acurl	= clus.procs[rand.Intn(clus.cfg.clusterSize)].Config().acurl
 	)
 	if req.metricsURLScheme != "https" {
 		if req.isTLS {
@@ -153,7 +150,6 @@ func cURLPrefixArgs(clus *etcdProcessCluster, method string, req cURLReq) []stri
 		acurl = clus.procs[rand.Intn(clus.cfg.clusterSize)].EndpointsMetrics()[0]
 	}
 	ep := acurl + req.endpoint
-
 	if req.username != "" || req.password != "" {
 		cmdArgs = append(cmdArgs, "-L", "-u", fmt.Sprintf("%s:%s", req.username, req.password), ep)
 	} else {
@@ -162,34 +158,34 @@ func cURLPrefixArgs(clus *etcdProcessCluster, method string, req cURLReq) []stri
 	if req.timeout != 0 {
 		cmdArgs = append(cmdArgs, "-m", fmt.Sprintf("%d", req.timeout))
 	}
-
 	if req.header != "" {
 		cmdArgs = append(cmdArgs, "-H", req.header)
 	}
-
 	if req.ciphers != "" {
 		cmdArgs = append(cmdArgs, "--ciphers", req.ciphers)
 	}
-
 	switch method {
 	case "POST", "PUT":
 		dt := req.value
-		if !strings.HasPrefix(dt, "{") { // for non-JSON value
+		if !strings.HasPrefix(dt, "{") {
 			dt = "value=" + dt
 		}
 		cmdArgs = append(cmdArgs, "-X", method, "-d", dt)
 	}
 	return cmdArgs
 }
-
 func cURLPost(clus *etcdProcessCluster, req cURLReq) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return spawnWithExpect(cURLPrefixArgs(clus, "POST", req), req.expected)
 }
-
 func cURLPut(clus *etcdProcessCluster, req cURLReq) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return spawnWithExpect(cURLPrefixArgs(clus, "PUT", req), req.expected)
 }
-
 func cURLGet(clus *etcdProcessCluster, req cURLReq) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return spawnWithExpect(cURLPrefixArgs(clus, "GET", req), req.expected)
 }
