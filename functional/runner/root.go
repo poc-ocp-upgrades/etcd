@@ -20,6 +20,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cobra.EnablePrefixMatching = true
 	rand.Seed(time.Now().UnixNano())
 	log.SetFlags(log.Lmicroseconds)
@@ -30,6 +32,8 @@ func init() {
 	rootCmd.AddCommand(NewElectionCommand(), NewLeaseRenewerCommand(), NewLockRacerCommand(), NewWatchCommand())
 }
 func Start() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rootCmd.SetUsageFunc(usageFunc)

@@ -12,6 +12,8 @@ import (
 func TestRevision(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fc := clockwork.NewFakeClock()
 	rg := &fakeRevGetter{testutil.NewRecorderStream(), 0}
 	compactable := &fakeCompactable{testutil.NewRecorderStream()}
@@ -46,6 +48,8 @@ func TestRevision(t *testing.T) {
 	}
 }
 func TestRevisionPause(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fc := clockwork.NewFakeClock()

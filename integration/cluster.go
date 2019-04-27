@@ -84,12 +84,16 @@ type cluster struct {
 func schemeFromTLSInfo(tls *transport.TLSInfo) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if tls == nil {
 		return UrlScheme
 	}
 	return UrlSchemeTLS
 }
 func (c *cluster) fillClusterForMembers() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.cfg.DiscoveryURL != "" {
@@ -115,6 +119,8 @@ func (c *cluster) fillClusterForMembers() error {
 func newCluster(t *testing.T, cfg *ClusterConfig) *cluster {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &cluster{cfg: cfg}
 	ms := make([]*member, cfg.Size)
 	for i := 0; i < cfg.Size; i++ {
@@ -129,14 +135,20 @@ func newCluster(t *testing.T, cfg *ClusterConfig) *cluster {
 func NewCluster(t *testing.T, size int) *cluster {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newCluster(t, &ClusterConfig{Size: size})
 }
 func NewClusterByConfig(t *testing.T, cfg *ClusterConfig) *cluster {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newCluster(t, cfg)
 }
 func (c *cluster) Launch(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	errc := make(chan error)
@@ -156,14 +168,20 @@ func (c *cluster) Launch(t *testing.T) {
 func (c *cluster) URL(i int) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.Members[i].ClientURLs[0].String()
 }
 func (c *cluster) URLs() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getMembersURLs(c.Members)
 }
 func getMembersURLs(members []*member) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	urls := make([]string, 0)
@@ -180,6 +198,8 @@ func getMembersURLs(members []*member) []string {
 	return urls
 }
 func (c *cluster) HTTPMembers() []client.Member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ms := []client.Member{}
@@ -200,6 +220,8 @@ func (c *cluster) HTTPMembers() []client.Member {
 func (c *cluster) mustNewMember(t *testing.T) *member {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := mustNewMember(t, memberConfig{name: c.name(rand.Int()), peerTLS: c.cfg.PeerTLS, clientTLS: c.cfg.ClientTLS, quotaBackendBytes: c.cfg.QuotaBackendBytes, maxTxnOps: c.cfg.MaxTxnOps, maxRequestBytes: c.cfg.MaxRequestBytes, grpcKeepAliveMinTime: c.cfg.GRPCKeepAliveMinTime, grpcKeepAliveInterval: c.cfg.GRPCKeepAliveInterval, grpcKeepAliveTimeout: c.cfg.GRPCKeepAliveTimeout, clientMaxCallSendMsgSize: c.cfg.ClientMaxCallSendMsgSize, clientMaxCallRecvMsgSize: c.cfg.ClientMaxCallRecvMsgSize})
 	m.DiscoveryURL = c.cfg.DiscoveryURL
 	if c.cfg.UseGRPC {
@@ -210,6 +232,8 @@ func (c *cluster) mustNewMember(t *testing.T) *member {
 	return m
 }
 func (c *cluster) addMember(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := c.mustNewMember(t)
@@ -240,6 +264,8 @@ func (c *cluster) addMember(t *testing.T) {
 func (c *cluster) addMemberByURL(t *testing.T, clientURL, peerURL string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cc := MustNewHTTPClient(t, []string{clientURL}, c.cfg.ClientTLS)
 	ma := client.NewMembersAPI(cc)
 	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
@@ -255,9 +281,13 @@ func (c *cluster) addMemberByURL(t *testing.T, clientURL, peerURL string) error 
 func (c *cluster) AddMember(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.addMember(t)
 }
 func (c *cluster) RemoveMember(t *testing.T, id uint64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := c.removeMember(t, id); err != nil {
@@ -265,6 +295,8 @@ func (c *cluster) RemoveMember(t *testing.T, id uint64) {
 	}
 }
 func (c *cluster) removeMember(t *testing.T, id uint64) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cc := MustNewHTTPClient(t, c.URLs(), c.cfg.ClientTLS)
@@ -295,6 +327,8 @@ func (c *cluster) removeMember(t *testing.T, id uint64) error {
 func (c *cluster) Terminate(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var wg sync.WaitGroup
 	wg.Add(len(c.Members))
 	for _, m := range c.Members {
@@ -306,6 +340,8 @@ func (c *cluster) Terminate(t *testing.T) {
 	wg.Wait()
 }
 func (c *cluster) waitMembersMatch(t *testing.T, membs []client.Member) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, u := range c.URLs() {
@@ -325,9 +361,13 @@ func (c *cluster) waitMembersMatch(t *testing.T, membs []client.Member) {
 func (c *cluster) WaitLeader(t *testing.T) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.waitLeader(t, c.Members)
 }
 func (c *cluster) waitLeader(t *testing.T, membs []*member) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	possibleLead := make(map[uint64]bool)
@@ -371,9 +411,13 @@ func (c *cluster) waitLeader(t *testing.T, membs []*member) int {
 func (c *cluster) WaitNoLeader(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.waitNoLeader(t, c.Members)
 }
 func (c *cluster) waitNoLeader(t *testing.T, membs []*member) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	noLeader := false
@@ -396,6 +440,8 @@ func (c *cluster) waitNoLeader(t *testing.T, membs []*member) {
 func (c *cluster) waitVersion() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, m := range c.Members {
 		for {
 			if m.s.ClusterVersion() != nil {
@@ -408,9 +454,13 @@ func (c *cluster) waitVersion() {
 func (c *cluster) name(i int) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprint(i)
 }
 func isMembersEqual(membs []client.Member, wmembs []client.Member) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sort.Sort(SortableMemberSliceByPeerURLs(membs))
@@ -423,11 +473,15 @@ func isMembersEqual(membs []client.Member, wmembs []client.Member) bool {
 func newLocalListener(t *testing.T) net.Listener {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := atomic.AddInt64(&localListenCount, 1)
 	addr := fmt.Sprintf("127.0.0.1:%05d%05d", c+basePort, os.Getpid())
 	return NewListenerWithAddr(t, addr)
 }
 func NewListenerWithAddr(t *testing.T, addr string) net.Listener {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l, err := transport.NewUnixListener(addr)
@@ -460,6 +514,8 @@ type member struct {
 func (m *member) GRPCAddr() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.grpcAddr
 }
 
@@ -478,6 +534,8 @@ type memberConfig struct {
 }
 
 func mustNewMember(t *testing.T, mcfg memberConfig) *member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -542,6 +600,8 @@ func mustNewMember(t *testing.T, mcfg memberConfig) *member {
 func (m *member) listenGRPC() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.grpcAddr = "localhost:" + m.Name
 	l, err := transport.NewUnixListener(m.grpcAddr)
 	if err != nil {
@@ -559,9 +619,13 @@ func (m *member) listenGRPC() error {
 func (m *member) ElectionTimeout() time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return time.Duration(m.s.Cfg.ElectionTicks*int(m.s.Cfg.TickMs)) * time.Millisecond
 }
 func (m *member) ID() types.ID {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return m.s.ID()
@@ -569,9 +633,13 @@ func (m *member) ID() types.ID {
 func (m *member) DropConnections() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.grpcBridge.Reset()
 }
 func (m *member) PauseConnections() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.grpcBridge.Pause()
@@ -579,9 +647,13 @@ func (m *member) PauseConnections() {
 func (m *member) UnpauseConnections() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.grpcBridge.Unpause()
 }
 func (m *member) Blackhole() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.grpcBridge.Blackhole()
@@ -589,9 +661,13 @@ func (m *member) Blackhole() {
 func (m *member) Unblackhole() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.grpcBridge.Unblackhole()
 }
 func NewClientV3(m *member) (*clientv3.Client, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m.grpcAddr == "" {
@@ -608,6 +684,8 @@ func NewClientV3(m *member) (*clientv3.Client, error) {
 	return newClientV3(cfg)
 }
 func (m *member) Clone(t *testing.T) *member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mm := &member{}
@@ -635,6 +713,8 @@ func (m *member) Clone(t *testing.T) *member {
 	return mm
 }
 func (m *member) Launch() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	plog.Printf("launching %s (%s)", m.Name, m.grpcAddr)
@@ -736,6 +816,8 @@ func (m *member) Launch() error {
 func (m *member) WaitOK(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cc := MustNewHTTPClient(t, []string{m.URL()}, m.ClientTLSInfo)
 	kapi := client.NewKeysAPI(cc)
 	for {
@@ -755,9 +837,13 @@ func (m *member) WaitOK(t *testing.T) {
 func (m *member) URL() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.ClientURLs[0].String()
 }
 func (m *member) Pause() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.raftHandler.Pause()
@@ -766,10 +852,14 @@ func (m *member) Pause() {
 func (m *member) Resume() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.raftHandler.Resume()
 	m.s.ResumeSending()
 }
 func (m *member) Close() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m.grpcBridge != nil {
@@ -796,12 +886,16 @@ func (m *member) Close() {
 func (m *member) Stop(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	plog.Printf("stopping %s (%s)", m.Name, m.grpcAddr)
 	m.Close()
 	m.serverClosers = nil
 	plog.Printf("stopped %s (%s)", m.Name, m.grpcAddr)
 }
 func checkLeaderTransition(t *testing.T, m *member, oldLead uint64) uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	interval := time.Duration(m.s.Cfg.TickMs) * time.Millisecond
@@ -813,9 +907,13 @@ func checkLeaderTransition(t *testing.T, m *member, oldLead uint64) uint64 {
 func (m *member) StopNotify() <-chan struct{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.s.StopNotify()
 }
 func (m *member) Restart(t *testing.T) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	plog.Printf("restarting %s (%s)", m.Name, m.grpcAddr)
@@ -841,6 +939,8 @@ func (m *member) Restart(t *testing.T) error {
 func (m *member) Terminate(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	plog.Printf("terminating %s (%s)", m.Name, m.grpcAddr)
 	m.Close()
 	if !m.keepDataDirTerminate {
@@ -851,6 +951,8 @@ func (m *member) Terminate(t *testing.T) {
 	plog.Printf("terminated %s (%s)", m.Name, m.grpcAddr)
 }
 func (m *member) Metric(metricName string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfgtls := transport.TLSInfo{}
@@ -879,6 +981,8 @@ func (m *member) Metric(metricName string) (string, error) {
 func (m *member) InjectPartition(t *testing.T, others ...*member) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, other := range others {
 		m.s.CutPeer(other.s.ID())
 		other.s.CutPeer(m.s.ID())
@@ -887,12 +991,16 @@ func (m *member) InjectPartition(t *testing.T, others ...*member) {
 func (m *member) RecoverPartition(t *testing.T, others ...*member) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, other := range others {
 		m.s.MendPeer(other.s.ID())
 		other.s.MendPeer(m.s.ID())
 	}
 }
 func MustNewHTTPClient(t *testing.T, eps []string, tls *transport.TLSInfo) client.Client {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfgtls := transport.TLSInfo{}
@@ -909,6 +1017,8 @@ func MustNewHTTPClient(t *testing.T, eps []string, tls *transport.TLSInfo) clien
 func mustNewTransport(t *testing.T, tlsInfo transport.TLSInfo) *http.Transport {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tr, err := transport.NewTimeoutTransport(tlsInfo, time.Second, rafthttp.ConnReadTimeout, rafthttp.ConnWriteTimeout)
 	if err != nil {
 		t.Fatal(err)
@@ -921,14 +1031,20 @@ type SortableMemberSliceByPeerURLs []client.Member
 func (p SortableMemberSliceByPeerURLs) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(p)
 }
 func (p SortableMemberSliceByPeerURLs) Less(i, j int) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return p[i].PeerURLs[0] < p[j].PeerURLs[0]
 }
 func (p SortableMemberSliceByPeerURLs) Swap(i, j int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p[i], p[j] = p[j], p[i]
@@ -941,6 +1057,8 @@ type ClusterV3 struct {
 }
 
 func NewClusterV3(t *testing.T, cfg *ClusterConfig) *ClusterV3 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfg.UseGRPC = true
@@ -963,11 +1081,15 @@ func NewClusterV3(t *testing.T, cfg *ClusterConfig) *ClusterV3 {
 func (c *ClusterV3) TakeClient(idx int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.mu.Lock()
 	c.clients[idx] = nil
 	c.mu.Unlock()
 }
 func (c *ClusterV3) Terminate(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.mu.Lock()
@@ -985,9 +1107,13 @@ func (c *ClusterV3) Terminate(t *testing.T) {
 func (c *ClusterV3) RandClient() *clientv3.Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.clients[rand.Intn(len(c.clients))]
 }
 func (c *ClusterV3) Client(i int) *clientv3.Client {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return c.clients[i]

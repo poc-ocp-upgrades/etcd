@@ -16,6 +16,8 @@ import (
 func TestDetectKvOrderViolation(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var errOrderViolation = errors.New("Detected Order Violation")
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
@@ -55,6 +57,8 @@ func TestDetectKvOrderViolation(t *testing.T) {
 	}
 }
 func TestDetectTxnOrderViolation(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var errOrderViolation = errors.New("Detected Order Violation")
@@ -109,6 +113,8 @@ type mockKV struct {
 func (kv *mockKV) Do(ctx gContext.Context, op clientv3.Op) (clientv3.OpResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return kv.response, nil
 }
 
@@ -118,6 +124,8 @@ var rangeTests = []struct {
 }{{5, &clientv3.GetResponse{Header: &pb.ResponseHeader{Revision: 5}}}, {5, &clientv3.GetResponse{Header: &pb.ResponseHeader{Revision: 4}}}, {5, &clientv3.GetResponse{Header: &pb.ResponseHeader{Revision: 6}}}}
 
 func TestKvOrdering(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i, tt := range rangeTests {
@@ -144,6 +152,8 @@ var txnTests = []struct {
 }{{5, &clientv3.TxnResponse{Header: &pb.ResponseHeader{Revision: 5}}}, {5, &clientv3.TxnResponse{Header: &pb.ResponseHeader{Revision: 8}}}, {5, &clientv3.TxnResponse{Header: &pb.ResponseHeader{Revision: 4}}}}
 
 func TestTxnOrdering(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i, tt := range txnTests {

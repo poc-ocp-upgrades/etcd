@@ -26,14 +26,20 @@ type Election struct {
 func NewElection(s *Session, pfx string) *Election {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Election{session: s, keyPrefix: pfx + "/"}
 }
 func ResumeElection(s *Session, pfx string, leaderKey string, leaderRev int64) *Election {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Election{session: s, leaderKey: leaderKey, leaderRev: leaderRev, leaderSession: s}
 }
 func (e *Election) Campaign(ctx context.Context, val string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := e.session
@@ -73,6 +79,8 @@ func (e *Election) Campaign(ctx context.Context, val string) error {
 func (e *Election) Proclaim(ctx context.Context, val string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if e.leaderSession == nil {
 		return ErrElectionNotLeader
 	}
@@ -94,6 +102,8 @@ func (e *Election) Proclaim(ctx context.Context, val string) error {
 func (e *Election) Resign(ctx context.Context) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if e.leaderSession == nil {
 		return nil
 	}
@@ -110,6 +120,8 @@ func (e *Election) Resign(ctx context.Context) (err error) {
 func (e *Election) Leader(ctx context.Context) (*v3.GetResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client := e.session.Client()
 	resp, err := client.Get(ctx, e.keyPrefix, v3.WithFirstCreate()...)
 	if err != nil {
@@ -122,11 +134,15 @@ func (e *Election) Leader(ctx context.Context) (*v3.GetResponse, error) {
 func (e *Election) Observe(ctx context.Context) <-chan v3.GetResponse {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	retc := make(chan v3.GetResponse)
 	go e.observe(ctx, retc)
 	return retc
 }
 func (e *Election) observe(ctx context.Context, ch chan<- v3.GetResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client := e.session.Client()
@@ -195,14 +211,20 @@ func (e *Election) observe(ctx context.Context, ch chan<- v3.GetResponse) {
 func (e *Election) Key() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.leaderKey
 }
 func (e *Election) Rev() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.leaderRev
 }
 func (e *Election) Header() *pb.ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return e.hdr

@@ -62,9 +62,13 @@ type lessor struct {
 func NewLessor(b backend.Backend, minLeaseTTL int64) Lessor {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newLessor(b, minLeaseTTL)
 }
 func newLessor(b backend.Backend, minLeaseTTL int64) *lessor {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := &lessor{leaseMap: make(map[LeaseID]*Lease), itemMap: make(map[LeaseItem]LeaseID), b: b, minLeaseTTL: minLeaseTTL, expiredC: make(chan []*Lease, 16), stopC: make(chan struct{}), doneC: make(chan struct{})}
@@ -75,9 +79,13 @@ func newLessor(b backend.Backend, minLeaseTTL int64) *lessor {
 func (le *lessor) isPrimary() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return le.demotec != nil
 }
 func (le *lessor) SetRangeDeleter(rd RangeDeleter) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	le.mu.Lock()
@@ -85,6 +93,8 @@ func (le *lessor) SetRangeDeleter(rd RangeDeleter) {
 	le.rd = rd
 }
 func (le *lessor) Grant(id LeaseID, ttl int64) (*Lease, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if id == NoLease {
@@ -114,6 +124,8 @@ func (le *lessor) Grant(id LeaseID, ttl int64) (*Lease, error) {
 func (le *lessor) Revoke(id LeaseID) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	le.mu.Lock()
 	l := le.leaseMap[id]
 	if l == nil {
@@ -139,6 +151,8 @@ func (le *lessor) Revoke(id LeaseID) error {
 	return nil
 }
 func (le *lessor) Renew(id LeaseID) (int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	le.mu.Lock()
@@ -175,11 +189,15 @@ func (le *lessor) Renew(id LeaseID) (int64, error) {
 func (le *lessor) Lookup(id LeaseID) *Lease {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	le.mu.Lock()
 	defer le.mu.Unlock()
 	return le.leaseMap[id]
 }
 func (le *lessor) unsafeLeases() []*Lease {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	leases := make([]*Lease, 0, len(le.leaseMap))
@@ -192,12 +210,16 @@ func (le *lessor) unsafeLeases() []*Lease {
 func (le *lessor) Leases() []*Lease {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	le.mu.Lock()
 	ls := le.unsafeLeases()
 	le.mu.Unlock()
 	return ls
 }
 func (le *lessor) Promote(extend time.Duration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	le.mu.Lock()
@@ -239,9 +261,13 @@ type leasesByExpiry []*Lease
 func (le leasesByExpiry) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(le)
 }
 func (le leasesByExpiry) Less(i, j int) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return le[i].Remaining() < le[j].Remaining()
@@ -249,9 +275,13 @@ func (le leasesByExpiry) Less(i, j int) bool {
 func (le leasesByExpiry) Swap(i, j int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	le[i], le[j] = le[j], le[i]
 }
 func (le *lessor) Demote() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	le.mu.Lock()
@@ -265,6 +295,8 @@ func (le *lessor) Demote() {
 	}
 }
 func (le *lessor) Attach(id LeaseID, items []LeaseItem) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	le.mu.Lock()
@@ -284,12 +316,16 @@ func (le *lessor) Attach(id LeaseID, items []LeaseItem) error {
 func (le *lessor) GetLease(item LeaseItem) LeaseID {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	le.mu.Lock()
 	id := le.itemMap[item]
 	le.mu.Unlock()
 	return id
 }
 func (le *lessor) Detach(id LeaseID, items []LeaseItem) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	le.mu.Lock()
@@ -309,6 +345,8 @@ func (le *lessor) Detach(id LeaseID, items []LeaseItem) error {
 func (le *lessor) Recover(b backend.Backend, rd RangeDeleter) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	le.mu.Lock()
 	defer le.mu.Unlock()
 	le.b = b
@@ -320,15 +358,21 @@ func (le *lessor) Recover(b backend.Backend, rd RangeDeleter) {
 func (le *lessor) ExpiredLeasesC() <-chan []*Lease {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return le.expiredC
 }
 func (le *lessor) Stop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	close(le.stopC)
 	<-le.doneC
 }
 func (le *lessor) runLoop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer close(le.doneC)
@@ -358,6 +402,8 @@ func (le *lessor) runLoop() {
 func (le *lessor) findExpiredLeases(limit int) []*Lease {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	leases := make([]*Lease, 0, 16)
 	for _, l := range le.leaseMap {
 		if l.expired() {
@@ -370,6 +416,8 @@ func (le *lessor) findExpiredLeases(limit int) []*Lease {
 	return leases
 }
 func (le *lessor) initAndRecover() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tx := le.b.BatchTx()
@@ -406,9 +454,13 @@ type Lease struct {
 func (l *Lease) expired() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return l.Remaining() <= 0
 }
 func (l *Lease) persistTo(b backend.Backend) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	key := int64ToBytes(int64(l.ID))
@@ -424,9 +476,13 @@ func (l *Lease) persistTo(b backend.Backend) {
 func (l *Lease) TTL() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return l.ttl
 }
 func (l *Lease) refresh(extend time.Duration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	newExpiry := time.Now().Add(extend + time.Duration(l.ttl)*time.Second)
@@ -437,11 +493,15 @@ func (l *Lease) refresh(extend time.Duration) {
 func (l *Lease) forever() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l.expiryMu.Lock()
 	defer l.expiryMu.Unlock()
 	l.expiry = forever
 }
 func (l *Lease) Keys() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l.mu.RLock()
@@ -453,6 +513,8 @@ func (l *Lease) Keys() []string {
 	return keys
 }
 func (l *Lease) Remaining() time.Duration {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l.expiryMu.RLock()
@@ -468,6 +530,8 @@ type LeaseItem struct{ Key string }
 func int64ToBytes(n int64) []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bytes := make([]byte, 8)
 	binary.BigEndian.PutUint64(bytes, uint64(n))
 	return bytes
@@ -478,8 +542,12 @@ type FakeLessor struct{}
 func (fl *FakeLessor) SetRangeDeleter(dr RangeDeleter) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (fl *FakeLessor) Grant(id LeaseID, ttl int64) (*Lease, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil, nil
@@ -487,9 +555,13 @@ func (fl *FakeLessor) Grant(id LeaseID, ttl int64) (*Lease, error) {
 func (fl *FakeLessor) Revoke(id LeaseID) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (fl *FakeLessor) Attach(id LeaseID, items []LeaseItem) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -497,9 +569,13 @@ func (fl *FakeLessor) Attach(id LeaseID, items []LeaseItem) error {
 func (fl *FakeLessor) GetLease(item LeaseItem) LeaseID {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 0
 }
 func (fl *FakeLessor) Detach(id LeaseID, items []LeaseItem) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -507,12 +583,18 @@ func (fl *FakeLessor) Detach(id LeaseID, items []LeaseItem) error {
 func (fl *FakeLessor) Promote(extend time.Duration) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (fl *FakeLessor) Demote() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (fl *FakeLessor) Renew(id LeaseID) (int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return 10, nil
@@ -520,9 +602,13 @@ func (fl *FakeLessor) Renew(id LeaseID) (int64, error) {
 func (fl *FakeLessor) Lookup(id LeaseID) *Lease {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (fl *FakeLessor) Leases() []*Lease {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -530,13 +616,19 @@ func (fl *FakeLessor) Leases() []*Lease {
 func (fl *FakeLessor) ExpiredLeasesC() <-chan []*Lease {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (fl *FakeLessor) Recover(b backend.Backend, rd RangeDeleter) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (fl *FakeLessor) Stop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }

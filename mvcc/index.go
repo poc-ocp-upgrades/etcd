@@ -27,9 +27,13 @@ type treeIndex struct {
 func newTreeIndex() index {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &treeIndex{tree: btree.New(32)}
 }
 func (ti *treeIndex) Put(key []byte, rev revision) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	keyi := &keyIndex{key: key}
@@ -47,6 +51,8 @@ func (ti *treeIndex) Put(key []byte, rev revision) {
 func (ti *treeIndex) Get(key []byte, atRev int64) (modified, created revision, ver int64, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	keyi := &keyIndex{key: key}
 	ti.RLock()
 	defer ti.RUnlock()
@@ -58,11 +64,15 @@ func (ti *treeIndex) Get(key []byte, atRev int64) (modified, created revision, v
 func (ti *treeIndex) KeyIndex(keyi *keyIndex) *keyIndex {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ti.RLock()
 	defer ti.RUnlock()
 	return ti.keyIndex(keyi)
 }
 func (ti *treeIndex) keyIndex(keyi *keyIndex) *keyIndex {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if item := ti.tree.Get(keyi); item != nil {
@@ -71,6 +81,8 @@ func (ti *treeIndex) keyIndex(keyi *keyIndex) *keyIndex {
 	return nil
 }
 func (ti *treeIndex) visit(key, end []byte, f func(ki *keyIndex)) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	keyi, endi := &keyIndex{key: key}, &keyIndex{key: end}
@@ -85,6 +97,8 @@ func (ti *treeIndex) visit(key, end []byte, f func(ki *keyIndex)) {
 	})
 }
 func (ti *treeIndex) Revisions(key, end []byte, atRev int64) (revs []revision) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if end == nil {
@@ -102,6 +116,8 @@ func (ti *treeIndex) Revisions(key, end []byte, atRev int64) (revs []revision) {
 	return revs
 }
 func (ti *treeIndex) Range(key, end []byte, atRev int64) (keys [][]byte, revs []revision) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if end == nil {
@@ -122,6 +138,8 @@ func (ti *treeIndex) Range(key, end []byte, atRev int64) (keys [][]byte, revs []
 func (ti *treeIndex) Tombstone(key []byte, rev revision) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	keyi := &keyIndex{key: key}
 	ti.Lock()
 	defer ti.Unlock()
@@ -133,6 +151,8 @@ func (ti *treeIndex) Tombstone(key []byte, rev revision) error {
 	return ki.tombstone(rev.main, rev.sub)
 }
 func (ti *treeIndex) RangeSince(key, end []byte, rev int64) []revision {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	keyi := &keyIndex{key: key}
@@ -162,6 +182,8 @@ func (ti *treeIndex) RangeSince(key, end []byte, rev int64) []revision {
 func (ti *treeIndex) Compact(rev int64) map[revision]struct{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	available := make(map[revision]struct{})
 	var emptyki []*keyIndex
 	plog.Printf("store.index: compact %d", rev)
@@ -179,6 +201,8 @@ func (ti *treeIndex) Compact(rev int64) map[revision]struct{} {
 func (ti *treeIndex) Keep(rev int64) map[revision]struct{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	available := make(map[revision]struct{})
 	ti.RLock()
 	defer ti.RUnlock()
@@ -192,6 +216,8 @@ func (ti *treeIndex) Keep(rev int64) map[revision]struct{} {
 func compactIndex(rev int64, available map[revision]struct{}, emptyki *[]*keyIndex) func(i btree.Item) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(i btree.Item) bool {
 		keyi := i.(*keyIndex)
 		keyi.compact(rev, available)
@@ -202,6 +228,8 @@ func compactIndex(rev int64, available map[revision]struct{}, emptyki *[]*keyInd
 	}
 }
 func (ti *treeIndex) Equal(bi index) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b := bi.(*treeIndex)
@@ -221,6 +249,8 @@ func (ti *treeIndex) Equal(bi index) bool {
 	return equal
 }
 func (ti *treeIndex) Insert(ki *keyIndex) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ti.Lock()

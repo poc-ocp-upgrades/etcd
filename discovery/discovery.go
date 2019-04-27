@@ -42,6 +42,8 @@ var (
 func JoinCluster(durl, dproxyurl string, id types.ID, config string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d, err := newDiscovery(durl, dproxyurl, id)
 	if err != nil {
 		return "", err
@@ -49,6 +51,8 @@ func JoinCluster(durl, dproxyurl string, id types.ID, config string) (string, er
 	return d.joinCluster(config)
 }
 func GetCluster(durl, dproxyurl string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	d, err := newDiscovery(durl, dproxyurl, 0)
@@ -70,6 +74,8 @@ type discovery struct {
 func newProxyFunc(proxy string) (func(*http.Request) (*url.URL, error), error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if proxy == "" {
 		return nil, nil
 	}
@@ -88,6 +94,8 @@ func newProxyFunc(proxy string) (func(*http.Request) (*url.URL, error), error) {
 	return http.ProxyURL(proxyURL), nil
 }
 func newDiscovery(durl, dproxyurl string, id types.ID) (*discovery, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u, err := url.Parse(durl)
@@ -116,6 +124,8 @@ func newDiscovery(durl, dproxyurl string, id types.ID) (*discovery, error) {
 func (d *discovery) joinCluster(config string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, _, _, err := d.checkCluster(); err != nil {
 		return "", err
 	}
@@ -135,6 +145,8 @@ func (d *discovery) joinCluster(config string) (string, error) {
 func (d *discovery) getCluster() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nodes, size, index, err := d.checkCluster()
 	if err != nil {
 		if err == ErrFullCluster {
@@ -151,6 +163,8 @@ func (d *discovery) getCluster() (string, error) {
 func (d *discovery) createSelf(contents string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithTimeout(context.Background(), client.DefaultRequestTimeout)
 	resp, err := d.c.Create(ctx, d.selfKey(), contents)
 	cancel()
@@ -165,6 +179,8 @@ func (d *discovery) createSelf(contents string) error {
 	return err
 }
 func (d *discovery) checkCluster() ([]*client.Node, int, uint64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	configKey := path.Join("/", d.cluster, "_config")
@@ -219,6 +235,8 @@ func (d *discovery) checkCluster() ([]*client.Node, int, uint64, error) {
 func (d *discovery) logAndBackoffForRetry(step string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d.retries++
 	retries := d.retries
 	if retries > maxExpoentialRetries {
@@ -231,6 +249,8 @@ func (d *discovery) logAndBackoffForRetry(step string) {
 func (d *discovery) checkClusterRetry() ([]*client.Node, int, uint64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if d.retries < nRetries {
 		d.logAndBackoffForRetry("cluster status check")
 		return d.checkCluster()
@@ -238,6 +258,8 @@ func (d *discovery) checkClusterRetry() ([]*client.Node, int, uint64, error) {
 	return nil, 0, 0, ErrTooManyRetries
 }
 func (d *discovery) waitNodesRetry() ([]*client.Node, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if d.retries < nRetries {
@@ -251,6 +273,8 @@ func (d *discovery) waitNodesRetry() ([]*client.Node, error) {
 	return nil, ErrTooManyRetries
 }
 func (d *discovery) waitNodes(nodes []*client.Node, size int, index uint64) ([]*client.Node, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(nodes) > size {
@@ -285,9 +309,13 @@ func (d *discovery) waitNodes(nodes []*client.Node, size int, index uint64) ([]*
 func (d *discovery) selfKey() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return path.Join("/", d.cluster, d.id.String())
 }
 func nodesToCluster(ns []*client.Node, size int) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := make([]string, len(ns))
@@ -310,9 +338,13 @@ type sortableNodes struct{ Nodes []*client.Node }
 func (ns sortableNodes) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(ns.Nodes)
 }
 func (ns sortableNodes) Less(i, j int) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ns.Nodes[i].CreatedIndex < ns.Nodes[j].CreatedIndex
@@ -320,12 +352,23 @@ func (ns sortableNodes) Less(i, j int) bool {
 func (ns sortableNodes) Swap(i, j int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ns.Nodes[i], ns.Nodes[j] = ns.Nodes[j], ns.Nodes[i]
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

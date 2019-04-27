@@ -20,9 +20,13 @@ type readOnly struct {
 func newReadOnly(option ReadOnlyOption) *readOnly {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &readOnly{option: option, pendingReadIndex: make(map[string]*readIndexStatus)}
 }
 func (ro *readOnly) addRequest(index uint64, m pb.Message) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx := string(m.Entries[0].Data)
@@ -35,6 +39,8 @@ func (ro *readOnly) addRequest(index uint64, m pb.Message) {
 func (ro *readOnly) recvAck(m pb.Message) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rs, ok := ro.pendingReadIndex[string(m.Context)]
 	if !ok {
 		return 0
@@ -43,6 +49,8 @@ func (ro *readOnly) recvAck(m pb.Message) int {
 	return len(rs.acks) + 1
 }
 func (ro *readOnly) advance(m pb.Message) []*readIndexStatus {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var (
@@ -73,6 +81,8 @@ func (ro *readOnly) advance(m pb.Message) []*readIndexStatus {
 	return nil
 }
 func (ro *readOnly) lastPendingRequestCtx() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(ro.readIndexQueue) == 0 {

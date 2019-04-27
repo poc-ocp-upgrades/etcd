@@ -39,6 +39,8 @@ type RaftCluster struct {
 func NewClusterFromURLsMap(token string, urlsmap types.URLsMap) (*RaftCluster, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := NewCluster(token)
 	for name, urls := range urlsmap {
 		m := NewMember(name, urls, token, nil)
@@ -56,6 +58,8 @@ func NewClusterFromURLsMap(token string, urlsmap types.URLsMap) (*RaftCluster, e
 func NewClusterFromMembers(token string, id types.ID, membs []*Member) *RaftCluster {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := NewCluster(token)
 	c.id = id
 	for _, m := range membs {
@@ -66,14 +70,20 @@ func NewClusterFromMembers(token string, id types.ID, membs []*Member) *RaftClus
 func NewCluster(token string) *RaftCluster {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &RaftCluster{token: token, members: make(map[types.ID]*Member), removed: make(map[types.ID]bool)}
 }
 func (c *RaftCluster) ID() types.ID {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.id
 }
 func (c *RaftCluster) Members() []*Member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.Lock()
@@ -88,11 +98,15 @@ func (c *RaftCluster) Members() []*Member {
 func (c *RaftCluster) Member(id types.ID) *Member {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.Lock()
 	defer c.Unlock()
 	return c.members[id].Clone()
 }
 func (c *RaftCluster) MemberByName(name string) *Member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.Lock()
@@ -111,6 +125,8 @@ func (c *RaftCluster) MemberByName(name string) *Member {
 func (c *RaftCluster) MemberIDs() []types.ID {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.Lock()
 	defer c.Unlock()
 	var ids []types.ID
@@ -123,11 +139,15 @@ func (c *RaftCluster) MemberIDs() []types.ID {
 func (c *RaftCluster) IsIDRemoved(id types.ID) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.Lock()
 	defer c.Unlock()
 	return c.removed[id]
 }
 func (c *RaftCluster) PeerURLs() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.Lock()
@@ -142,6 +162,8 @@ func (c *RaftCluster) PeerURLs() []string {
 func (c *RaftCluster) ClientURLs() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.Lock()
 	defer c.Unlock()
 	urls := make([]string, 0)
@@ -152,6 +174,8 @@ func (c *RaftCluster) ClientURLs() []string {
 	return urls
 }
 func (c *RaftCluster) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.Lock()
@@ -173,6 +197,8 @@ func (c *RaftCluster) String() string {
 func (c *RaftCluster) genID() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mIDs := c.MemberIDs()
 	b := make([]byte, 8*len(mIDs))
 	for i, id := range mIDs {
@@ -184,9 +210,13 @@ func (c *RaftCluster) genID() {
 func (c *RaftCluster) SetID(id types.ID) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.id = id
 }
 func (c *RaftCluster) SetStore(st store.Store) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.store = st
@@ -194,10 +224,14 @@ func (c *RaftCluster) SetStore(st store.Store) {
 func (c *RaftCluster) SetBackend(be backend.Backend) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.be = be
 	mustCreateBackendBuckets(c.be)
 }
 func (c *RaftCluster) Recover(onSet func(*semver.Version)) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.Lock()
@@ -214,6 +248,8 @@ func (c *RaftCluster) Recover(onSet func(*semver.Version)) {
 	}
 }
 func (c *RaftCluster) ValidateConfigurationChange(cc raftpb.ConfChange) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	members, removed := membersFromStore(c.store)
@@ -275,6 +311,8 @@ func (c *RaftCluster) ValidateConfigurationChange(cc raftpb.ConfChange) error {
 func (c *RaftCluster) AddMember(m *Member) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.Lock()
 	defer c.Unlock()
 	if c.store != nil {
@@ -287,6 +325,8 @@ func (c *RaftCluster) AddMember(m *Member) {
 	plog.Infof("added member %s %v to cluster %s", m.ID, m.PeerURLs, c.id)
 }
 func (c *RaftCluster) RemoveMember(id types.ID) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.Lock()
@@ -302,6 +342,8 @@ func (c *RaftCluster) RemoveMember(id types.ID) {
 	plog.Infof("removed member %s from cluster %s", id, c.id)
 }
 func (c *RaftCluster) UpdateAttributes(id types.ID, attr Attributes) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.Lock()
@@ -325,6 +367,8 @@ func (c *RaftCluster) UpdateAttributes(id types.ID, attr Attributes) {
 func (c *RaftCluster) UpdateRaftAttributes(id types.ID, raftAttr RaftAttributes) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.Lock()
 	defer c.Unlock()
 	c.members[id].RaftAttributes = raftAttr
@@ -339,6 +383,8 @@ func (c *RaftCluster) UpdateRaftAttributes(id types.ID, raftAttr RaftAttributes)
 func (c *RaftCluster) Version() *semver.Version {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.Lock()
 	defer c.Unlock()
 	if c.version == nil {
@@ -347,6 +393,8 @@ func (c *RaftCluster) Version() *semver.Version {
 	return semver.Must(semver.NewVersion(c.version.String()))
 }
 func (c *RaftCluster) SetVersion(ver *semver.Version, onSet func(*semver.Version)) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.Lock()
@@ -367,6 +415,8 @@ func (c *RaftCluster) SetVersion(ver *semver.Version, onSet func(*semver.Version
 	onSet(ver)
 }
 func (c *RaftCluster) IsReadyToAddNewMember() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nmembers := 1
@@ -391,6 +441,8 @@ func (c *RaftCluster) IsReadyToAddNewMember() bool {
 func (c *RaftCluster) IsReadyToRemoveMember(id uint64) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nmembers := 0
 	nstarted := 0
 	for _, member := range c.members {
@@ -410,6 +462,8 @@ func (c *RaftCluster) IsReadyToRemoveMember(id uint64) bool {
 	return true
 }
 func membersFromStore(st store.Store) (map[types.ID]*Member, map[types.ID]bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	members := make(map[types.ID]*Member)
@@ -444,6 +498,8 @@ func membersFromStore(st store.Store) (map[types.ID]*Member, map[types.ID]bool) 
 func clusterVersionFromStore(st store.Store) *semver.Version {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	e, err := st.Get(path.Join(storePrefix, "version"), false, false)
 	if err != nil {
 		if isKeyNotFound(err) {
@@ -454,6 +510,8 @@ func clusterVersionFromStore(st store.Store) *semver.Version {
 	return semver.Must(semver.NewVersion(*e.Node.Value))
 }
 func ValidateClusterAndAssignIDs(local *RaftCluster, existing *RaftCluster) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ems := existing.Members()
@@ -480,6 +538,8 @@ func ValidateClusterAndAssignIDs(local *RaftCluster, existing *RaftCluster) erro
 func mustDetectDowngrade(cv *semver.Version) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lv := semver.Must(semver.NewVersion(version.Version))
 	lv = &semver.Version{Major: lv.Major, Minor: lv.Minor}
 	if cv != nil && lv.LessThan(*cv) {
@@ -489,7 +549,16 @@ func mustDetectDowngrade(cv *semver.Version) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

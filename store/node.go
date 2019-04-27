@@ -31,14 +31,20 @@ type node struct {
 func newKV(store *store, nodePath string, value string, createdIndex uint64, parent *node, expireTime time.Time) *node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &node{Path: nodePath, CreatedIndex: createdIndex, ModifiedIndex: createdIndex, Parent: parent, store: store, ExpireTime: expireTime, Value: value}
 }
 func newDir(store *store, nodePath string, createdIndex uint64, parent *node, expireTime time.Time) *node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &node{Path: nodePath, CreatedIndex: createdIndex, ModifiedIndex: createdIndex, Parent: parent, ExpireTime: expireTime, Children: make(map[string]*node), store: store}
 }
 func (n *node) IsHidden() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, name := path.Split(n.Path)
@@ -47,14 +53,20 @@ func (n *node) IsHidden() bool {
 func (n *node) IsPermanent() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return n.ExpireTime.IsZero()
 }
 func (n *node) IsDir() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return n.Children != nil
 }
 func (n *node) Read() (string, *etcdErr.Error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if n.IsDir() {
@@ -65,6 +77,8 @@ func (n *node) Read() (string, *etcdErr.Error) {
 func (n *node) Write(value string, index uint64) *etcdErr.Error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if n.IsDir() {
 		return etcdErr.NewError(etcdErr.EcodeNotFile, "", n.store.CurrentIndex)
 	}
@@ -73,6 +87,8 @@ func (n *node) Write(value string, index uint64) *etcdErr.Error {
 	return nil
 }
 func (n *node) expirationAndTTL(clock clockwork.Clock) (*time.Time, int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !n.IsPermanent() {
@@ -89,6 +105,8 @@ func (n *node) expirationAndTTL(clock clockwork.Clock) (*time.Time, int64) {
 func (n *node) List() ([]*node, *etcdErr.Error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !n.IsDir() {
 		return nil, etcdErr.NewError(etcdErr.EcodeNotDir, "", n.store.CurrentIndex)
 	}
@@ -103,6 +121,8 @@ func (n *node) List() ([]*node, *etcdErr.Error) {
 func (n *node) GetChild(name string) (*node, *etcdErr.Error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !n.IsDir() {
 		return nil, etcdErr.NewError(etcdErr.EcodeNotDir, n.Path, n.store.CurrentIndex)
 	}
@@ -113,6 +133,8 @@ func (n *node) GetChild(name string) (*node, *etcdErr.Error) {
 	return nil, nil
 }
 func (n *node) Add(child *node) *etcdErr.Error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !n.IsDir() {
@@ -126,6 +148,8 @@ func (n *node) Add(child *node) *etcdErr.Error {
 	return nil
 }
 func (n *node) Remove(dir, recursive bool, callback func(path string)) *etcdErr.Error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !n.IsDir() {
@@ -165,6 +189,8 @@ func (n *node) Remove(dir, recursive bool, callback func(path string)) *etcdErr.
 func (n *node) Repr(recursive, sorted bool, clock clockwork.Clock) *NodeExtern {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if n.IsDir() {
 		node := &NodeExtern{Key: n.Path, Dir: true, ModifiedIndex: n.ModifiedIndex, CreatedIndex: n.CreatedIndex}
 		node.Expiration, node.TTL = n.expirationAndTTL(clock)
@@ -195,6 +221,8 @@ func (n *node) Repr(recursive, sorted bool, clock clockwork.Clock) *NodeExtern {
 func (n *node) UpdateTTL(expireTime time.Time) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !n.IsPermanent() {
 		if expireTime.IsZero() {
 			n.ExpireTime = expireTime
@@ -212,6 +240,8 @@ func (n *node) UpdateTTL(expireTime time.Time) {
 	n.store.ttlKeyHeap.push(n)
 }
 func (n *node) Compare(prevValue string, prevIndex uint64) (ok bool, which int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	indexMatch := (prevIndex == 0 || n.ModifiedIndex == prevIndex)
@@ -232,6 +262,8 @@ func (n *node) Compare(prevValue string, prevIndex uint64) (ok bool, which int) 
 func (n *node) Clone() *node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !n.IsDir() {
 		newkv := newKV(n.store, n.Path, n.Value, n.CreatedIndex, n.Parent, n.ExpireTime)
 		newkv.ModifiedIndex = n.ModifiedIndex
@@ -245,6 +277,8 @@ func (n *node) Clone() *node {
 	return clone
 }
 func (n *node) recoverAndclean() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if n.IsDir() {

@@ -19,9 +19,13 @@ type ClusterServer struct {
 func NewClusterServer(s etcdserver.ServerV3) *ClusterServer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &ClusterServer{cluster: s.Cluster(), server: s}
 }
 func (cs *ClusterServer) MemberAdd(ctx context.Context, r *pb.MemberAddRequest) (*pb.MemberAddResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	urls, err := types.NewURLs(r.PeerURLs)
@@ -39,6 +43,8 @@ func (cs *ClusterServer) MemberAdd(ctx context.Context, r *pb.MemberAddRequest) 
 func (cs *ClusterServer) MemberRemove(ctx context.Context, r *pb.MemberRemoveRequest) (*pb.MemberRemoveResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	membs, err := cs.server.RemoveMember(ctx, r.ID)
 	if err != nil {
 		return nil, togRPCError(err)
@@ -46,6 +52,8 @@ func (cs *ClusterServer) MemberRemove(ctx context.Context, r *pb.MemberRemoveReq
 	return &pb.MemberRemoveResponse{Header: cs.header(), Members: membersToProtoMembers(membs)}, nil
 }
 func (cs *ClusterServer) MemberUpdate(ctx context.Context, r *pb.MemberUpdateRequest) (*pb.MemberUpdateResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := membership.Member{ID: types.ID(r.ID), RaftAttributes: membership.RaftAttributes{PeerURLs: r.PeerURLs}}
@@ -58,15 +66,21 @@ func (cs *ClusterServer) MemberUpdate(ctx context.Context, r *pb.MemberUpdateReq
 func (cs *ClusterServer) MemberList(ctx context.Context, r *pb.MemberListRequest) (*pb.MemberListResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	membs := membersToProtoMembers(cs.cluster.Members())
 	return &pb.MemberListResponse{Header: cs.header(), Members: membs}, nil
 }
 func (cs *ClusterServer) header() *pb.ResponseHeader {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &pb.ResponseHeader{ClusterId: uint64(cs.cluster.ID()), MemberId: uint64(cs.server.ID()), RaftTerm: cs.server.Term()}
 }
 func membersToProtoMembers(membs []*membership.Member) []*pb.Member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	protoMembs := make([]*pb.Member, len(membs))

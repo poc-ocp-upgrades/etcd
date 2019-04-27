@@ -16,6 +16,8 @@ const (
 func TestQueueOneReaderOneWriter(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
 	done := make(chan struct{})
@@ -47,9 +49,13 @@ func TestQueueOneReaderOneWriter(t *testing.T) {
 func TestQueueManyReaderOneWriter(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testQueueNReaderMWriter(t, manyQueueClients, 1)
 }
 func TestQueueOneReaderManyWriter(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testQueueNReaderMWriter(t, 1, manyQueueClients)
@@ -57,9 +63,13 @@ func TestQueueOneReaderManyWriter(t *testing.T) {
 func TestQueueManyReaderManyWriter(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testQueueNReaderMWriter(t, manyQueueClients, manyQueueClients)
 }
 func BenchmarkQueue(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(nil, &ClusterConfig{Size: 3})
@@ -69,6 +79,8 @@ func BenchmarkQueue(b *testing.B) {
 	}
 }
 func TestPrQueueOneReaderOneWriter(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
@@ -99,6 +111,8 @@ func TestPrQueueOneReaderOneWriter(t *testing.T) {
 func TestPrQueueManyReaderManyWriter(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
 	rqs := newPriorityQueues(clus, manyQueueClients)
@@ -106,6 +120,8 @@ func TestPrQueueManyReaderManyWriter(t *testing.T) {
 	testReadersWriters(t, rqs, wqs)
 }
 func BenchmarkPrQueueOneReaderOneWriter(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(nil, &ClusterConfig{Size: 3})
@@ -119,11 +135,15 @@ func BenchmarkPrQueueOneReaderOneWriter(b *testing.B) {
 func testQueueNReaderMWriter(t *testing.T, n int, m int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
 	testReadersWriters(t, newQueues(clus, n), newQueues(clus, m))
 }
 func newQueues(clus *ClusterV3, n int) (qs []testQueue) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := 0; i < n; i++ {
@@ -135,6 +155,8 @@ func newQueues(clus *ClusterV3, n int) (qs []testQueue) {
 func newPriorityQueues(clus *ClusterV3, n int) (qs []testQueue) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i := 0; i < n; i++ {
 		etcdc := clus.RandClient()
 		q := &flatPriorityQueue{recipe.NewPriorityQueue(etcdc, "prq")}
@@ -143,6 +165,8 @@ func newPriorityQueues(clus *ClusterV3, n int) (qs []testQueue) {
 	return qs
 }
 func testReadersWriters(t *testing.T, rqs []testQueue, wqs []testQueue) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rerrc := make(chan error)
@@ -163,6 +187,8 @@ func testReadersWriters(t *testing.T, rqs []testQueue, wqs []testQueue) {
 func manyReaders(qs []testQueue, totalReads int, errc chan<- error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rxReads int32
 	for _, q := range qs {
 		go func(q testQueue) {
@@ -181,6 +207,8 @@ func manyReaders(qs []testQueue, totalReads int, errc chan<- error) {
 	}
 }
 func manyWriters(qs []testQueue, writesEach int, errc chan<- error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, q := range qs {
@@ -205,9 +233,13 @@ type flatPriorityQueue struct{ *recipe.PriorityQueue }
 func (q *flatPriorityQueue) Enqueue(val string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return q.PriorityQueue.Enqueue(val, uint16(rand.Intn(2)))
 }
 func (q *flatPriorityQueue) Dequeue() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return q.PriorityQueue.Dequeue()

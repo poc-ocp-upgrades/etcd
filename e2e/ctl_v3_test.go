@@ -14,9 +14,13 @@ import (
 func TestCtlV3Version(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, versionTest)
 }
 func versionTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ctlV3Version(cx); err != nil {
@@ -26,15 +30,21 @@ func versionTest(cx ctlCtx) {
 func ctlV3Version(cx ctlCtx) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "version")
 	return spawnWithExpect(cmdArgs, version.Version)
 }
 func TestCtlV3DialWithHTTPScheme(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, dialWithSchemeTest, withCfg(configClientTLS))
 }
 func dialWithSchemeTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(cx.prefixArgs(cx.epc.EndpointsV3()), "put", "foo", "bar")
@@ -64,12 +74,16 @@ type ctlOption func(*ctlCtx)
 func (cx *ctlCtx) applyOpts(opts []ctlOption) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, opt := range opts {
 		opt(cx)
 	}
 	cx.initialCorruptCheck = true
 }
 func withCfg(cfg etcdProcessClusterConfig) ctlOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(cx *ctlCtx) {
@@ -79,11 +93,15 @@ func withCfg(cfg etcdProcessClusterConfig) ctlOption {
 func withDialTimeout(timeout time.Duration) ctlOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(cx *ctlCtx) {
 		cx.dialTimeout = timeout
 	}
 }
 func withQuorum() ctlOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(cx *ctlCtx) {
@@ -93,11 +111,15 @@ func withQuorum() ctlOption {
 func withInteractive() ctlOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(cx *ctlCtx) {
 		cx.interactive = true
 	}
 }
 func withQuota(b int64) ctlOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(cx *ctlCtx) {
@@ -107,11 +129,15 @@ func withQuota(b int64) ctlOption {
 func withCompactPhysical() ctlOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(cx *ctlCtx) {
 		cx.compactPhysical = true
 	}
 }
 func withInitialCorruptCheck() ctlOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(cx *ctlCtx) {
@@ -121,11 +147,15 @@ func withInitialCorruptCheck() ctlOption {
 func withCorruptFunc(f func(string) error) ctlOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(cx *ctlCtx) {
 		cx.corruptFunc = f
 	}
 }
 func withNoStrictReconfig() ctlOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(cx *ctlCtx) {
@@ -135,11 +165,15 @@ func withNoStrictReconfig() ctlOption {
 func withFlagByEnv() ctlOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(cx *ctlCtx) {
 		cx.envMap = make(map[string]struct{})
 	}
 }
 func testCtl(t *testing.T, testFunc func(ctlCtx), opts ...ctlOption) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -189,6 +223,8 @@ func testCtl(t *testing.T, testFunc func(ctlCtx), opts ...ctlOption) {
 func (cx *ctlCtx) prefixArgs(eps []string) []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmap := make(map[string]string)
 	fmap["endpoints"] = strings.Join(eps, ",")
 	fmap["dial-timeout"] = cx.dialTimeout.String()
@@ -225,14 +261,20 @@ func (cx *ctlCtx) prefixArgs(eps []string) []string {
 func (cx *ctlCtx) PrefixArgs() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cx.prefixArgs(cx.epc.EndpointsV3())
 }
 func isGRPCTimedout(err error) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return strings.Contains(err.Error(), "grpc: timed out trying to connect")
 }
 func (cx *ctlCtx) memberToRemove() (ep string, memberID string, clusterID string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n1 := cx.cfg.clusterSize

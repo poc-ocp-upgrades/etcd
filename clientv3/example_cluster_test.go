@@ -10,6 +10,8 @@ import (
 func ExampleCluster_memberList() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
 	if err != nil {
 		log.Fatal(err)
@@ -22,6 +24,8 @@ func ExampleCluster_memberList() {
 	fmt.Println("members:", len(resp.Members))
 }
 func ExampleCluster_memberAdd() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints[:2], DialTimeout: dialTimeout})
@@ -39,6 +43,8 @@ func ExampleCluster_memberAdd() {
 func ExampleCluster_memberRemove() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints[1:], DialTimeout: dialTimeout})
 	if err != nil {
 		log.Fatal(err)
@@ -54,6 +60,8 @@ func ExampleCluster_memberRemove() {
 	}
 }
 func ExampleCluster_memberUpdate() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})

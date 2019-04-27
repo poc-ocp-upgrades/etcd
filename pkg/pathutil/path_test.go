@@ -5,6 +5,8 @@ import "testing"
 func TestCanonicalURLPath(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		p	string
 		wp	string

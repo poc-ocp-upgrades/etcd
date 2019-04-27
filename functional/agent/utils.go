@@ -14,6 +14,8 @@ import (
 func archive(baseDir, etcdLogPath, dataDir string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Join(baseDir, "etcd-failure-archive", time.Now().Format(time.RFC3339))
 	if existDir(dir) {
 		dir = filepath.Join(baseDir, "etcd-failure-archive", time.Now().Add(time.Second).Format(time.RFC3339))
@@ -36,6 +38,8 @@ func archive(baseDir, etcdLogPath, dataDir string) error {
 func existDir(fpath string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	st, err := os.Stat(fpath)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -47,6 +51,8 @@ func existDir(fpath string) bool {
 	return false
 }
 func getURLAndPort(addr string) (urlAddr *url.URL, port int, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	urlAddr, err = url.Parse(addr)
@@ -65,6 +71,8 @@ func getURLAndPort(addr string) (urlAddr *url.URL, port int, err error) {
 	return urlAddr, port, err
 }
 func stopWithSig(cmd *exec.Cmd, sig os.Signal) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := cmd.Process.Signal(sig)
@@ -87,6 +95,8 @@ func stopWithSig(cmd *exec.Cmd, sig os.Signal) error {
 	return err
 }
 func cleanPageCache() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := exec.Command("/bin/sh", "-c", `echo "echo 1 > /proc/sys/vm/drop_caches" | sudo sh`)

@@ -17,6 +17,8 @@ var endpoints = []string{"localhost:2379", "localhost:22379", "localhost:32379"}
 func TestBalancerGetUnblocking(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	hb := newHealthBalancer(endpoints, minHealthRetryDuration, func(string) (bool, error) {
 		return true, nil
 	})
@@ -59,6 +61,8 @@ func TestBalancerGetUnblocking(t *testing.T) {
 	}
 }
 func TestBalancerGetBlocking(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	hb := newHealthBalancer(endpoints, minHealthRetryDuration, func(string) (bool, error) {
@@ -115,6 +119,8 @@ func TestBalancerGetBlocking(t *testing.T) {
 func TestHealthBalancerGraylist(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var wg sync.WaitGroup
 	lns, eps := make([]net.Listener, 3), make([]string, 3)
 	wg.Add(3)
@@ -164,6 +170,8 @@ func TestHealthBalancerGraylist(t *testing.T) {
 	}
 }
 func TestBalancerDoNotBlockOnClose(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -222,6 +230,8 @@ type killConnListener struct {
 func newKillConnListener(t *testing.T, size int) *killConnListener {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	kcl := &killConnListener{stopc: make(chan struct{}), t: t}
 	for i := 0; i < size; i++ {
 		ln, err := net.Listen("tcp", ":0")
@@ -237,9 +247,13 @@ func newKillConnListener(t *testing.T, size int) *killConnListener {
 func (kcl *killConnListener) endpoints() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return kcl.eps
 }
 func (kcl *killConnListener) listen(l net.Listener) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	go func() {
@@ -262,6 +276,8 @@ func (kcl *killConnListener) listen(l net.Listener) {
 	l.Close()
 }
 func (kcl *killConnListener) close() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	close(kcl.stopc)

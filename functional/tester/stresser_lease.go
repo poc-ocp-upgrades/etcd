@@ -45,11 +45,15 @@ type atomicLeases struct {
 func (al *atomicLeases) add(leaseID int64, t time.Time) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	al.rwLock.Lock()
 	al.leases[leaseID] = t
 	al.rwLock.Unlock()
 }
 func (al *atomicLeases) update(leaseID int64, t time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	al.rwLock.Lock()
@@ -62,6 +66,8 @@ func (al *atomicLeases) update(leaseID int64, t time.Time) {
 func (al *atomicLeases) read(leaseID int64) (rv time.Time, ok bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	al.rwLock.RLock()
 	rv, ok = al.leases[leaseID]
 	al.rwLock.RUnlock()
@@ -70,11 +76,15 @@ func (al *atomicLeases) read(leaseID int64) (rv time.Time, ok bool) {
 func (al *atomicLeases) remove(leaseID int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	al.rwLock.Lock()
 	delete(al.leases, leaseID)
 	al.rwLock.Unlock()
 }
 func (al *atomicLeases) getLeasesMap() map[int64]time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	leasesCopy := make(map[int64]time.Time)
@@ -86,6 +96,8 @@ func (al *atomicLeases) getLeasesMap() map[int64]time.Time {
 	return leasesCopy
 }
 func (ls *leaseStresser) setupOnce() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ls.aliveLeases != nil {
@@ -101,6 +113,8 @@ func (ls *leaseStresser) setupOnce() error {
 	return nil
 }
 func (ls *leaseStresser) Stress() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ls.lg.Info("stress START", zap.String("stress-type", ls.stype.String()), zap.String("endpoint", ls.m.EtcdClientEndpoint))
@@ -124,6 +138,8 @@ func (ls *leaseStresser) Stress() error {
 func (ls *leaseStresser) run() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer ls.runWg.Done()
 	ls.restartKeepAlives()
 	for {
@@ -142,6 +158,8 @@ func (ls *leaseStresser) run() {
 func (ls *leaseStresser) restartKeepAlives() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for leaseID := range ls.aliveLeases.getLeasesMap() {
 		ls.aliveWg.Add(1)
 		go func(id int64) {
@@ -152,10 +170,14 @@ func (ls *leaseStresser) restartKeepAlives() {
 func (ls *leaseStresser) createLeases() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ls.createAliveLeases()
 	ls.createShortLivedLeases()
 }
 func (ls *leaseStresser) createAliveLeases() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	neededLeases := ls.numLeases - len(ls.aliveLeases.getLeasesMap())
@@ -179,6 +201,8 @@ func (ls *leaseStresser) createAliveLeases() {
 func (ls *leaseStresser) createShortLivedLeases() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	neededLeases := ls.numLeases - len(ls.shortLivedLeases.getLeasesMap())
 	var wg sync.WaitGroup
 	for i := 0; i < neededLeases; i++ {
@@ -197,6 +221,8 @@ func (ls *leaseStresser) createShortLivedLeases() {
 func (ls *leaseStresser) createLeaseWithKeys(ttl int64) (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	leaseID, err := ls.createLease(ttl)
 	if err != nil {
 		ls.lg.Debug("createLease failed", zap.String("stress-type", ls.stype.String()), zap.String("endpoint", ls.m.EtcdClientEndpoint), zap.Error(err))
@@ -209,6 +235,8 @@ func (ls *leaseStresser) createLeaseWithKeys(ttl int64) (int64, error) {
 	return leaseID, nil
 }
 func (ls *leaseStresser) randomlyDropLeases() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var wg sync.WaitGroup
@@ -235,6 +263,8 @@ func (ls *leaseStresser) randomlyDropLeases() {
 func (ls *leaseStresser) createLease(ttl int64) (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := ls.cli.Grant(ls.ctx, ttl)
 	if err != nil {
 		return -1, err
@@ -242,6 +272,8 @@ func (ls *leaseStresser) createLease(ttl int64) (int64, error) {
 	return int64(resp.ID), nil
 }
 func (ls *leaseStresser) keepLeaseAlive(leaseID int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer ls.aliveWg.Done()
@@ -293,6 +325,8 @@ func (ls *leaseStresser) keepLeaseAlive(leaseID int64) {
 func (ls *leaseStresser) attachKeysWithLease(leaseID int64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var txnPuts []clientv3.Op
 	for j := 0; j < ls.keysPerLease; j++ {
 		txnput := clientv3.OpPut(fmt.Sprintf("%d%s%d", leaseID, "_", j), fmt.Sprintf("bar"), clientv3.WithLease(clientv3.LeaseID(leaseID)))
@@ -313,6 +347,8 @@ func (ls *leaseStresser) attachKeysWithLease(leaseID int64) error {
 func (ls *leaseStresser) randomlyDropLease(leaseID int64) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if rand.Intn(2) != 0 {
 		return false, nil
 	}
@@ -328,9 +364,13 @@ func (ls *leaseStresser) randomlyDropLease(leaseID int64) (bool, error) {
 func (ls *leaseStresser) Pause() map[string]int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ls.Close()
 }
 func (ls *leaseStresser) Close() map[string]int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ls.cancel()
@@ -341,6 +381,8 @@ func (ls *leaseStresser) Close() map[string]int {
 	return nil
 }
 func (ls *leaseStresser) ModifiedKeys() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return atomic.LoadInt64(&ls.atomicModifiedKey)

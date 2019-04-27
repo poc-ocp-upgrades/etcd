@@ -15,6 +15,8 @@ import (
 func TestConfigParsingMemberFlags(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := []string{"-data-dir=testdir", "-name=testname", "-max-wals=10", "-max-snapshots=10", "-snapshot-count=10", "-listen-peer-urls=http://localhost:8000,https://localhost:8001", "-listen-client-urls=http://localhost:7000,https://localhost:7001", "-advertise-client-urls=http://localhost:7000,https://localhost:7001"}
 	cfg := newConfig()
 	err := cfg.parse(args)
@@ -24,6 +26,8 @@ func TestConfigParsingMemberFlags(t *testing.T) {
 	validateMemberFlags(t, cfg)
 }
 func TestConfigFileMemberFields(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	yc := struct {
@@ -52,6 +56,8 @@ func TestConfigFileMemberFields(t *testing.T) {
 func TestConfigParsingClusteringFlags(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := []string{"-initial-cluster=0=http://localhost:8000", "-initial-cluster-state=existing", "-initial-cluster-token=etcdtest", "-initial-advertise-peer-urls=http://localhost:8000,https://localhost:8001", "-advertise-client-urls=http://localhost:7000,https://localhost:7001", "-discovery-fallback=exit"}
 	cfg := newConfig()
 	if err := cfg.parse(args); err != nil {
@@ -60,6 +66,8 @@ func TestConfigParsingClusteringFlags(t *testing.T) {
 	validateClusteringFlags(t, cfg)
 }
 func TestConfigFileClusteringFields(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	yc := struct {
@@ -87,6 +95,8 @@ func TestConfigFileClusteringFields(t *testing.T) {
 func TestConfigFileClusteringFlags(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		Name		string	`json:"name"`
 		InitialCluster	string	`json:"initial-cluster"`
@@ -110,6 +120,8 @@ func TestConfigFileClusteringFlags(t *testing.T) {
 func TestConfigParsingOtherFlags(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := []string{"-proxy=readonly"}
 	cfg := newConfig()
 	err := cfg.parse(args)
@@ -119,6 +131,8 @@ func TestConfigParsingOtherFlags(t *testing.T) {
 	validateOtherFlags(t, cfg)
 }
 func TestConfigFileOtherFields(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	yc := struct {
@@ -141,6 +155,8 @@ func TestConfigFileOtherFields(t *testing.T) {
 func TestConfigParsingConflictClusteringFlags(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	conflictArgs := [][]string{{"-initial-cluster=0=localhost:8000", "-discovery=http://example.com/abc"}, {"-discovery-srv=example.com", "-discovery=http://example.com/abc"}, {"-initial-cluster=0=localhost:8000", "-discovery-srv=example.com"}, {"-initial-cluster=0=localhost:8000", "-discovery=http://example.com/abc", "-discovery-srv=example.com"}}
 	for i, tt := range conflictArgs {
 		cfg := newConfig()
@@ -150,6 +166,8 @@ func TestConfigParsingConflictClusteringFlags(t *testing.T) {
 	}
 }
 func TestConfigFileConflictClusteringFlags(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -174,6 +192,8 @@ func TestConfigFileConflictClusteringFlags(t *testing.T) {
 func TestConfigParsingMissedAdvertiseClientURLsFlag(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		args	[]string
 		werr	error
@@ -186,6 +206,8 @@ func TestConfigParsingMissedAdvertiseClientURLsFlag(t *testing.T) {
 	}
 }
 func TestConfigIsNewCluster(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -206,6 +228,8 @@ func TestConfigIsNewCluster(t *testing.T) {
 func TestConfigIsProxy(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		proxy		string
 		wIsProxy	bool
@@ -221,6 +245,8 @@ func TestConfigIsProxy(t *testing.T) {
 	}
 }
 func TestConfigIsReadonlyProxy(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -240,6 +266,8 @@ func TestConfigIsReadonlyProxy(t *testing.T) {
 func TestConfigShouldFallbackToProxy(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		fallback	string
 		wFallback	bool
@@ -255,6 +283,8 @@ func TestConfigShouldFallbackToProxy(t *testing.T) {
 	}
 }
 func TestConfigFileElectionTimeout(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -279,6 +309,8 @@ func TestConfigFileElectionTimeout(t *testing.T) {
 func mustCreateCfgFile(t *testing.T, b []byte) *os.File {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tmpfile, err := ioutil.TempFile("", "servercfg")
 	if err != nil {
 		t.Fatal(err)
@@ -294,6 +326,8 @@ func mustCreateCfgFile(t *testing.T, b []byte) *os.File {
 	return tmpfile
 }
 func validateMemberFlags(t *testing.T, cfg *config) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wcfg := &embed.Config{Dir: "testdir", LPUrls: []url.URL{{Scheme: "http", Host: "localhost:8000"}, {Scheme: "https", Host: "localhost:8001"}}, LCUrls: []url.URL{{Scheme: "http", Host: "localhost:7000"}, {Scheme: "https", Host: "localhost:7001"}}, MaxSnapFiles: 10, MaxWalFiles: 10, Name: "testname", SnapCount: 10}
@@ -320,6 +354,8 @@ func validateMemberFlags(t *testing.T, cfg *config) {
 	}
 }
 func validateClusteringFlags(t *testing.T, cfg *config) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wcfg := newConfig()
@@ -349,6 +385,8 @@ func validateClusteringFlags(t *testing.T, cfg *config) {
 	}
 }
 func validateOtherFlags(t *testing.T, cfg *config) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wcfg := newConfig()

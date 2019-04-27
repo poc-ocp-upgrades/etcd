@@ -11,12 +11,16 @@ import (
 func TestCtlV3Elect(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	oldenv := os.Getenv("EXPECT_DEBUG")
 	defer os.Setenv("EXPECT_DEBUG", oldenv)
 	os.Setenv("EXPECT_DEBUG", "1")
 	testCtl(t, testElect)
 }
 func testElect(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	name := "a"
@@ -74,6 +78,8 @@ func testElect(cx ctlCtx) {
 	}
 }
 func ctlV3Elect(cx ctlCtx, name, proposal string) (*expect.ExpectProcess, <-chan string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "elect", name, proposal)

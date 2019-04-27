@@ -17,12 +17,16 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(caseTotalCounter)
 	prometheus.MustRegister(caseFailedTotalCounter)
 	prometheus.MustRegister(roundTotalCounter)
 	prometheus.MustRegister(roundFailedTotalCounter)
 }
 func printReport() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rows := make([]string, 0, len(caseTotal))

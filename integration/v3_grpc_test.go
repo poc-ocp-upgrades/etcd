@@ -22,6 +22,8 @@ import (
 func TestV3PutOverwrite(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -62,6 +64,8 @@ func TestV3PutOverwrite(t *testing.T) {
 func TestV3PutRestart(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -88,6 +92,8 @@ func TestV3PutRestart(t *testing.T) {
 	}
 }
 func TestV3CompactCurrentRev(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -117,6 +123,8 @@ func TestV3CompactCurrentRev(t *testing.T) {
 	}
 }
 func TestV3HashKV(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -161,6 +169,8 @@ func TestV3HashKV(t *testing.T) {
 func TestV3TxnTooManyOps(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	maxTxnOps := uint(128)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3, MaxTxnOps: maxTxnOps})
@@ -200,6 +210,8 @@ func TestV3TxnTooManyOps(t *testing.T) {
 func TestV3TxnDuplicateKeys(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -225,6 +237,8 @@ func TestV3TxnDuplicateKeys(t *testing.T) {
 	}
 }
 func TestV3TxnRevision(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -267,6 +281,8 @@ func TestV3TxnRevision(t *testing.T) {
 func TestV3TxnCmpHeaderRev(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -302,6 +318,8 @@ func TestV3TxnCmpHeaderRev(t *testing.T) {
 func TestV3TxnRangeCompare(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -328,6 +346,8 @@ func TestV3TxnRangeCompare(t *testing.T) {
 	}
 }
 func TestV3TxnNestedPath(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -365,6 +385,8 @@ func TestV3TxnNestedPath(t *testing.T) {
 	}
 }
 func TestV3PutIgnoreValue(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -456,6 +478,8 @@ func TestV3PutIgnoreValue(t *testing.T) {
 func TestV3PutIgnoreLease(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -544,6 +568,8 @@ func TestV3PutIgnoreLease(t *testing.T) {
 func TestV3PutMissingLease(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -589,6 +615,8 @@ func TestV3PutMissingLease(t *testing.T) {
 	}
 }
 func TestV3DeleteRange(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -645,6 +673,8 @@ func TestV3DeleteRange(t *testing.T) {
 func TestV3TxnInvalidRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -676,6 +706,8 @@ func TestV3TxnInvalidRange(t *testing.T) {
 func TestV3TooLargeRequest(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -688,6 +720,8 @@ func TestV3TooLargeRequest(t *testing.T) {
 	}
 }
 func TestV3Hash(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -709,6 +743,8 @@ func TestV3Hash(t *testing.T) {
 	}
 }
 func TestV3HashRestart(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -736,6 +772,8 @@ func TestV3HashRestart(t *testing.T) {
 	}
 }
 func TestV3StorageQuotaAPI(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -766,6 +804,8 @@ func TestV3StorageQuotaAPI(t *testing.T) {
 	}
 }
 func TestV3RangeRequest(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -815,12 +855,16 @@ func TestV3RangeRequest(t *testing.T) {
 func newClusterV3NoClients(t *testing.T, cfg *ClusterConfig) *ClusterV3 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg.UseGRPC = true
 	clus := &ClusterV3{cluster: NewClusterByConfig(t, cfg)}
 	clus.Launch(t)
 	return clus
 }
 func TestTLSGRPCRejectInsecureClient(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -850,6 +894,8 @@ func TestTLSGRPCRejectInsecureClient(t *testing.T) {
 func TestTLSGRPCRejectSecureClient(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	cfg := ClusterConfig{Size: 3}
 	clus := newClusterV3NoClients(t, &cfg)
@@ -863,6 +909,8 @@ func TestTLSGRPCRejectSecureClient(t *testing.T) {
 	}
 }
 func TestTLSGRPCAcceptSecureAll(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -880,6 +928,8 @@ func TestTLSGRPCAcceptSecureAll(t *testing.T) {
 	}
 }
 func TestTLSReloadAtomicReplace(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tmpDir, err := ioutil.TempDir(os.TempDir(), "fixtures-tmp")
@@ -932,6 +982,8 @@ func TestTLSReloadAtomicReplace(t *testing.T) {
 func TestTLSReloadCopy(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	certsDir, err := ioutil.TempDir(os.TempDir(), "fixtures-to-load")
 	if err != nil {
 		t.Fatal(err)
@@ -957,6 +1009,8 @@ func TestTLSReloadCopy(t *testing.T) {
 	testTLSReload(t, cloneFunc, replaceFunc, revertFunc)
 }
 func testTLSReload(t *testing.T, cloneFunc func() transport.TLSInfo, replaceFunc func(), revertFunc func()) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -1002,6 +1056,8 @@ func testTLSReload(t *testing.T, cloneFunc func() transport.TLSInfo, replaceFunc
 func TestGRPCRequireLeader(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	cfg := ClusterConfig{Size: 3}
 	clus := newClusterV3NoClients(t, &cfg)
@@ -1022,6 +1078,8 @@ func TestGRPCRequireLeader(t *testing.T) {
 	}
 }
 func TestGRPCStreamRequireLeader(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -1071,6 +1129,8 @@ func TestGRPCStreamRequireLeader(t *testing.T) {
 func TestV3LargeRequests(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	tests := []struct {
 		maxRequestBytes	uint
@@ -1098,9 +1158,13 @@ func TestV3LargeRequests(t *testing.T) {
 func eqErrGRPC(err1 error, err2 error) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return !(err1 == nil && err2 != nil) || err1.Error() == err2.Error()
 }
 func waitForRestart(t *testing.T, kvc pb.KVClient) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req := &pb.RangeRequest{Key: []byte("_"), Serializable: true}

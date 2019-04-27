@@ -11,6 +11,8 @@ import (
 func BenchmarkWatchableStorePut(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	be, tmpPath := backend.NewDefaultTmpBackend()
 	s := New(be, &lease.FakeLessor{}, nil)
 	defer cleanup(s, be, tmpPath)
@@ -24,6 +26,8 @@ func BenchmarkWatchableStorePut(b *testing.B) {
 	}
 }
 func BenchmarkWatchableStoreTxnPut(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i fakeConsistentIndex
@@ -42,6 +46,8 @@ func BenchmarkWatchableStoreTxnPut(b *testing.B) {
 	}
 }
 func BenchmarkWatchableStoreWatchSyncPut(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	be, tmpPath := backend.NewDefaultTmpBackend()
@@ -68,6 +74,8 @@ func BenchmarkWatchableStoreWatchSyncPut(b *testing.B) {
 	}
 }
 func BenchmarkWatchableStoreUnsyncedCancel(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	be, tmpPath := backend.NewDefaultTmpBackend()
@@ -98,6 +106,8 @@ func BenchmarkWatchableStoreUnsyncedCancel(b *testing.B) {
 	}
 }
 func BenchmarkWatchableStoreSyncedCancel(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	be, tmpPath := backend.NewDefaultTmpBackend()

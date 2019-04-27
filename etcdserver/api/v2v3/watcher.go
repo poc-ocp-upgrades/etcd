@@ -11,6 +11,8 @@ import (
 func (s *v2v3Store) Watch(prefix string, recursive, stream bool, sinceIndex uint64) (store.Watcher, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithCancel(s.ctx)
 	wch := s.c.Watch(ctx, s.pfx, clientv3.WithPrefix(), clientv3.WithRev(int64(sinceIndex)), clientv3.WithCreatedNotify(), clientv3.WithPrevKV())
 	resp, ok := <-wch
@@ -55,6 +57,8 @@ func (s *v2v3Store) Watch(prefix string, recursive, stream bool, sinceIndex uint
 func (s *v2v3Store) mkV2Events(wr clientv3.WatchResponse) (evs []*store.Event) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ak := s.mkActionKey()
 	for _, rev := range mkRevs(wr) {
 		var act, key *clientv3.Event
@@ -73,6 +77,8 @@ func (s *v2v3Store) mkV2Events(wr clientv3.WatchResponse) (evs []*store.Event) {
 	return evs
 }
 func mkRevs(wr clientv3.WatchResponse) (revs [][]*clientv3.Event) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var curRev []*clientv3.Event
@@ -99,15 +105,21 @@ type v2v3Watcher struct {
 func (w *v2v3Watcher) StartIndex() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return mkV2Rev(w.startRev)
 }
 func (w *v2v3Watcher) Remove() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	w.cancel()
 	<-w.donec
 }
 func (w *v2v3Watcher) EventChan() chan *store.Event {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return w.evc

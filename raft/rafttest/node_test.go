@@ -10,6 +10,8 @@ import (
 func TestBasicProgress(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	peers := []raft.Peer{{1, nil}, {2, nil}, {3, nil}, {4, nil}, {5, nil}}
 	nt := newRaftNetwork(1, 2, 3, 4, 5)
 	nodes := make([]*node, 0)
@@ -29,6 +31,8 @@ func TestBasicProgress(t *testing.T) {
 	}
 }
 func TestRestart(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	peers := []raft.Peer{{1, nil}, {2, nil}, {3, nil}, {4, nil}, {5, nil}}
@@ -66,6 +70,8 @@ func TestRestart(t *testing.T) {
 func TestPause(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	peers := []raft.Peer{{1, nil}, {2, nil}, {3, nil}, {4, nil}, {5, nil}}
 	nt := newRaftNetwork(1, 2, 3, 4, 5)
 	nodes := make([]*node, 0)
@@ -100,6 +106,8 @@ func TestPause(t *testing.T) {
 func waitLeader(ns []*node) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l map[uint64]struct{}
 	var lindex int
 	for {
@@ -119,6 +127,8 @@ func waitLeader(ns []*node) int {
 	}
 }
 func waitCommitConverge(ns []*node, target uint64) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var c map[uint64]struct{}

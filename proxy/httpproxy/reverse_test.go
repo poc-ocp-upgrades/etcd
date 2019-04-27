@@ -19,9 +19,13 @@ type staticRoundTripper struct {
 func (srt *staticRoundTripper) RoundTrip(*http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return srt.res, srt.err
 }
 func TestReverseProxyServe(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u := url.URL{Scheme: "http", Host: "192.0.2.3:4040"}
@@ -46,6 +50,8 @@ func TestReverseProxyServe(t *testing.T) {
 func TestRedirectRequest(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	loc := url.URL{Scheme: "http", Host: "bar.example.com"}
 	req := &http.Request{Method: "GET", Host: "foo.example.com", URL: &url.URL{Host: "foo.example.com", Path: "/v2/keys/baz"}}
 	redirectRequest(req, loc)
@@ -55,6 +61,8 @@ func TestRedirectRequest(t *testing.T) {
 	}
 }
 func TestMaybeSetForwardedFor(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -77,6 +85,8 @@ func TestMaybeSetForwardedFor(t *testing.T) {
 func TestRemoveSingleHopHeaders(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	hdr := http.Header(map[string][]string{"Connection": {"close"}, "Keep-Alive": {"foo"}, "Proxy-Authenticate": {"Basic realm=example.com"}, "Proxy-Authorization": {"foo"}, "Te": {"deflate,gzip"}, "Trailers": {"ETag"}, "Transfer-Encoding": {"chunked"}, "Upgrade": {"WebSocket"}, "Accept": {"application/json"}, "X-Foo": {"Bar"}})
 	removeSingleHopHeaders(&hdr)
 	want := http.Header(map[string][]string{"Accept": {"application/json"}, "X-Foo": {"Bar"}})
@@ -85,6 +95,8 @@ func TestRemoveSingleHopHeaders(t *testing.T) {
 	}
 }
 func TestCopyHeader(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {

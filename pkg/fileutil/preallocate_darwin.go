@@ -9,12 +9,16 @@ import (
 func preallocExtend(f *os.File, sizeInBytes int64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := preallocFixed(f, sizeInBytes); err != nil {
 		return err
 	}
 	return preallocExtendTrunc(f, sizeInBytes)
 }
 func preallocFixed(f *os.File, sizeInBytes int64) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fstore := &syscall.Fstore_t{Flags: syscall.F_ALLOCATEALL, Posmode: syscall.F_PEOFPOSMODE, Length: sizeInBytes}

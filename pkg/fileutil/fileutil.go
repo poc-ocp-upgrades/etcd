@@ -22,6 +22,8 @@ var (
 func IsDirWriteable(dir string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f := filepath.Join(dir, ".touch")
 	if err := ioutil.WriteFile(f, []byte(""), PrivateFileMode); err != nil {
 		return err
@@ -29,6 +31,8 @@ func IsDirWriteable(dir string) error {
 	return os.Remove(f)
 }
 func ReadDir(dirpath string) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dir, err := os.Open(dirpath)
@@ -46,6 +50,8 @@ func ReadDir(dirpath string) ([]string, error) {
 func TouchDirAll(dir string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := os.MkdirAll(dir, PrivateDirMode)
 	if err != nil {
 		return err
@@ -53,6 +59,8 @@ func TouchDirAll(dir string) error {
 	return IsDirWriteable(dir)
 }
 func CreateDirAll(dir string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := TouchDirAll(dir)
@@ -71,10 +79,14 @@ func CreateDirAll(dir string) error {
 func Exist(name string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := os.Stat(name)
 	return err == nil
 }
 func ZeroToEnd(f *os.File) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	off, err := f.Seek(0, io.SeekCurrent)

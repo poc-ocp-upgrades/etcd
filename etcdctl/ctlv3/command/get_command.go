@@ -22,6 +22,8 @@ var (
 func NewGetCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "get [options] <key> [range_end]", Short: "Gets the key or a range of keys", Run: getCommandFunc}
 	cmd.Flags().StringVar(&getConsistency, "consistency", "l", "Linearizable(l) or Serializable(s)")
 	cmd.Flags().StringVar(&getSortOrder, "order", "", "Order of results; ASCEND or DESCEND (ASCEND by default)")
@@ -35,6 +37,8 @@ func NewGetCommand() *cobra.Command {
 	return cmd
 }
 func getCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	key, opts := getGetOp(cmd, args)
@@ -54,6 +58,8 @@ func getCommandFunc(cmd *cobra.Command, args []string) {
 	display.Get(*resp)
 }
 func getGetOp(cmd *cobra.Command, args []string) (string, []clientv3.OpOption) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) == 0 {

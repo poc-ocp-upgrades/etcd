@@ -25,6 +25,8 @@ const (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(requestsIncoming)
 	prometheus.MustRegister(requestsHandled)
 	prometheus.MustRegister(requestsDropped)
@@ -33,9 +35,13 @@ func init() {
 func reportIncomingRequest(request *http.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	requestsIncoming.WithLabelValues(request.Method).Inc()
 }
 func reportRequestHandled(request *http.Request, response *http.Response, startTime time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	method := request.Method
@@ -43,6 +49,8 @@ func reportRequestHandled(request *http.Request, response *http.Response, startT
 	requestsHandlingTime.WithLabelValues(method).Observe(time.Since(startTime).Seconds())
 }
 func reportRequestDropped(request *http.Request, err forwardingError) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	requestsDropped.WithLabelValues(request.Method, string(err)).Inc()

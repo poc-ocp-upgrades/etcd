@@ -10,6 +10,8 @@ import (
 func TestRawNodeStep(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i, msgn := range raftpb.MessageType_name {
 		s := NewMemoryStorage()
 		rawNode, err := NewRawNode(newTestConfig(1, nil, 10, 1, s), []Peer{{ID: 1}})
@@ -26,6 +28,8 @@ func TestRawNodeStep(t *testing.T) {
 	}
 }
 func TestRawNodeProposeAndConfChange(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := NewMemoryStorage()
@@ -83,6 +87,8 @@ func TestRawNodeProposeAndConfChange(t *testing.T) {
 	}
 }
 func TestRawNodeProposeAddDuplicateNode(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := NewMemoryStorage()
@@ -150,6 +156,8 @@ func TestRawNodeProposeAddDuplicateNode(t *testing.T) {
 func TestRawNodeReadIndex(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	msgs := []raftpb.Message{}
 	appendStep := func(r *raft, m raftpb.Message) {
 		msgs = append(msgs, m)
@@ -201,6 +209,8 @@ func TestRawNodeReadIndex(t *testing.T) {
 func TestRawNodeStart(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cc := raftpb.ConfChange{Type: raftpb.ConfChangeAddNode, NodeID: 1}
 	ccdata, err := cc.Marshal()
 	if err != nil {
@@ -240,6 +250,8 @@ func TestRawNodeStart(t *testing.T) {
 func TestRawNodeRestart(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	entries := []raftpb.Entry{{Term: 1, Index: 1}, {Term: 1, Index: 2, Data: []byte("foo")}}
 	st := raftpb.HardState{Term: 1, Commit: 1}
 	want := Ready{HardState: emptyState, CommittedEntries: entries[:st.Commit], MustSync: true}
@@ -260,6 +272,8 @@ func TestRawNodeRestart(t *testing.T) {
 	}
 }
 func TestRawNodeRestartFromSnapshot(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	snap := raftpb.Snapshot{Metadata: raftpb.SnapshotMetadata{ConfState: raftpb.ConfState{Nodes: []uint64{1, 2}}, Index: 2, Term: 1}}
@@ -284,6 +298,8 @@ func TestRawNodeRestartFromSnapshot(t *testing.T) {
 	}
 }
 func TestRawNodeStatus(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	storage := NewMemoryStorage()

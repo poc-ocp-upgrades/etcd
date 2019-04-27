@@ -21,6 +21,8 @@ var (
 func TestDialTLSExpired(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1, PeerTLS: &testTLSInfo, ClientTLS: &testTLSInfo, SkipCreatingClient: true})
 	defer clus.Terminate(t)
@@ -36,6 +38,8 @@ func TestDialTLSExpired(t *testing.T) {
 func TestDialTLSNoConfig(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1, ClientTLS: &testTLSInfo, SkipCreatingClient: true})
 	defer clus.Terminate(t)
@@ -47,14 +51,20 @@ func TestDialTLSNoConfig(t *testing.T) {
 func TestDialSetEndpointsBeforeFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testDialSetEndpoints(t, true)
 }
 func TestDialSetEndpointsAfterFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testDialSetEndpoints(t, false)
 }
 func testDialSetEndpoints(t *testing.T, setBefore bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -88,6 +98,8 @@ func testDialSetEndpoints(t *testing.T, setBefore bool) {
 func TestSwitchSetEndpoints(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -104,6 +116,8 @@ func TestSwitchSetEndpoints(t *testing.T) {
 func TestRejectOldCluster(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 2, SkipCreatingClient: true})
 	defer clus.Terminate(t)
@@ -115,6 +129,8 @@ func TestRejectOldCluster(t *testing.T) {
 	cli.Close()
 }
 func TestDialForeignEndpoint(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -133,6 +149,8 @@ func TestDialForeignEndpoint(t *testing.T) {
 	}
 }
 func TestSetEndpointAndPut(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

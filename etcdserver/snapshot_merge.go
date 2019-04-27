@@ -10,6 +10,8 @@ import (
 func (s *EtcdServer) createMergedSnapshotMessage(m raftpb.Message, snapt, snapi uint64, confState raftpb.ConfState) snap.Message {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clone := s.store.Clone()
 	d, err := clone.SaveNoCopy()
 	if err != nil {
@@ -23,6 +25,8 @@ func (s *EtcdServer) createMergedSnapshotMessage(m raftpb.Message, snapt, snapi 
 	return *snap.NewMessage(m, rc, dbsnap.Size())
 }
 func newSnapshotReaderCloser(snapshot backend.Snapshot) io.ReadCloser {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pr, pw := io.Pipe()

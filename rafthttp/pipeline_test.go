@@ -19,6 +19,8 @@ import (
 func TestPipelineSend(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tr := &roundTripperRecorder{rec: testutil.NewRecorderStream()}
 	picker := mustNewURLPicker(t, []string{"http://localhost:2380"})
 	tp := &Transport{pipelineRt: tr}
@@ -31,6 +33,8 @@ func TestPipelineSend(t *testing.T) {
 	}
 }
 func TestPipelineKeepSendingWhenPostError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tr := &respRoundTripper{rec: testutil.NewRecorderStream(), err: fmt.Errorf("roundtrip error")}
@@ -47,6 +51,8 @@ func TestPipelineKeepSendingWhenPostError(t *testing.T) {
 	}
 }
 func TestPipelineExceedMaximumServing(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rt := newRoundTripperBlocker()
@@ -76,6 +82,8 @@ func TestPipelineExceedMaximumServing(t *testing.T) {
 func TestPipelineSendFailed(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	picker := mustNewURLPicker(t, []string{"http://localhost:2380"})
 	rt := newRespRoundTripper(0, errors.New("blah"))
 	rt.rec = testutil.NewRecorderStream()
@@ -91,6 +99,8 @@ func TestPipelineSendFailed(t *testing.T) {
 	}
 }
 func TestPipelinePost(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tr := &roundTripperRecorder{rec: &testutil.RecorderBuffered{}}
@@ -135,6 +145,8 @@ func TestPipelinePost(t *testing.T) {
 func TestPipelinePostBad(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		u	string
 		code	int
@@ -152,6 +164,8 @@ func TestPipelinePostBad(t *testing.T) {
 	}
 }
 func TestPipelinePostErrorc(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -173,6 +187,8 @@ func TestPipelinePostErrorc(t *testing.T) {
 	}
 }
 func TestStopBlockedPipeline(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	picker := mustNewURLPicker(t, []string{"http://localhost:2380"})
@@ -202,14 +218,20 @@ type roundTripperBlocker struct {
 func newRoundTripperBlocker() *roundTripperBlocker {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &roundTripperBlocker{unblockc: make(chan struct{}), cancel: make(map[*http.Request]chan struct{})}
 }
 func (t *roundTripperBlocker) unblock() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	close(t.unblockc)
 }
 func (t *roundTripperBlocker) CancelRequest(req *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.mu.Lock()
@@ -231,9 +253,13 @@ type respRoundTripper struct {
 func newRespRoundTripper(code int, err error) *respRoundTripper {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &respRoundTripper{code: code, err: err}
 }
 func (t *respRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.mu.Lock()
@@ -249,6 +275,8 @@ type roundTripperRecorder struct{ rec testutil.Recorder }
 func (t *roundTripperRecorder) RoundTrip(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if t.rec != nil {
 		t.rec.Record(testutil.Action{Name: "req", Params: []interface{}{req}})
 	}
@@ -260,14 +288,20 @@ type nopReadCloser struct{}
 func (n *nopReadCloser) Read(p []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 0, io.EOF
 }
 func (n *nopReadCloser) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func startTestPipeline(tr *Transport, picker *urlPicker) *pipeline {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p := &pipeline{peerID: types.ID(1), tr: tr, picker: picker, status: newPeerStatus(types.ID(1)), raft: &fakeRaft{}, followerStats: &stats.FollowerStats{}, errorc: make(chan error, 1)}

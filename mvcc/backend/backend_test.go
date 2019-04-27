@@ -13,6 +13,8 @@ import (
 func TestBackendClose(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := NewTmpBackend(time.Hour, 10000)
 	defer os.Remove(tmpPath)
 	done := make(chan struct{})
@@ -30,6 +32,8 @@ func TestBackendClose(t *testing.T) {
 	}
 }
 func TestBackendSnapshot(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := NewTmpBackend(time.Hour, 10000)
@@ -65,6 +69,8 @@ func TestBackendSnapshot(t *testing.T) {
 func TestBackendBatchIntervalCommit(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := NewTmpBackend(time.Nanosecond, 10000)
 	defer cleanup(b, tmpPath)
 	pc := b.Commits()
@@ -93,6 +99,8 @@ func TestBackendBatchIntervalCommit(t *testing.T) {
 	})
 }
 func TestBackendDefrag(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := NewDefaultTmpBackend()
@@ -142,6 +150,8 @@ func TestBackendDefrag(t *testing.T) {
 func TestBackendWriteback(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := NewDefaultTmpBackend()
 	defer cleanup(b, tmpPath)
 	tx := b.BatchTx()
@@ -172,6 +182,8 @@ func TestBackendWriteback(t *testing.T) {
 	}
 }
 func TestBackendWritebackForEach(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := NewTmpBackend(time.Hour, 10000)
@@ -212,6 +224,8 @@ func TestBackendWritebackForEach(t *testing.T) {
 	}
 }
 func cleanup(b Backend, path string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b.Close()

@@ -39,14 +39,20 @@ type WatchResponse struct {
 func (e *Event) IsCreate() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.Type == EventTypePut && e.Kv.CreateRevision == e.Kv.ModRevision
 }
 func (e *Event) IsModify() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.Type == EventTypePut && e.Kv.CreateRevision != e.Kv.ModRevision
 }
 func (wr *WatchResponse) Err() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch {
@@ -63,6 +69,8 @@ func (wr *WatchResponse) Err() error {
 	return nil
 }
 func (wr *WatchResponse) IsProgressNotify() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return len(wr.Events) == 0 && !wr.Canceled && !wr.Created && wr.CompactRevision == 0 && wr.Header.Revision != 0
@@ -116,9 +124,13 @@ type watcherStream struct {
 func NewWatcher(c *Client) Watcher {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewWatchFromWatchClient(pb.NewWatchClient(c.conn), c)
 }
 func NewWatchFromWatchClient(wc pb.WatchClient, c *Client) Watcher {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	w := &watcher{remote: wc, streams: make(map[string]*watchGrpcStream)}
@@ -136,9 +148,13 @@ type valCtx struct{ context.Context }
 func (vc *valCtx) Deadline() (time.Time, bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return zeroTime, false
 }
 func (vc *valCtx) Done() <-chan struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return valCtxCh
@@ -146,9 +162,13 @@ func (vc *valCtx) Done() <-chan struct{} {
 func (vc *valCtx) Err() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (w *watcher) newWatcherGrpcStream(inctx context.Context) *watchGrpcStream {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := context.WithCancel(&valCtx{inctx})
@@ -157,6 +177,8 @@ func (w *watcher) newWatcherGrpcStream(inctx context.Context) *watchGrpcStream {
 	return wgs
 }
 func (w *watcher) Watch(ctx context.Context, key string, opts ...OpOption) WatchChan {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ow := opWatch(key, opts...)
@@ -216,6 +238,8 @@ func (w *watcher) Watch(ctx context.Context, key string, opts ...OpOption) Watch
 func (w *watcher) Close() (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	w.mu.Lock()
 	streams := w.streams
 	w.streams = nil
@@ -230,6 +254,8 @@ func (w *watcher) Close() (err error) {
 func (w *watchGrpcStream) close() (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	w.cancel()
 	<-w.donec
 	select {
@@ -239,6 +265,8 @@ func (w *watchGrpcStream) close() (err error) {
 	return toErr(w.ctx, err)
 }
 func (w *watcher) closeStream(wgs *watchGrpcStream) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	w.mu.Lock()
@@ -252,6 +280,8 @@ func (w *watcher) closeStream(wgs *watchGrpcStream) {
 func (w *watchGrpcStream) addSubstream(resp *pb.WatchResponse, ws *watcherStream) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if resp.WatchId == -1 {
 		close(ws.recvc)
 		return
@@ -262,6 +292,8 @@ func (w *watchGrpcStream) addSubstream(resp *pb.WatchResponse, ws *watcherStream
 func (w *watchGrpcStream) sendCloseSubstream(ws *watcherStream, resp *WatchResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case ws.outc <- *resp:
 	case <-ws.initReq.ctx.Done():
@@ -270,6 +302,8 @@ func (w *watchGrpcStream) sendCloseSubstream(ws *watcherStream, resp *WatchRespo
 	close(ws.outc)
 }
 func (w *watchGrpcStream) closeSubstream(ws *watcherStream) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {
@@ -293,6 +327,8 @@ func (w *watchGrpcStream) closeSubstream(ws *watcherStream) {
 	}
 }
 func (w *watchGrpcStream) run() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var wc pb.Watch_WatchClient
@@ -390,6 +426,8 @@ func (w *watchGrpcStream) run() {
 func (w *watchGrpcStream) nextResume() *watcherStream {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for len(w.resuming) != 0 {
 		if w.resuming[0] != nil {
 			return w.resuming[0]
@@ -399,6 +437,8 @@ func (w *watchGrpcStream) nextResume() *watcherStream {
 	return nil
 }
 func (w *watchGrpcStream) dispatchEvent(pbresp *pb.WatchResponse) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	events := make([]*Event, len(pbresp.Events))
@@ -420,6 +460,8 @@ func (w *watchGrpcStream) dispatchEvent(pbresp *pb.WatchResponse) bool {
 func (w *watchGrpcStream) serveWatchClient(wc pb.Watch_WatchClient) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		resp, err := wc.Recv()
 		if err != nil {
@@ -437,6 +479,8 @@ func (w *watchGrpcStream) serveWatchClient(wc pb.Watch_WatchClient) {
 	}
 }
 func (w *watchGrpcStream) serveSubstream(ws *watcherStream, resumec chan struct{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ws.closing {
@@ -509,6 +553,8 @@ func (w *watchGrpcStream) serveSubstream(ws *watcherStream, resumec chan struct{
 func (w *watchGrpcStream) newWatchClient() (pb.Watch_WatchClient, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	close(w.resumec)
 	w.resumec = make(chan struct{})
 	w.joinSubstreams()
@@ -544,6 +590,8 @@ func (w *watchGrpcStream) newWatchClient() (pb.Watch_WatchClient, error) {
 	return wc, nil
 }
 func (w *watchGrpcStream) waitCancelSubstreams(stopc <-chan struct{}) <-chan struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var wg sync.WaitGroup
@@ -582,6 +630,8 @@ func (w *watchGrpcStream) waitCancelSubstreams(stopc <-chan struct{}) <-chan str
 func (w *watchGrpcStream) joinSubstreams() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, ws := range w.substreams {
 		<-ws.donec
 	}
@@ -595,6 +645,8 @@ func (w *watchGrpcStream) joinSubstreams() {
 var maxBackoff = 100 * time.Millisecond
 
 func (w *watchGrpcStream) openWatchClient() (ws pb.Watch_WatchClient, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	backoff := time.Millisecond
@@ -628,11 +680,15 @@ func (w *watchGrpcStream) openWatchClient() (ws pb.Watch_WatchClient, err error)
 func (wr *watchRequest) toPB() *pb.WatchRequest {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req := &pb.WatchCreateRequest{StartRevision: wr.rev, Key: []byte(wr.key), RangeEnd: []byte(wr.end), ProgressNotify: wr.progressNotify, Filters: wr.filters, PrevKv: wr.prevKV}
 	cr := &pb.WatchRequest_CreateRequest{CreateRequest: req}
 	return &pb.WatchRequest{RequestUnion: cr}
 }
 func streamKeyFromCtx(ctx context.Context) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if md, ok := metadata.FromOutgoingContext(ctx); ok {

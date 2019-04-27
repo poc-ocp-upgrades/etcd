@@ -11,6 +11,8 @@ import (
 func TestMinExpireTime(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore()
 	fc := clockwork.NewFakeClock()
 	s.clock = fc
@@ -27,6 +29,8 @@ func TestMinExpireTime(t *testing.T) {
 	testutil.AssertEqual(t, e.Node.TTL, int64(0))
 }
 func TestStoreGetDirectory(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newStore()
@@ -77,6 +81,8 @@ func TestStoreGetDirectory(t *testing.T) {
 func TestStoreUpdateValueTTL(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore()
 	fc := newFakeClock()
 	s.clock = fc
@@ -94,6 +100,8 @@ func TestStoreUpdateValueTTL(t *testing.T) {
 	testutil.AssertEqual(t, err.(*etcdErr.Error).ErrorCode, etcdErr.EcodeKeyNotFound)
 }
 func TestStoreUpdateDirTTL(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newStore()
@@ -116,6 +124,8 @@ func TestStoreUpdateDirTTL(t *testing.T) {
 	testutil.AssertEqual(t, err.(*etcdErr.Error).ErrorCode, etcdErr.EcodeKeyNotFound)
 }
 func TestStoreWatchExpire(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newStore()
@@ -154,6 +164,8 @@ func TestStoreWatchExpire(t *testing.T) {
 func TestStoreWatchExpireRefresh(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore()
 	fc := newFakeClock()
 	s.clock = fc
@@ -186,6 +198,8 @@ func TestStoreWatchExpireRefresh(t *testing.T) {
 func TestStoreWatchExpireEmptyRefresh(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore()
 	fc := newFakeClock()
 	s.clock = fc
@@ -206,6 +220,8 @@ func TestStoreWatchExpireEmptyRefresh(t *testing.T) {
 	testutil.AssertEqual(t, *e.PrevNode.Value, "bar")
 }
 func TestStoreWatchNoRefresh(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newStore()
@@ -230,6 +246,8 @@ func TestStoreWatchNoRefresh(t *testing.T) {
 func TestStoreRefresh(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore()
 	fc := newFakeClock()
 	s.clock = fc
@@ -245,6 +263,8 @@ func TestStoreRefresh(t *testing.T) {
 	testutil.AssertNil(t, err)
 }
 func TestStoreRecoverWithExpiration(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newStore()
@@ -273,6 +293,8 @@ func TestStoreRecoverWithExpiration(t *testing.T) {
 func TestStoreWatchExpireWithHiddenKey(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore()
 	fc := newFakeClock()
 	s.clock = fc
@@ -295,6 +317,8 @@ func TestStoreWatchExpireWithHiddenKey(t *testing.T) {
 func newFakeClock() clockwork.FakeClock {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fc := clockwork.NewFakeClock()
 	for minExpireTime.After(fc.Now()) {
 		fc.Advance((0x1 << 62) * time.Nanosecond)
@@ -302,6 +326,8 @@ func newFakeClock() clockwork.FakeClock {
 	return fc
 }
 func nbselect(c <-chan *Event) *Event {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {

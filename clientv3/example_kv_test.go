@@ -11,6 +11,8 @@ import (
 func ExampleKV_put() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
 	if err != nil {
 		log.Fatal(err)
@@ -24,6 +26,8 @@ func ExampleKV_put() {
 	}
 }
 func ExampleKV_putErrorHandling() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
@@ -50,6 +54,8 @@ func ExampleKV_putErrorHandling() {
 func ExampleKV_get() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
 	if err != nil {
 		log.Fatal(err)
@@ -70,6 +76,8 @@ func ExampleKV_get() {
 	}
 }
 func ExampleKV_getWithRev() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
@@ -98,6 +106,8 @@ func ExampleKV_getWithRev() {
 func ExampleKV_getSortedPrefix() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
 	if err != nil {
 		log.Fatal(err)
@@ -124,6 +134,8 @@ func ExampleKV_getSortedPrefix() {
 func ExampleKV_delete() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
 	if err != nil {
 		log.Fatal(err)
@@ -142,6 +154,8 @@ func ExampleKV_delete() {
 	fmt.Println("Deleted all keys:", int64(len(gresp.Kvs)) == dresp.Deleted)
 }
 func ExampleKV_compact() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
@@ -164,6 +178,8 @@ func ExampleKV_compact() {
 	}
 }
 func ExampleKV_txn() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
@@ -192,6 +208,8 @@ func ExampleKV_txn() {
 	}
 }
 func ExampleKV_do() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})

@@ -11,6 +11,8 @@ import (
 func TestPercentiles(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nums := make([]float64, 100)
 	nums[99] = 1
 	data := percentiles(nums)
@@ -25,6 +27,8 @@ func TestPercentiles(t *testing.T) {
 	}
 }
 func TestReport(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := NewReportSample("%f")
@@ -53,6 +57,8 @@ func TestReport(t *testing.T) {
 	}
 }
 func TestWeightedReport(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := NewWeightedReport(NewReport("%f"), "%f")

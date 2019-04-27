@@ -33,6 +33,8 @@ type maintenance struct {
 func NewMaintenance(c *Client) Maintenance {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	api := &maintenance{dial: func(endpoint string) (pb.MaintenanceClient, func(), error) {
 		conn, err := c.dial(endpoint)
 		if err != nil {
@@ -51,6 +53,8 @@ func NewMaintenance(c *Client) Maintenance {
 func NewMaintenanceFromMaintenanceClient(remote pb.MaintenanceClient, c *Client) Maintenance {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	api := &maintenance{dial: func(string) (pb.MaintenanceClient, func(), error) {
 		return remote, func() {
 		}, nil
@@ -63,6 +67,8 @@ func NewMaintenanceFromMaintenanceClient(remote pb.MaintenanceClient, c *Client)
 func (m *maintenance) AlarmList(ctx context.Context) (*AlarmResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req := &pb.AlarmRequest{Action: pb.AlarmRequest_GET, MemberID: 0, Alarm: pb.AlarmType_NONE}
 	resp, err := m.remote.Alarm(ctx, req, m.callOpts...)
 	if err == nil {
@@ -71,6 +77,8 @@ func (m *maintenance) AlarmList(ctx context.Context) (*AlarmResponse, error) {
 	return nil, toErr(ctx, err)
 }
 func (m *maintenance) AlarmDisarm(ctx context.Context, am *AlarmMember) (*AlarmResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req := &pb.AlarmRequest{Action: pb.AlarmRequest_DEACTIVATE, MemberID: am.MemberID, Alarm: am.Alarm}
@@ -98,6 +106,8 @@ func (m *maintenance) AlarmDisarm(ctx context.Context, am *AlarmMember) (*AlarmR
 func (m *maintenance) Defragment(ctx context.Context, endpoint string) (*DefragmentResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	remote, cancel, err := m.dial(endpoint)
 	if err != nil {
 		return nil, toErr(ctx, err)
@@ -110,6 +120,8 @@ func (m *maintenance) Defragment(ctx context.Context, endpoint string) (*Defragm
 	return (*DefragmentResponse)(resp), nil
 }
 func (m *maintenance) Status(ctx context.Context, endpoint string) (*StatusResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	remote, cancel, err := m.dial(endpoint)
@@ -126,6 +138,8 @@ func (m *maintenance) Status(ctx context.Context, endpoint string) (*StatusRespo
 func (m *maintenance) HashKV(ctx context.Context, endpoint string, rev int64) (*HashKVResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	remote, cancel, err := m.dial(endpoint)
 	if err != nil {
 		return nil, toErr(ctx, err)
@@ -138,6 +152,8 @@ func (m *maintenance) HashKV(ctx context.Context, endpoint string, rev int64) (*
 	return (*HashKVResponse)(resp), nil
 }
 func (m *maintenance) Snapshot(ctx context.Context) (io.ReadCloser, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ss, err := m.remote.Snapshot(ctx, &pb.SnapshotRequest{}, m.callOpts...)
@@ -173,10 +189,14 @@ type snapshotReadCloser struct {
 func (rc *snapshotReadCloser) Read(p []byte) (n int, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n, err = rc.ReadCloser.Read(p)
 	return n, toErr(rc.ctx, err)
 }
 func (m *maintenance) MoveLeader(ctx context.Context, transfereeID uint64) (*MoveLeaderResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := m.remote.MoveLeader(ctx, &pb.MoveLeaderRequest{TargetID: transfereeID}, m.callOpts...)

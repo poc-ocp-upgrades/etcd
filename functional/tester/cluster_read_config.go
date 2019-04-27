@@ -15,6 +15,8 @@ import (
 func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bts, err := ioutil.ReadFile(fpath)
 	if err != nil {
 		return nil, err

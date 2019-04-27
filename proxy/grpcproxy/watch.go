@@ -24,6 +24,8 @@ type watchProxy struct {
 func NewWatchProxy(c *clientv3.Client) (pb.WatchServer, <-chan struct{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cctx, cancel := context.WithCancel(c.Ctx())
 	wp := &watchProxy{cw: c.Watcher, ctx: cctx, leader: newLeader(c.Ctx(), c.Watcher), kv: c.KV}
 	wp.ranges = newWatchRanges(wp)
@@ -45,6 +47,8 @@ func NewWatchProxy(c *clientv3.Client) (pb.WatchServer, <-chan struct{}) {
 	return wp, ch
 }
 func (wp *watchProxy) Watch(stream pb.Watch_WatchServer) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wp.mu.Lock()
@@ -132,6 +136,8 @@ type watchProxyStream struct {
 func (wps *watchProxyStream) close() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var wg sync.WaitGroup
 	wps.cancel()
 	wps.mu.Lock()
@@ -150,6 +156,8 @@ func (wps *watchProxyStream) close() {
 func (wps *watchProxyStream) checkPermissionForWatch(key, rangeEnd []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(key) == 0 {
 		key = []byte{0}
 		rangeEnd = []byte{0}
@@ -159,6 +167,8 @@ func (wps *watchProxyStream) checkPermissionForWatch(key, rangeEnd []byte) error
 	return err
 }
 func (wps *watchProxyStream) recvLoop() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -192,6 +202,8 @@ func (wps *watchProxyStream) recvLoop() error {
 func (wps *watchProxyStream) sendLoop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		select {
 		case wresp, ok := <-wps.watchCh:
@@ -207,6 +219,8 @@ func (wps *watchProxyStream) sendLoop() {
 	}
 }
 func (wps *watchProxyStream) delete(id int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wps.mu.Lock()

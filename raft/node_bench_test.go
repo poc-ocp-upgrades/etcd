@@ -9,6 +9,8 @@ import (
 func BenchmarkOneNode(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	n := newNode()

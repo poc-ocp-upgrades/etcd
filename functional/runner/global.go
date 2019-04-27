@@ -30,6 +30,8 @@ type roundClient struct {
 func newClient(eps []string, timeout time.Duration) *clientv3.Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c, err := clientv3.New(clientv3.Config{Endpoints: eps, DialTimeout: time.Duration(timeout) * time.Second})
 	if err != nil {
 		log.Fatal(err)
@@ -37,6 +39,8 @@ func newClient(eps []string, timeout time.Duration) *clientv3.Client {
 	return c
 }
 func doRounds(rcs []roundClient, rounds int, requests int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var wg sync.WaitGroup
@@ -81,6 +85,8 @@ func doRounds(rcs []roundClient, rounds int, requests int) {
 	}
 }
 func endpointsFromFlag(cmd *cobra.Command) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	eps, err := cmd.Flags().GetStringSlice("endpoints")

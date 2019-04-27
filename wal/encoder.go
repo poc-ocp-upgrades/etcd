@@ -24,9 +24,13 @@ type encoder struct {
 func newEncoder(w io.Writer, prevCrc uint32, pageOffset int) *encoder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &encoder{bw: ioutil.NewPageWriter(w, walPageBytes, pageOffset), crc: crc.New(prevCrc, crcTable), buf: make([]byte, 1024*1024), uint64buf: make([]byte, 8)}
 }
 func newFileEncoder(f *os.File, prevCrc uint32) (*encoder, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	offset, err := f.Seek(0, io.SeekCurrent)
@@ -36,6 +40,8 @@ func newFileEncoder(f *os.File, prevCrc uint32) (*encoder, error) {
 	return newEncoder(f, prevCrc, int(offset)), nil
 }
 func (e *encoder) encode(rec *walpb.Record) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	e.mu.Lock()
@@ -72,6 +78,8 @@ func (e *encoder) encode(rec *walpb.Record) error {
 func encodeFrameSize(dataBytes int) (lenField uint64, padBytes int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lenField = uint64(dataBytes)
 	padBytes = (8 - (dataBytes % 8)) % 8
 	if padBytes != 0 {
@@ -82,11 +90,15 @@ func encodeFrameSize(dataBytes int) (lenField uint64, padBytes int) {
 func (e *encoder) flush() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	e.mu.Lock()
 	defer e.mu.Unlock()
 	return e.bw.Flush()
 }
 func writeUint64(w io.Writer, n uint64, buf []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	binary.LittleEndian.PutUint64(buf, n)

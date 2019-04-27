@@ -31,6 +31,8 @@ import (
 func mustMarshalEvent(t *testing.T, ev *store.Event) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b := new(bytes.Buffer)
 	if err := json.NewEncoder(b).Encode(ev); err != nil {
 		t.Fatalf("error marshalling event %#v: %v", ev, err)
@@ -38,6 +40,8 @@ func mustMarshalEvent(t *testing.T, ev *store.Event) string {
 	return b.String()
 }
 func mustNewForm(t *testing.T, p string, vals url.Values) *http.Request {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u := testutil.MustNewURL(t, path.Join(keysPrefix, p))
@@ -51,6 +55,8 @@ func mustNewForm(t *testing.T, p string, vals url.Values) *http.Request {
 func mustNewPostForm(t *testing.T, p string, vals url.Values) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u := testutil.MustNewURL(t, path.Join(keysPrefix, p))
 	req, err := http.NewRequest("POST", u.String(), strings.NewReader(vals.Encode()))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
@@ -62,9 +68,13 @@ func mustNewPostForm(t *testing.T, p string, vals url.Values) *http.Request {
 func mustNewRequest(t *testing.T, p string) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return mustNewMethodRequest(t, "GET", p)
 }
 func mustNewMethodRequest(t *testing.T, m, p string) *http.Request {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &http.Request{Method: m, URL: testutil.MustNewURL(t, path.Join(keysPrefix, p))}
@@ -78,9 +88,13 @@ type fakeServer struct {
 func (s *fakeServer) Leader() types.ID {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return types.ID(1)
 }
 func (s *fakeServer) Alarms() []*etcdserverpb.AlarmMember {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -88,9 +102,13 @@ func (s *fakeServer) Alarms() []*etcdserverpb.AlarmMember {
 func (s *fakeServer) Cluster() api.Cluster {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (s *fakeServer) ClusterVersion() *semver.Version {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -98,14 +116,20 @@ func (s *fakeServer) ClusterVersion() *semver.Version {
 func (s *fakeServer) RaftHandler() http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (s *fakeServer) Do(ctx context.Context, r etcdserverpb.Request) (rr etcdserver.Response, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return
 }
 func (s *fakeServer) ClientCertAuthEnabled() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return false
@@ -119,10 +143,14 @@ type serverRecorder struct {
 func (s *serverRecorder) Do(_ context.Context, r etcdserverpb.Request) (etcdserver.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.actions = append(s.actions, action{name: "Do", params: []interface{}{r}})
 	return etcdserver.Response{}, nil
 }
 func (s *serverRecorder) Process(_ context.Context, m raftpb.Message) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.actions = append(s.actions, action{name: "Process", params: []interface{}{m}})
@@ -131,16 +159,22 @@ func (s *serverRecorder) Process(_ context.Context, m raftpb.Message) error {
 func (s *serverRecorder) AddMember(_ context.Context, m membership.Member) ([]*membership.Member, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.actions = append(s.actions, action{name: "AddMember", params: []interface{}{m}})
 	return nil, nil
 }
 func (s *serverRecorder) RemoveMember(_ context.Context, id uint64) ([]*membership.Member, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.actions = append(s.actions, action{name: "RemoveMember", params: []interface{}{id}})
 	return nil, nil
 }
 func (s *serverRecorder) UpdateMember(_ context.Context, m membership.Member) ([]*membership.Member, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.actions = append(s.actions, action{name: "UpdateMember", params: []interface{}{m}})
@@ -159,6 +193,8 @@ type flushingRecorder struct {
 func (fr *flushingRecorder) Flush() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fr.ResponseRecorder.Flush()
 	fr.ch <- struct{}{}
 }
@@ -171,9 +207,13 @@ type resServer struct {
 func (rs *resServer) Do(_ context.Context, _ etcdserverpb.Request) (etcdserver.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return rs.res, nil
 }
 func (rs *resServer) Process(_ context.Context, _ raftpb.Message) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -181,9 +221,13 @@ func (rs *resServer) Process(_ context.Context, _ raftpb.Message) error {
 func (rs *resServer) AddMember(_ context.Context, _ membership.Member) ([]*membership.Member, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, nil
 }
 func (rs *resServer) RemoveMember(_ context.Context, _ uint64) ([]*membership.Member, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil, nil
@@ -191,9 +235,13 @@ func (rs *resServer) RemoveMember(_ context.Context, _ uint64) ([]*membership.Me
 func (rs *resServer) UpdateMember(_ context.Context, _ membership.Member) ([]*membership.Member, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, nil
 }
 func boolp(b bool) *bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &b
@@ -204,9 +252,13 @@ type dummyRaftTimer struct{}
 func (drt dummyRaftTimer) Index() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return uint64(100)
 }
 func (drt dummyRaftTimer) Term() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return uint64(5)
@@ -220,9 +272,13 @@ type dummyWatcher struct {
 func (w *dummyWatcher) EventChan() chan *store.Event {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return w.echan
 }
 func (w *dummyWatcher) StartIndex() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return w.sidx
@@ -230,8 +286,12 @@ func (w *dummyWatcher) StartIndex() uint64 {
 func (w *dummyWatcher) Remove() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func TestBadRefreshRequest(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -261,6 +321,8 @@ func TestBadRefreshRequest(t *testing.T) {
 func TestBadParseRequest(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		in	*http.Request
 		wcode	int
@@ -288,6 +350,8 @@ func TestBadParseRequest(t *testing.T) {
 func TestGoodParseRequest(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fc := clockwork.NewFakeClock()
 	fc.Advance(1111)
 	tests := []struct {
@@ -309,6 +373,8 @@ func TestGoodParseRequest(t *testing.T) {
 	}
 }
 func TestServeMembers(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	memb1 := membership.Member{ID: 12, Attributes: membership.Attributes{ClientURLs: []string{"http://localhost:8080"}}}
@@ -348,6 +414,8 @@ func TestServeMembers(t *testing.T) {
 func TestServeLeader(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	memb1 := membership.Member{ID: 1, Attributes: membership.Attributes{ClientURLs: []string{"http://localhost:8080"}}}
 	memb2 := membership.Member{ID: 2, Attributes: membership.Attributes{ClientURLs: []string{"http://localhost:8081"}}}
 	cluster := &fakeCluster{id: 1, members: map[uint64]*membership.Member{1: &memb1, 2: &memb2}}
@@ -383,6 +451,8 @@ func TestServeLeader(t *testing.T) {
 	}
 }
 func TestServeMembersCreate(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u := testutil.MustNewURL(t, membersPrefix)
@@ -423,6 +493,8 @@ func TestServeMembersCreate(t *testing.T) {
 func TestServeMembersDelete(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req := &http.Request{Method: "DELETE", URL: testutil.MustNewURL(t, path.Join(membersPrefix, "BEEF"))}
 	s := &serverRecorder{}
 	h := &membersHandler{server: s, cluster: &fakeCluster{id: 1}}
@@ -447,6 +519,8 @@ func TestServeMembersDelete(t *testing.T) {
 	}
 }
 func TestServeMembersUpdate(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u := testutil.MustNewURL(t, path.Join(membersPrefix, "1"))
@@ -478,6 +552,8 @@ func TestServeMembersUpdate(t *testing.T) {
 func TestServeMembersFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		req	*http.Request
 		server	etcdserver.ServerV2
@@ -500,6 +576,8 @@ func TestServeMembersFail(t *testing.T) {
 	}
 }
 func TestWriteEvent(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rec := httptest.NewRecorder()
@@ -543,6 +621,8 @@ func TestWriteEvent(t *testing.T) {
 func TestV2DMachinesEndpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		method	string
 		wcode	int
@@ -567,6 +647,8 @@ func TestV2DMachinesEndpoint(t *testing.T) {
 func TestServeMachines(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cluster := &fakeCluster{clientURLs: []string{"http://localhost:8080", "http://localhost:8081", "http://localhost:8082"}}
 	writer := httptest.NewRecorder()
 	req, err := http.NewRequest("GET", "", nil)
@@ -584,6 +666,8 @@ func TestServeMachines(t *testing.T) {
 	}
 }
 func TestGetID(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -612,9 +696,13 @@ type dummyStats struct{ data []byte }
 func (ds *dummyStats) SelfStats() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ds.data
 }
 func (ds *dummyStats) LeaderStats() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ds.data
@@ -622,13 +710,19 @@ func (ds *dummyStats) LeaderStats() []byte {
 func (ds *dummyStats) StoreStats() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ds.data
 }
 func (ds *dummyStats) UpdateRecvApp(_ types.ID, _ int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func TestServeSelfStats(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wb := []byte("some statistics")
@@ -650,6 +744,8 @@ func TestServeSelfStats(t *testing.T) {
 func TestSelfServeStatsBad(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, m := range []string{"PUT", "POST", "DELETE"} {
 		sh := &statsHandler{}
 		rw := httptest.NewRecorder()
@@ -662,6 +758,8 @@ func TestSelfServeStatsBad(t *testing.T) {
 func TestLeaderServeStatsBad(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, m := range []string{"PUT", "POST", "DELETE"} {
 		sh := &statsHandler{}
 		rw := httptest.NewRecorder()
@@ -672,6 +770,8 @@ func TestLeaderServeStatsBad(t *testing.T) {
 	}
 }
 func TestServeLeaderStats(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wb := []byte("some statistics")
@@ -693,6 +793,8 @@ func TestServeLeaderStats(t *testing.T) {
 func TestServeStoreStats(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wb := []byte("some statistics")
 	w := string(wb)
 	sh := &statsHandler{stats: &dummyStats{data: wb}}
@@ -710,6 +812,8 @@ func TestServeStoreStats(t *testing.T) {
 	}
 }
 func TestBadServeKeys(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testBadCases := []struct {
@@ -740,6 +844,8 @@ func TestBadServeKeys(t *testing.T) {
 func TestServeKeysGood(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		req	*http.Request
 		wcode	int
@@ -755,6 +861,8 @@ func TestServeKeysGood(t *testing.T) {
 	}
 }
 func TestServeKeysEvent(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -785,6 +893,8 @@ func TestServeKeysEvent(t *testing.T) {
 	}
 }
 func TestServeKeysWatch(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req := mustNewRequest(t, "/foo/bar")
@@ -821,9 +931,13 @@ type recordingCloseNotifier struct {
 func (rcn *recordingCloseNotifier) CloseNotify() <-chan bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return rcn.cn
 }
 func TestHandleWatch(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defaultRwRr := func() (http.ResponseWriter, *httptest.ResponseRecorder) {
@@ -884,6 +998,8 @@ func TestHandleWatch(t *testing.T) {
 	}
 }
 func TestHandleWatchStreaming(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rw := &flushingRecorder{httptest.NewRecorder(), make(chan struct{}, 1)}
@@ -954,6 +1070,8 @@ func TestHandleWatchStreaming(t *testing.T) {
 func TestTrimEventPrefix(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pre := "/abc"
 	tests := []struct {
 		ev	*store.Event
@@ -967,6 +1085,8 @@ func TestTrimEventPrefix(t *testing.T) {
 	}
 }
 func TestTrimNodeExternPrefix(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pre := "/abc"
@@ -984,6 +1104,8 @@ func TestTrimNodeExternPrefix(t *testing.T) {
 func TestTrimPrefix(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		in	string
 		prefix	string
@@ -998,6 +1120,8 @@ func TestTrimPrefix(t *testing.T) {
 func TestNewMemberCollection(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fixture := []*membership.Member{{ID: 12, Attributes: membership.Attributes{ClientURLs: []string{"http://localhost:8080", "http://localhost:8081"}}, RaftAttributes: membership.RaftAttributes{PeerURLs: []string{"http://localhost:8082", "http://localhost:8083"}}}, {ID: 13, Attributes: membership.Attributes{ClientURLs: []string{"http://localhost:9090", "http://localhost:9091"}}, RaftAttributes: membership.RaftAttributes{PeerURLs: []string{"http://localhost:9092", "http://localhost:9093"}}}}
 	got := newMemberCollection(fixture)
 	want := httptypes.MemberCollection([]httptypes.Member{{ID: "c", ClientURLs: []string{"http://localhost:8080", "http://localhost:8081"}, PeerURLs: []string{"http://localhost:8082", "http://localhost:8083"}}, {ID: "d", ClientURLs: []string{"http://localhost:9090", "http://localhost:9091"}, PeerURLs: []string{"http://localhost:9092", "http://localhost:9093"}}})
@@ -1006,6 +1130,8 @@ func TestNewMemberCollection(t *testing.T) {
 	}
 }
 func TestNewMember(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fixture := &membership.Member{ID: 12, Attributes: membership.Attributes{ClientURLs: []string{"http://localhost:8080", "http://localhost:8081"}}, RaftAttributes: membership.RaftAttributes{PeerURLs: []string{"http://localhost:8082", "http://localhost:8083"}}}

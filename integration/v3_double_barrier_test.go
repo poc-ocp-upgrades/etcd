@@ -10,6 +10,8 @@ import (
 func TestDoubleBarrier(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
 	waiters := 10
@@ -72,6 +74,8 @@ func TestDoubleBarrier(t *testing.T) {
 	}
 }
 func TestDoubleBarrierFailover(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})

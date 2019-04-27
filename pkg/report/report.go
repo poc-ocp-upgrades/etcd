@@ -22,6 +22,8 @@ type Result struct {
 func (res *Result) Duration() time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return res.End.Sub(res.Start)
 }
 
@@ -47,6 +49,8 @@ type Stats struct {
 func (s *Stats) copy() Stats {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ss := *s
 	ss.ErrorDist = copyMap(ss.ErrorDist)
 	ss.Lats = copyFloats(ss.Lats)
@@ -62,9 +66,13 @@ type Report interface {
 func NewReport(precision string) Report {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newReport(precision)
 }
 func newReport(precision string) *report {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := &report{results: make(chan Result, 16), precision: precision}
@@ -74,6 +82,8 @@ func newReport(precision string) *report {
 func NewReportSample(precision string) Report {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := NewReport(precision).(*report)
 	r.sps = newSecondPoints()
 	return r
@@ -81,9 +91,13 @@ func NewReportSample(precision string) Report {
 func (r *report) Results() chan<- Result {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.results
 }
 func (r *report) Run() <-chan string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	donec := make(chan string, 1)
@@ -95,6 +109,8 @@ func (r *report) Run() <-chan string {
 	return donec
 }
 func (r *report) Stats() <-chan Stats {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	donec := make(chan Stats, 1)
@@ -112,6 +128,8 @@ func (r *report) Stats() <-chan Stats {
 func copyMap(m map[string]int) (c map[string]int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c = make(map[string]int, len(m))
 	for k, v := range m {
 		c[k] = v
@@ -121,11 +139,15 @@ func copyMap(m map[string]int) (c map[string]int) {
 func copyFloats(s []float64) (c []float64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c = make([]float64, len(s))
 	copy(c, s)
 	return c
 }
 func (r *report) String() (s string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(r.stats.Lats) > 0 {
@@ -150,6 +172,8 @@ func (r *report) String() (s string) {
 func (r *report) sec2str(sec float64) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf(r.precision+" secs", sec)
 }
 
@@ -158,14 +182,20 @@ type reportRate struct{ *report }
 func NewReportRate(precision string) Report {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &reportRate{NewReport(precision).(*report)}
 }
 func (r *reportRate) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf(" Requests/sec:\t"+r.precision+"\n", r.stats.RPS)
 }
 func (r *report) processResult(res *Result) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if res.Err != nil {
@@ -180,6 +210,8 @@ func (r *report) processResult(res *Result) {
 	}
 }
 func (r *report) processResults() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	st := time.Now()
@@ -206,9 +238,13 @@ var pctls = []float64{10, 25, 50, 75, 90, 95, 99, 99.9}
 func Percentiles(nums []float64) (pcs []float64, data []float64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pctls, percentiles(nums)
 }
 func percentiles(nums []float64) (data []float64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	data = make([]float64, len(pctls))
@@ -226,6 +262,8 @@ func percentiles(nums []float64) (data []float64) {
 func (r *report) sprintLatencies() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data := percentiles(r.stats.Lats)
 	s := fmt.Sprintf("\nLatency distribution:\n")
 	for i := 0; i < len(pctls); i++ {
@@ -236,6 +274,8 @@ func (r *report) sprintLatencies() string {
 	return s
 }
 func (r *report) histogram() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bc := 10
@@ -270,6 +310,8 @@ func (r *report) histogram() string {
 	return s
 }
 func (r *report) errors() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := fmt.Sprintf("\nError distribution:\n")

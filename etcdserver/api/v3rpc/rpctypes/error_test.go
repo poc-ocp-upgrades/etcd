@@ -9,6 +9,8 @@ import (
 func TestConvert(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	e1 := status.New(codes.InvalidArgument, "etcdserver: key is not provided").Err()
 	e2 := ErrGRPCEmptyKey
 	e3 := ErrEmptyKey

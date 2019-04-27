@@ -18,9 +18,13 @@ type storeRecorder struct {
 func NewNop() store.Store {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &storeRecorder{Recorder: &testutil.RecorderBuffered{}}
 }
 func NewRecorder() *StoreRecorder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sr := &storeRecorder{Recorder: &testutil.RecorderBuffered{}}
@@ -29,10 +33,14 @@ func NewRecorder() *StoreRecorder {
 func NewRecorderStream() *StoreRecorder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sr := &storeRecorder{Recorder: testutil.NewRecorderStream()}
 	return &StoreRecorder{Store: sr, Recorder: sr.Recorder}
 }
 func (s *storeRecorder) Version() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return 0
@@ -40,9 +48,13 @@ func (s *storeRecorder) Version() int {
 func (s *storeRecorder) Index() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 0
 }
 func (s *storeRecorder) Get(path string, recursive, sorted bool) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.Record(testutil.Action{Name: "Get", Params: []interface{}{path, recursive, sorted}})
@@ -51,10 +63,14 @@ func (s *storeRecorder) Get(path string, recursive, sorted bool) (*store.Event, 
 func (s *storeRecorder) Set(path string, dir bool, val string, expireOpts store.TTLOptionSet) (*store.Event, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.Record(testutil.Action{Name: "Set", Params: []interface{}{path, dir, val, expireOpts}})
 	return &store.Event{}, nil
 }
 func (s *storeRecorder) Update(path, val string, expireOpts store.TTLOptionSet) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.Record(testutil.Action{Name: "Update", Params: []interface{}{path, val, expireOpts}})
@@ -63,10 +79,14 @@ func (s *storeRecorder) Update(path, val string, expireOpts store.TTLOptionSet) 
 func (s *storeRecorder) Create(path string, dir bool, val string, uniq bool, expireOpts store.TTLOptionSet) (*store.Event, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.Record(testutil.Action{Name: "Create", Params: []interface{}{path, dir, val, uniq, expireOpts}})
 	return &store.Event{}, nil
 }
 func (s *storeRecorder) CompareAndSwap(path, prevVal string, prevIdx uint64, val string, expireOpts store.TTLOptionSet) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.Record(testutil.Action{Name: "CompareAndSwap", Params: []interface{}{path, prevVal, prevIdx, val, expireOpts}})
@@ -75,10 +95,14 @@ func (s *storeRecorder) CompareAndSwap(path, prevVal string, prevIdx uint64, val
 func (s *storeRecorder) Delete(path string, dir, recursive bool) (*store.Event, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.Record(testutil.Action{Name: "Delete", Params: []interface{}{path, dir, recursive}})
 	return &store.Event{}, nil
 }
 func (s *storeRecorder) CompareAndDelete(path, prevVal string, prevIdx uint64) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.Record(testutil.Action{Name: "CompareAndDelete", Params: []interface{}{path, prevVal, prevIdx}})
@@ -87,10 +111,14 @@ func (s *storeRecorder) CompareAndDelete(path, prevVal string, prevIdx uint64) (
 func (s *storeRecorder) Watch(_ string, _, _ bool, _ uint64) (store.Watcher, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.Record(testutil.Action{Name: "Watch"})
 	return store.NewNopWatcher(), nil
 }
 func (s *storeRecorder) Save() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.Record(testutil.Action{Name: "Save"})
@@ -99,10 +127,14 @@ func (s *storeRecorder) Save() ([]byte, error) {
 func (s *storeRecorder) Recovery(b []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.Record(testutil.Action{Name: "Recovery"})
 	return nil
 }
 func (s *storeRecorder) SaveNoCopy() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.Record(testutil.Action{Name: "SaveNoCopy"})
@@ -111,10 +143,14 @@ func (s *storeRecorder) SaveNoCopy() ([]byte, error) {
 func (s *storeRecorder) Clone() store.Store {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.Record(testutil.Action{Name: "Clone"})
 	return s
 }
 func (s *storeRecorder) JsonStats() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -122,9 +158,13 @@ func (s *storeRecorder) JsonStats() []byte {
 func (s *storeRecorder) DeleteExpiredKeys(cutoff time.Time) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.Record(testutil.Action{Name: "DeleteExpiredKeys", Params: []interface{}{cutoff}})
 }
 func (s *storeRecorder) HasTTLKeys() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.Record(testutil.Action{Name: "HasTTLKeys"})
@@ -139,6 +179,8 @@ type errStoreRecorder struct {
 func NewErrRecorder(err error) *StoreRecorder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sr := &errStoreRecorder{err: err}
 	sr.Recorder = &testutil.RecorderBuffered{}
 	return &StoreRecorder{Store: sr, Recorder: sr.Recorder}
@@ -146,10 +188,14 @@ func NewErrRecorder(err error) *StoreRecorder {
 func (s *errStoreRecorder) Get(path string, recursive, sorted bool) (*store.Event, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.storeRecorder.Get(path, recursive, sorted)
 	return nil, s.err
 }
 func (s *errStoreRecorder) Watch(path string, recursive, sorted bool, index uint64) (store.Watcher, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.storeRecorder.Watch(path, recursive, sorted, index)

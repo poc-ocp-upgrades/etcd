@@ -26,9 +26,13 @@ var errUnsupported = fmt.Errorf("TTLs are unsupported")
 func NewStore(c *clientv3.Client, pfx string) store.Store {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newStore(c, pfx)
 }
 func newStore(c *clientv3.Client, pfx string) *v2v3Store {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &v2v3Store{c, pfx, c.Ctx()}
@@ -36,9 +40,13 @@ func newStore(c *clientv3.Client, pfx string) *v2v3Store {
 func (s *v2v3Store) Index() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	panic("STUB")
 }
 func (s *v2v3Store) Get(nodePath string, recursive, sorted bool) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	key := s.mkPath(nodePath)
@@ -66,6 +74,8 @@ func (s *v2v3Store) Get(nodePath string, recursive, sorted bool) (*store.Event, 
 func (s *v2v3Store) getDir(nodePath string, recursive, sorted bool, rev int64) ([]*store.NodeExtern, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rootNodes, err := s.getDirDepth(nodePath, 1, rev)
 	if err != nil || !recursive {
 		return rootNodes, err
@@ -88,6 +98,8 @@ func (s *v2v3Store) getDir(nodePath string, recursive, sorted bool, rev int64) (
 func (s *v2v3Store) getDirDepth(nodePath string, depth int, rev int64) ([]*store.NodeExtern, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pd := s.mkPathDepth(nodePath, depth)
 	resp, err := s.c.Get(s.ctx, pd, clientv3.WithPrefix(), clientv3.WithRev(rev))
 	if err != nil {
@@ -100,6 +112,8 @@ func (s *v2v3Store) getDirDepth(nodePath string, depth int, rev int64) ([]*store
 	return nodes, nil
 }
 func (s *v2v3Store) Set(nodePath string, dir bool, value string, expireOpts store.TTLOptionSet) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if expireOpts.Refresh || !expireOpts.ExpireTime.IsZero() {
@@ -152,6 +166,8 @@ func (s *v2v3Store) Set(nodePath string, dir bool, value string, expireOpts stor
 func (s *v2v3Store) Update(nodePath, newValue string, expireOpts store.TTLOptionSet) (*store.Event, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if isRoot(nodePath) {
 		return nil, etcdErr.NewError(etcdErr.EcodeRootROnly, nodePath, 0)
 	}
@@ -184,6 +200,8 @@ func (s *v2v3Store) Update(nodePath, newValue string, expireOpts store.TTLOption
 	return &store.Event{Action: store.Update, Node: &store.NodeExtern{Key: nodePath, Value: &newValue, ModifiedIndex: mkV2Rev(resp.Header.Revision), CreatedIndex: mkV2Rev(pkv.CreateRevision)}, PrevNode: s.mkV2Node(pkv), EtcdIndex: mkV2Rev(resp.Header.Revision)}, nil
 }
 func (s *v2v3Store) Create(nodePath string, dir bool, value string, unique bool, expireOpts store.TTLOptionSet) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if isRoot(nodePath) {
@@ -247,6 +265,8 @@ func (s *v2v3Store) Create(nodePath string, dir bool, value string, unique bool,
 func (s *v2v3Store) CompareAndSwap(nodePath string, prevValue string, prevIndex uint64, value string, expireOpts store.TTLOptionSet) (*store.Event, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if isRoot(nodePath) {
 		return nil, etcdErr.NewError(etcdErr.EcodeRootROnly, nodePath, 0)
 	}
@@ -265,6 +285,8 @@ func (s *v2v3Store) CompareAndSwap(nodePath string, prevValue string, prevIndex 
 	return &store.Event{Action: store.CompareAndSwap, Node: &store.NodeExtern{Key: nodePath, Value: &value, CreatedIndex: mkV2Rev(pkv.CreateRevision), ModifiedIndex: mkV2Rev(resp.Header.Revision)}, PrevNode: s.mkV2Node(pkv), EtcdIndex: mkV2Rev(resp.Header.Revision)}, nil
 }
 func (s *v2v3Store) Delete(nodePath string, dir, recursive bool) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if isRoot(nodePath) {
@@ -295,6 +317,8 @@ func (s *v2v3Store) Delete(nodePath string, dir, recursive bool) (*store.Event, 
 func (s *v2v3Store) deleteEmptyDir(nodePath string) (*store.Event, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.c.Txn(s.ctx).If(clientv3.Compare(clientv3.Version(s.mkPathDepth(nodePath, 1)), "=", 0).WithPrefix()).Then(clientv3.OpDelete(s.mkPath(nodePath)+"/", clientv3.WithPrevKV()), clientv3.OpPut(s.mkActionKey(), store.Delete)).Commit()
 	if err != nil {
 		return nil, err
@@ -309,6 +333,8 @@ func (s *v2v3Store) deleteEmptyDir(nodePath string) (*store.Event, error) {
 	return &store.Event{Action: store.Delete, PrevNode: s.mkV2Node(dresp.PrevKvs[0]), EtcdIndex: mkV2Rev(resp.Header.Revision)}, nil
 }
 func (s *v2v3Store) deleteNode(nodePath string) (*store.Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := s.c.Txn(s.ctx).If(clientv3.Compare(clientv3.Version(s.mkPath(nodePath)+"/"), "=", 0)).Then(clientv3.OpDelete(s.mkPath(nodePath), clientv3.WithPrevKV()), clientv3.OpPut(s.mkActionKey(), store.Delete)).Commit()
@@ -328,6 +354,8 @@ func (s *v2v3Store) deleteNode(nodePath string) (*store.Event, error) {
 func (s *v2v3Store) CompareAndDelete(nodePath, prevValue string, prevIndex uint64) (*store.Event, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if isRoot(nodePath) {
 		return nil, etcdErr.NewError(etcdErr.EcodeRootROnly, nodePath, 0)
 	}
@@ -343,6 +371,8 @@ func (s *v2v3Store) CompareAndDelete(nodePath, prevValue string, prevIndex uint6
 	return &store.Event{Action: store.CompareAndDelete, Node: &store.NodeExtern{Key: nodePath, CreatedIndex: mkV2Rev(pkv.CreateRevision), ModifiedIndex: mkV2Rev(resp.Header.Revision)}, PrevNode: s.mkV2Node(pkv), EtcdIndex: mkV2Rev(resp.Header.Revision)}, nil
 }
 func compareFail(nodePath, prevValue string, prevIndex uint64, resp *clientv3.TxnResponse) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if dkvs := resp.Responses[1].GetResponseRange().Kvs; len(dkvs) > 0 {
@@ -369,6 +399,8 @@ func compareFail(nodePath, prevValue string, prevIndex uint64, resp *clientv3.Tx
 func (s *v2v3Store) mkCompare(nodePath, prevValue string, prevIndex uint64) []clientv3.Cmp {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := s.mkPath(nodePath)
 	cmps := []clientv3.Cmp{clientv3.Compare(clientv3.Version(key), ">", 0)}
 	if prevIndex != 0 {
@@ -382,9 +414,13 @@ func (s *v2v3Store) mkCompare(nodePath, prevValue string, prevIndex uint64) []cl
 func (s *v2v3Store) JsonStats() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	panic("STUB")
 }
 func (s *v2v3Store) DeleteExpiredKeys(cutoff time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	panic("STUB")
@@ -392,9 +428,13 @@ func (s *v2v3Store) DeleteExpiredKeys(cutoff time.Time) {
 func (s *v2v3Store) Version() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 2
 }
 func (s *v2v3Store) Save() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	panic("STUB")
@@ -402,9 +442,13 @@ func (s *v2v3Store) Save() ([]byte, error) {
 func (s *v2v3Store) Recovery(state []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	panic("STUB")
 }
 func (s *v2v3Store) Clone() store.Store {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	panic("STUB")
@@ -412,9 +456,13 @@ func (s *v2v3Store) Clone() store.Store {
 func (s *v2v3Store) SaveNoCopy() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	panic("STUB")
 }
 func (s *v2v3Store) HasTTLKeys() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	panic("STUB")
@@ -422,14 +470,20 @@ func (s *v2v3Store) HasTTLKeys() bool {
 func (s *v2v3Store) mkPath(nodePath string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.mkPathDepth(nodePath, 0)
 }
 func (s *v2v3Store) mkNodePath(p string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return path.Clean(p[len(s.pfx)+len("/k/000/"):])
 }
 func (s *v2v3Store) mkPathDepth(nodePath string, depth int) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	normalForm := path.Clean(path.Join("/", nodePath))
@@ -439,14 +493,20 @@ func (s *v2v3Store) mkPathDepth(nodePath string, depth int) string {
 func (s *v2v3Store) mkActionKey() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.pfx + "/act"
 }
 func isRoot(s string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(s) == 0 || s == "/" || s == "/0" || s == "/1"
 }
 func mkV2Rev(v3Rev int64) uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if v3Rev == 0 {
@@ -457,12 +517,16 @@ func mkV2Rev(v3Rev int64) uint64 {
 func mkV3Rev(v2Rev uint64) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if v2Rev == 0 {
 		return 0
 	}
 	return int64(v2Rev + 1)
 }
 func (s *v2v3Store) mkV2Node(kv *mvccpb.KeyValue) *store.NodeExtern {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if kv == nil {
@@ -478,6 +542,8 @@ func (s *v2v3Store) mkV2Node(kv *mvccpb.KeyValue) *store.NodeExtern {
 func prevKeyFromPuts(resp *clientv3.TxnResponse) *mvccpb.KeyValue {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, r := range resp.Responses {
 		pkv := r.GetResponsePut().PrevKv
 		if pkv != nil && pkv.CreateRevision > 0 {
@@ -487,6 +553,8 @@ func prevKeyFromPuts(resp *clientv3.TxnResponse) *mvccpb.KeyValue {
 	return nil
 }
 func (s *v2v3Store) newSTM(applyf func(concurrency.STM) error) (*clientv3.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return concurrency.NewSTM(s.c, applyf, concurrency.WithIsolation(concurrency.Serializable))

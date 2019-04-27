@@ -12,6 +12,8 @@ import (
 func TestNewTimeoutTransport(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tr, err := NewTimeoutTransport(TLSInfo{}, time.Hour, time.Hour, time.Hour)
 	if err != nil {
 		t.Fatalf("unexpected NewTimeoutTransport error: %v", err)

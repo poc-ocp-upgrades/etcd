@@ -10,6 +10,8 @@ type unixListener struct{ net.Listener }
 func NewUnixListener(addr string) (net.Listener, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := os.Remove(addr); err != nil && !os.IsNotExist(err) {
 		return nil, err
 	}
@@ -20,6 +22,8 @@ func NewUnixListener(addr string) (net.Listener, error) {
 	return &unixListener{l}, nil
 }
 func (ul *unixListener) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := os.Remove(ul.Addr().String()); err != nil && !os.IsNotExist(err) {

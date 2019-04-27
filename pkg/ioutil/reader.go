@@ -5,6 +5,8 @@ import "io"
 func NewLimitedBufferReader(r io.Reader, n int) io.Reader {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &limitedBufferReader{r: r, n: n}
 }
 
@@ -14,6 +16,8 @@ type limitedBufferReader struct {
 }
 
 func (r *limitedBufferReader) Read(p []byte) (n int, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	np := p

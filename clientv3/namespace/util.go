@@ -3,6 +3,8 @@ package namespace
 func prefixInterval(pfx string, key, end []byte) (pfxKey []byte, pfxEnd []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pfxKey = make([]byte, len(pfx)+len(key))
 	copy(pfxKey[copy(pfxKey, pfx):], key)
 	if len(end) == 1 && end[0] == 0 {

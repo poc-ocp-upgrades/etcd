@@ -14,6 +14,8 @@ import (
 func (s *EtcdServer) CheckInitialHashKV() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !s.Cfg.InitialCorruptCheck {
 		return nil
 	}
@@ -55,6 +57,8 @@ func (s *EtcdServer) CheckInitialHashKV() error {
 func (s *EtcdServer) monitorKVHash() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t := s.Cfg.CorruptCheckTime
 	if t == 0 {
 		return
@@ -75,6 +79,8 @@ func (s *EtcdServer) monitorKVHash() {
 	}
 }
 func (s *EtcdServer) checkHashKV() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h, rev, crev, err := s.kv.HashByRev(0)
@@ -138,6 +144,8 @@ type peerHashKVResp struct {
 func (s *EtcdServer) getPeerHashKVs(rev int64) (resps []*peerHashKVResp) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mbs := s.cluster.Members()
 	pURLs := make([][]string, len(mbs))
 	for _, m := range mbs {
@@ -180,9 +188,13 @@ type applierV3Corrupt struct{ applierV3 }
 func newApplierV3Corrupt(a applierV3) *applierV3Corrupt {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &applierV3Corrupt{a}
 }
 func (a *applierV3Corrupt) Put(txn mvcc.TxnWrite, p *pb.PutRequest) (*pb.PutResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil, ErrCorrupt
@@ -190,9 +202,13 @@ func (a *applierV3Corrupt) Put(txn mvcc.TxnWrite, p *pb.PutRequest) (*pb.PutResp
 func (a *applierV3Corrupt) Range(txn mvcc.TxnRead, p *pb.RangeRequest) (*pb.RangeResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, ErrCorrupt
 }
 func (a *applierV3Corrupt) DeleteRange(txn mvcc.TxnWrite, p *pb.DeleteRangeRequest) (*pb.DeleteRangeResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil, ErrCorrupt
@@ -200,9 +216,13 @@ func (a *applierV3Corrupt) DeleteRange(txn mvcc.TxnWrite, p *pb.DeleteRangeReque
 func (a *applierV3Corrupt) Txn(rt *pb.TxnRequest) (*pb.TxnResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, ErrCorrupt
 }
 func (a *applierV3Corrupt) Compaction(compaction *pb.CompactionRequest) (*pb.CompactionResponse, <-chan struct{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil, nil, ErrCorrupt
@@ -210,9 +230,13 @@ func (a *applierV3Corrupt) Compaction(compaction *pb.CompactionRequest) (*pb.Com
 func (a *applierV3Corrupt) LeaseGrant(lc *pb.LeaseGrantRequest) (*pb.LeaseGrantResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, ErrCorrupt
 }
 func (a *applierV3Corrupt) LeaseRevoke(lc *pb.LeaseRevokeRequest) (*pb.LeaseRevokeResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil, ErrCorrupt

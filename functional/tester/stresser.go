@@ -17,6 +17,8 @@ type Stresser interface {
 func newStresser(clus *Cluster, m *rpcpb.Member) (stressers []Stresser) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	stressers = make([]Stresser, len(clus.Tester.Stressers))
 	for i, stype := range clus.Tester.Stressers {
 		clus.lg.Info("creating stresser", zap.String("type", stype), zap.String("endpoint", m.EtcdClientEndpoint))

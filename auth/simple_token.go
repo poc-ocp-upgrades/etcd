@@ -32,6 +32,8 @@ type simpleTokenTTLKeeper struct {
 func (tm *simpleTokenTTLKeeper) stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case tm.stopc <- struct{}{}:
 	case <-tm.donec:
@@ -41,9 +43,13 @@ func (tm *simpleTokenTTLKeeper) stop() {
 func (tm *simpleTokenTTLKeeper) addSimpleToken(token string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tm.tokens[token] = time.Now().Add(simpleTokenTTL)
 }
 func (tm *simpleTokenTTLKeeper) resetSimpleToken(token string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if _, ok := tm.tokens[token]; ok {
@@ -53,9 +59,13 @@ func (tm *simpleTokenTTLKeeper) resetSimpleToken(token string) {
 func (tm *simpleTokenTTLKeeper) deleteSimpleToken(token string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	delete(tm.tokens, token)
 }
 func (tm *simpleTokenTTLKeeper) run() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tokenTicker := time.NewTicker(simpleTokenTTLResolution)
@@ -91,6 +101,8 @@ type tokenSimple struct {
 func (t *tokenSimple) genTokenPrefix() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ret := make([]byte, defaultSimpleTokenLength)
 	for i := 0; i < defaultSimpleTokenLength; i++ {
 		bInt, err := rand.Int(rand.Reader, big.NewInt(int64(len(letters))))
@@ -102,6 +114,8 @@ func (t *tokenSimple) genTokenPrefix() (string, error) {
 	return string(ret), nil
 }
 func (t *tokenSimple) assignSimpleTokenToUser(username, token string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.simpleTokensMu.Lock()
@@ -119,6 +133,8 @@ func (t *tokenSimple) assignSimpleTokenToUser(username, token string) {
 func (t *tokenSimple) invalidateUser(username string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if t.simpleTokenKeeper == nil {
 		return
 	}
@@ -134,6 +150,8 @@ func (t *tokenSimple) invalidateUser(username string) {
 func (t *tokenSimple) enable() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	delf := func(tk string) {
 		if username, ok := t.simpleTokens[tk]; ok {
 			plog.Infof("deleting token %s for user %s", tk, username)
@@ -146,6 +164,8 @@ func (t *tokenSimple) enable() {
 func (t *tokenSimple) disable() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.simpleTokensMu.Lock()
 	tk := t.simpleTokenKeeper
 	t.simpleTokenKeeper = nil
@@ -156,6 +176,8 @@ func (t *tokenSimple) disable() {
 	}
 }
 func (t *tokenSimple) info(ctx context.Context, token string, revision uint64) (*AuthInfo, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !t.isValidSimpleToken(ctx, token) {
@@ -172,6 +194,8 @@ func (t *tokenSimple) info(ctx context.Context, token string, revision uint64) (
 func (t *tokenSimple) assign(ctx context.Context, username string, rev uint64) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	index := ctx.Value(AuthenticateParamIndex{}).(uint64)
 	simpleTokenPrefix := ctx.Value(AuthenticateParamSimpleTokenPrefix{}).(string)
 	token := fmt.Sprintf("%s.%d", simpleTokenPrefix, index)
@@ -179,6 +203,8 @@ func (t *tokenSimple) assign(ctx context.Context, username string, rev uint64) (
 	return token, nil
 }
 func (t *tokenSimple) isValidSimpleToken(ctx context.Context, token string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	splitted := strings.Split(token, ".")
@@ -197,6 +223,8 @@ func (t *tokenSimple) isValidSimpleToken(ctx context.Context, token string) bool
 	return false
 }
 func newTokenProviderSimple(indexWaiter func(uint64) <-chan struct{}) *tokenSimple {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &tokenSimple{simpleTokens: make(map[string]string), indexWaiter: indexWaiter}

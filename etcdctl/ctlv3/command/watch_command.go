@@ -28,6 +28,8 @@ var (
 func NewWatchCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "watch [options] [key or prefix] [range_end] [--] [exec-command arg1 arg2 ...]", Short: "Watches events stream on keys or prefixes", Run: watchCommandFunc}
 	cmd.Flags().BoolVarP(&watchInteractive, "interactive", "i", false, "Interactive mode")
 	cmd.Flags().BoolVar(&watchPrefix, "prefix", false, "Watch on a prefix if prefix is set")
@@ -36,6 +38,8 @@ func NewWatchCommand() *cobra.Command {
 	return cmd
 }
 func watchCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	envKey, envRange := os.Getenv("ETCDCTL_WATCH_KEY"), os.Getenv("ETCDCTL_WATCH_RANGE_END")
@@ -62,6 +66,8 @@ func watchCommandFunc(cmd *cobra.Command, args []string) {
 	ExitWithError(ExitInterrupted, fmt.Errorf("watch is canceled by the server"))
 }
 func watchInteractiveFunc(cmd *cobra.Command, osArgs []string, envKey, envRange string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := mustClientFromCmd(cmd)
@@ -96,6 +102,8 @@ func watchInteractiveFunc(cmd *cobra.Command, osArgs []string, envKey, envRange 
 func getWatchChan(c *clientv3.Client, args []string) (clientv3.WatchChan, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(args) < 1 {
 		return nil, errBadArgsNum
 	}
@@ -116,6 +124,8 @@ func getWatchChan(c *clientv3.Client, args []string) (clientv3.WatchChan, error)
 	return c.Watch(clientv3.WithRequireLeader(context.Background()), key, opts...), nil
 }
 func printWatchCh(c *clientv3.Client, ch clientv3.WatchChan, execArgs []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for resp := range ch {
@@ -141,6 +151,8 @@ func printWatchCh(c *clientv3.Client, ch clientv3.WatchChan, execArgs []string) 
 	}
 }
 func parseWatchArgs(osArgs, commandArgs []string, envKey, envRange string, interactive bool) (watchArgs []string, execArgs []string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rawArgs := make([]string, len(osArgs))

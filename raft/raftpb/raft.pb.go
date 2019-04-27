@@ -30,6 +30,8 @@ var EntryType_value = map[string]int32{"EntryNormal": 0, "EntryConfChange": 1}
 func (x EntryType) Enum() *EntryType {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p := new(EntryType)
 	*p = x
 	return p
@@ -37,9 +39,13 @@ func (x EntryType) Enum() *EntryType {
 func (x EntryType) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(EntryType_name, int32(x))
 }
 func (x *EntryType) UnmarshalJSON(data []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	value, err := proto.UnmarshalJSONEnum(EntryType_value, data, "EntryType")
@@ -50,6 +56,8 @@ func (x *EntryType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 func (EntryType) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRaft, []int{0}
@@ -85,6 +93,8 @@ var MessageType_value = map[string]int32{"MsgHup": 0, "MsgBeat": 1, "MsgProp": 2
 func (x MessageType) Enum() *MessageType {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p := new(MessageType)
 	*p = x
 	return p
@@ -92,9 +102,13 @@ func (x MessageType) Enum() *MessageType {
 func (x MessageType) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(MessageType_name, int32(x))
 }
 func (x *MessageType) UnmarshalJSON(data []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	value, err := proto.UnmarshalJSONEnum(MessageType_value, data, "MessageType")
@@ -105,6 +119,8 @@ func (x *MessageType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 func (MessageType) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRaft, []int{1}
@@ -125,6 +141,8 @@ var ConfChangeType_value = map[string]int32{"ConfChangeAddNode": 0, "ConfChangeR
 func (x ConfChangeType) Enum() *ConfChangeType {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p := new(ConfChangeType)
 	*p = x
 	return p
@@ -132,9 +150,13 @@ func (x ConfChangeType) Enum() *ConfChangeType {
 func (x ConfChangeType) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(ConfChangeType_name, int32(x))
 }
 func (x *ConfChangeType) UnmarshalJSON(data []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	value, err := proto.UnmarshalJSONEnum(ConfChangeType_value, data, "ConfChangeType")
@@ -145,6 +167,8 @@ func (x *ConfChangeType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 func (ConfChangeType) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRaft, []int{2}
@@ -161,9 +185,13 @@ type Entry struct {
 func (m *Entry) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Entry{}
 }
 func (m *Entry) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -171,8 +199,12 @@ func (m *Entry) String() string {
 func (*Entry) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Entry) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRaft, []int{0}
@@ -188,9 +220,13 @@ type SnapshotMetadata struct {
 func (m *SnapshotMetadata) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = SnapshotMetadata{}
 }
 func (m *SnapshotMetadata) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -198,8 +234,12 @@ func (m *SnapshotMetadata) String() string {
 func (*SnapshotMetadata) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*SnapshotMetadata) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRaft, []int{1}
@@ -214,9 +254,13 @@ type Snapshot struct {
 func (m *Snapshot) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Snapshot{}
 }
 func (m *Snapshot) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -224,8 +268,12 @@ func (m *Snapshot) String() string {
 func (*Snapshot) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Snapshot) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRaft, []int{2}
@@ -250,9 +298,13 @@ type Message struct {
 func (m *Message) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Message{}
 }
 func (m *Message) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -260,8 +312,12 @@ func (m *Message) String() string {
 func (*Message) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Message) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRaft, []int{3}
@@ -277,9 +333,13 @@ type HardState struct {
 func (m *HardState) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = HardState{}
 }
 func (m *HardState) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -287,8 +347,12 @@ func (m *HardState) String() string {
 func (*HardState) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*HardState) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRaft, []int{4}
@@ -303,9 +367,13 @@ type ConfState struct {
 func (m *ConfState) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = ConfState{}
 }
 func (m *ConfState) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -313,8 +381,12 @@ func (m *ConfState) String() string {
 func (*ConfState) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*ConfState) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRaft, []int{5}
@@ -331,9 +403,13 @@ type ConfChange struct {
 func (m *ConfChange) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = ConfChange{}
 }
 func (m *ConfChange) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -341,13 +417,19 @@ func (m *ConfChange) String() string {
 func (*ConfChange) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*ConfChange) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRaft, []int{6}
 }
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	proto.RegisterType((*Entry)(nil), "raftpb.Entry")
@@ -364,6 +446,8 @@ func init() {
 func (m *Entry) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -373,6 +457,8 @@ func (m *Entry) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Entry) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -402,6 +488,8 @@ func (m *Entry) MarshalTo(dAtA []byte) (int, error) {
 func (m *SnapshotMetadata) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -411,6 +499,8 @@ func (m *SnapshotMetadata) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *SnapshotMetadata) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -439,6 +529,8 @@ func (m *SnapshotMetadata) MarshalTo(dAtA []byte) (int, error) {
 func (m *Snapshot) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -448,6 +540,8 @@ func (m *Snapshot) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Snapshot) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -476,6 +570,8 @@ func (m *Snapshot) MarshalTo(dAtA []byte) (int, error) {
 func (m *Message) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -485,6 +581,8 @@ func (m *Message) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Message) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -557,6 +655,8 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 func (m *HardState) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -566,6 +666,8 @@ func (m *HardState) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *HardState) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -589,6 +691,8 @@ func (m *HardState) MarshalTo(dAtA []byte) (int, error) {
 func (m *ConfState) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -598,6 +702,8 @@ func (m *ConfState) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *ConfState) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -626,6 +732,8 @@ func (m *ConfState) MarshalTo(dAtA []byte) (int, error) {
 func (m *ConfChange) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -635,6 +743,8 @@ func (m *ConfChange) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *ConfChange) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -664,6 +774,8 @@ func (m *ConfChange) MarshalTo(dAtA []byte) (int, error) {
 func encodeVarintRaft(dAtA []byte, offset int, v uint64) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
 		v >>= 7
@@ -673,6 +785,8 @@ func encodeVarintRaft(dAtA []byte, offset int, v uint64) int {
 	return offset + 1
 }
 func (m *Entry) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -692,6 +806,8 @@ func (m *Entry) Size() (n int) {
 func (m *SnapshotMetadata) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	l = m.ConfState.Size()
@@ -704,6 +820,8 @@ func (m *SnapshotMetadata) Size() (n int) {
 	return n
 }
 func (m *Snapshot) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -720,6 +838,8 @@ func (m *Snapshot) Size() (n int) {
 	return n
 }
 func (m *Message) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -753,6 +873,8 @@ func (m *Message) Size() (n int) {
 func (m *HardState) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	n += 1 + sovRaft(uint64(m.Term))
@@ -764,6 +886,8 @@ func (m *HardState) Size() (n int) {
 	return n
 }
 func (m *ConfState) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -786,6 +910,8 @@ func (m *ConfState) Size() (n int) {
 func (m *ConfChange) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	n += 1 + sovRaft(uint64(m.ID))
@@ -803,6 +929,8 @@ func (m *ConfChange) Size() (n int) {
 func sovRaft(x uint64) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		n++
 		x >>= 7
@@ -815,9 +943,13 @@ func sovRaft(x uint64) (n int) {
 func sozRaft(x uint64) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sovRaft(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
 func (m *Entry) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -960,6 +1092,8 @@ func (m *Entry) Unmarshal(dAtA []byte) error {
 func (m *SnapshotMetadata) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1080,6 +1214,8 @@ func (m *SnapshotMetadata) Unmarshal(dAtA []byte) error {
 func (m *Snapshot) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1191,6 +1327,8 @@ func (m *Snapshot) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *Message) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -1509,6 +1647,8 @@ func (m *Message) Unmarshal(dAtA []byte) error {
 func (m *HardState) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1616,6 +1756,8 @@ func (m *HardState) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *ConfState) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -1794,6 +1936,8 @@ func (m *ConfState) Unmarshal(dAtA []byte) error {
 func (m *ConfChange) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1934,6 +2078,8 @@ func (m *ConfChange) Unmarshal(dAtA []byte) error {
 func skipRaft(dAtA []byte) (n int, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2041,6 +2187,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	proto.RegisterFile("raft.proto", fileDescriptorRaft)
 }
 
@@ -2049,7 +2197,16 @@ var fileDescriptorRaft = []byte{0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

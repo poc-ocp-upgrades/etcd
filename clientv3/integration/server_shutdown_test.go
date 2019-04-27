@@ -17,6 +17,8 @@ import (
 func TestBalancerUnderServerShutdownWatch(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3, SkipCreatingClient: true})
 	defer clus.Terminate(t)
@@ -81,12 +83,16 @@ func TestBalancerUnderServerShutdownWatch(t *testing.T) {
 func TestBalancerUnderServerShutdownPut(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testBalancerUnderServerShutdownMutable(t, func(cli *clientv3.Client, ctx context.Context) error {
 		_, err := cli.Put(ctx, "foo", "bar")
 		return err
 	})
 }
 func TestBalancerUnderServerShutdownDelete(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testBalancerUnderServerShutdownMutable(t, func(cli *clientv3.Client, ctx context.Context) error {
@@ -97,12 +103,16 @@ func TestBalancerUnderServerShutdownDelete(t *testing.T) {
 func TestBalancerUnderServerShutdownTxn(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testBalancerUnderServerShutdownMutable(t, func(cli *clientv3.Client, ctx context.Context) error {
 		_, err := cli.Txn(ctx).If(clientv3.Compare(clientv3.Version("foo"), "=", 0)).Then(clientv3.OpPut("foo", "bar")).Else(clientv3.OpPut("foo", "baz")).Commit()
 		return err
 	})
 }
 func testBalancerUnderServerShutdownMutable(t *testing.T, op func(*clientv3.Client, context.Context) error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -128,6 +138,8 @@ func testBalancerUnderServerShutdownMutable(t *testing.T, op func(*clientv3.Clie
 func TestBalancerUnderServerShutdownGetLinearizable(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testBalancerUnderServerShutdownImmutable(t, func(cli *clientv3.Client, ctx context.Context) error {
 		_, err := cli.Get(ctx, "foo")
 		return err
@@ -136,12 +148,16 @@ func TestBalancerUnderServerShutdownGetLinearizable(t *testing.T) {
 func TestBalancerUnderServerShutdownGetSerializable(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testBalancerUnderServerShutdownImmutable(t, func(cli *clientv3.Client, ctx context.Context) error {
 		_, err := cli.Get(ctx, "foo", clientv3.WithSerializable())
 		return err
 	}, 2*time.Second)
 }
 func testBalancerUnderServerShutdownImmutable(t *testing.T, op func(*clientv3.Client, context.Context) error, timeout time.Duration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -166,12 +182,16 @@ func testBalancerUnderServerShutdownImmutable(t *testing.T, op func(*clientv3.Cl
 func TestBalancerUnderServerStopInflightLinearizableGetOnRestart(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tt := []pinTestOpt{{pinLeader: true, stopPinFirst: true}, {pinLeader: true, stopPinFirst: false}, {pinLeader: false, stopPinFirst: true}, {pinLeader: false, stopPinFirst: false}}
 	for i := range tt {
 		testBalancerUnderServerStopInflightRangeOnRestart(t, true, tt[i])
 	}
 }
 func TestBalancerUnderServerStopInflightSerializableGetOnRestart(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tt := []pinTestOpt{{pinLeader: true, stopPinFirst: true}, {pinLeader: true, stopPinFirst: false}, {pinLeader: false, stopPinFirst: true}, {pinLeader: false, stopPinFirst: false}}
@@ -186,6 +206,8 @@ type pinTestOpt struct {
 }
 
 func testBalancerUnderServerStopInflightRangeOnRestart(t *testing.T, linearizable bool, opt pinTestOpt) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -244,6 +266,8 @@ func testBalancerUnderServerStopInflightRangeOnRestart(t *testing.T, linearizabl
 	}
 }
 func isServerCtxTimeout(err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err == nil {

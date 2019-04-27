@@ -7,6 +7,8 @@ type compositeStresser struct{ stressers []Stresser }
 func (cs *compositeStresser) Stress() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i, s := range cs.stressers {
 		if err := s.Stress(); err != nil {
 			for j := 0; j < i; j++ {
@@ -18,6 +20,8 @@ func (cs *compositeStresser) Stress() error {
 	return nil
 }
 func (cs *compositeStresser) Pause() (ems map[string]int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var emu sync.Mutex
@@ -41,6 +45,8 @@ func (cs *compositeStresser) Pause() (ems map[string]int) {
 func (cs *compositeStresser) Close() (ems map[string]int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var emu sync.Mutex
 	ems = make(map[string]int)
 	var wg sync.WaitGroup
@@ -60,6 +66,8 @@ func (cs *compositeStresser) Close() (ems map[string]int) {
 	return ems
 }
 func (cs *compositeStresser) ModifiedKeys() (modifiedKey int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, stress := range cs.stressers {

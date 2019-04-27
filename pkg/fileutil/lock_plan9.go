@@ -9,6 +9,8 @@ import (
 func TryLockFile(path string, flag int, perm os.FileMode) (*LockedFile, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := os.Chmod(path, syscall.DMEXCL|PrivateFileMode); err != nil {
 		return nil, err
 	}
@@ -19,6 +21,8 @@ func TryLockFile(path string, flag int, perm os.FileMode) (*LockedFile, error) {
 	return &LockedFile{f}, nil
 }
 func LockFile(path string, flag int, perm os.FileMode) (*LockedFile, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := os.Chmod(path, syscall.DMEXCL|PrivateFileMode); err != nil {

@@ -19,12 +19,16 @@ type authHandler struct {
 func hasWriteRootAccess(sec auth.Store, r *http.Request, clientCertAuthEnabled bool) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if r.Method == "GET" || r.Method == "HEAD" {
 		return true
 	}
 	return hasRootAccess(sec, r, clientCertAuthEnabled)
 }
 func userFromBasicAuth(sec auth.Store, r *http.Request) *auth.User {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	username, password, ok := r.BasicAuth()
@@ -46,6 +50,8 @@ func userFromBasicAuth(sec auth.Store, r *http.Request) *auth.User {
 func userFromClientCertificate(sec auth.Store, r *http.Request) *auth.User {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if r.TLS == nil {
 		return nil
 	}
@@ -62,6 +68,8 @@ func userFromClientCertificate(sec auth.Store, r *http.Request) *auth.User {
 	return nil
 }
 func hasRootAccess(sec auth.Store, r *http.Request, clientCertAuthEnabled bool) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if sec == nil {
@@ -91,6 +99,8 @@ func hasRootAccess(sec auth.Store, r *http.Request, clientCertAuthEnabled bool) 
 	return false
 }
 func hasKeyPrefixAccess(sec auth.Store, r *http.Request, key string, recursive, clientCertAuthEnabled bool) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if sec == nil {
@@ -133,6 +143,8 @@ func hasKeyPrefixAccess(sec auth.Store, r *http.Request, key string, recursive, 
 func hasGuestAccess(sec auth.Store, r *http.Request, key string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	writeAccess := r.Method != "GET" && r.Method != "HEAD"
 	role, err := sec.GetRole(auth.GuestRoleName)
 	if err != nil {
@@ -147,12 +159,16 @@ func hasGuestAccess(sec auth.Store, r *http.Request, key string) bool {
 func writeNoAuth(w http.ResponseWriter, r *http.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	herr := httptypes.NewHTTPError(http.StatusUnauthorized, "Insufficient credentials")
 	if err := herr.WriteTo(w); err != nil {
 		plog.Debugf("error writing HTTPError (%v) to %s", err, r.RemoteAddr)
 	}
 }
 func handleAuth(mux *http.ServeMux, sh *authHandler) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mux.HandleFunc(authPrefix+"/roles", capabilityHandler(api.AuthCapability, sh.baseRoles))
@@ -162,6 +178,8 @@ func handleAuth(mux *http.ServeMux, sh *authHandler) {
 	mux.HandleFunc(authPrefix+"/enable", capabilityHandler(api.AuthCapability, sh.enableDisable))
 }
 func (sh *authHandler) baseRoles(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET") {
@@ -208,6 +226,8 @@ func (sh *authHandler) baseRoles(w http.ResponseWriter, r *http.Request) {
 func (sh *authHandler) handleRoles(w http.ResponseWriter, r *http.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	subpath := path.Clean(r.URL.Path[len(authPrefix):])
 	pieces := strings.Split(subpath, "/")
 	if len(pieces) == 2 {
@@ -221,6 +241,8 @@ func (sh *authHandler) handleRoles(w http.ResponseWriter, r *http.Request) {
 	sh.forRole(w, r, pieces[2])
 }
 func (sh *authHandler) forRole(w http.ResponseWriter, r *http.Request, role string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET", "PUT", "DELETE") {
@@ -303,6 +325,8 @@ type usersCollections struct {
 func (sh *authHandler) baseUsers(w http.ResponseWriter, r *http.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET") {
 		return
 	}
@@ -354,6 +378,8 @@ func (sh *authHandler) baseUsers(w http.ResponseWriter, r *http.Request) {
 func (sh *authHandler) handleUsers(w http.ResponseWriter, r *http.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	subpath := path.Clean(r.URL.Path[len(authPrefix):])
 	pieces := strings.Split(subpath, "/")
 	if len(pieces) == 2 {
@@ -367,6 +393,8 @@ func (sh *authHandler) handleUsers(w http.ResponseWriter, r *http.Request) {
 	sh.forUser(w, r, pieces[2])
 }
 func (sh *authHandler) forUser(w http.ResponseWriter, r *http.Request, user string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET", "PUT", "DELETE") {
@@ -468,6 +496,8 @@ type enabled struct {
 }
 
 func (sh *authHandler) enableDisable(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET", "PUT", "DELETE") {

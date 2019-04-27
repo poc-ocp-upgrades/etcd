@@ -15,6 +15,8 @@ var (
 func isKeyNotFound(err error) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	e, ok := err.(*etcdErr.Error)
 	return ok && e.ErrorCode == etcdErr.EcodeKeyNotFound
 }

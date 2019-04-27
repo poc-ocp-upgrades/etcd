@@ -9,6 +9,8 @@ import (
 func TestV3MetricsSecure(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := configTLS
 	cfg.clusterSize = 1
 	cfg.metricsURLScheme = "https"
@@ -17,12 +19,16 @@ func TestV3MetricsSecure(t *testing.T) {
 func TestV3MetricsInsecure(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := configTLS
 	cfg.clusterSize = 1
 	cfg.metricsURLScheme = "http"
 	testCtl(t, metricsTest)
 }
 func metricsTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ctlV3Put(cx, "k", "v", ""); err != nil {

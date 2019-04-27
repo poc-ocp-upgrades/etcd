@@ -9,12 +9,16 @@ import (
 func TestStoreStatsGetSuccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore()
 	s.Create("/foo", false, "bar", false, TTLOptionSet{ExpireTime: Permanent})
 	s.Get("/foo", false, false)
 	testutil.AssertEqual(t, uint64(1), s.Stats.GetSuccess, "")
 }
 func TestStoreStatsGetFail(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newStore()
@@ -25,11 +29,15 @@ func TestStoreStatsGetFail(t *testing.T) {
 func TestStoreStatsCreateSuccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore()
 	s.Create("/foo", false, "bar", false, TTLOptionSet{ExpireTime: Permanent})
 	testutil.AssertEqual(t, uint64(1), s.Stats.CreateSuccess, "")
 }
 func TestStoreStatsCreateFail(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newStore()
@@ -40,6 +48,8 @@ func TestStoreStatsCreateFail(t *testing.T) {
 func TestStoreStatsUpdateSuccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore()
 	s.Create("/foo", false, "bar", false, TTLOptionSet{ExpireTime: Permanent})
 	s.Update("/foo", "baz", TTLOptionSet{ExpireTime: Permanent})
@@ -48,11 +58,15 @@ func TestStoreStatsUpdateSuccess(t *testing.T) {
 func TestStoreStatsUpdateFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore()
 	s.Update("/foo", "bar", TTLOptionSet{ExpireTime: Permanent})
 	testutil.AssertEqual(t, uint64(1), s.Stats.UpdateFail, "")
 }
 func TestStoreStatsCompareAndSwapSuccess(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newStore()
@@ -63,12 +77,16 @@ func TestStoreStatsCompareAndSwapSuccess(t *testing.T) {
 func TestStoreStatsCompareAndSwapFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore()
 	s.Create("/foo", false, "bar", false, TTLOptionSet{ExpireTime: Permanent})
 	s.CompareAndSwap("/foo", "wrong_value", 0, "baz", TTLOptionSet{ExpireTime: Permanent})
 	testutil.AssertEqual(t, uint64(1), s.Stats.CompareAndSwapFail, "")
 }
 func TestStoreStatsDeleteSuccess(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newStore()
@@ -79,11 +97,15 @@ func TestStoreStatsDeleteSuccess(t *testing.T) {
 func TestStoreStatsDeleteFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore()
 	s.Delete("/foo", false, false)
 	testutil.AssertEqual(t, uint64(1), s.Stats.DeleteFail, "")
 }
 func TestStoreStatsExpireCount(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newStore()

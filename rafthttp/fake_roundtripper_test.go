@@ -8,6 +8,8 @@ import (
 func (t *roundTripperBlocker) RoundTrip(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := make(chan struct{}, 1)
 	t.mu.Lock()
 	t.cancel[req] = c

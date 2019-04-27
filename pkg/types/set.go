@@ -20,6 +20,8 @@ type Set interface {
 func NewUnsafeSet(values ...string) *unsafeSet {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	set := &unsafeSet{make(map[string]struct{})}
 	for _, v := range values {
 		set.Add(v)
@@ -27,6 +29,8 @@ func NewUnsafeSet(values ...string) *unsafeSet {
 	return set
 }
 func NewThreadsafeSet(values ...string) *tsafeSet {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	us := NewUnsafeSet(values...)
@@ -38,9 +42,13 @@ type unsafeSet struct{ d map[string]struct{} }
 func (us *unsafeSet) Add(value string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	us.d[value] = struct{}{}
 }
 func (us *unsafeSet) Remove(value string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	delete(us.d, value)
@@ -48,10 +56,14 @@ func (us *unsafeSet) Remove(value string) {
 func (us *unsafeSet) Contains(value string) (exists bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, exists = us.d[value]
 	return exists
 }
 func (us *unsafeSet) ContainsAll(values []string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, s := range values {
@@ -64,6 +76,8 @@ func (us *unsafeSet) ContainsAll(values []string) bool {
 func (us *unsafeSet) Equals(other Set) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	v1 := sort.StringSlice(us.Values())
 	v2 := sort.StringSlice(other.Values())
 	v1.Sort()
@@ -73,9 +87,13 @@ func (us *unsafeSet) Equals(other Set) bool {
 func (us *unsafeSet) Length() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(us.d)
 }
 func (us *unsafeSet) Values() (values []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	values = make([]string, 0)
@@ -87,6 +105,8 @@ func (us *unsafeSet) Values() (values []string) {
 func (us *unsafeSet) Copy() Set {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cp := NewUnsafeSet()
 	for val := range us.d {
 		cp.Add(val)
@@ -94,6 +114,8 @@ func (us *unsafeSet) Copy() Set {
 	return cp
 }
 func (us *unsafeSet) Sub(other Set) Set {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	oValues := other.Values()
@@ -115,11 +137,15 @@ type tsafeSet struct {
 func (ts *tsafeSet) Add(value string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ts.m.Lock()
 	defer ts.m.Unlock()
 	ts.us.Add(value)
 }
 func (ts *tsafeSet) Remove(value string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ts.m.Lock()
@@ -129,11 +155,15 @@ func (ts *tsafeSet) Remove(value string) {
 func (ts *tsafeSet) Contains(value string) (exists bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ts.m.RLock()
 	defer ts.m.RUnlock()
 	return ts.us.Contains(value)
 }
 func (ts *tsafeSet) Equals(other Set) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ts.m.RLock()
@@ -143,11 +173,15 @@ func (ts *tsafeSet) Equals(other Set) bool {
 func (ts *tsafeSet) Length() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ts.m.RLock()
 	defer ts.m.RUnlock()
 	return ts.us.Length()
 }
 func (ts *tsafeSet) Values() (values []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ts.m.RLock()
@@ -157,12 +191,16 @@ func (ts *tsafeSet) Values() (values []string) {
 func (ts *tsafeSet) Copy() Set {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ts.m.RLock()
 	defer ts.m.RUnlock()
 	usResult := ts.us.Copy().(*unsafeSet)
 	return &tsafeSet{usResult, sync.RWMutex{}}
 }
 func (ts *tsafeSet) Sub(other Set) Set {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ts.m.RLock()

@@ -15,6 +15,8 @@ type keepAliveConn interface {
 func NewKeepAliveListener(l net.Listener, scheme string, tlscfg *tls.Config) (net.Listener, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if scheme == "https" {
 		if tlscfg == nil {
 			return nil, fmt.Errorf("cannot listen on TLS for given listener: KeyFile and CertFile are not presented")
@@ -27,6 +29,8 @@ func NewKeepAliveListener(l net.Listener, scheme string, tlscfg *tls.Config) (ne
 type keepaliveListener struct{ net.Listener }
 
 func (kln *keepaliveListener) Accept() (net.Conn, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c, err := kln.Listener.Accept()
@@ -47,6 +51,8 @@ type tlsKeepaliveListener struct {
 func (l *tlsKeepaliveListener) Accept() (c net.Conn, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c, err = l.Listener.Accept()
 	if err != nil {
 		return
@@ -58,6 +64,8 @@ func (l *tlsKeepaliveListener) Accept() (c net.Conn, err error) {
 	return c, nil
 }
 func newTLSKeepaliveListener(inner net.Listener, config *tls.Config) net.Listener {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := &tlsKeepaliveListener{}

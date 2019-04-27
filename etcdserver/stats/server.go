@@ -16,6 +16,8 @@ type ServerStats struct {
 func NewServerStats(name, id string) *ServerStats {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ss := &ServerStats{serverStats: serverStats{Name: name, ID: id}}
 	now := time.Now()
 	ss.StartTime = now
@@ -48,6 +50,8 @@ type serverStats struct {
 func (ss *ServerStats) JSON() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ss.Lock()
 	stats := ss.serverStats
 	stats.SendingPkgRate, stats.SendingBandwidthRate = stats.sendRateQueue.Rate()
@@ -61,6 +65,8 @@ func (ss *ServerStats) JSON() []byte {
 	return b
 }
 func (ss *ServerStats) RecvAppendReq(leader string, reqSize int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ss.Lock()
@@ -77,6 +83,8 @@ func (ss *ServerStats) RecvAppendReq(leader string, reqSize int) {
 func (ss *ServerStats) SendAppendReq(reqSize int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ss.Lock()
 	defer ss.Unlock()
 	ss.becomeLeader()
@@ -86,11 +94,15 @@ func (ss *ServerStats) SendAppendReq(reqSize int) {
 func (ss *ServerStats) BecomeLeader() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ss.Lock()
 	defer ss.Unlock()
 	ss.becomeLeader()
 }
 func (ss *ServerStats) becomeLeader() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ss.State != raft.StateLeader {

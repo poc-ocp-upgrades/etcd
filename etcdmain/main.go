@@ -11,6 +11,8 @@ import (
 func Main() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	checkSupportArch()
 	if len(os.Args) > 1 {
 		cmd := os.Args[1]
@@ -31,6 +33,8 @@ func Main() {
 	startEtcdOrProxyV2()
 }
 func notifySystemd() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !systemdutil.IsRunningSystemd() {

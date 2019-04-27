@@ -12,6 +12,8 @@ const defaultLogLevel = capnslog.CRITICAL
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	capnslog.SetGlobalLogLevel(defaultLogLevel)
 	clientv3.SetLogger(grpclog.NewLoggerV2(ioutil.Discard, ioutil.Discard, ioutil.Discard))
 }

@@ -14,6 +14,8 @@ import (
 func TestPauseMember(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	c := NewCluster(t, 5)
 	c.Launch(t)
@@ -30,6 +32,8 @@ func TestPauseMember(t *testing.T) {
 	clusterMustProgress(t, c.Members)
 }
 func TestRestartMember(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -53,6 +57,8 @@ func TestRestartMember(t *testing.T) {
 func TestLaunchDuplicateMemberShouldFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := 3
 	c := NewCluster(t, size)
 	m := c.Members[0].Clone(t)
@@ -68,6 +74,8 @@ func TestLaunchDuplicateMemberShouldFail(t *testing.T) {
 	}
 }
 func TestSnapshotAndRestartMember(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

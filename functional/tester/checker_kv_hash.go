@@ -17,9 +17,13 @@ type kvHashChecker struct {
 func newKVHashChecker(clus *Cluster) Checker {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &kvHashChecker{ctype: rpcpb.Checker_KV_HASH, clus: clus}
 }
 func (hc *kvHashChecker) checkRevAndHashes() (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var (
@@ -48,14 +52,20 @@ func (hc *kvHashChecker) checkRevAndHashes() (err error) {
 func (hc *kvHashChecker) Type() rpcpb.Checker {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return hc.ctype
 }
 func (hc *kvHashChecker) EtcdClientEndpoints() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return hc.clus.EtcdClientEndpoints()
 }
 func (hc *kvHashChecker) Check() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return hc.checkRevAndHashes()

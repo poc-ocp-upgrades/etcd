@@ -32,5 +32,7 @@ type DiscoveryError struct {
 func (e DiscoveryError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("failed to %s discovery cluster (%v)", e.Op, e.Err)
 }

@@ -15,6 +15,8 @@ import (
 func TestIsDirWriteable(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tmpdir, err := ioutil.TempDir("", "")
 	if err != nil {
 		t.Fatalf("unexpected ioutil.TempDir error: %v", err)
@@ -38,6 +40,8 @@ func TestIsDirWriteable(t *testing.T) {
 	}
 }
 func TestReadDir(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tmpdir, err := ioutil.TempDir("", "")
@@ -68,6 +72,8 @@ func TestReadDir(t *testing.T) {
 func TestCreateDirAll(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tmpdir, err := ioutil.TempDir(os.TempDir(), "foo")
 	if err != nil {
 		t.Fatal(err)
@@ -87,6 +93,8 @@ func TestCreateDirAll(t *testing.T) {
 func TestExist(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f, err := ioutil.TempFile(os.TempDir(), "fileutil")
 	if err != nil {
 		t.Fatal(err)
@@ -101,6 +109,8 @@ func TestExist(t *testing.T) {
 	}
 }
 func TestZeroToEnd(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f, err := ioutil.TempFile(os.TempDir(), "fileutil")

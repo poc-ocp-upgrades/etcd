@@ -23,6 +23,8 @@ type node struct {
 func startNode(id uint64, peers []raft.Peer, iface iface) *node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	st := raft.NewMemoryStorage()
 	c := &raft.Config{ID: id, ElectionTick: 10, HeartbeatTick: 1, Storage: st, MaxSizePerMsg: 1024 * 1024, MaxInflightMsgs: 256}
 	rn := raft.StartNode(c, peers)
@@ -31,6 +33,8 @@ func startNode(id uint64, peers []raft.Peer, iface iface) *node {
 	return n
 }
 func (n *node) start() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n.stopc = make(chan struct{})
@@ -80,11 +84,15 @@ func (n *node) start() {
 func (n *node) stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n.iface.disconnect()
 	n.stopc <- struct{}{}
 	<-n.stopc
 }
 func (n *node) restart() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	<-n.stopc
@@ -96,9 +104,13 @@ func (n *node) restart() {
 func (n *node) pause() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n.pausec <- true
 }
 func (n *node) resume() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n.pausec <- false

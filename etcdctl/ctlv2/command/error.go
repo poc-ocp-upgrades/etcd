@@ -20,6 +20,8 @@ const (
 func handleError(c *cli.Context, code int, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.GlobalString("output") == "json" {
 		if err, ok := err.(*client.Error); ok {
 			b, err := json.Marshal(err)

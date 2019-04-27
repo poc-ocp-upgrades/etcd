@@ -40,6 +40,8 @@ type watchStream struct {
 func (ws *watchStream) Watch(key, end []byte, startRev int64, fcs ...FilterFunc) WatchID {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(end) != 0 && bytes.Compare(key, end) != -1 {
 		return -1
 	}
@@ -58,9 +60,13 @@ func (ws *watchStream) Watch(key, end []byte, startRev int64, fcs ...FilterFunc)
 func (ws *watchStream) Chan() <-chan WatchResponse {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ws.ch
 }
 func (ws *watchStream) Cancel(id WatchID) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ws.mu.Lock()
@@ -83,6 +89,8 @@ func (ws *watchStream) Cancel(id WatchID) error {
 func (ws *watchStream) Close() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ws.mu.Lock()
 	defer ws.mu.Unlock()
 	for _, cancel := range ws.cancels {
@@ -95,11 +103,15 @@ func (ws *watchStream) Close() {
 func (ws *watchStream) Rev() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ws.mu.Lock()
 	defer ws.mu.Unlock()
 	return ws.watchable.rev()
 }
 func (ws *watchStream) RequestProgress(id WatchID) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ws.mu.Lock()

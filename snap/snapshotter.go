@@ -36,9 +36,13 @@ type Snapshotter struct{ dir string }
 func New(dir string) *Snapshotter {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Snapshotter{dir: dir}
 }
 func (s *Snapshotter) SaveSnap(snapshot raftpb.Snapshot) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if raft.IsEmptySnap(snapshot) {
@@ -47,6 +51,8 @@ func (s *Snapshotter) SaveSnap(snapshot raftpb.Snapshot) error {
 	return s.save(&snapshot)
 }
 func (s *Snapshotter) save(snapshot *raftpb.Snapshot) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	start := time.Now()
@@ -74,6 +80,8 @@ func (s *Snapshotter) save(snapshot *raftpb.Snapshot) error {
 func (s *Snapshotter) Load() (*raftpb.Snapshot, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	names, err := s.snapNames()
 	if err != nil {
 		return nil, err
@@ -92,6 +100,8 @@ func (s *Snapshotter) Load() (*raftpb.Snapshot, error) {
 func loadSnap(dir, name string) (*raftpb.Snapshot, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fpath := filepath.Join(dir, name)
 	snap, err := Read(fpath)
 	if err != nil {
@@ -100,6 +110,8 @@ func loadSnap(dir, name string) (*raftpb.Snapshot, error) {
 	return snap, err
 }
 func Read(snapname string) (*raftpb.Snapshot, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, err := ioutil.ReadFile(snapname)
@@ -135,6 +147,8 @@ func Read(snapname string) (*raftpb.Snapshot, error) {
 func (s *Snapshotter) snapNames() ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir, err := os.Open(s.dir)
 	if err != nil {
 		return nil, err
@@ -154,6 +168,8 @@ func (s *Snapshotter) snapNames() ([]string, error) {
 func checkSuffix(names []string) []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	snaps := []string{}
 	for i := range names {
 		if strings.HasSuffix(names[i], snapSuffix) {
@@ -167,6 +183,8 @@ func checkSuffix(names []string) []string {
 	return snaps
 }
 func renameBroken(path string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	brokenPath := path + ".broken"

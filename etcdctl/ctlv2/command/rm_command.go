@@ -9,12 +9,16 @@ import (
 func NewRemoveCommand() cli.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cli.Command{Name: "rm", Usage: "remove a key or a directory", ArgsUsage: "<key>", Flags: []cli.Flag{cli.BoolFlag{Name: "dir", Usage: "removes the key if it is an empty directory or a key-value pair"}, cli.BoolFlag{Name: "recursive, r", Usage: "removes the key and all child keys(if it is a directory)"}, cli.StringFlag{Name: "with-value", Value: "", Usage: "previous value"}, cli.IntFlag{Name: "with-index", Value: 0, Usage: "previous index"}}, Action: func(c *cli.Context) error {
 		rmCommandFunc(c, mustNewKeyAPI(c))
 		return nil
 	}}
 }
 func rmCommandFunc(c *cli.Context, ki client.KeysAPI) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(c.Args()) == 0 {

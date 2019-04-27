@@ -19,9 +19,13 @@ type RemoteKV struct {
 func newKey(kv v3.KV, key string, leaseID v3.LeaseID) (*RemoteKV, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newKV(kv, key, "", leaseID)
 }
 func newKV(kv v3.KV, key, val string, leaseID v3.LeaseID) (*RemoteKV, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rev, err := putNewKV(kv, key, val, leaseID)
@@ -31,6 +35,8 @@ func newKV(kv v3.KV, key, val string, leaseID v3.LeaseID) (*RemoteKV, error) {
 	return &RemoteKV{kv, key, rev, val}, nil
 }
 func newUniqueKV(kv v3.KV, prefix string, val string) (*RemoteKV, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -47,6 +53,8 @@ func newUniqueKV(kv v3.KV, prefix string, val string) (*RemoteKV, error) {
 func putNewKV(kv v3.KV, key, val string, leaseID v3.LeaseID) (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmp := v3.Compare(v3.Version(key), "=", 0)
 	req := v3.OpPut(key, val, v3.WithLease(leaseID))
 	txnresp, err := kv.Txn(context.TODO()).If(cmp).Then(req).Commit()
@@ -59,6 +67,8 @@ func putNewKV(kv v3.KV, key, val string, leaseID v3.LeaseID) (int64, error) {
 	return txnresp.Header.Revision, nil
 }
 func newSequentialKV(kv v3.KV, prefix, val string) (*RemoteKV, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := kv.Get(context.TODO(), prefix, v3.WithLastKey()...)
@@ -92,9 +102,13 @@ func newSequentialKV(kv v3.KV, prefix, val string) (*RemoteKV, error) {
 func (rk *RemoteKV) Key() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return rk.key
 }
 func (rk *RemoteKV) Revision() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return rk.rev
@@ -102,9 +116,13 @@ func (rk *RemoteKV) Revision() int64 {
 func (rk *RemoteKV) Value() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return rk.val
 }
 func (rk *RemoteKV) Delete() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if rk.kv == nil {
@@ -117,6 +135,8 @@ func (rk *RemoteKV) Delete() error {
 func (rk *RemoteKV) Put(val string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := rk.kv.Put(context.TODO(), rk.key, val)
 	return err
 }
@@ -124,6 +144,8 @@ func (rk *RemoteKV) Put(val string) error {
 type EphemeralKV struct{ RemoteKV }
 
 func newEphemeralKV(s *concurrency.Session, key, val string) (*EphemeralKV, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	k, err := newKV(s.Client(), key, val, s.Lease())
@@ -135,9 +157,13 @@ func newEphemeralKV(s *concurrency.Session, key, val string) (*EphemeralKV, erro
 func newUniqueEphemeralKey(s *concurrency.Session, prefix string) (*EphemeralKV, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newUniqueEphemeralKV(s, prefix, "")
 }
 func newUniqueEphemeralKV(s *concurrency.Session, prefix, val string) (ek *EphemeralKV, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {

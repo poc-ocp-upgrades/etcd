@@ -15,9 +15,13 @@ type electionServer struct{ c *clientv3.Client }
 func NewElectionServer(c *clientv3.Client) epb.ElectionServer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &electionServer{c}
 }
 func (es *electionServer) Campaign(ctx context.Context, req *epb.CampaignRequest) (*epb.CampaignResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s, err := es.session(ctx, req.Lease)
@@ -31,6 +35,8 @@ func (es *electionServer) Campaign(ctx context.Context, req *epb.CampaignRequest
 	return &epb.CampaignResponse{Header: e.Header(), Leader: &epb.LeaderKey{Name: req.Name, Key: []byte(e.Key()), Rev: e.Rev(), Lease: int64(s.Lease())}}, nil
 }
 func (es *electionServer) Proclaim(ctx context.Context, req *epb.ProclaimRequest) (*epb.ProclaimResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if req.Leader == nil {
@@ -47,6 +53,8 @@ func (es *electionServer) Proclaim(ctx context.Context, req *epb.ProclaimRequest
 	return &epb.ProclaimResponse{Header: e.Header()}, nil
 }
 func (es *electionServer) Observe(req *epb.LeaderRequest, stream epb.Election_ObserveServer) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s, err := es.session(stream.Context(), -1)
@@ -73,6 +81,8 @@ func (es *electionServer) Observe(req *epb.LeaderRequest, stream epb.Election_Ob
 func (es *electionServer) Leader(ctx context.Context, req *epb.LeaderRequest) (*epb.LeaderResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s, err := es.session(ctx, -1)
 	if err != nil {
 		return nil, err
@@ -84,6 +94,8 @@ func (es *electionServer) Leader(ctx context.Context, req *epb.LeaderRequest) (*
 	return &epb.LeaderResponse{Header: l.Header, Kv: l.Kvs[0]}, nil
 }
 func (es *electionServer) Resign(ctx context.Context, req *epb.ResignRequest) (*epb.ResignResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if req.Leader == nil {
@@ -100,6 +112,8 @@ func (es *electionServer) Resign(ctx context.Context, req *epb.ResignRequest) (*
 	return &epb.ResignResponse{Header: e.Header()}, nil
 }
 func (es *electionServer) session(ctx context.Context, lease int64) (*concurrency.Session, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s, err := concurrency.NewSession(es.c, concurrency.WithLease(clientv3.LeaseID(lease)), concurrency.WithContext(ctx))

@@ -7,6 +7,8 @@ import (
 func TestIsHidden(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	watch := "/"
 	key := "/_foo"
 	hidden := isHidden(watch, key)

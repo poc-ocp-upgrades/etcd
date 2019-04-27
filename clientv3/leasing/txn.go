@@ -19,11 +19,15 @@ type txnLeasing struct {
 func (txn *txnLeasing) If(cs ...v3.Cmp) v3.Txn {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	txn.cs = append(txn.cs, cs...)
 	txn.Txn = txn.Txn.If(cs...)
 	return txn
 }
 func (txn *txnLeasing) Then(ops ...v3.Op) v3.Txn {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	txn.opst = append(txn.opst, ops...)
@@ -33,11 +37,15 @@ func (txn *txnLeasing) Then(ops ...v3.Op) v3.Txn {
 func (txn *txnLeasing) Else(ops ...v3.Op) v3.Txn {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	txn.opse = append(txn.opse, ops...)
 	txn.Txn = txn.Txn.Else(ops...)
 	return txn
 }
 func (txn *txnLeasing) Commit() (*v3.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if resp, err := txn.eval(); resp != nil || err != nil {
@@ -46,6 +54,8 @@ func (txn *txnLeasing) Commit() (*v3.TxnResponse, error) {
 	return txn.serverTxn()
 }
 func (txn *txnLeasing) eval() (*v3.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	thenOps, elseOps := gatherOps(txn.opst), gatherOps(txn.opse)
@@ -77,6 +87,8 @@ func (txn *txnLeasing) eval() (*v3.TxnResponse, error) {
 func (txn *txnLeasing) fallback(ops []v3.Op) (fbOps []v3.Op) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, op := range ops {
 		if op.IsGet() {
 			continue
@@ -92,6 +104,8 @@ func (txn *txnLeasing) fallback(ops []v3.Op) (fbOps []v3.Op) {
 func (txn *txnLeasing) guardKeys(ops []v3.Op) (cmps []v3.Cmp) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	seen := make(map[string]bool)
 	for _, op := range ops {
 		key := string(op.KeyBytes())
@@ -105,6 +119,8 @@ func (txn *txnLeasing) guardKeys(ops []v3.Op) (cmps []v3.Cmp) {
 	return cmps
 }
 func (txn *txnLeasing) guardRanges(ops []v3.Op) (cmps []v3.Cmp, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, op := range ops {
@@ -134,11 +150,15 @@ func (txn *txnLeasing) guardRanges(ops []v3.Op) (cmps []v3.Cmp, err error) {
 func (txn *txnLeasing) guard(ops []v3.Op) ([]v3.Cmp, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmps := txn.guardKeys(ops)
 	rangeCmps, err := txn.guardRanges(ops)
 	return append(cmps, rangeCmps...), err
 }
 func (txn *txnLeasing) commitToCache(txnResp *v3pb.TxnResponse, userTxn v3.Op) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ops := gatherResponseOps(txnResp.Responses, []v3.Op{userTxn})
@@ -164,6 +184,8 @@ func (txn *txnLeasing) commitToCache(txnResp *v3pb.TxnResponse, userTxn v3.Op) {
 func (txn *txnLeasing) revokeFallback(fbResps []*v3pb.ResponseOp) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, resp := range fbResps {
 		_, err := txn.lkv.revokeLeaseKvs(txn.ctx, resp.GetResponseRange().Kvs)
 		if err != nil {
@@ -173,6 +195,8 @@ func (txn *txnLeasing) revokeFallback(fbResps []*v3pb.ResponseOp) error {
 	return nil
 }
 func (txn *txnLeasing) serverTxn() (*v3.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := txn.lkv.waitSession(txn.ctx); err != nil {

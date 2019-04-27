@@ -15,6 +15,8 @@ var (
 func NewRoleCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ac := &cobra.Command{Use: "role <subcommand>", Short: "Role related commands"}
 	ac.AddCommand(newRoleAddCommand())
 	ac.AddCommand(newRoleDeleteCommand())
@@ -27,9 +29,13 @@ func NewRoleCommand() *cobra.Command {
 func newRoleAddCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &cobra.Command{Use: "add <role name>", Short: "Adds a new role", Run: roleAddCommandFunc}
 }
 func newRoleDeleteCommand() *cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &cobra.Command{Use: "delete <role name>", Short: "Deletes a role", Run: roleDeleteCommandFunc}
@@ -37,14 +43,20 @@ func newRoleDeleteCommand() *cobra.Command {
 func newRoleGetCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &cobra.Command{Use: "get <role name>", Short: "Gets detailed information of a role", Run: roleGetCommandFunc}
 }
 func newRoleListCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &cobra.Command{Use: "list", Short: "Lists all roles", Run: roleListCommandFunc}
 }
 func newRoleGrantPermissionCommand() *cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "grant-permission [options] <role name> <permission type> <key> [endkey]", Short: "Grants a key to a role", Run: roleGrantPermissionCommandFunc}
@@ -55,12 +67,16 @@ func newRoleGrantPermissionCommand() *cobra.Command {
 func newRoleRevokePermissionCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "revoke-permission <role name> <key> [endkey]", Short: "Revokes a key from a role", Run: roleRevokePermissionCommandFunc}
 	cmd.Flags().BoolVar(&rolePermPrefix, "prefix", false, "revoke a prefix permission")
 	cmd.Flags().BoolVar(&rolePermFromKey, "from-key", false, "revoke a permission of keys that are greater than or equal to the given key using byte compare")
 	return cmd
 }
 func roleAddCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {
@@ -75,6 +91,8 @@ func roleAddCommandFunc(cmd *cobra.Command, args []string) {
 func roleDeleteCommandFunc(cmd *cobra.Command, args []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(args) != 1 {
 		ExitWithError(ExitBadArgs, fmt.Errorf("role delete command requires role name as its argument."))
 	}
@@ -85,6 +103,8 @@ func roleDeleteCommandFunc(cmd *cobra.Command, args []string) {
 	display.RoleDelete(args[0], *resp)
 }
 func roleGetCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {
@@ -100,6 +120,8 @@ func roleGetCommandFunc(cmd *cobra.Command, args []string) {
 func roleListCommandFunc(cmd *cobra.Command, args []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(args) != 0 {
 		ExitWithError(ExitBadArgs, fmt.Errorf("role list command requires no arguments."))
 	}
@@ -110,6 +132,8 @@ func roleListCommandFunc(cmd *cobra.Command, args []string) {
 	display.RoleList(*resp)
 }
 func roleGrantPermissionCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) < 3 {
@@ -129,6 +153,8 @@ func roleGrantPermissionCommandFunc(cmd *cobra.Command, args []string) {
 func roleRevokePermissionCommandFunc(cmd *cobra.Command, args []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(args) < 2 {
 		ExitWithError(ExitBadArgs, fmt.Errorf("role revoke-permission command requires role name and key [endkey] as its argument."))
 	}
@@ -140,6 +166,8 @@ func roleRevokePermissionCommandFunc(cmd *cobra.Command, args []string) {
 	display.RoleRevokePermission(args[0], args[1], rangeEnd, *resp)
 }
 func permRange(args []string) (string, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	key := args[0]
@@ -162,6 +190,8 @@ func permRange(args []string) (string, string) {
 	return key, rangeEnd
 }
 func rangeEndFromPermFlags(args []string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) == 1 {

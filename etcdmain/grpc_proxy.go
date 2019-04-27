@@ -64,9 +64,13 @@ const defaultGRPCMaxCallSendMsgSize = 1.5 * 1024 * 1024
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rootCmd.AddCommand(newGRPCProxyCommand())
 }
 func newGRPCProxyCommand() *cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lpc := &cobra.Command{Use: "grpc-proxy <subcommand>", Short: "grpc-proxy related command"}
@@ -74,6 +78,8 @@ func newGRPCProxyCommand() *cobra.Command {
 	return lpc
 }
 func newGRPCProxyStartCommand() *cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := cobra.Command{Use: "start", Short: "start the grpc proxy", Run: startGRPCProxy}
@@ -105,6 +111,8 @@ func newGRPCProxyStartCommand() *cobra.Command {
 	return &cmd
 }
 func startGRPCProxy(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	checkArgs()
@@ -164,6 +172,8 @@ func startGRPCProxy(cmd *cobra.Command, args []string) {
 func checkArgs() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if grpcProxyResolverPrefix != "" && grpcProxyResolverTTL < 1 {
 		fmt.Fprintln(os.Stderr, fmt.Errorf("invalid resolver-ttl %d", grpcProxyResolverTTL))
 		os.Exit(1)
@@ -178,6 +188,8 @@ func checkArgs() {
 	}
 }
 func mustNewClient() *clientv3.Client {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	srvs := discoverEndpoints(grpcProxyDNSCluster, grpcProxyCA, grpcProxyInsecureDiscovery)
@@ -200,6 +212,8 @@ func mustNewClient() *clientv3.Client {
 	return client
 }
 func newClientCfg(eps []string) (*clientv3.Config, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfg := clientv3.Config{Endpoints: eps, DialTimeout: 5 * time.Second}
@@ -227,12 +241,16 @@ func newClientCfg(eps []string) (*clientv3.Config, error) {
 func newTLS(ca, cert, key string) *transport.TLSInfo {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ca == "" && cert == "" && key == "" {
 		return nil
 	}
 	return &transport.TLSInfo{CAFile: ca, CertFile: cert, KeyFile: key}
 }
 func mustListenCMux(tlsinfo *transport.TLSInfo) cmux.CMux {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l, err := net.Listen("tcp", grpcProxyListenAddr)
@@ -254,6 +272,8 @@ func mustListenCMux(tlsinfo *transport.TLSInfo) cmux.CMux {
 	return cmux.New(l)
 }
 func newGRPCProxyServer(client *clientv3.Client) *grpc.Server {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if grpcProxyEnableOrdering {
@@ -302,6 +322,8 @@ func newGRPCProxyServer(client *clientv3.Client) *grpc.Server {
 func mustHTTPListener(m cmux.CMux, tlsinfo *transport.TLSInfo, c *clientv3.Client) (*http.Server, net.Listener) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	httpClient := mustNewHTTPClient()
 	httpmux := http.NewServeMux()
 	httpmux.HandleFunc("/", http.NotFound)
@@ -327,6 +349,8 @@ func mustHTTPListener(m cmux.CMux, tlsinfo *transport.TLSInfo, c *clientv3.Clien
 func mustNewHTTPClient() *http.Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	transport, err := newHTTPTransport(grpcProxyCA, grpcProxyCert, grpcProxyKey)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -335,6 +359,8 @@ func mustNewHTTPClient() *http.Client {
 	return &http.Client{Transport: transport}
 }
 func newHTTPTransport(ca, cert, key string) (*http.Transport, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tr := &http.Transport{}
@@ -359,6 +385,8 @@ func newHTTPTransport(ca, cert, key string) (*http.Transport, error) {
 	return tr, nil
 }
 func mustMetricsListener(tlsinfo *transport.TLSInfo) net.Listener {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	murl, err := url.Parse(grpcProxyMetricsListenAddr)

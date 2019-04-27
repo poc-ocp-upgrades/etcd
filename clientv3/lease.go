@@ -53,6 +53,8 @@ type ErrKeepAliveHalted struct{ Reason error }
 func (e ErrKeepAliveHalted) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := "etcdclient: leases keep alive halted"
 	if e.Reason != nil {
 		s += ": " + e.Reason.Error()
@@ -94,9 +96,13 @@ type keepAlive struct {
 func NewLease(c *Client) Lease {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewLeaseFromLeaseClient(RetryLeaseClient(c), c, c.cfg.DialTimeout+time.Second)
 }
 func NewLeaseFromLeaseClient(remote pb.LeaseClient, c *Client, keepAliveTimeout time.Duration) Lease {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := &lessor{donec: make(chan struct{}), keepAlives: make(map[LeaseID]*keepAlive), remote: remote, firstKeepAliveTimeout: keepAliveTimeout}
@@ -113,6 +119,8 @@ func NewLeaseFromLeaseClient(remote pb.LeaseClient, c *Client, keepAliveTimeout 
 func (l *lessor) Grant(ctx context.Context, ttl int64) (*LeaseGrantResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := &pb.LeaseGrantRequest{TTL: ttl}
 	resp, err := l.remote.LeaseGrant(ctx, r, l.callOpts...)
 	if err == nil {
@@ -124,6 +132,8 @@ func (l *lessor) Grant(ctx context.Context, ttl int64) (*LeaseGrantResponse, err
 func (l *lessor) Revoke(ctx context.Context, id LeaseID) (*LeaseRevokeResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := &pb.LeaseRevokeRequest{ID: int64(id)}
 	resp, err := l.remote.LeaseRevoke(ctx, r, l.callOpts...)
 	if err == nil {
@@ -132,6 +142,8 @@ func (l *lessor) Revoke(ctx context.Context, id LeaseID) (*LeaseRevokeResponse, 
 	return nil, toErr(ctx, err)
 }
 func (l *lessor) TimeToLive(ctx context.Context, id LeaseID, opts ...LeaseOption) (*LeaseTimeToLiveResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := toLeaseTimeToLiveRequest(id, opts...)
@@ -145,6 +157,8 @@ func (l *lessor) TimeToLive(ctx context.Context, id LeaseID, opts ...LeaseOption
 func (l *lessor) Leases(ctx context.Context) (*LeaseLeasesResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := l.remote.LeaseLeases(ctx, &pb.LeaseLeasesRequest{}, l.callOpts...)
 	if err == nil {
 		leases := make([]LeaseStatus, len(resp.Leases))
@@ -156,6 +170,8 @@ func (l *lessor) Leases(ctx context.Context) (*LeaseLeasesResponse, error) {
 	return nil, toErr(ctx, err)
 }
 func (l *lessor) KeepAlive(ctx context.Context, id LeaseID) (<-chan *LeaseKeepAliveResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ch := make(chan *LeaseKeepAliveResponse, LeaseResponseChSize)
@@ -187,6 +203,8 @@ func (l *lessor) KeepAlive(ctx context.Context, id LeaseID) (<-chan *LeaseKeepAl
 func (l *lessor) KeepAliveOnce(ctx context.Context, id LeaseID) (*LeaseKeepAliveResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		resp, err := l.keepAliveOnce(ctx, id)
 		if err == nil {
@@ -203,6 +221,8 @@ func (l *lessor) KeepAliveOnce(ctx context.Context, id LeaseID) (*LeaseKeepAlive
 func (l *lessor) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l.stopCancel()
 	l.firstKeepAliveOnce.Do(func() {
 		close(l.donec)
@@ -211,6 +231,8 @@ func (l *lessor) Close() error {
 	return nil
 }
 func (l *lessor) keepAliveCtxCloser(id LeaseID, ctx context.Context, donec <-chan struct{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {
@@ -239,6 +261,8 @@ func (l *lessor) keepAliveCtxCloser(id LeaseID, ctx context.Context, donec <-cha
 	}
 }
 func (l *lessor) closeRequireLeader() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l.mu.Lock()
@@ -277,6 +301,8 @@ func (l *lessor) closeRequireLeader() {
 func (l *lessor) keepAliveOnce(ctx context.Context, id LeaseID) (*LeaseKeepAliveResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 	stream, err := l.remote.LeaseKeepAlive(cctx, l.callOpts...)
@@ -295,6 +321,8 @@ func (l *lessor) keepAliveOnce(ctx context.Context, id LeaseID) (*LeaseKeepAlive
 	return karesp, nil
 }
 func (l *lessor) recvKeepAliveLoop() (gerr error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer func() {
@@ -339,6 +367,8 @@ func (l *lessor) recvKeepAliveLoop() (gerr error) {
 func (l *lessor) resetRecv() (pb.Lease_LeaseKeepAliveClient, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sctx, cancel := context.WithCancel(l.stopCtx)
 	stream, err := l.remote.LeaseKeepAlive(sctx, l.callOpts...)
 	if err != nil {
@@ -356,6 +386,8 @@ func (l *lessor) resetRecv() (pb.Lease_LeaseKeepAliveClient, error) {
 	return stream, nil
 }
 func (l *lessor) recvKeepAlive(resp *pb.LeaseKeepAliveResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	karesp := &LeaseKeepAliveResponse{ResponseHeader: resp.GetHeader(), ID: LeaseID(resp.ID), TTL: resp.TTL}
@@ -383,6 +415,8 @@ func (l *lessor) recvKeepAlive(resp *pb.LeaseKeepAliveResponse) {
 func (l *lessor) deadlineLoop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		select {
 		case <-time.After(time.Second):
@@ -401,6 +435,8 @@ func (l *lessor) deadlineLoop() {
 	}
 }
 func (l *lessor) sendKeepAliveLoop(stream pb.Lease_LeaseKeepAliveClient) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -431,6 +467,8 @@ func (l *lessor) sendKeepAliveLoop(stream pb.Lease_LeaseKeepAliveClient) {
 	}
 }
 func (ka *keepAlive) close() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	close(ka.donec)

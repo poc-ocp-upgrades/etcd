@@ -11,14 +11,20 @@ type caseNoFailWithStress caseByFunc
 func (c *caseNoFailWithStress) Inject(clus *Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (c *caseNoFailWithStress) Recover(clus *Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (c *caseNoFailWithStress) Desc() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.desc != "" {
@@ -29,9 +35,13 @@ func (c *caseNoFailWithStress) Desc() string {
 func (c *caseNoFailWithStress) TestCase() rpcpb.Case {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.rpcpbCase
 }
 func new_Case_NO_FAIL_WITH_STRESS(clus *Cluster) Case {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := &caseNoFailWithStress{rpcpbCase: rpcpb.Case_NO_FAIL_WITH_STRESS}
@@ -43,6 +53,8 @@ type caseNoFailWithNoStressForLiveness caseByFunc
 func (c *caseNoFailWithNoStressForLiveness) Inject(clus *Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus.lg.Info("extra delay for liveness mode with no stresser", zap.Int("round", clus.rd), zap.Int("case", clus.cs), zap.String("desc", c.Desc()))
 	time.Sleep(clus.GetCaseDelayDuration())
 	clus.lg.Info("wait health in liveness mode", zap.Int("round", clus.rd), zap.Int("case", clus.cs), zap.String("desc", c.Desc()))
@@ -51,9 +63,13 @@ func (c *caseNoFailWithNoStressForLiveness) Inject(clus *Cluster) error {
 func (c *caseNoFailWithNoStressForLiveness) Recover(clus *Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (c *caseNoFailWithNoStressForLiveness) Desc() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.desc != "" {
@@ -64,9 +80,13 @@ func (c *caseNoFailWithNoStressForLiveness) Desc() string {
 func (c *caseNoFailWithNoStressForLiveness) TestCase() rpcpb.Case {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.rpcpbCase
 }
 func new_Case_NO_FAIL_WITH_NO_STRESS_FOR_LIVENESS(clus *Cluster) Case {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := &caseNoFailWithNoStressForLiveness{rpcpbCase: rpcpb.Case_NO_FAIL_WITH_NO_STRESS_FOR_LIVENESS}

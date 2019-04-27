@@ -19,11 +19,15 @@ type filePipeline struct {
 func newFilePipeline(dir string, fileSize int64) *filePipeline {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fp := &filePipeline{dir: dir, size: fileSize, filec: make(chan *fileutil.LockedFile), errc: make(chan error, 1), donec: make(chan struct{})}
 	go fp.run()
 	return fp
 }
 func (fp *filePipeline) Open() (f *fileutil.LockedFile, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {
@@ -35,10 +39,14 @@ func (fp *filePipeline) Open() (f *fileutil.LockedFile, err error) {
 func (fp *filePipeline) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	close(fp.donec)
 	return <-fp.errc
 }
 func (fp *filePipeline) alloc() (f *fileutil.LockedFile, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fpath := filepath.Join(fp.dir, fmt.Sprintf("%d.tmp", fp.count%2))
@@ -54,6 +62,8 @@ func (fp *filePipeline) alloc() (f *fileutil.LockedFile, err error) {
 	return f, nil
 }
 func (fp *filePipeline) run() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer close(fp.errc)

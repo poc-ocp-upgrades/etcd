@@ -10,6 +10,8 @@ import (
 func TestHTTPErrorWriteTo(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := NewHTTPError(http.StatusBadRequest, "what a bad request you made!")
 	rr := httptest.NewRecorder()
 	if e := err.WriteTo(rr); e != nil {

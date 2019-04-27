@@ -12,10 +12,14 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	setDflSignal = func(syscall.Signal) {
 	}
 }
 func TestUnsetenv(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []string{"data", "space data", "equal=data"}
@@ -39,6 +43,8 @@ func TestUnsetenv(t *testing.T) {
 func waitSig(t *testing.T, c <-chan os.Signal, sig os.Signal) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case s := <-c:
 		if s != sig {
@@ -49,6 +55,8 @@ func waitSig(t *testing.T, c <-chan os.Signal, sig os.Signal) {
 	}
 }
 func TestHandleInterrupts(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, sig := range []syscall.Signal{syscall.SIGINT, syscall.SIGTERM} {

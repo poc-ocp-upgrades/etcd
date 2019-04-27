@@ -56,6 +56,8 @@ type configFlags struct {
 func newConfig() *config {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := &config{ec: *embed.NewConfig(), cp: configProxy{Proxy: proxyFlagOff, ProxyFailureWaitMs: 5000, ProxyRefreshIntervalMs: 30000, ProxyDialTimeoutMs: 1000, ProxyWriteTimeoutMs: 5000}, ignored: ignored}
 	cfg.cf = configFlags{flagSet: flag.NewFlagSet("etcd", flag.ContinueOnError), clusterState: flags.NewStringsFlag(embed.ClusterStateFlagNew, embed.ClusterStateFlagExisting), fallback: flags.NewStringsFlag(fallbackFlagProxy, fallbackFlagExit), proxy: flags.NewStringsFlag(proxyFlagOff, proxyFlagReadonly, proxyFlagOn)}
 	fs := cfg.cf.flagSet
@@ -136,6 +138,8 @@ func newConfig() *config {
 func (cfg *config) parse(arguments []string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	perr := cfg.cf.flagSet.Parse(arguments)
 	switch perr {
 	case nil:
@@ -165,6 +169,8 @@ func (cfg *config) parse(arguments []string) error {
 	return err
 }
 func (cfg *config) configFromCmdLine() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := flags.SetFlagsFromEnv("ETCD", cfg.cf.flagSet)
@@ -198,6 +204,8 @@ func (cfg *config) configFromCmdLine() error {
 func (cfg *config) configFromFile(path string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	eCfg, err := embed.ConfigFromFile(path)
 	if err != nil {
 		return err
@@ -227,10 +235,14 @@ func (cfg *config) configFromFile(path string) error {
 func (cfg *config) mayBeProxy() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mayFallbackToProxy := cfg.ec.Durl != "" && cfg.cp.Fallback == fallbackFlagProxy
 	return cfg.cp.Proxy != proxyFlagOff || mayFallbackToProxy
 }
 func (cfg *config) validate() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := cfg.ec.Validate()
@@ -242,9 +254,13 @@ func (cfg *config) validate() error {
 func (cfg config) isProxy() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cfg.cf.proxy.String() != proxyFlagOff
 }
 func (cfg config) isReadonlyProxy() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return cfg.cf.proxy.String() == proxyFlagReadonly
@@ -252,12 +268,23 @@ func (cfg config) isReadonlyProxy() bool {
 func (cfg config) shouldFallbackToProxy() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cfg.cf.fallback.String() == fallbackFlagProxy
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

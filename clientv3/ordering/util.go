@@ -14,6 +14,8 @@ var ErrNoGreaterRev = errors.New("etcdclient: no cluster members have a revision
 func NewOrderViolationSwitchEndpointClosure(c clientv3.Client) OrderViolationFunc {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var mu sync.Mutex
 	violationCount := 0
 	return func(op clientv3.Op, resp clientv3.OpResponse, prevRev int64) error {

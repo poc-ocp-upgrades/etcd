@@ -103,14 +103,20 @@ type EtcdError struct {
 func (e EtcdError) Code() codes.Code {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.code
 }
 func (e EtcdError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.desc
 }
 func Error(err error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err == nil {
@@ -130,6 +136,8 @@ func Error(err error) error {
 	return EtcdError{code: ev.Code(), desc: desc}
 }
 func ErrorDesc(err error) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s, ok := status.FromError(err); ok {

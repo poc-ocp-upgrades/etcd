@@ -8,6 +8,8 @@ import (
 func (t *fakeTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case resp := <-t.respchan:
 		return resp, nil

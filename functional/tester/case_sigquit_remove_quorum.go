@@ -20,6 +20,8 @@ type fetchSnapshotCaseQuorum struct {
 func (c *fetchSnapshotCaseQuorum) Inject(clus *Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lead, err := clus.GetLeader()
 	if err != nil {
 		return err
@@ -73,6 +75,8 @@ func (c *fetchSnapshotCaseQuorum) Inject(clus *Cluster) error {
 	return err
 }
 func (c *fetchSnapshotCaseQuorum) Recover(clus *Cluster) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	oldlead := c.snapshotted
@@ -135,6 +139,8 @@ func (c *fetchSnapshotCaseQuorum) Recover(clus *Cluster) error {
 func (c *fetchSnapshotCaseQuorum) Desc() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.desc != "" {
 		return c.desc
 	}
@@ -143,9 +149,13 @@ func (c *fetchSnapshotCaseQuorum) Desc() string {
 func (c *fetchSnapshotCaseQuorum) TestCase() rpcpb.Case {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.rpcpbCase
 }
 func new_Case_SIGQUIT_AND_REMOVE_QUORUM_AND_RESTORE_LEADER_SNAPSHOT_FROM_SCRATCH(clus *Cluster) Case {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := &fetchSnapshotCaseQuorum{rpcpbCase: rpcpb.Case_SIGQUIT_AND_REMOVE_QUORUM_AND_RESTORE_LEADER_SNAPSHOT_FROM_SCRATCH, injected: make(map[int]struct{}), snapshotted: -1}

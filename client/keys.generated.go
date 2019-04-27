@@ -31,6 +31,8 @@ type codecSelfer7612 struct{}
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if codec1978.GenVersion != 8 {
 		_, file, _, _ := runtime.Caller(0)
 		err := fmt.Errorf("codecgen version mismatch: current: %v, need %v. Re-generate file: %v", 8, codec1978.GenVersion, file)
@@ -42,6 +44,8 @@ func init() {
 	}
 }
 func (x *Error) CodecEncodeSelf(e *codec1978.Encoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -151,6 +155,8 @@ func (x *Error) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *Error) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -180,6 +186,8 @@ func (x *Error) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *Error) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -258,6 +266,8 @@ func (x *Error) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
 	r.ReadMapEnd()
 }
 func (x *Error) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -372,6 +382,8 @@ func (x *Error) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 func (x PrevExistType) CodecEncodeSelf(e *codec1978.Encoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperEncoder(e)
 	_, _, _ = h, z, r
@@ -386,6 +398,8 @@ func (x PrevExistType) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *PrevExistType) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -398,6 +412,8 @@ func (x *PrevExistType) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *WatcherOptions) CodecEncodeSelf(e *codec1978.Encoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -469,6 +485,8 @@ func (x *WatcherOptions) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *WatcherOptions) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -498,6 +516,8 @@ func (x *WatcherOptions) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *WatcherOptions) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -552,6 +572,8 @@ func (x *WatcherOptions) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
 	r.ReadMapEnd()
 }
 func (x *WatcherOptions) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -622,6 +644,8 @@ func (x *WatcherOptions) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 func (x *CreateInOrderOptions) CodecEncodeSelf(e *codec1978.Encoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperEncoder(e)
 	_, _, _ = h, z, r
@@ -674,6 +698,8 @@ func (x *CreateInOrderOptions) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *CreateInOrderOptions) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -703,6 +729,8 @@ func (x *CreateInOrderOptions) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *CreateInOrderOptions) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -746,6 +774,8 @@ func (x *CreateInOrderOptions) codecDecodeSelfFromMap(l int, d *codec1978.Decode
 	r.ReadMapEnd()
 }
 func (x *CreateInOrderOptions) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -793,6 +823,8 @@ func (x *CreateInOrderOptions) codecDecodeSelfFromArray(l int, d *codec1978.Deco
 	r.ReadArrayEnd()
 }
 func (x *SetOptions) CodecEncodeSelf(e *codec1978.Encoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -951,6 +983,8 @@ func (x *SetOptions) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *SetOptions) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -980,6 +1014,8 @@ func (x *SetOptions) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *SetOptions) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -1090,6 +1126,8 @@ func (x *SetOptions) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
 	r.ReadMapEnd()
 }
 func (x *SetOptions) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -1266,6 +1304,8 @@ func (x *SetOptions) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 func (x *GetOptions) CodecEncodeSelf(e *codec1978.Encoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperEncoder(e)
 	_, _, _ = h, z, r
@@ -1354,6 +1394,8 @@ func (x *GetOptions) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *GetOptions) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -1383,6 +1425,8 @@ func (x *GetOptions) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *GetOptions) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -1449,6 +1493,8 @@ func (x *GetOptions) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
 	r.ReadMapEnd()
 }
 func (x *GetOptions) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -1539,6 +1585,8 @@ func (x *GetOptions) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 	r.ReadArrayEnd()
 }
 func (x *DeleteOptions) CodecEncodeSelf(e *codec1978.Encoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -1648,6 +1696,8 @@ func (x *DeleteOptions) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *DeleteOptions) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -1677,6 +1727,8 @@ func (x *DeleteOptions) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *DeleteOptions) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -1755,6 +1807,8 @@ func (x *DeleteOptions) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
 	r.ReadMapEnd()
 }
 func (x *DeleteOptions) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -1867,6 +1921,8 @@ func (x *DeleteOptions) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 	r.ReadArrayEnd()
 }
 func (x *Response) CodecEncodeSelf(e *codec1978.Encoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -1983,6 +2039,8 @@ func (x *Response) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *Response) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -2012,6 +2070,8 @@ func (x *Response) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *Response) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -2082,6 +2142,8 @@ func (x *Response) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
 	r.ReadMapEnd()
 }
 func (x *Response) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -2176,6 +2238,8 @@ func (x *Response) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 	r.ReadArrayEnd()
 }
 func (x *Node) CodecEncodeSelf(e *codec1978.Encoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -2425,6 +2489,8 @@ func (x *Node) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *Node) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -2454,6 +2520,8 @@ func (x *Node) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *Node) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -2589,6 +2657,8 @@ func (x *Node) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
 	r.ReadMapEnd()
 }
 func (x *Node) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -2800,6 +2870,8 @@ func (x *Node) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 func (x Nodes) CodecEncodeSelf(e *codec1978.Encoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperEncoder(e)
 	_, _, _ = h, z, r
@@ -2818,6 +2890,8 @@ func (x Nodes) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *Nodes) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -2830,6 +2904,8 @@ func (x *Nodes) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *httpKeysAPI) CodecEncodeSelf(e *codec1978.Encoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -2863,6 +2939,8 @@ func (x *httpKeysAPI) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *httpKeysAPI) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -2892,6 +2970,8 @@ func (x *httpKeysAPI) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *httpKeysAPI) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -2924,6 +3004,8 @@ func (x *httpKeysAPI) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
 func (x *httpKeysAPI) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -2946,6 +3028,8 @@ func (x *httpKeysAPI) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 	r.ReadArrayEnd()
 }
 func (x *httpWatcher) CodecEncodeSelf(e *codec1978.Encoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -2979,6 +3063,8 @@ func (x *httpWatcher) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *httpWatcher) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -3008,6 +3094,8 @@ func (x *httpWatcher) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *httpWatcher) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -3040,6 +3128,8 @@ func (x *httpWatcher) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
 func (x *httpWatcher) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -3062,6 +3152,8 @@ func (x *httpWatcher) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 	r.ReadArrayEnd()
 }
 func (x *getAction) CodecEncodeSelf(e *codec1978.Encoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -3190,6 +3282,8 @@ func (x *getAction) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *getAction) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -3219,6 +3313,8 @@ func (x *getAction) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *getAction) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -3309,6 +3405,8 @@ func (x *getAction) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
 	r.ReadMapEnd()
 }
 func (x *getAction) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -3445,6 +3543,8 @@ func (x *getAction) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 func (x *waitAction) CodecEncodeSelf(e *codec1978.Encoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperEncoder(e)
 	_, _, _ = h, z, r
@@ -3552,6 +3652,8 @@ func (x *waitAction) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *waitAction) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -3581,6 +3683,8 @@ func (x *waitAction) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *waitAction) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -3659,6 +3763,8 @@ func (x *waitAction) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
 	r.ReadMapEnd()
 }
 func (x *waitAction) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -3771,6 +3877,8 @@ func (x *waitAction) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 	r.ReadArrayEnd()
 }
 func (x *setAction) CodecEncodeSelf(e *codec1978.Encoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -3986,6 +4094,8 @@ func (x *setAction) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *setAction) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -4015,6 +4125,8 @@ func (x *setAction) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *setAction) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -4161,6 +4273,8 @@ func (x *setAction) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
 	r.ReadMapEnd()
 }
 func (x *setAction) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -4403,6 +4517,8 @@ func (x *setAction) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 func (x *deleteAction) CodecEncodeSelf(e *codec1978.Encoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperEncoder(e)
 	_, _, _ = h, z, r
@@ -4548,6 +4664,8 @@ func (x *deleteAction) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *deleteAction) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -4577,6 +4695,8 @@ func (x *deleteAction) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *deleteAction) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -4679,6 +4799,8 @@ func (x *deleteAction) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
 	r.ReadMapEnd()
 }
 func (x *deleteAction) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -4837,6 +4959,8 @@ func (x *deleteAction) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
 func (x *createInOrderAction) CodecEncodeSelf(e *codec1978.Encoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperEncoder(e)
 	_, _, _ = h, z, r
@@ -4946,6 +5070,8 @@ func (x *createInOrderAction) CodecEncodeSelf(e *codec1978.Encoder) {
 func (x *createInOrderAction) CodecDecodeSelf(d *codec1978.Decoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperDecoder(d)
 	_, _, _ = h, z, r
@@ -4975,6 +5101,8 @@ func (x *createInOrderAction) CodecDecodeSelf(d *codec1978.Decoder) {
 	}
 }
 func (x *createInOrderAction) codecDecodeSelfFromMap(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -5054,6 +5182,8 @@ func (x *createInOrderAction) codecDecodeSelfFromMap(l int, d *codec1978.Decoder
 	r.ReadMapEnd()
 }
 func (x *createInOrderAction) codecDecodeSelfFromArray(l int, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612
@@ -5169,6 +5299,8 @@ func (x *createInOrderAction) codecDecodeSelfFromArray(l int, d *codec1978.Decod
 func (x codecSelfer7612) encNodes(v Nodes, e *codec1978.Encoder) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var h codecSelfer7612
 	z, r := codec1978.GenHelperEncoder(e)
 	_, _, _ = h, z, r
@@ -5184,6 +5316,8 @@ func (x codecSelfer7612) encNodes(v Nodes, e *codec1978.Encoder) {
 	r.WriteArrayEnd()
 }
 func (x codecSelfer7612) decNodes(v *Nodes, d *codec1978.Decoder) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var h codecSelfer7612

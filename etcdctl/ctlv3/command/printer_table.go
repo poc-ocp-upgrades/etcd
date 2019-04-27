@@ -11,6 +11,8 @@ type tablePrinter struct{ printer }
 func (tp *tablePrinter) MemberList(r v3.MemberListResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	hdr, rows := makeMemberListTable(r)
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader(hdr)
@@ -21,6 +23,8 @@ func (tp *tablePrinter) MemberList(r v3.MemberListResponse) {
 	table.Render()
 }
 func (tp *tablePrinter) EndpointStatus(r []epStatus) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	hdr, rows := makeEndpointStatusTable(r)
@@ -35,6 +39,8 @@ func (tp *tablePrinter) EndpointStatus(r []epStatus) {
 func (tp *tablePrinter) EndpointHashKV(r []epHashKV) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	hdr, rows := makeEndpointHashKVTable(r)
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader(hdr)
@@ -45,6 +51,8 @@ func (tp *tablePrinter) EndpointHashKV(r []epHashKV) {
 	table.Render()
 }
 func (tp *tablePrinter) DBStatus(r dbstatus) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	hdr, rows := makeDBStatusTable(r)

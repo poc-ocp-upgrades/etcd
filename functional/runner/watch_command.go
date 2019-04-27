@@ -24,6 +24,8 @@ var (
 func NewWatchCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "watcher", Short: "Performs watch operation", Run: runWatcherFunc}
 	cmd.Flags().DurationVar(&runningTime, "running-time", 60, "number of seconds to run")
 	cmd.Flags().StringVar(&watchPrefix, "prefix", "", "the prefix to append on all keys")
@@ -33,6 +35,8 @@ func NewWatchCommand() *cobra.Command {
 	return cmd
 }
 func runWatcherFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) > 0 {
@@ -45,6 +49,8 @@ func runWatcherFunc(cmd *cobra.Command, args []string) {
 	}
 }
 func performWatchOnPrefixes(ctx context.Context, cmd *cobra.Command, round int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	keyPerPrefix := totalKeys / noOfPrefixes
@@ -115,6 +121,8 @@ func performWatchOnPrefixes(ctx context.Context, cmd *cobra.Command, round int) 
 func checkWatchResponse(wc clientv3.WatchChan, prefix string, keys []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for n := 0; n < len(keys); {
 		wr, more := <-wc
 		if !more {
@@ -131,6 +139,8 @@ func checkWatchResponse(wc clientv3.WatchChan, prefix string, keys []string) {
 	}
 }
 func putKeyAtMostOnce(ctx context.Context, client *clientv3.Client, key string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gr, err := getKey(ctx, client, key)
@@ -152,6 +162,8 @@ func putKeyAtMostOnce(ctx context.Context, client *clientv3.Client, key string) 
 func deletePrefix(ctx context.Context, client *clientv3.Client, key string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for ctx.Err() == nil {
 		if _, err := client.Delete(ctx, key, clientv3.WithPrefix()); err == nil {
 			return nil
@@ -160,6 +172,8 @@ func deletePrefix(ctx context.Context, client *clientv3.Client, key string) erro
 	return ctx.Err()
 }
 func getKey(ctx context.Context, client *clientv3.Client, key string) (*clientv3.GetResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for ctx.Err() == nil {

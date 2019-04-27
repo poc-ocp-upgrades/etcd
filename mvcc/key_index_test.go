@@ -8,6 +8,8 @@ import (
 func TestKeyIndexGet(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ki := newTestKeyIndex()
 	ki.compact(4, make(map[revision]struct{}))
 	tests := []struct {
@@ -36,6 +38,8 @@ func TestKeyIndexGet(t *testing.T) {
 func TestKeyIndexSince(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ki := newTestKeyIndex()
 	ki.compact(4, make(map[revision]struct{}))
 	allRevs := []revision{{4, 0}, {6, 0}, {8, 0}, {10, 0}, {12, 0}, {14, 1}, {16, 0}}
@@ -53,6 +57,8 @@ func TestKeyIndexSince(t *testing.T) {
 func TestKeyIndexPut(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ki := &keyIndex{key: []byte("foo")}
 	ki.put(5, 0)
 	wki := &keyIndex{key: []byte("foo"), modified: revision{5, 0}, generations: []generation{{created: revision{5, 0}, ver: 1, revs: []revision{{main: 5}}}}}
@@ -68,6 +74,8 @@ func TestKeyIndexPut(t *testing.T) {
 func TestKeyIndexRestore(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ki := &keyIndex{key: []byte("foo")}
 	ki.restore(revision{5, 0}, revision{7, 0}, 2)
 	wki := &keyIndex{key: []byte("foo"), modified: revision{7, 0}, generations: []generation{{created: revision{5, 0}, ver: 2, revs: []revision{{main: 7}}}}}
@@ -76,6 +84,8 @@ func TestKeyIndexRestore(t *testing.T) {
 	}
 }
 func TestKeyIndexTombstone(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ki := &keyIndex{key: []byte("foo")}
@@ -104,6 +114,8 @@ func TestKeyIndexTombstone(t *testing.T) {
 	}
 }
 func TestKeyIndexCompactAndKeep(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -177,6 +189,8 @@ func TestKeyIndexCompactAndKeep(t *testing.T) {
 func cloneKeyIndex(ki *keyIndex) *keyIndex {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	generations := make([]generation, len(ki.generations))
 	for i, gen := range ki.generations {
 		generations[i] = *cloneGeneration(&gen)
@@ -184,6 +198,8 @@ func cloneKeyIndex(ki *keyIndex) *keyIndex {
 	return &keyIndex{ki.key, ki.modified, generations}
 }
 func cloneGeneration(g *generation) *generation {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if g.revs == nil {
@@ -194,6 +210,8 @@ func cloneGeneration(g *generation) *generation {
 	return &generation{g.ver, g.created, tmp}
 }
 func TestKeyIndexCompactOnFurtherRev(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ki := &keyIndex{key: []byte("foo")}
@@ -213,6 +231,8 @@ func TestKeyIndexCompactOnFurtherRev(t *testing.T) {
 func TestKeyIndexIsEmpty(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		ki	*keyIndex
 		w	bool
@@ -225,6 +245,8 @@ func TestKeyIndexIsEmpty(t *testing.T) {
 	}
 }
 func TestKeyIndexFindGeneration(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ki := newTestKeyIndex()
@@ -242,6 +264,8 @@ func TestKeyIndexFindGeneration(t *testing.T) {
 func TestKeyIndexLess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ki := &keyIndex{key: []byte("foo")}
 	tests := []struct {
 		ki	*keyIndex
@@ -257,6 +281,8 @@ func TestKeyIndexLess(t *testing.T) {
 func TestGenerationIsEmpty(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		g	*generation
 		w	bool
@@ -269,6 +295,8 @@ func TestGenerationIsEmpty(t *testing.T) {
 	}
 }
 func TestGenerationWalk(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	g := &generation{ver: 3, created: revision{2, 0}, revs: []revision{{main: 2}, {main: 4}, {main: 6}}}
@@ -296,6 +324,8 @@ func TestGenerationWalk(t *testing.T) {
 	}
 }
 func newTestKeyIndex() *keyIndex {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ki := &keyIndex{key: []byte("foo")}

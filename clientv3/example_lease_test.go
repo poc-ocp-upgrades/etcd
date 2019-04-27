@@ -10,6 +10,8 @@ import (
 func ExampleLease_grant() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
 	if err != nil {
 		log.Fatal(err)
@@ -25,6 +27,8 @@ func ExampleLease_grant() {
 	}
 }
 func ExampleLease_revoke() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
@@ -53,6 +57,8 @@ func ExampleLease_revoke() {
 func ExampleLease_keepAlive() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
 	if err != nil {
 		log.Fatal(err)
@@ -74,6 +80,8 @@ func ExampleLease_keepAlive() {
 	fmt.Println("ttl:", ka.TTL)
 }
 func ExampleLease_keepAliveOnce() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})

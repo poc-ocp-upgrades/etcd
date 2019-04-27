@@ -23,6 +23,8 @@ import (
 func TestStreamWriterAttachOutgoingConn(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sw := startStreamWriter(types.ID(1), newPeerStatus(types.ID(1)), &stats.FollowerStats{}, &fakeRaft{})
 	if _, ok := sw.writec(); ok {
 		t.Errorf("initial working status = %v, want false", ok)
@@ -61,6 +63,8 @@ func TestStreamWriterAttachOutgoingConn(t *testing.T) {
 func TestStreamWriterAttachBadOutgoingConn(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sw := startStreamWriter(types.ID(1), newPeerStatus(types.ID(1)), &stats.FollowerStats{}, &fakeRaft{})
 	defer sw.stop()
 	wfc := newFakeWriteFlushCloser(errors.New("blah"))
@@ -76,6 +80,8 @@ func TestStreamWriterAttachBadOutgoingConn(t *testing.T) {
 	}
 }
 func TestStreamReaderDialRequest(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i, tt := range []streamType{streamTypeMessage, streamTypeMsgAppV2} {
@@ -105,6 +111,8 @@ func TestStreamReaderDialRequest(t *testing.T) {
 func TestStreamReaderDialResult(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		code	int
 		err	error
@@ -126,6 +134,8 @@ func TestStreamReaderDialResult(t *testing.T) {
 	}
 }
 func TestStreamReaderStopOnDial(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -153,6 +163,8 @@ type respWaitRoundTripper struct {
 func (t *respWaitRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := t.rrt.RoundTrip(req)
 	resp.Body = newWaitReadCloser()
 	t.onResp()
@@ -164,9 +176,13 @@ type waitReadCloser struct{ closec chan struct{} }
 func newWaitReadCloser() *waitReadCloser {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &waitReadCloser{make(chan struct{})}
 }
 func (wrc *waitReadCloser) Read(p []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	<-wrc.closec
@@ -175,10 +191,14 @@ func (wrc *waitReadCloser) Read(p []byte) (int, error) {
 func (wrc *waitReadCloser) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	close(wrc.closec)
 	return nil
 }
 func TestStreamReaderDialDetectUnsupport(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i, typ := range []streamType{streamTypeMsgAppV2, streamTypeMessage} {
@@ -191,6 +211,8 @@ func TestStreamReaderDialDetectUnsupport(t *testing.T) {
 	}
 }
 func TestStream(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	recvc := make(chan raftpb.Message, streamBufSize)
@@ -236,6 +258,8 @@ func TestStream(t *testing.T) {
 func TestCheckStreamSupport(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		v	*semver.Version
 		t	streamType
@@ -259,9 +283,13 @@ type fakeWriteFlushCloser struct {
 func newFakeWriteFlushCloser(err error) *fakeWriteFlushCloser {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &fakeWriteFlushCloser{err: err, closed: make(chan struct{}), writec: make(chan struct{}, 1)}
 }
 func (wfc *fakeWriteFlushCloser) Write(p []byte) (n int, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wfc.mu.Lock()
@@ -276,8 +304,12 @@ func (wfc *fakeWriteFlushCloser) Write(p []byte) (n int, err error) {
 func (wfc *fakeWriteFlushCloser) Flush() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (wfc *fakeWriteFlushCloser) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	close(wfc.closed)
@@ -286,11 +318,15 @@ func (wfc *fakeWriteFlushCloser) Close() error {
 func (wfc *fakeWriteFlushCloser) Written() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wfc.mu.Lock()
 	defer wfc.mu.Unlock()
 	return wfc.written
 }
 func (wfc *fakeWriteFlushCloser) Closed() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {
@@ -307,6 +343,8 @@ type fakeStreamHandler struct {
 }
 
 func (h *fakeStreamHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	w.Header().Add("X-Server-Version", version.Version)

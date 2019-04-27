@@ -12,9 +12,13 @@ type fakeConsistentIndex uint64
 func (i *fakeConsistentIndex) ConsistentIndex() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return atomic.LoadUint64((*uint64)(i))
 }
 func BenchmarkStorePut(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i fakeConsistentIndex
@@ -32,14 +36,20 @@ func BenchmarkStorePut(b *testing.B) {
 func BenchmarkStoreRangeKey1(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	benchmarkStoreRange(b, 1)
 }
 func BenchmarkStoreRangeKey100(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	benchmarkStoreRange(b, 100)
 }
 func benchmarkStoreRange(b *testing.B, n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i fakeConsistentIndex
@@ -66,6 +76,8 @@ func benchmarkStoreRange(b *testing.B, n int) {
 func BenchmarkConsistentIndex(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fci := fakeConsistentIndex(10)
 	be, tmpPath := backend.NewDefaultTmpBackend()
 	s := NewStore(be, &lease.FakeLessor{}, &fci)
@@ -83,6 +95,8 @@ func BenchmarkConsistentIndex(b *testing.B) {
 func BenchmarkStorePutUpdate(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var i fakeConsistentIndex
 	be, tmpPath := backend.NewDefaultTmpBackend()
 	s := NewStore(be, &lease.FakeLessor{}, &i)
@@ -95,6 +109,8 @@ func BenchmarkStorePutUpdate(b *testing.B) {
 	}
 }
 func BenchmarkStoreTxnPut(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i fakeConsistentIndex
@@ -113,6 +129,8 @@ func BenchmarkStoreTxnPut(b *testing.B) {
 	}
 }
 func benchmarkStoreRestore(revsPerKey int, b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i fakeConsistentIndex
@@ -139,14 +157,20 @@ func benchmarkStoreRestore(revsPerKey int, b *testing.B) {
 func BenchmarkStoreRestoreRevs1(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	benchmarkStoreRestore(1, b)
 }
 func BenchmarkStoreRestoreRevs10(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	benchmarkStoreRestore(10, b)
 }
 func BenchmarkStoreRestoreRevs20(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	benchmarkStoreRestore(20, b)

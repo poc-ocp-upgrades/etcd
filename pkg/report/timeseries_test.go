@@ -8,6 +8,8 @@ import (
 func TestGetTimeseries(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sp := newSecondPoints()
 	now := time.Now()
 	sp.Add(now, time.Second)

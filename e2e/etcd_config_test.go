@@ -14,6 +14,8 @@ const exampleConfigFile = "../etcd.conf.yml.sample"
 func TestEtcdExampleConfig(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	proc, err := spawnCmd([]string{binDir + "/etcd", "--config-file", exampleConfigFile})
 	if err != nil {
 		t.Fatal(err)
@@ -26,6 +28,8 @@ func TestEtcdExampleConfig(t *testing.T) {
 	}
 }
 func TestEtcdMultiPeer(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	peers, tmpdirs := make([]string, 3), make([]string, 3)
@@ -64,6 +68,8 @@ func TestEtcdMultiPeer(t *testing.T) {
 func TestEtcdUnixPeers(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d, err := ioutil.TempDir("", "e1.etcd")
 	if err != nil {
 		t.Fatal(err)
@@ -82,6 +88,8 @@ func TestEtcdUnixPeers(t *testing.T) {
 	}
 }
 func TestEtcdPeerCNAuth(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	peers, tmpdirs := make([]string, 3), make([]string, 3)

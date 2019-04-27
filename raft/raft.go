@@ -43,6 +43,8 @@ type lockedRand struct {
 func (r *lockedRand) Intn(n int) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.mu.Lock()
 	v := r.rand.Intn(n)
 	r.mu.Unlock()
@@ -57,6 +59,8 @@ type StateType uint64
 var stmap = [...]string{"StateFollower", "StateCandidate", "StateLeader", "StatePreCandidate"}
 
 func (st StateType) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return stmap[uint64(st)]
@@ -80,6 +84,8 @@ type Config struct {
 }
 
 func (c *Config) validate() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.ID == None {
@@ -140,6 +146,8 @@ type raft struct {
 func newRaft(c *Config) *raft {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := c.validate(); err != nil {
 		panic(err.Error())
 	}
@@ -187,9 +195,13 @@ func newRaft(c *Config) *raft {
 func (r *raft) hasLeader() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.lead != None
 }
 func (r *raft) softState() *SoftState {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &SoftState{Lead: r.lead, RaftState: r.state}
@@ -197,14 +209,20 @@ func (r *raft) softState() *SoftState {
 func (r *raft) hardState() pb.HardState {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pb.HardState{Term: r.Term, Vote: r.Vote, Commit: r.raftLog.committed}
 }
 func (r *raft) quorum() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(r.prs)/2 + 1
 }
 func (r *raft) nodes() []uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nodes := make([]uint64, 0, len(r.prs)+len(r.learnerPrs))
@@ -218,6 +236,8 @@ func (r *raft) nodes() []uint64 {
 	return nodes
 }
 func (r *raft) send(m pb.Message) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.From = r.id
@@ -238,12 +258,16 @@ func (r *raft) send(m pb.Message) {
 func (r *raft) getProgress(id uint64) *Progress {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if pr, ok := r.prs[id]; ok {
 		return pr
 	}
 	return r.learnerPrs[id]
 }
 func (r *raft) sendAppend(to uint64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pr := r.getProgress(to)
@@ -300,11 +324,15 @@ func (r *raft) sendAppend(to uint64) {
 func (r *raft) sendHeartbeat(to uint64, ctx []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	commit := min(r.getProgress(to).Match, r.raftLog.committed)
 	m := pb.Message{To: to, Type: pb.MsgHeartbeat, Commit: commit, Context: ctx}
 	r.send(m)
 }
 func (r *raft) forEachProgress(f func(id uint64, pr *Progress)) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for id, pr := range r.prs {
@@ -317,6 +345,8 @@ func (r *raft) forEachProgress(f func(id uint64, pr *Progress)) {
 func (r *raft) bcastAppend() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.forEachProgress(func(id uint64, _ *Progress) {
 		if id == r.id {
 			return
@@ -325,6 +355,8 @@ func (r *raft) bcastAppend() {
 	})
 }
 func (r *raft) bcastHeartbeat() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lastCtx := r.readOnly.lastPendingRequestCtx()
@@ -337,6 +369,8 @@ func (r *raft) bcastHeartbeat() {
 func (r *raft) bcastHeartbeatWithCtx(ctx []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.forEachProgress(func(id uint64, _ *Progress) {
 		if id == r.id {
 			return
@@ -345,6 +379,8 @@ func (r *raft) bcastHeartbeatWithCtx(ctx []byte) {
 	})
 }
 func (r *raft) maybeCommit() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mis := make(uint64Slice, 0, len(r.prs))
@@ -356,6 +392,8 @@ func (r *raft) maybeCommit() bool {
 	return r.raftLog.maybeCommit(mci, r.Term)
 }
 func (r *raft) reset(term uint64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if r.Term != term {
@@ -380,6 +418,8 @@ func (r *raft) reset(term uint64) {
 func (r *raft) appendEntry(es ...pb.Entry) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	li := r.raftLog.lastIndex()
 	for i := range es {
 		es[i].Term = r.Term
@@ -392,6 +432,8 @@ func (r *raft) appendEntry(es ...pb.Entry) {
 func (r *raft) tickElection() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.electionElapsed++
 	if r.promotable() && r.pastElectionTimeout() {
 		r.electionElapsed = 0
@@ -399,6 +441,8 @@ func (r *raft) tickElection() {
 	}
 }
 func (r *raft) tickHeartbeat() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r.heartbeatElapsed++
@@ -423,6 +467,8 @@ func (r *raft) tickHeartbeat() {
 func (r *raft) becomeFollower(term uint64, lead uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.step = stepFollower
 	r.reset(term)
 	r.tick = r.tickElection
@@ -431,6 +477,8 @@ func (r *raft) becomeFollower(term uint64, lead uint64) {
 	r.logger.Infof("%x became follower at term %d", r.id, r.Term)
 }
 func (r *raft) becomeCandidate() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if r.state == StateLeader {
@@ -446,6 +494,8 @@ func (r *raft) becomeCandidate() {
 func (r *raft) becomePreCandidate() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if r.state == StateLeader {
 		panic("invalid transition [leader -> pre-candidate]")
 	}
@@ -456,6 +506,8 @@ func (r *raft) becomePreCandidate() {
 	r.logger.Infof("%x became pre-candidate at term %d", r.id, r.Term)
 }
 func (r *raft) becomeLeader() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if r.state == StateFollower {
@@ -481,6 +533,8 @@ func (r *raft) becomeLeader() {
 	r.logger.Infof("%x became leader at term %d", r.id, r.Term)
 }
 func (r *raft) campaign(t CampaignType) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var term uint64
@@ -517,6 +571,8 @@ func (r *raft) campaign(t CampaignType) {
 func (r *raft) poll(id uint64, t pb.MessageType, v bool) (granted int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if v {
 		r.logger.Infof("%x received %s from %x at term %d", r.id, t, id, r.Term)
 	} else {
@@ -533,6 +589,8 @@ func (r *raft) poll(id uint64, t pb.MessageType, v bool) (granted int) {
 	return granted
 }
 func (r *raft) Step(m pb.Message) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch {
@@ -610,6 +668,8 @@ func (r *raft) Step(m pb.Message) error {
 type stepFunc func(r *raft, m pb.Message)
 
 func stepLeader(r *raft, m pb.Message) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch m.Type {
@@ -783,6 +843,8 @@ func stepLeader(r *raft, m pb.Message) {
 func stepCandidate(r *raft, m pb.Message) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var myVoteRespType pb.MessageType
 	if r.state == StatePreCandidate {
 		myVoteRespType = pb.MsgPreVoteResp
@@ -821,6 +883,8 @@ func stepCandidate(r *raft, m pb.Message) {
 	}
 }
 func stepFollower(r *raft, m pb.Message) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch m.Type {
@@ -878,6 +942,8 @@ func stepFollower(r *raft, m pb.Message) {
 func (r *raft) handleAppendEntries(m pb.Message) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m.Index < r.raftLog.committed {
 		r.send(pb.Message{To: m.From, Type: pb.MsgAppResp, Index: r.raftLog.committed})
 		return
@@ -892,10 +958,14 @@ func (r *raft) handleAppendEntries(m pb.Message) {
 func (r *raft) handleHeartbeat(m pb.Message) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.raftLog.commitTo(m.Commit)
 	r.send(pb.Message{To: m.From, Type: pb.MsgHeartbeatResp, Context: m.Context})
 }
 func (r *raft) handleSnapshot(m pb.Message) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sindex, sterm := m.Snapshot.Metadata.Index, m.Snapshot.Metadata.Term
@@ -908,6 +978,8 @@ func (r *raft) handleSnapshot(m pb.Message) {
 	}
 }
 func (r *raft) restore(s pb.Snapshot) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.Metadata.Index <= r.raftLog.committed {
@@ -937,6 +1009,8 @@ func (r *raft) restore(s pb.Snapshot) bool {
 func (r *raft) restoreNode(nodes []uint64, isLearner bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, n := range nodes {
 		match, next := uint64(0), r.raftLog.lastIndex()+1
 		if n == r.id {
@@ -950,10 +1024,14 @@ func (r *raft) restoreNode(nodes []uint64, isLearner bool) {
 func (r *raft) promotable() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, ok := r.prs[r.id]
 	return ok
 }
 func (r *raft) addNode(id uint64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r.addNodeOrLearnerNode(id, false)
@@ -961,9 +1039,13 @@ func (r *raft) addNode(id uint64) {
 func (r *raft) addLearner(id uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.addNodeOrLearnerNode(id, true)
 }
 func (r *raft) addNodeOrLearnerNode(id uint64, isLearner bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r.pendingConf = false
@@ -991,6 +1073,8 @@ func (r *raft) addNodeOrLearnerNode(id uint64, isLearner bool) {
 func (r *raft) removeNode(id uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.delProgress(id)
 	r.pendingConf = false
 	if len(r.prs) == 0 && len(r.learnerPrs) == 0 {
@@ -1006,9 +1090,13 @@ func (r *raft) removeNode(id uint64) {
 func (r *raft) resetPendingConf() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.pendingConf = false
 }
 func (r *raft) setProgress(id, match, next uint64, isLearner bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !isLearner {
@@ -1024,10 +1112,14 @@ func (r *raft) setProgress(id, match, next uint64, isLearner bool) {
 func (r *raft) delProgress(id uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	delete(r.prs, id)
 	delete(r.learnerPrs, id)
 }
 func (r *raft) loadState(state pb.HardState) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if state.Commit < r.raftLog.committed || state.Commit > r.raftLog.lastIndex() {
@@ -1040,14 +1132,20 @@ func (r *raft) loadState(state pb.HardState) {
 func (r *raft) pastElectionTimeout() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.electionElapsed >= r.randomizedElectionTimeout
 }
 func (r *raft) resetRandomizedElectionTimeout() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.randomizedElectionTimeout = r.electionTimeout + globalRand.Intn(r.electionTimeout)
 }
 func (r *raft) checkQuorumActive() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var act int
@@ -1066,14 +1164,20 @@ func (r *raft) checkQuorumActive() bool {
 func (r *raft) sendTimeoutNow(to uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.send(pb.Message{To: to, Type: pb.MsgTimeoutNow})
 }
 func (r *raft) abortLeaderTransfer() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.leadTransferee = None
 }
 func numOfPendingConf(ents []pb.Entry) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := 0

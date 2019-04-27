@@ -19,14 +19,20 @@ type watcher struct {
 func (w *watcher) EventChan() chan *Event {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return w.eventChan
 }
 func (w *watcher) StartIndex() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return w.startIndex
 }
 func (w *watcher) notify(e *Event, originalPath bool, deleted bool) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if (w.recursive || originalPath || deleted) && e.Index() >= w.sinceIndex {
@@ -42,6 +48,8 @@ func (w *watcher) notify(e *Event, originalPath bool, deleted bool) bool {
 func (w *watcher) Remove() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	w.hub.mutex.Lock()
 	defer w.hub.mutex.Unlock()
 	close(w.eventChan)
@@ -55,9 +63,13 @@ type nopWatcher struct{}
 func NewNopWatcher() Watcher {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &nopWatcher{}
 }
 func (w *nopWatcher) EventChan() chan *Event {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -65,9 +77,13 @@ func (w *nopWatcher) EventChan() chan *Event {
 func (w *nopWatcher) StartIndex() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 0
 }
 func (w *nopWatcher) Remove() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }

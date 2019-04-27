@@ -27,6 +27,8 @@ var (
 func NewMakeMirrorCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &cobra.Command{Use: "make-mirror [options] <destination>", Short: "Makes a mirror at the destination etcd cluster", Run: makeMirrorCommandFunc}
 	c.Flags().StringVar(&mmprefix, "prefix", "", "Key-value prefix to mirror")
 	c.Flags().StringVar(&mmdestprefix, "dest-prefix", "", "destination prefix to mirror a prefix to a different prefix in the destination cluster")
@@ -38,6 +40,8 @@ func NewMakeMirrorCommand() *cobra.Command {
 	return c
 }
 func makeMirrorCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {
@@ -54,6 +58,8 @@ func makeMirrorCommandFunc(cmd *cobra.Command, args []string) {
 	ExitWithError(ExitError, err)
 }
 func makeMirror(ctx context.Context, c *clientv3.Client, dc *clientv3.Client) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	total := int64(0)
@@ -122,6 +128,8 @@ func makeMirror(ctx context.Context, c *clientv3.Client, dc *clientv3.Client) er
 	return nil
 }
 func modifyPrefix(key string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return strings.Replace(key, mmprefix, mmdestprefix, 1)

@@ -19,9 +19,13 @@ type watcherHub struct {
 func newWatchHub(capacity int) *watcherHub {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &watcherHub{watchers: make(map[string]*list.List), EventHistory: newEventHistory(capacity)}
 }
 func (wh *watcherHub) watch(key string, recursive, stream bool, index, storeIndex uint64) (Watcher, *etcdErr.Error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reportWatchRequest()
@@ -67,9 +71,13 @@ func (wh *watcherHub) watch(key string, recursive, stream bool, index, storeInde
 func (wh *watcherHub) add(e *Event) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wh.EventHistory.addEvent(e)
 }
 func (wh *watcherHub) notify(e *Event) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	e = wh.EventHistory.addEvent(e)
@@ -81,6 +89,8 @@ func (wh *watcherHub) notify(e *Event) {
 	}
 }
 func (wh *watcherHub) notifyWatchers(e *Event, nodePath string, deleted bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wh.mutex.Lock()
@@ -110,10 +120,14 @@ func (wh *watcherHub) notifyWatchers(e *Event, nodePath string, deleted bool) {
 func (wh *watcherHub) clone() *watcherHub {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clonedHistory := wh.EventHistory.clone()
 	return &watcherHub{EventHistory: clonedHistory}
 }
 func isHidden(watchPath, keyPath string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(watchPath) > len(keyPath) {

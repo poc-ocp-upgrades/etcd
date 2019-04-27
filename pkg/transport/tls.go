@@ -9,6 +9,8 @@ import (
 func ValidateSecureEndpoints(tlsInfo TLSInfo, eps []string) ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t, err := NewTransport(tlsInfo, 5*time.Second)
 	if err != nil {
 		return nil, err

@@ -14,6 +14,8 @@ import (
 func TestResolveTCPAddrs(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer func() {
 		resolveTCPAddr = resolveTCPAddrDefault
 	}()
@@ -55,6 +57,8 @@ func TestResolveTCPAddrs(t *testing.T) {
 func TestURLsEqual(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer func() {
 		resolveTCPAddr = resolveTCPAddrDefault
 	}()
@@ -92,6 +96,8 @@ func TestURLsEqual(t *testing.T) {
 	}
 }
 func TestURLStringsEqual(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result, err := URLStringsEqual(context.TODO(), []string{"http://127.0.0.1:8080"}, []string{"http://127.0.0.1:8080"})

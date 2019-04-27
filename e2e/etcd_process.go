@@ -47,6 +47,8 @@ type etcdServerProcessConfig struct {
 func newEtcdServerProcess(cfg *etcdServerProcessConfig) (*etcdServerProcess, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !fileutil.Exist(cfg.execPath) {
 		return nil, fmt.Errorf("could not find etcd binary")
 	}
@@ -60,9 +62,13 @@ func newEtcdServerProcess(cfg *etcdServerProcessConfig) (*etcdServerProcess, err
 func (ep *etcdServerProcess) EndpointsV2() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []string{ep.cfg.acurl}
 }
 func (ep *etcdServerProcess) EndpointsV3() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ep.EndpointsV2()
@@ -70,9 +76,13 @@ func (ep *etcdServerProcess) EndpointsV3() []string {
 func (ep *etcdServerProcess) EndpointsMetrics() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []string{ep.cfg.murl}
 }
 func (ep *etcdServerProcess) Start() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ep.proc != nil {
@@ -88,6 +98,8 @@ func (ep *etcdServerProcess) Start() error {
 func (ep *etcdServerProcess) Restart() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := ep.Stop(); err != nil {
 		return err
 	}
@@ -95,6 +107,8 @@ func (ep *etcdServerProcess) Restart() error {
 	return ep.Start()
 }
 func (ep *etcdServerProcess) Stop() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ep == nil || ep.proc == nil {
@@ -114,12 +128,16 @@ func (ep *etcdServerProcess) Stop() error {
 func (ep *etcdServerProcess) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := ep.Stop(); err != nil {
 		return err
 	}
 	return os.RemoveAll(ep.cfg.dataDirPath)
 }
 func (ep *etcdServerProcess) WithStopSignal(sig os.Signal) os.Signal {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ret := ep.proc.StopSignal
@@ -129,10 +147,14 @@ func (ep *etcdServerProcess) WithStopSignal(sig os.Signal) os.Signal {
 func (ep *etcdServerProcess) waitReady() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer close(ep.donec)
 	return waitReadyExpectProc(ep.proc, etcdServerReadyLines)
 }
 func (ep *etcdServerProcess) Config() *etcdServerProcessConfig {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ep.cfg

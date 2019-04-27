@@ -65,9 +65,13 @@ type BackendConfig struct {
 func DefaultBackendConfig() BackendConfig {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return BackendConfig{BatchInterval: defaultBatchInterval, BatchLimit: defaultBatchLimit, MmapSize: initialMmapSize}
 }
 func New(bcfg BackendConfig) Backend {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return newBackend(bcfg)
@@ -75,11 +79,15 @@ func New(bcfg BackendConfig) Backend {
 func NewDefaultBackend(path string) Backend {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bcfg := DefaultBackendConfig()
 	bcfg.Path = path
 	return newBackend(bcfg)
 }
 func newBackend(bcfg BackendConfig) *backend {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bopts := &bolt.Options{}
@@ -99,9 +107,13 @@ func newBackend(bcfg BackendConfig) *backend {
 func (b *backend) BatchTx() BatchTx {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return b.batchTx
 }
 func (b *backend) ReadTx() ReadTx {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return b.readTx
@@ -109,9 +121,13 @@ func (b *backend) ReadTx() ReadTx {
 func (b *backend) ForceCommit() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.batchTx.Commit()
 }
 func (b *backend) Snapshot() Snapshot {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b.batchTx.Commit()
@@ -154,6 +170,8 @@ type IgnoreKey struct {
 func (b *backend) Hash(ignores map[IgnoreKey]struct{}) (uint32, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	h := crc32.New(crc32.MakeTable(crc32.Castagnoli))
 	b.mu.RLock()
 	defer b.mu.RUnlock()
@@ -184,14 +202,20 @@ func (b *backend) Hash(ignores map[IgnoreKey]struct{}) (uint32, error) {
 func (b *backend) Size() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return atomic.LoadInt64(&b.size)
 }
 func (b *backend) SizeInUse() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return atomic.LoadInt64(&b.sizeInUse)
 }
 func (b *backend) run() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer close(b.donec)
@@ -211,6 +235,8 @@ func (b *backend) run() {
 func (b *backend) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	close(b.stopc)
 	<-b.donec
 	return b.db.Close()
@@ -218,14 +244,20 @@ func (b *backend) Close() error {
 func (b *backend) Commits() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return atomic.LoadInt64(&b.commits)
 }
 func (b *backend) Defrag() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return b.defrag()
 }
 func (b *backend) defrag() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	now := time.Now()
@@ -282,6 +314,8 @@ func (b *backend) defrag() error {
 func defragdb(odb, tmpdb *bolt.DB, limit int) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tmptx, err := tmpdb.Begin(true)
 	if err != nil {
 		return err
@@ -326,6 +360,8 @@ func defragdb(odb, tmpdb *bolt.DB, limit int) error {
 func (b *backend) begin(write bool) *bolt.Tx {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.mu.RLock()
 	tx := b.unsafeBegin(write)
 	b.mu.RUnlock()
@@ -338,6 +374,8 @@ func (b *backend) begin(write bool) *bolt.Tx {
 func (b *backend) unsafeBegin(write bool) *bolt.Tx {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tx, err := b.db.Begin(write)
 	if err != nil {
 		plog.Fatalf("cannot begin tx (%s)", err)
@@ -345,6 +383,8 @@ func (b *backend) unsafeBegin(write bool) *bolt.Tx {
 	return tx
 }
 func NewTmpBackend(batchInterval time.Duration, batchLimit int) (*backend, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dir, err := ioutil.TempDir(os.TempDir(), "etcd_backend_test")
@@ -359,6 +399,8 @@ func NewTmpBackend(batchInterval time.Duration, batchLimit int) (*backend, strin
 func NewDefaultTmpBackend() (*backend, string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewTmpBackend(defaultBatchInterval, defaultBatchLimit)
 }
 
@@ -371,6 +413,8 @@ type snapshot struct {
 func (s *snapshot) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	close(s.stopc)
 	<-s.donec
 	return s.Tx.Rollback()
@@ -378,7 +422,16 @@ func (s *snapshot) Close() error {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

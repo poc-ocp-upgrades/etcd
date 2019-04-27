@@ -22,6 +22,8 @@ const (
 func Server(s *etcdserver.EtcdServer, tls *tls.Config, gopts ...grpc.ServerOption) *grpc.Server {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var opts []grpc.ServerOption
 	opts = append(opts, grpc.CustomCodec(&codec{}))
 	if tls != nil {

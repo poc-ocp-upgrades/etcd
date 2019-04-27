@@ -12,6 +12,8 @@ import (
 func TestSRVGetCluster(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer func() {
 		lookupSRV = net.LookupSRV
 		resolveTCPAddr = net.ResolveTCPAddr
@@ -55,6 +57,8 @@ func TestSRVGetCluster(t *testing.T) {
 	}
 }
 func TestSRVDiscover(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer func() {

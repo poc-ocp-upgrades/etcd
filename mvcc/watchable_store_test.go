@@ -16,6 +16,8 @@ import (
 func TestWatch(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
 	s := newWatchableStore(b, &lease.FakeLessor{}, nil)
 	defer func() {
@@ -32,6 +34,8 @@ func TestWatch(t *testing.T) {
 	}
 }
 func TestNewWatcherCancel(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -53,6 +57,8 @@ func TestNewWatcherCancel(t *testing.T) {
 	}
 }
 func TestCancelUnsynced(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -80,6 +86,8 @@ func TestCancelUnsynced(t *testing.T) {
 	}
 }
 func TestSyncWatchers(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -138,6 +146,8 @@ func TestSyncWatchers(t *testing.T) {
 func TestWatchCompacted(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
 	s := newWatchableStore(b, &lease.FakeLessor{}, nil)
 	defer func() {
@@ -170,6 +180,8 @@ func TestWatchCompacted(t *testing.T) {
 	}
 }
 func TestWatchFutureRev(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -205,6 +217,8 @@ func TestWatchFutureRev(t *testing.T) {
 	}
 }
 func TestWatchRestore(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	test := func(delay time.Duration) func(t *testing.T) {
@@ -244,6 +258,8 @@ func TestWatchRestore(t *testing.T) {
 func TestWatchRestoreSyncedWatcher(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b1, b1Path := backend.NewDefaultTmpBackend()
 	s1 := newWatchableStore(b1, &lease.FakeLessor{}, nil)
 	defer cleanup(s1, b1, b1Path)
@@ -280,6 +296,8 @@ func TestWatchRestoreSyncedWatcher(t *testing.T) {
 func TestWatchBatchUnsynced(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
 	s := newWatchableStore(b, &lease.FakeLessor{}, nil)
 	oldMaxRevs := watchBatchMaxRevs
@@ -308,6 +326,8 @@ func TestWatchBatchUnsynced(t *testing.T) {
 	}
 }
 func TestNewMapwatcherToEventMap(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	k0, k1, k2 := []byte("foo0"), []byte("foo1"), []byte("foo2")
@@ -339,6 +359,8 @@ func TestNewMapwatcherToEventMap(t *testing.T) {
 	}
 }
 func TestWatchVictims(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	oldChanBufLen, oldMaxWatchersPerSync := chanBufLen, maxWatchersPerSync
@@ -412,6 +434,8 @@ func TestWatchVictims(t *testing.T) {
 	}
 }
 func TestStressWatchCancelClose(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()

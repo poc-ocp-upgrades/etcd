@@ -20,6 +20,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(incomingEvents)
 	prometheus.MustRegister(failedEvents)
 	prometheus.MustRegister(successfulEventsHandlingTime)
@@ -27,9 +29,13 @@ func init() {
 func reportRequestReceived(request etcdserverpb.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	incomingEvents.WithLabelValues(methodFromRequest(request)).Inc()
 }
 func reportRequestCompleted(request etcdserverpb.Request, response etcdserver.Response, startTime time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	method := methodFromRequest(request)
@@ -38,10 +44,14 @@ func reportRequestCompleted(request etcdserverpb.Request, response etcdserver.Re
 func reportRequestFailed(request etcdserverpb.Request, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	method := methodFromRequest(request)
 	failedEvents.WithLabelValues(method, strconv.Itoa(codeFromError(err))).Inc()
 }
 func methodFromRequest(request etcdserverpb.Request) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if request.Method == "GET" && request.Quorum {
@@ -50,6 +60,8 @@ func methodFromRequest(request etcdserverpb.Request) string {
 	return request.Method
 }
 func codeFromError(err error) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err == nil {

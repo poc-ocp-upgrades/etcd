@@ -9,6 +9,8 @@ import (
 func TestGetURLAndPort(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	addr := "https://127.0.0.1:2379"
 	urlAddr, port, err := getURLAndPort(addr)
 	if err != nil {

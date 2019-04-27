@@ -14,6 +14,8 @@ const (
 func TestJWTInfo(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	opts := map[string]string{"pub-key": jwtPubKey, "priv-key": jwtPrivKey, "sign-method": "RS256"}
 	jwt, err := newTokenProviderJWT(opts)
 	if err != nil {
@@ -36,6 +38,8 @@ func TestJWTInfo(t *testing.T) {
 	}
 }
 func TestJWTBad(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	opts := map[string]string{"pub-key": jwtPubKey, "priv-key": jwtPrivKey, "sign-method": "RS256"}
@@ -66,6 +70,8 @@ func TestJWTBad(t *testing.T) {
 	opts["priv-key"] = jwtPrivKey
 }
 func testJWTOpts() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf("%s,pub-key=%s,priv-key=%s,sign-method=RS256", tokenTypeJWT, jwtPubKey, jwtPrivKey)

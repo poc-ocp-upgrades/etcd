@@ -56,6 +56,8 @@ var display printer = &simplePrinter{}
 func initDisplayFromCmd(cmd *cobra.Command) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	isHex, err := cmd.Flags().GetBool("hex")
 	if err != nil {
 		ExitWithError(ExitError, err)
@@ -82,9 +84,13 @@ type discardValue struct{}
 func (*discardValue) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ""
 }
 func (*discardValue) Set(string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -92,9 +98,13 @@ func (*discardValue) Set(string) error {
 func (*discardValue) Type() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ""
 }
 func clientConfigFromCmd(cmd *cobra.Command) *clientConfig {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fs := cmd.InheritedFlags()
@@ -131,10 +141,14 @@ func clientConfigFromCmd(cmd *cobra.Command) *clientConfig {
 func mustClientFromCmd(cmd *cobra.Command) *clientv3.Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := clientConfigFromCmd(cmd)
 	return cfg.mustClient()
 }
 func (cc *clientConfig) mustClient() *clientv3.Client {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfg, err := newClientCfg(cc.endpoints, cc.dialTimeout, cc.keepAliveTime, cc.keepAliveTimeout, cc.scfg, cc.acfg)
@@ -148,6 +162,8 @@ func (cc *clientConfig) mustClient() *clientv3.Client {
 	return client
 }
 func newClientCfg(endpoints []string, dialTimeout, keepAliveTime, keepAliveTimeout time.Duration, scfg *secureCfg, acfg *authCfg) (*clientv3.Config, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var cfgtls *transport.TLSInfo
@@ -191,6 +207,8 @@ func newClientCfg(endpoints []string, dialTimeout, keepAliveTime, keepAliveTimeo
 func argOrStdin(args []string, stdin io.Reader, i int) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if i < len(args) {
 		return args[i], nil
 	}
@@ -203,6 +221,8 @@ func argOrStdin(args []string, stdin io.Reader, i int) (string, error) {
 func dialTimeoutFromCmd(cmd *cobra.Command) time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dialTimeout, err := cmd.Flags().GetDuration("dial-timeout")
 	if err != nil {
 		ExitWithError(ExitError, err)
@@ -210,6 +230,8 @@ func dialTimeoutFromCmd(cmd *cobra.Command) time.Duration {
 	return dialTimeout
 }
 func keepAliveTimeFromCmd(cmd *cobra.Command) time.Duration {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	keepAliveTime, err := cmd.Flags().GetDuration("keepalive-time")
@@ -221,6 +243,8 @@ func keepAliveTimeFromCmd(cmd *cobra.Command) time.Duration {
 func keepAliveTimeoutFromCmd(cmd *cobra.Command) time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	keepAliveTimeout, err := cmd.Flags().GetDuration("keepalive-timeout")
 	if err != nil {
 		ExitWithError(ExitError, err)
@@ -228,6 +252,8 @@ func keepAliveTimeoutFromCmd(cmd *cobra.Command) time.Duration {
 	return keepAliveTimeout
 }
 func secureCfgFromCmd(cmd *cobra.Command) *secureCfg {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cert, key, cacert := keyAndCertFromCmd(cmd)
@@ -242,6 +268,8 @@ func secureCfgFromCmd(cmd *cobra.Command) *secureCfg {
 func insecureTransportFromCmd(cmd *cobra.Command) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	insecureTr, err := cmd.Flags().GetBool("insecure-transport")
 	if err != nil {
 		ExitWithError(ExitError, err)
@@ -251,6 +279,8 @@ func insecureTransportFromCmd(cmd *cobra.Command) bool {
 func insecureSkipVerifyFromCmd(cmd *cobra.Command) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	skipVerify, err := cmd.Flags().GetBool("insecure-skip-tls-verify")
 	if err != nil {
 		ExitWithError(ExitError, err)
@@ -258,6 +288,8 @@ func insecureSkipVerifyFromCmd(cmd *cobra.Command) bool {
 	return skipVerify
 }
 func keyAndCertFromCmd(cmd *cobra.Command) (cert, key, cacert string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -279,6 +311,8 @@ func keyAndCertFromCmd(cmd *cobra.Command) (cert, key, cacert string) {
 	return cert, key, cacert
 }
 func authCfgFromCmd(cmd *cobra.Command) *authCfg {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	userFlag, err := cmd.Flags().GetString("user")
@@ -305,6 +339,8 @@ func authCfgFromCmd(cmd *cobra.Command) *authCfg {
 func insecureDiscoveryFromCmd(cmd *cobra.Command) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	discovery, err := cmd.Flags().GetBool("insecure-discovery")
 	if err != nil {
 		ExitWithError(ExitError, err)
@@ -312,6 +348,8 @@ func insecureDiscoveryFromCmd(cmd *cobra.Command) bool {
 	return discovery
 }
 func discoverySrvFromCmd(cmd *cobra.Command) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	domainStr, err := cmd.Flags().GetString("discovery-srv")
@@ -323,9 +361,13 @@ func discoverySrvFromCmd(cmd *cobra.Command) string {
 func discoveryCfgFromCmd(cmd *cobra.Command) *discoveryCfg {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &discoveryCfg{domain: discoverySrvFromCmd(cmd), insecure: insecureDiscoveryFromCmd(cmd)}
 }
 func endpointsFromCmd(cmd *cobra.Command) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	eps, err := endpointsFromFlagValue(cmd)
@@ -338,6 +380,8 @@ func endpointsFromCmd(cmd *cobra.Command) ([]string, error) {
 	return eps, err
 }
 func endpointsFromFlagValue(cmd *cobra.Command) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	discoveryCfg := discoveryCfgFromCmd(cmd)

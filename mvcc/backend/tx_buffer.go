@@ -10,6 +10,8 @@ type txBuffer struct{ buckets map[string]*bucketBuffer }
 func (txb *txBuffer) reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for k, v := range txb.buckets {
 		if v.used == 0 {
 			delete(txb.buckets, k)
@@ -26,10 +28,14 @@ type txWriteBuffer struct {
 func (txw *txWriteBuffer) put(bucket, k, v []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	txw.seq = false
 	txw.putSeq(bucket, k, v)
 }
 func (txw *txWriteBuffer) putSeq(bucket, k, v []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, ok := txw.buckets[string(bucket)]
@@ -40,6 +46,8 @@ func (txw *txWriteBuffer) putSeq(bucket, k, v []byte) {
 	b.add(k, v)
 }
 func (txw *txWriteBuffer) writeback(txr *txReadBuffer) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for k, wb := range txw.buckets {
@@ -62,12 +70,16 @@ type txReadBuffer struct{ txBuffer }
 func (txr *txReadBuffer) Range(bucketName, key, endKey []byte, limit int64) ([][]byte, [][]byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if b := txr.buckets[string(bucketName)]; b != nil {
 		return b.Range(key, endKey, limit)
 	}
 	return nil, nil
 }
 func (txr *txReadBuffer) ForEach(bucketName []byte, visitor func(k, v []byte) error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if b := txr.buckets[string(bucketName)]; b != nil {
@@ -88,9 +100,13 @@ type bucketBuffer struct {
 func newBucketBuffer() *bucketBuffer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &bucketBuffer{buf: make([]kv, 512), used: 0}
 }
 func (bb *bucketBuffer) Range(key, endKey []byte, limit int64) (keys [][]byte, vals [][]byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f := func(i int) bool {
@@ -122,6 +138,8 @@ func (bb *bucketBuffer) Range(key, endKey []byte, limit int64) (keys [][]byte, v
 func (bb *bucketBuffer) ForEach(visitor func(k, v []byte) error) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i := 0; i < bb.used; i++ {
 		if err := visitor(bb.buf[i].key, bb.buf[i].val); err != nil {
 			return err
@@ -130,6 +148,8 @@ func (bb *bucketBuffer) ForEach(visitor func(k, v []byte) error) error {
 	return nil
 }
 func (bb *bucketBuffer) add(k, v []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bb.buf[bb.used].key, bb.buf[bb.used].val = k, v
@@ -141,6 +161,8 @@ func (bb *bucketBuffer) add(k, v []byte) {
 	}
 }
 func (bb *bucketBuffer) merge(bbsrc *bucketBuffer) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := 0; i < bbsrc.used; i++ {
@@ -165,14 +187,20 @@ func (bb *bucketBuffer) merge(bbsrc *bucketBuffer) {
 func (bb *bucketBuffer) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return bb.used
 }
 func (bb *bucketBuffer) Less(i, j int) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return bytes.Compare(bb.buf[i].key, bb.buf[j].key) < 0
 }
 func (bb *bucketBuffer) Swap(i, j int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bb.buf[i], bb.buf[j] = bb.buf[j], bb.buf[i]

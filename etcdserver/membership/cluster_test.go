@@ -16,6 +16,8 @@ import (
 func TestClusterMember(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	membs := []*Member{newTestMember(1, nil, "node1", nil), newTestMember(2, nil, "node2", nil)}
 	tests := []struct {
 		id	types.ID
@@ -33,6 +35,8 @@ func TestClusterMember(t *testing.T) {
 	}
 }
 func TestClusterMemberByName(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	membs := []*Member{newTestMember(1, nil, "node1", nil), newTestMember(2, nil, "node2", nil)}
@@ -54,6 +58,8 @@ func TestClusterMemberByName(t *testing.T) {
 func TestClusterMemberIDs(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := newTestCluster([]*Member{newTestMember(1, nil, "", nil), newTestMember(4, nil, "", nil), newTestMember(100, nil, "", nil)})
 	w := []types.ID{1, 4, 100}
 	g := c.MemberIDs()
@@ -62,6 +68,8 @@ func TestClusterMemberIDs(t *testing.T) {
 	}
 }
 func TestClusterPeerURLs(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -79,6 +87,8 @@ func TestClusterPeerURLs(t *testing.T) {
 func TestClusterClientURLs(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		mems	[]*Member
 		wurls	[]string
@@ -94,6 +104,8 @@ func TestClusterClientURLs(t *testing.T) {
 func TestClusterValidateAndAssignIDsBad(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		clmembs	[]*Member
 		membs	[]*Member
@@ -107,6 +119,8 @@ func TestClusterValidateAndAssignIDsBad(t *testing.T) {
 	}
 }
 func TestClusterValidateAndAssignIDs(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -126,6 +140,8 @@ func TestClusterValidateAndAssignIDs(t *testing.T) {
 	}
 }
 func TestClusterValidateConfigurationChange(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cl := NewCluster("")
@@ -169,6 +185,8 @@ func TestClusterValidateConfigurationChange(t *testing.T) {
 func TestClusterGenID(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cs := newTestCluster([]*Member{newTestMember(1, nil, "", nil), newTestMember(2, nil, "", nil)})
 	cs.genID()
 	if cs.ID() == 0 {
@@ -185,6 +203,8 @@ func TestClusterGenID(t *testing.T) {
 func TestNodeToMemberBad(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []*store.NodeExtern{{Key: "/1234", Nodes: []*store.NodeExtern{{Key: "/1234/strange"}}}, {Key: "/1234", Nodes: []*store.NodeExtern{{Key: "/1234/raftAttributes", Value: stringp("garbage")}}}, {Key: "/1234", Nodes: []*store.NodeExtern{{Key: "/1234/attributes", Value: stringp(`{"name":"node1","clientURLs":null}`)}}}, {Key: "/1234", Nodes: []*store.NodeExtern{{Key: "/1234/raftAttributes", Value: stringp(`{"peerURLs":null}`)}, {Key: "/1234/strange"}}}, {Key: "/1234", Nodes: []*store.NodeExtern{{Key: "/1234/raftAttributes", Value: stringp(`{"peerURLs":null}`)}, {Key: "/1234/attributes", Value: stringp("garbage")}}}, {Key: "/1234", Nodes: []*store.NodeExtern{{Key: "/1234/raftAttributes", Value: stringp(`{"peerURLs":null}`)}, {Key: "/1234/attributes", Value: stringp(`{"name":"node1","clientURLs":null}`)}, {Key: "/1234/strange"}}}}
 	for i, tt := range tests {
 		if _, err := nodeToMember(tt); err == nil {
@@ -193,6 +213,8 @@ func TestNodeToMemberBad(t *testing.T) {
 	}
 }
 func TestClusterAddMember(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	st := mockstore.NewRecorder()
@@ -207,6 +229,8 @@ func TestClusterAddMember(t *testing.T) {
 func TestClusterMembers(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cls := &RaftCluster{members: map[types.ID]*Member{1: {ID: 1}, 20: {ID: 20}, 100: {ID: 100}, 5: {ID: 5}, 50: {ID: 50}}}
 	w := []*Member{{ID: 1}, {ID: 5}, {ID: 20}, {ID: 50}, {ID: 100}}
 	if g := cls.Members(); !reflect.DeepEqual(g, w) {
@@ -214,6 +238,8 @@ func TestClusterMembers(t *testing.T) {
 	}
 }
 func TestClusterRemoveMember(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	st := mockstore.NewRecorder()
@@ -226,6 +252,8 @@ func TestClusterRemoveMember(t *testing.T) {
 	}
 }
 func TestClusterUpdateAttributes(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	name := "etcd"
@@ -247,6 +275,8 @@ func TestClusterUpdateAttributes(t *testing.T) {
 func TestNodeToMember(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n := &store.NodeExtern{Key: "/1234", Nodes: []*store.NodeExtern{{Key: "/1234/attributes", Value: stringp(`{"name":"node1","clientURLs":null}`)}, {Key: "/1234/raftAttributes", Value: stringp(`{"peerURLs":null}`)}}}
 	wm := &Member{ID: 0x1234, RaftAttributes: RaftAttributes{}, Attributes: Attributes{Name: "node1"}}
 	m, err := nodeToMember(n)
@@ -260,6 +290,8 @@ func TestNodeToMember(t *testing.T) {
 func newTestCluster(membs []*Member) *RaftCluster {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &RaftCluster{members: make(map[types.ID]*Member), removed: make(map[types.ID]bool)}
 	for _, m := range membs {
 		c.members[m.ID] = m
@@ -269,9 +301,13 @@ func newTestCluster(membs []*Member) *RaftCluster {
 func stringp(s string) *string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &s
 }
 func TestIsReadyToAddNewMember(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -286,6 +322,8 @@ func TestIsReadyToAddNewMember(t *testing.T) {
 	}
 }
 func TestIsReadyToRemoveMember(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {

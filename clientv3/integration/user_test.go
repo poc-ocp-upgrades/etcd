@@ -12,6 +12,8 @@ import (
 func TestUserError(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -34,6 +36,8 @@ func TestUserError(t *testing.T) {
 	}
 }
 func TestUserErrorAuth(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -64,6 +68,8 @@ func TestUserErrorAuth(t *testing.T) {
 	}
 }
 func authSetupRoot(t *testing.T, auth clientv3.Auth) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if _, err := auth.UserAdd(context.TODO(), "root", "123"); err != nil {

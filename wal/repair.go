@@ -11,6 +11,8 @@ import (
 func Repair(dirpath string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f, err := openLast(dirpath)
 	if err != nil {
 		return false
@@ -66,6 +68,8 @@ func Repair(dirpath string) bool {
 	}
 }
 func openLast(dirpath string) (*fileutil.LockedFile, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	names, err := readWalNames(dirpath)

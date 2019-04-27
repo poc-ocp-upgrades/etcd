@@ -24,9 +24,13 @@ type Record struct {
 func (m *Record) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Record{}
 }
 func (m *Record) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -34,8 +38,12 @@ func (m *Record) String() string {
 func (*Record) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Record) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRecord, []int{0}
@@ -50,9 +58,13 @@ type Snapshot struct {
 func (m *Snapshot) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Snapshot{}
 }
 func (m *Snapshot) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -60,8 +72,12 @@ func (m *Snapshot) String() string {
 func (*Snapshot) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Snapshot) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRecord, []int{1}
@@ -69,10 +85,14 @@ func (*Snapshot) Descriptor() ([]byte, []int) {
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	proto.RegisterType((*Record)(nil), "walpb.Record")
 	proto.RegisterType((*Snapshot)(nil), "walpb.Snapshot")
 }
 func (m *Record) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -84,6 +104,8 @@ func (m *Record) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Record) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -110,6 +132,8 @@ func (m *Record) MarshalTo(dAtA []byte) (int, error) {
 func (m *Snapshot) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -119,6 +143,8 @@ func (m *Snapshot) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Snapshot) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -139,6 +165,8 @@ func (m *Snapshot) MarshalTo(dAtA []byte) (int, error) {
 func encodeVarintRecord(dAtA []byte, offset int, v uint64) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
 		v >>= 7
@@ -148,6 +176,8 @@ func encodeVarintRecord(dAtA []byte, offset int, v uint64) int {
 	return offset + 1
 }
 func (m *Record) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -166,6 +196,8 @@ func (m *Record) Size() (n int) {
 func (m *Snapshot) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	n += 1 + sovRecord(uint64(m.Index))
@@ -176,6 +208,8 @@ func (m *Snapshot) Size() (n int) {
 	return n
 }
 func sovRecord(x uint64) (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -190,9 +224,13 @@ func sovRecord(x uint64) (n int) {
 func sozRecord(x uint64) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sovRecord(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
 func (m *Record) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -316,6 +354,8 @@ func (m *Record) Unmarshal(dAtA []byte) error {
 func (m *Snapshot) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -404,6 +444,8 @@ func (m *Snapshot) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func skipRecord(dAtA []byte) (n int, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -511,6 +553,8 @@ var (
 )
 
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	proto.RegisterFile("record.proto", fileDescriptorRecord)

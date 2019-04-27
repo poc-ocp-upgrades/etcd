@@ -23,6 +23,8 @@ type retryStopErrFunc func(error) bool
 func isRepeatableStopError(err error) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	eErr := rpctypes.Error(err)
 	if serverErr, ok := eErr.(rpctypes.EtcdError); ok && serverErr.Code() != codes.Unavailable {
 		return true
@@ -33,6 +35,8 @@ func isRepeatableStopError(err error) bool {
 func isNonRepeatableStopError(err error) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ev, _ := status.FromError(err)
 	if ev.Code() != codes.Unavailable {
 		return true
@@ -41,6 +45,8 @@ func isNonRepeatableStopError(err error) bool {
 	return desc != "there is no address available" && desc != "there is no connection available"
 }
 func (c *Client) newRetryWrapper() retryRPCFunc {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(rpcCtx context.Context, f rpcFunc, rp retryPolicy) error {
@@ -75,6 +81,8 @@ func (c *Client) newRetryWrapper() retryRPCFunc {
 func (c *Client) newAuthRetryWrapper(retryf retryRPCFunc) retryRPCFunc {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(rpcCtx context.Context, f rpcFunc, rp retryPolicy) error {
 		for {
 			pinned := c.balancer.pinned()
@@ -104,9 +112,13 @@ type retryKVClient struct {
 func RetryKVClient(c *Client) pb.KVClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &retryKVClient{kc: pb.NewKVClient(c.conn), retryf: c.newAuthRetryWrapper(c.newRetryWrapper())}
 }
 func (rkv *retryKVClient) Range(ctx context.Context, in *pb.RangeRequest, opts ...grpc.CallOption) (resp *pb.RangeResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rkv.retryf(ctx, func(rctx context.Context) error {
@@ -118,6 +130,8 @@ func (rkv *retryKVClient) Range(ctx context.Context, in *pb.RangeRequest, opts .
 func (rkv *retryKVClient) Put(ctx context.Context, in *pb.PutRequest, opts ...grpc.CallOption) (resp *pb.PutResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rkv.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rkv.kc.Put(rctx, in, opts...)
 		return err
@@ -125,6 +139,8 @@ func (rkv *retryKVClient) Put(ctx context.Context, in *pb.PutRequest, opts ...gr
 	return resp, err
 }
 func (rkv *retryKVClient) DeleteRange(ctx context.Context, in *pb.DeleteRangeRequest, opts ...grpc.CallOption) (resp *pb.DeleteRangeResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rkv.retryf(ctx, func(rctx context.Context) error {
@@ -136,6 +152,8 @@ func (rkv *retryKVClient) DeleteRange(ctx context.Context, in *pb.DeleteRangeReq
 func (rkv *retryKVClient) Txn(ctx context.Context, in *pb.TxnRequest, opts ...grpc.CallOption) (resp *pb.TxnResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rkv.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rkv.kc.Txn(rctx, in, opts...)
 		return err
@@ -143,6 +161,8 @@ func (rkv *retryKVClient) Txn(ctx context.Context, in *pb.TxnRequest, opts ...gr
 	return resp, err
 }
 func (rkv *retryKVClient) Compact(ctx context.Context, in *pb.CompactionRequest, opts ...grpc.CallOption) (resp *pb.CompactionResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rkv.retryf(ctx, func(rctx context.Context) error {
@@ -160,9 +180,13 @@ type retryLeaseClient struct {
 func RetryLeaseClient(c *Client) pb.LeaseClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &retryLeaseClient{lc: pb.NewLeaseClient(c.conn), retryf: c.newAuthRetryWrapper(c.newRetryWrapper())}
 }
 func (rlc *retryLeaseClient) LeaseTimeToLive(ctx context.Context, in *pb.LeaseTimeToLiveRequest, opts ...grpc.CallOption) (resp *pb.LeaseTimeToLiveResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rlc.retryf(ctx, func(rctx context.Context) error {
@@ -174,6 +198,8 @@ func (rlc *retryLeaseClient) LeaseTimeToLive(ctx context.Context, in *pb.LeaseTi
 func (rlc *retryLeaseClient) LeaseLeases(ctx context.Context, in *pb.LeaseLeasesRequest, opts ...grpc.CallOption) (resp *pb.LeaseLeasesResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rlc.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rlc.lc.LeaseLeases(rctx, in, opts...)
 		return err
@@ -181,6 +207,8 @@ func (rlc *retryLeaseClient) LeaseLeases(ctx context.Context, in *pb.LeaseLeases
 	return resp, err
 }
 func (rlc *retryLeaseClient) LeaseGrant(ctx context.Context, in *pb.LeaseGrantRequest, opts ...grpc.CallOption) (resp *pb.LeaseGrantResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rlc.retryf(ctx, func(rctx context.Context) error {
@@ -192,6 +220,8 @@ func (rlc *retryLeaseClient) LeaseGrant(ctx context.Context, in *pb.LeaseGrantRe
 func (rlc *retryLeaseClient) LeaseRevoke(ctx context.Context, in *pb.LeaseRevokeRequest, opts ...grpc.CallOption) (resp *pb.LeaseRevokeResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rlc.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rlc.lc.LeaseRevoke(rctx, in, opts...)
 		return err
@@ -199,6 +229,8 @@ func (rlc *retryLeaseClient) LeaseRevoke(ctx context.Context, in *pb.LeaseRevoke
 	return resp, err
 }
 func (rlc *retryLeaseClient) LeaseKeepAlive(ctx context.Context, opts ...grpc.CallOption) (stream pb.Lease_LeaseKeepAliveClient, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rlc.retryf(ctx, func(rctx context.Context) error {
@@ -216,9 +248,13 @@ type retryClusterClient struct {
 func RetryClusterClient(c *Client) pb.ClusterClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &retryClusterClient{cc: pb.NewClusterClient(c.conn), retryf: c.newRetryWrapper()}
 }
 func (rcc *retryClusterClient) MemberList(ctx context.Context, in *pb.MemberListRequest, opts ...grpc.CallOption) (resp *pb.MemberListResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rcc.retryf(ctx, func(rctx context.Context) error {
@@ -230,6 +266,8 @@ func (rcc *retryClusterClient) MemberList(ctx context.Context, in *pb.MemberList
 func (rcc *retryClusterClient) MemberAdd(ctx context.Context, in *pb.MemberAddRequest, opts ...grpc.CallOption) (resp *pb.MemberAddResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rcc.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rcc.cc.MemberAdd(rctx, in, opts...)
 		return err
@@ -239,6 +277,8 @@ func (rcc *retryClusterClient) MemberAdd(ctx context.Context, in *pb.MemberAddRe
 func (rcc *retryClusterClient) MemberRemove(ctx context.Context, in *pb.MemberRemoveRequest, opts ...grpc.CallOption) (resp *pb.MemberRemoveResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rcc.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rcc.cc.MemberRemove(rctx, in, opts...)
 		return err
@@ -246,6 +286,8 @@ func (rcc *retryClusterClient) MemberRemove(ctx context.Context, in *pb.MemberRe
 	return resp, err
 }
 func (rcc *retryClusterClient) MemberUpdate(ctx context.Context, in *pb.MemberUpdateRequest, opts ...grpc.CallOption) (resp *pb.MemberUpdateResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rcc.retryf(ctx, func(rctx context.Context) error {
@@ -263,9 +305,13 @@ type retryMaintenanceClient struct {
 func RetryMaintenanceClient(c *Client, conn *grpc.ClientConn) pb.MaintenanceClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &retryMaintenanceClient{mc: pb.NewMaintenanceClient(conn), retryf: c.newRetryWrapper()}
 }
 func (rmc *retryMaintenanceClient) Alarm(ctx context.Context, in *pb.AlarmRequest, opts ...grpc.CallOption) (resp *pb.AlarmResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rmc.retryf(ctx, func(rctx context.Context) error {
@@ -277,6 +323,8 @@ func (rmc *retryMaintenanceClient) Alarm(ctx context.Context, in *pb.AlarmReques
 func (rmc *retryMaintenanceClient) Status(ctx context.Context, in *pb.StatusRequest, opts ...grpc.CallOption) (resp *pb.StatusResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rmc.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rmc.mc.Status(rctx, in, opts...)
 		return err
@@ -284,6 +332,8 @@ func (rmc *retryMaintenanceClient) Status(ctx context.Context, in *pb.StatusRequ
 	return resp, err
 }
 func (rmc *retryMaintenanceClient) Hash(ctx context.Context, in *pb.HashRequest, opts ...grpc.CallOption) (resp *pb.HashResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rmc.retryf(ctx, func(rctx context.Context) error {
@@ -295,6 +345,8 @@ func (rmc *retryMaintenanceClient) Hash(ctx context.Context, in *pb.HashRequest,
 func (rmc *retryMaintenanceClient) HashKV(ctx context.Context, in *pb.HashKVRequest, opts ...grpc.CallOption) (resp *pb.HashKVResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rmc.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rmc.mc.HashKV(rctx, in, opts...)
 		return err
@@ -302,6 +354,8 @@ func (rmc *retryMaintenanceClient) HashKV(ctx context.Context, in *pb.HashKVRequ
 	return resp, err
 }
 func (rmc *retryMaintenanceClient) Snapshot(ctx context.Context, in *pb.SnapshotRequest, opts ...grpc.CallOption) (stream pb.Maintenance_SnapshotClient, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rmc.retryf(ctx, func(rctx context.Context) error {
@@ -313,6 +367,8 @@ func (rmc *retryMaintenanceClient) Snapshot(ctx context.Context, in *pb.Snapshot
 func (rmc *retryMaintenanceClient) MoveLeader(ctx context.Context, in *pb.MoveLeaderRequest, opts ...grpc.CallOption) (resp *pb.MoveLeaderResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rmc.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rmc.mc.MoveLeader(rctx, in, opts...)
 		return err
@@ -320,6 +376,8 @@ func (rmc *retryMaintenanceClient) MoveLeader(ctx context.Context, in *pb.MoveLe
 	return resp, err
 }
 func (rmc *retryMaintenanceClient) Defragment(ctx context.Context, in *pb.DefragmentRequest, opts ...grpc.CallOption) (resp *pb.DefragmentResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rmc.retryf(ctx, func(rctx context.Context) error {
@@ -337,9 +395,13 @@ type retryAuthClient struct {
 func RetryAuthClient(c *Client) pb.AuthClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &retryAuthClient{ac: pb.NewAuthClient(c.conn), retryf: c.newRetryWrapper()}
 }
 func (rac *retryAuthClient) UserList(ctx context.Context, in *pb.AuthUserListRequest, opts ...grpc.CallOption) (resp *pb.AuthUserListResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
@@ -351,6 +413,8 @@ func (rac *retryAuthClient) UserList(ctx context.Context, in *pb.AuthUserListReq
 func (rac *retryAuthClient) UserGet(ctx context.Context, in *pb.AuthUserGetRequest, opts ...grpc.CallOption) (resp *pb.AuthUserGetResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rac.ac.UserGet(rctx, in, opts...)
 		return err
@@ -358,6 +422,8 @@ func (rac *retryAuthClient) UserGet(ctx context.Context, in *pb.AuthUserGetReque
 	return resp, err
 }
 func (rac *retryAuthClient) RoleGet(ctx context.Context, in *pb.AuthRoleGetRequest, opts ...grpc.CallOption) (resp *pb.AuthRoleGetResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
@@ -369,6 +435,8 @@ func (rac *retryAuthClient) RoleGet(ctx context.Context, in *pb.AuthRoleGetReque
 func (rac *retryAuthClient) RoleList(ctx context.Context, in *pb.AuthRoleListRequest, opts ...grpc.CallOption) (resp *pb.AuthRoleListResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rac.ac.RoleList(rctx, in, opts...)
 		return err
@@ -376,6 +444,8 @@ func (rac *retryAuthClient) RoleList(ctx context.Context, in *pb.AuthRoleListReq
 	return resp, err
 }
 func (rac *retryAuthClient) AuthEnable(ctx context.Context, in *pb.AuthEnableRequest, opts ...grpc.CallOption) (resp *pb.AuthEnableResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
@@ -387,6 +457,8 @@ func (rac *retryAuthClient) AuthEnable(ctx context.Context, in *pb.AuthEnableReq
 func (rac *retryAuthClient) AuthDisable(ctx context.Context, in *pb.AuthDisableRequest, opts ...grpc.CallOption) (resp *pb.AuthDisableResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rac.ac.AuthDisable(rctx, in, opts...)
 		return err
@@ -394,6 +466,8 @@ func (rac *retryAuthClient) AuthDisable(ctx context.Context, in *pb.AuthDisableR
 	return resp, err
 }
 func (rac *retryAuthClient) UserAdd(ctx context.Context, in *pb.AuthUserAddRequest, opts ...grpc.CallOption) (resp *pb.AuthUserAddResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
@@ -405,6 +479,8 @@ func (rac *retryAuthClient) UserAdd(ctx context.Context, in *pb.AuthUserAddReque
 func (rac *retryAuthClient) UserDelete(ctx context.Context, in *pb.AuthUserDeleteRequest, opts ...grpc.CallOption) (resp *pb.AuthUserDeleteResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rac.ac.UserDelete(rctx, in, opts...)
 		return err
@@ -412,6 +488,8 @@ func (rac *retryAuthClient) UserDelete(ctx context.Context, in *pb.AuthUserDelet
 	return resp, err
 }
 func (rac *retryAuthClient) UserChangePassword(ctx context.Context, in *pb.AuthUserChangePasswordRequest, opts ...grpc.CallOption) (resp *pb.AuthUserChangePasswordResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
@@ -423,6 +501,8 @@ func (rac *retryAuthClient) UserChangePassword(ctx context.Context, in *pb.AuthU
 func (rac *retryAuthClient) UserGrantRole(ctx context.Context, in *pb.AuthUserGrantRoleRequest, opts ...grpc.CallOption) (resp *pb.AuthUserGrantRoleResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rac.ac.UserGrantRole(rctx, in, opts...)
 		return err
@@ -430,6 +510,8 @@ func (rac *retryAuthClient) UserGrantRole(ctx context.Context, in *pb.AuthUserGr
 	return resp, err
 }
 func (rac *retryAuthClient) UserRevokeRole(ctx context.Context, in *pb.AuthUserRevokeRoleRequest, opts ...grpc.CallOption) (resp *pb.AuthUserRevokeRoleResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
@@ -441,6 +523,8 @@ func (rac *retryAuthClient) UserRevokeRole(ctx context.Context, in *pb.AuthUserR
 func (rac *retryAuthClient) RoleAdd(ctx context.Context, in *pb.AuthRoleAddRequest, opts ...grpc.CallOption) (resp *pb.AuthRoleAddResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rac.ac.RoleAdd(rctx, in, opts...)
 		return err
@@ -448,6 +532,8 @@ func (rac *retryAuthClient) RoleAdd(ctx context.Context, in *pb.AuthRoleAddReque
 	return resp, err
 }
 func (rac *retryAuthClient) RoleDelete(ctx context.Context, in *pb.AuthRoleDeleteRequest, opts ...grpc.CallOption) (resp *pb.AuthRoleDeleteResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
@@ -459,6 +545,8 @@ func (rac *retryAuthClient) RoleDelete(ctx context.Context, in *pb.AuthRoleDelet
 func (rac *retryAuthClient) RoleGrantPermission(ctx context.Context, in *pb.AuthRoleGrantPermissionRequest, opts ...grpc.CallOption) (resp *pb.AuthRoleGrantPermissionResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rac.ac.RoleGrantPermission(rctx, in, opts...)
 		return err
@@ -468,6 +556,8 @@ func (rac *retryAuthClient) RoleGrantPermission(ctx context.Context, in *pb.Auth
 func (rac *retryAuthClient) RoleRevokePermission(ctx context.Context, in *pb.AuthRoleRevokePermissionRequest, opts ...grpc.CallOption) (resp *pb.AuthRoleRevokePermissionResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {
 		resp, err = rac.ac.RoleRevokePermission(rctx, in, opts...)
 		return err
@@ -475,6 +565,8 @@ func (rac *retryAuthClient) RoleRevokePermission(ctx context.Context, in *pb.Aut
 	return resp, err
 }
 func (rac *retryAuthClient) Authenticate(ctx context.Context, in *pb.AuthenticateRequest, opts ...grpc.CallOption) (resp *pb.AuthenticateResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = rac.retryf(ctx, func(rctx context.Context) error {

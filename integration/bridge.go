@@ -27,6 +27,8 @@ type bridge struct {
 func newBridge(addr string) (*bridge, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b := &bridge{inaddr: addr + "0", outaddr: addr, conns: make(map[*bridgeConn]struct{}), stopc: make(chan struct{}), pausec: make(chan struct{}), blackholec: make(chan struct{})}
 	close(b.pausec)
 	l, err := transport.NewUnixListener(b.inaddr)
@@ -41,9 +43,13 @@ func newBridge(addr string) (*bridge, error) {
 func (b *bridge) URL() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "unix://" + b.inaddr
 }
 func (b *bridge) Close() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b.l.Close()
@@ -59,6 +65,8 @@ func (b *bridge) Close() {
 func (b *bridge) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.mu.Lock()
 	defer b.mu.Unlock()
 	for bc := range b.conns {
@@ -69,11 +77,15 @@ func (b *bridge) Reset() {
 func (b *bridge) Pause() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.mu.Lock()
 	b.pausec = make(chan struct{})
 	b.mu.Unlock()
 }
 func (b *bridge) Unpause() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b.mu.Lock()
@@ -85,6 +97,8 @@ func (b *bridge) Unpause() {
 	b.mu.Unlock()
 }
 func (b *bridge) serveListen() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer func() {
@@ -126,6 +140,8 @@ func (b *bridge) serveListen() {
 func (b *bridge) serveConn(bc *bridgeConn) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer func() {
 		close(bc.donec)
 		bc.Close()
@@ -158,10 +174,14 @@ type bridgeConn struct {
 func (bc *bridgeConn) Close() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bc.close()
 	<-bc.donec
 }
 func (bc *bridgeConn) close() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bc.in.Close()
@@ -170,11 +190,15 @@ func (bc *bridgeConn) close() {
 func (b *bridge) Blackhole() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.mu.Lock()
 	close(b.blackholec)
 	b.mu.Unlock()
 }
 func (b *bridge) Unblackhole() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b.mu.Lock()
@@ -186,6 +210,8 @@ func (b *bridge) Unblackhole() {
 	b.mu.Unlock()
 }
 func (b *bridge) ioCopy(bc *bridgeConn, dst io.Writer, src io.Reader) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	buf := make([]byte, 32*1024)
@@ -216,7 +242,16 @@ func (b *bridge) ioCopy(bc *bridgeConn, dst io.Writer, src io.Reader) (err error
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

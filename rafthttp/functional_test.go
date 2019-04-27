@@ -15,6 +15,8 @@ import (
 func TestSendMessage(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tr := &Transport{ID: types.ID(1), ClusterID: types.ID(1), Raft: &fakeRaft{}, ServerStats: newServerStats(), LeaderStats: stats.NewLeaderStats("1")}
 	tr.Start()
 	srv := httptest.NewServer(tr.Handler())
@@ -43,6 +45,8 @@ func TestSendMessage(t *testing.T) {
 	}
 }
 func TestSendMessageWhenStreamIsBroken(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tr := &Transport{ID: types.ID(1), ClusterID: types.ID(1), Raft: &fakeRaft{}, ServerStats: newServerStats(), LeaderStats: stats.NewLeaderStats("1")}
@@ -81,9 +85,13 @@ func TestSendMessageWhenStreamIsBroken(t *testing.T) {
 func newServerStats() *stats.ServerStats {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return stats.NewServerStats("", "")
 }
 func waitStreamWorking(p *peer) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := 0; i < 1000; i++ {
@@ -108,6 +116,8 @@ type fakeRaft struct {
 func (p *fakeRaft) Process(ctx context.Context, m raftpb.Message) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case p.recvc <- m:
 	default:
@@ -117,13 +127,19 @@ func (p *fakeRaft) Process(ctx context.Context, m raftpb.Message) error {
 func (p *fakeRaft) IsIDRemoved(id uint64) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return id == p.removedID
 }
 func (p *fakeRaft) ReportUnreachable(id uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (p *fakeRaft) ReportSnapshot(id uint64, status raft.SnapshotStatus) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }

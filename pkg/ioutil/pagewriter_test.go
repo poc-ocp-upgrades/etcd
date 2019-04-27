@@ -8,6 +8,8 @@ import (
 func TestPageWriterRandom(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defaultBufferBytes = 8 * 1024
 	pageBytes := 128
 	buf := make([]byte, 4*defaultBufferBytes)
@@ -31,6 +33,8 @@ func TestPageWriterRandom(t *testing.T) {
 	t.Logf("total write bytes: %d (of %d)", cw.writeBytes, n)
 }
 func TestPageWriterPartialSlack(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defaultBufferBytes = 1024
@@ -64,6 +68,8 @@ func TestPageWriterPartialSlack(t *testing.T) {
 	}
 }
 func TestPageWriterOffset(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defaultBufferBytes = 1024
@@ -100,6 +106,8 @@ type checkPageWriter struct {
 }
 
 func (cw *checkPageWriter) Write(p []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(p)%cw.pageBytes != 0 {

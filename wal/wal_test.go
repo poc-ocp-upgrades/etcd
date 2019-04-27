@@ -17,6 +17,8 @@ import (
 func TestNew(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p, err := ioutil.TempDir(os.TempDir(), "waltest")
 	if err != nil {
 		t.Fatal(err)
@@ -65,6 +67,8 @@ func TestNew(t *testing.T) {
 func TestNewForInitedDir(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p, err := ioutil.TempDir(os.TempDir(), "waltest")
 	if err != nil {
 		t.Fatal(err)
@@ -76,6 +80,8 @@ func TestNewForInitedDir(t *testing.T) {
 	}
 }
 func TestOpenAtIndex(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dir, err := ioutil.TempDir(os.TempDir(), "waltest")
@@ -126,6 +132,8 @@ func TestOpenAtIndex(t *testing.T) {
 	}
 }
 func TestCut(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p, err := ioutil.TempDir(os.TempDir(), "waltest")
@@ -179,6 +187,8 @@ func TestCut(t *testing.T) {
 	}
 }
 func TestSaveWithCut(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p, err := ioutil.TempDir(os.TempDir(), "waltest")
@@ -240,6 +250,8 @@ func TestSaveWithCut(t *testing.T) {
 func TestRecover(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p, err := ioutil.TempDir(os.TempDir(), "waltest")
 	if err != nil {
 		t.Fatal(err)
@@ -285,6 +297,8 @@ func TestRecover(t *testing.T) {
 func TestSearchIndex(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		names	[]string
 		index	uint64
@@ -302,6 +316,8 @@ func TestSearchIndex(t *testing.T) {
 	}
 }
 func TestScanWalName(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -323,6 +339,8 @@ func TestScanWalName(t *testing.T) {
 	}
 }
 func TestRecoverAfterCut(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p, err := ioutil.TempDir(os.TempDir(), "waltest")
@@ -381,6 +399,8 @@ func TestRecoverAfterCut(t *testing.T) {
 func TestOpenAtUncommittedIndex(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p, err := ioutil.TempDir(os.TempDir(), "waltest")
 	if err != nil {
 		t.Fatal(err)
@@ -407,6 +427,8 @@ func TestOpenAtUncommittedIndex(t *testing.T) {
 	w.Close()
 }
 func TestOpenForRead(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p, err := ioutil.TempDir(os.TempDir(), "waltest")
@@ -446,6 +468,8 @@ func TestOpenForRead(t *testing.T) {
 func TestSaveEmpty(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var buf bytes.Buffer
 	var est raftpb.HardState
 	w := WAL{encoder: newEncoder(&buf, 0, 0)}
@@ -457,6 +481,8 @@ func TestSaveEmpty(t *testing.T) {
 	}
 }
 func TestReleaseLockTo(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p, err := ioutil.TempDir(os.TempDir(), "waltest")
@@ -517,6 +543,8 @@ func TestReleaseLockTo(t *testing.T) {
 func TestTailWriteNoSlackSpace(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p, err := ioutil.TempDir(os.TempDir(), "waltest")
 	if err != nil {
 		t.Fatal(err)
@@ -574,6 +602,8 @@ func TestTailWriteNoSlackSpace(t *testing.T) {
 func TestRestartCreateWal(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p, err := ioutil.TempDir(os.TempDir(), "waltest")
 	if err != nil {
 		t.Fatal(err)
@@ -603,6 +633,8 @@ func TestRestartCreateWal(t *testing.T) {
 	}
 }
 func TestOpenOnTornWrite(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	maxEntries := 40

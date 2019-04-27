@@ -27,12 +27,16 @@ type leader struct {
 func newLeader(ctx context.Context, w clientv3.Watcher) *leader {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := &leader{ctx: clientv3.WithRequireLeader(ctx), w: w, leaderc: make(chan struct{}), disconnc: make(chan struct{}), donec: make(chan struct{})}
 	close(l.leaderc)
 	go l.recvLoop()
 	return l
 }
 func (l *leader) recvLoop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer close(l.donec)
@@ -61,6 +65,8 @@ func (l *leader) recvLoop() {
 func (l *leader) loseLeader() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l.mu.RLock()
 	defer l.mu.RUnlock()
 	select {
@@ -70,6 +76,8 @@ func (l *leader) loseLeader() {
 	}
 }
 func (l *leader) gotLeader() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l.mu.Lock()
@@ -83,14 +91,20 @@ func (l *leader) gotLeader() {
 func (l *leader) disconnectNotify() <-chan struct{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return l.disconnc
 }
 func (l *leader) stopNotify() <-chan struct{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return l.donec
 }
 func (l *leader) lostNotify() <-chan struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l.mu.RLock()

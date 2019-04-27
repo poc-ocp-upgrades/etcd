@@ -13,9 +13,13 @@ import (
 func NewRoleCommands() cli.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cli.Command{Name: "role", Usage: "role add, grant and revoke subcommands", Subcommands: []cli.Command{{Name: "add", Usage: "add a new role for the etcd cluster", ArgsUsage: "<role> ", Action: actionRoleAdd}, {Name: "get", Usage: "get details for a role", ArgsUsage: "<role>", Action: actionRoleGet}, {Name: "list", Usage: "list all roles", ArgsUsage: " ", Action: actionRoleList}, {Name: "remove", Usage: "remove a role from the etcd cluster", ArgsUsage: "<role>", Action: actionRoleRemove}, {Name: "grant", Usage: "grant path matches to an etcd role", ArgsUsage: "<role>", Flags: []cli.Flag{cli.StringFlag{Name: "path", Value: "", Usage: "Path granted for the role to access"}, cli.BoolFlag{Name: "read", Usage: "Grant read-only access"}, cli.BoolFlag{Name: "write", Usage: "Grant write-only access"}, cli.BoolFlag{Name: "readwrite, rw", Usage: "Grant read-write access"}}, Action: actionRoleGrant}, {Name: "revoke", Usage: "revoke path matches for an etcd role", ArgsUsage: "<role>", Flags: []cli.Flag{cli.StringFlag{Name: "path", Value: "", Usage: "Path revoked for the role to access"}, cli.BoolFlag{Name: "read", Usage: "Revoke read access"}, cli.BoolFlag{Name: "write", Usage: "Revoke write access"}, cli.BoolFlag{Name: "readwrite, rw", Usage: "Revoke read-write access"}}, Action: actionRoleRevoke}}}
 }
 func mustNewAuthRoleAPI(c *cli.Context) client.AuthRoleAPI {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	hc := mustNewClient(c)
@@ -25,6 +29,8 @@ func mustNewAuthRoleAPI(c *cli.Context) client.AuthRoleAPI {
 	return client.NewAuthRoleAPI(hc)
 }
 func actionRoleList(c *cli.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(c.Args()) != 0 {
@@ -47,6 +53,8 @@ func actionRoleList(c *cli.Context) error {
 func actionRoleAdd(c *cli.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	api, role := mustRoleAPIAndName(c)
 	ctx, cancel := contextWithTotalTimeout(c)
 	defer cancel()
@@ -66,6 +74,8 @@ func actionRoleAdd(c *cli.Context) error {
 func actionRoleRemove(c *cli.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	api, role := mustRoleAPIAndName(c)
 	ctx, cancel := contextWithTotalTimeout(c)
 	err := api.RemoveRole(ctx, role)
@@ -80,16 +90,22 @@ func actionRoleRemove(c *cli.Context) error {
 func actionRoleGrant(c *cli.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	roleGrantRevoke(c, true)
 	return nil
 }
 func actionRoleRevoke(c *cli.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	roleGrantRevoke(c, false)
 	return nil
 }
 func roleGrantRevoke(c *cli.Context, grant bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	path := c.String("path")
@@ -153,6 +169,8 @@ func roleGrantRevoke(c *cli.Context, grant bool) {
 func actionRoleGet(c *cli.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	api, rolename := mustRoleAPIAndName(c)
 	ctx, cancel := contextWithTotalTimeout(c)
 	role, err := api.GetRole(ctx, rolename)
@@ -173,6 +191,8 @@ func actionRoleGet(c *cli.Context) error {
 	return nil
 }
 func mustRoleAPIAndName(c *cli.Context) (client.AuthRoleAPI, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := c.Args()

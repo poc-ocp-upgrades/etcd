@@ -12,9 +12,13 @@ import (
 func NewUserCommands() cli.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cli.Command{Name: "user", Usage: "user add, grant and revoke subcommands", Subcommands: []cli.Command{{Name: "add", Usage: "add a new user for the etcd cluster", ArgsUsage: "<user>", Action: actionUserAdd}, {Name: "get", Usage: "get details for a user", ArgsUsage: "<user>", Action: actionUserGet}, {Name: "list", Usage: "list all current users", ArgsUsage: "<user>", Action: actionUserList}, {Name: "remove", Usage: "remove a user for the etcd cluster", ArgsUsage: "<user>", Action: actionUserRemove}, {Name: "grant", Usage: "grant roles to an etcd user", ArgsUsage: "<user>", Flags: []cli.Flag{cli.StringSliceFlag{Name: "roles", Value: new(cli.StringSlice), Usage: "List of roles to grant or revoke"}}, Action: actionUserGrant}, {Name: "revoke", Usage: "revoke roles for an etcd user", ArgsUsage: "<user>", Flags: []cli.Flag{cli.StringSliceFlag{Name: "roles", Value: new(cli.StringSlice), Usage: "List of roles to grant or revoke"}}, Action: actionUserRevoke}, {Name: "passwd", Usage: "change password for a user", ArgsUsage: "<user>", Action: actionUserPasswd}}}
 }
 func mustNewAuthUserAPI(c *cli.Context) client.AuthUserAPI {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	hc := mustNewClient(c)
@@ -24,6 +28,8 @@ func mustNewAuthUserAPI(c *cli.Context) client.AuthUserAPI {
 	return client.NewAuthUserAPI(hc)
 }
 func actionUserList(c *cli.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(c.Args()) != 0 {
@@ -46,6 +52,8 @@ func actionUserList(c *cli.Context) error {
 func actionUserAdd(c *cli.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	api, userarg := mustUserAPIAndName(c)
 	ctx, cancel := contextWithTotalTimeout(c)
 	defer cancel()
@@ -66,6 +74,8 @@ func actionUserAdd(c *cli.Context) error {
 func actionUserRemove(c *cli.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	api, user := mustUserAPIAndName(c)
 	ctx, cancel := contextWithTotalTimeout(c)
 	err := api.RemoveUser(ctx, user)
@@ -78,6 +88,8 @@ func actionUserRemove(c *cli.Context) error {
 	return nil
 }
 func actionUserPasswd(c *cli.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	api, user := mustUserAPIAndName(c)
@@ -99,16 +111,22 @@ func actionUserPasswd(c *cli.Context) error {
 func actionUserGrant(c *cli.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	userGrantRevoke(c, true)
 	return nil
 }
 func actionUserRevoke(c *cli.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	userGrantRevoke(c, false)
 	return nil
 }
 func userGrantRevoke(c *cli.Context, grant bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	roles := c.StringSlice("roles")
@@ -134,6 +152,8 @@ func userGrantRevoke(c *cli.Context, grant bool) {
 func actionUserGet(c *cli.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	api, username := mustUserAPIAndName(c)
 	ctx, cancel := contextWithTotalTimeout(c)
 	user, err := api.GetUser(ctx, username)
@@ -147,6 +167,8 @@ func actionUserGet(c *cli.Context) error {
 	return nil
 }
 func mustUserAPIAndName(c *cli.Context) (client.AuthUserAPI, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := c.Args()

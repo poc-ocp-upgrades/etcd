@@ -16,6 +16,8 @@ var testSnap = &raftpb.Snapshot{Data: []byte("some snapshot"), Metadata: raftpb.
 func TestSaveAndLoad(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
 	err := os.Mkdir(dir, 0700)
 	if err != nil {
@@ -36,6 +38,8 @@ func TestSaveAndLoad(t *testing.T) {
 	}
 }
 func TestBadCRC(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
@@ -59,6 +63,8 @@ func TestBadCRC(t *testing.T) {
 	}
 }
 func TestFailback(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
@@ -93,6 +99,8 @@ func TestFailback(t *testing.T) {
 func TestSnapNames(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
 	err := os.Mkdir(dir, 0700)
 	if err != nil {
@@ -123,6 +131,8 @@ func TestSnapNames(t *testing.T) {
 func TestLoadNewestSnap(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
 	err := os.Mkdir(dir, 0700)
 	if err != nil {
@@ -151,6 +161,8 @@ func TestLoadNewestSnap(t *testing.T) {
 func TestNoSnapshot(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
 	err := os.Mkdir(dir, 0700)
 	if err != nil {
@@ -164,6 +176,8 @@ func TestNoSnapshot(t *testing.T) {
 	}
 }
 func TestEmptySnapshot(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")
@@ -182,6 +196,8 @@ func TestEmptySnapshot(t *testing.T) {
 	}
 }
 func TestAllSnapshotBroken(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dir := filepath.Join(os.TempDir(), "snapshot")

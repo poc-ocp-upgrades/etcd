@@ -8,9 +8,13 @@ import (
 func TestCtlV3Watch(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, watchTest)
 }
 func TestCtlV3WatchNoTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, watchTest, withCfg(configNoTLS))
@@ -18,9 +22,13 @@ func TestCtlV3WatchNoTLS(t *testing.T) {
 func TestCtlV3WatchClientTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, watchTest, withCfg(configClientTLS))
 }
 func TestCtlV3WatchPeerTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, watchTest, withCfg(configPeerTLS))
@@ -28,9 +36,13 @@ func TestCtlV3WatchPeerTLS(t *testing.T) {
 func TestCtlV3WatchTimeout(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, watchTest, withDialTimeout(0))
 }
 func TestCtlV3WatchInteractive(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, watchTest, withInteractive())
@@ -38,9 +50,13 @@ func TestCtlV3WatchInteractive(t *testing.T) {
 func TestCtlV3WatchInteractiveNoTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, watchTest, withInteractive(), withCfg(configNoTLS))
 }
 func TestCtlV3WatchInteractiveClientTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, watchTest, withInteractive(), withCfg(configClientTLS))
@@ -48,9 +64,13 @@ func TestCtlV3WatchInteractiveClientTLS(t *testing.T) {
 func TestCtlV3WatchInteractivePeerTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, watchTest, withInteractive(), withCfg(configPeerTLS))
 }
 func watchTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {

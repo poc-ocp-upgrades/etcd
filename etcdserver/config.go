@@ -48,6 +48,8 @@ type ServerConfig struct {
 func (c *ServerConfig) VerifyBootstrap() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := c.hasLocalMember(); err != nil {
 		return err
 	}
@@ -65,6 +67,8 @@ func (c *ServerConfig) VerifyBootstrap() error {
 func (c *ServerConfig) VerifyJoinExisting() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := c.hasLocalMember(); err != nil {
 		return err
 	}
@@ -79,12 +83,16 @@ func (c *ServerConfig) VerifyJoinExisting() error {
 func (c *ServerConfig) hasLocalMember() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if urls := c.InitialPeerURLsMap[c.Name]; urls == nil {
 		return fmt.Errorf("couldn't find local name %q in the initial cluster configuration", c.Name)
 	}
 	return nil
 }
 func (c *ServerConfig) advertiseMatchesCluster() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	urls, apurls := c.InitialPeerURLsMap[c.Name], c.PeerURLs.StringSlice()
@@ -134,9 +142,13 @@ func (c *ServerConfig) advertiseMatchesCluster() error {
 func (c *ServerConfig) MemberDir() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return filepath.Join(c.DataDir, "member")
 }
 func (c *ServerConfig) WALDir() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.DedicatedWALDir != "" {
@@ -147,9 +159,13 @@ func (c *ServerConfig) WALDir() string {
 func (c *ServerConfig) SnapDir() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return filepath.Join(c.MemberDir(), "snap")
 }
 func (c *ServerConfig) ShouldDiscover() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return c.DiscoveryURL != ""
@@ -157,9 +173,13 @@ func (c *ServerConfig) ShouldDiscover() bool {
 func (c *ServerConfig) ReqTimeout() time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 5*time.Second + 2*time.Duration(c.ElectionTicks*int(c.TickMs))*time.Millisecond
 }
 func (c *ServerConfig) electionTimeout() time.Duration {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return time.Duration(c.ElectionTicks*int(c.TickMs)) * time.Millisecond
@@ -167,9 +187,13 @@ func (c *ServerConfig) electionTimeout() time.Duration {
 func (c *ServerConfig) peerDialTimeout() time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return time.Second + time.Duration(c.ElectionTicks*int(c.TickMs))*time.Millisecond
 }
 func (c *ServerConfig) PrintWithInitial() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.print(true)
@@ -177,9 +201,13 @@ func (c *ServerConfig) PrintWithInitial() {
 func (c *ServerConfig) Print() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.print(false)
 }
 func (c *ServerConfig) print(initial bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	plog.Infof("name = %s", c.Name)
@@ -209,6 +237,8 @@ func (c *ServerConfig) print(initial bool) {
 func checkDuplicateURL(urlsmap types.URLsMap) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	um := make(map[string]bool)
 	for _, urls := range urlsmap {
 		for _, url := range urls {
@@ -224,12 +254,16 @@ func checkDuplicateURL(urlsmap types.URLsMap) bool {
 func (c *ServerConfig) bootstrapTimeout() time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.BootstrapTimeout != 0 {
 		return c.BootstrapTimeout
 	}
 	return time.Second
 }
 func (c *ServerConfig) backendPath() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return filepath.Join(c.SnapDir(), "db")

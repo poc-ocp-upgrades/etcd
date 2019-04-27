@@ -8,6 +8,8 @@ import (
 func TestLimitedBufferReaderRead(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	buf := bytes.NewBuffer(make([]byte, 10))
 	ln := 1
 	lr := NewLimitedBufferReader(buf, ln)

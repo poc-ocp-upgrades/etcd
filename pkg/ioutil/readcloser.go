@@ -18,6 +18,8 @@ var (
 func NewExactReadCloser(rc io.ReadCloser, totalBytes int64) io.ReadCloser {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &exactReadCloser{rc: rc, totalBytes: totalBytes}
 }
 
@@ -28,6 +30,8 @@ type exactReadCloser struct {
 }
 
 func (e *exactReadCloser) Read(p []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n, err := e.rc.Read(p)
@@ -41,6 +45,8 @@ func (e *exactReadCloser) Read(p []byte) (int, error) {
 	return n, err
 }
 func (e *exactReadCloser) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := e.rc.Close(); err != nil {

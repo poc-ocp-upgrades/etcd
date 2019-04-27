@@ -15,6 +15,8 @@ const registerRetryRate = 1
 func Register(c *clientv3.Client, prefix string, addr string, ttl int) <-chan struct{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rm := rate.NewLimiter(rate.Limit(registerRetryRate), registerRetryRate)
 	donec := make(chan struct{})
 	go func() {
@@ -41,6 +43,8 @@ func Register(c *clientv3.Client, prefix string, addr string, ttl int) <-chan st
 func registerSession(c *clientv3.Client, prefix string, addr string, ttl int) (*concurrency.Session, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ss, err := concurrency.NewSession(c, concurrency.WithTTL(ttl))
 	if err != nil {
 		return nil, err
@@ -60,11 +64,15 @@ type meta struct {
 func getMeta() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	hostname, _ := os.Hostname()
 	bts, _ := json.Marshal(meta{Name: hostname})
 	return string(bts)
 }
 func decodeMeta(s string) (meta, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := meta{}

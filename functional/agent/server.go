@@ -31,6 +31,8 @@ type Server struct {
 func NewServer(lg *zap.Logger, network string, address string) *Server {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Server{lg: lg, network: network, address: address, last: rpcpb.Operation_NOT_STARTED, advertiseClientPortToProxy: make(map[int]proxy.Server), advertisePeerPortToProxy: make(map[int]proxy.Server)}
 }
 
@@ -42,6 +44,8 @@ const (
 )
 
 func (srv *Server) StartServe() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -67,11 +71,15 @@ func (srv *Server) StartServe() error {
 func (srv *Server) Stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	srv.lg.Info("gRPC server stopping", zap.String("address", srv.address))
 	srv.grpcServer.Stop()
 	srv.lg.Info("gRPC server stopped", zap.String("address", srv.address))
 }
 func (srv *Server) Transport(stream rpcpb.Transport_TransportServer) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	errc := make(chan error)

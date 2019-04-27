@@ -19,6 +19,8 @@ var (
 func Example() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clientv3.SetLogger(grpclog.NewLoggerV2(os.Stderr, os.Stderr, os.Stderr))
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
 	if err != nil {
@@ -31,6 +33,8 @@ func Example() {
 	}
 }
 func ExampleConfig_withTLS() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tlsInfo := transport.TLSInfo{CertFile: "/tmp/test-certs/test-name-1.pem", KeyFile: "/tmp/test-certs/test-name-1-key.pem", TrustedCAFile: "/tmp/test-certs/trusted-ca.pem"}

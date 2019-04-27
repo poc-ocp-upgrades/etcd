@@ -18,11 +18,15 @@ var (
 func NewElectCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "elect <election-name> [proposal]", Short: "Observes and participates in leader election", Run: electCommandFunc}
 	cmd.Flags().BoolVarP(&electListen, "listen", "l", false, "observation mode")
 	return cmd
 }
 func electCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 && len(args) != 2 {
@@ -46,6 +50,8 @@ func electCommandFunc(cmd *cobra.Command, args []string) {
 	}
 }
 func observe(c *clientv3.Client, election string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s, err := concurrency.NewSession(c)
@@ -76,6 +82,8 @@ func observe(c *clientv3.Client, election string) error {
 	return nil
 }
 func campaign(c *clientv3.Client, election string, prop string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s, err := concurrency.NewSession(c)

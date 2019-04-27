@@ -17,9 +17,13 @@ type RawNode struct {
 func (rn *RawNode) newReady() Ready {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newReady(rn.raft, rn.prevSoftSt, rn.prevHardSt)
 }
 func (rn *RawNode) commitReady(rd Ready) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if rd.SoftState != nil {
@@ -43,6 +47,8 @@ func (rn *RawNode) commitReady(rd Ready) {
 	}
 }
 func NewRawNode(config *Config, peers []Peer) (*RawNode, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if config.ID == 0 {
@@ -82,9 +88,13 @@ func NewRawNode(config *Config, peers []Peer) (*RawNode, error) {
 func (rn *RawNode) Tick() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rn.raft.tick()
 }
 func (rn *RawNode) TickQuiesced() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rn.raft.electionElapsed++
@@ -92,14 +102,20 @@ func (rn *RawNode) TickQuiesced() {
 func (rn *RawNode) Campaign() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return rn.raft.Step(pb.Message{Type: pb.MsgHup})
 }
 func (rn *RawNode) Propose(data []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return rn.raft.Step(pb.Message{Type: pb.MsgProp, From: rn.raft.id, Entries: []pb.Entry{{Data: data}}})
 }
 func (rn *RawNode) ProposeConfChange(cc pb.ConfChange) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	data, err := cc.Marshal()
@@ -109,6 +125,8 @@ func (rn *RawNode) ProposeConfChange(cc pb.ConfChange) error {
 	return rn.raft.Step(pb.Message{Type: pb.MsgProp, Entries: []pb.Entry{{Type: pb.EntryConfChange, Data: data}}})
 }
 func (rn *RawNode) ApplyConfChange(cc pb.ConfChange) *pb.ConfState {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cc.NodeID == None {
@@ -132,6 +150,8 @@ func (rn *RawNode) ApplyConfChange(cc pb.ConfChange) *pb.ConfState {
 func (rn *RawNode) Step(m pb.Message) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if IsLocalMsg(m.Type) {
 		return ErrStepLocalMsg
 	}
@@ -143,11 +163,15 @@ func (rn *RawNode) Step(m pb.Message) error {
 func (rn *RawNode) Ready() Ready {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rd := rn.newReady()
 	rn.raft.msgs = nil
 	return rd
 }
 func (rn *RawNode) HasReady() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := rn.raft
@@ -171,9 +195,13 @@ func (rn *RawNode) HasReady() bool {
 func (rn *RawNode) Advance(rd Ready) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rn.commitReady(rd)
 }
 func (rn *RawNode) Status() *Status {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	status := getStatus(rn.raft)
@@ -182,9 +210,13 @@ func (rn *RawNode) Status() *Status {
 func (rn *RawNode) ReportUnreachable(id uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_ = rn.raft.Step(pb.Message{Type: pb.MsgUnreachable, From: id})
 }
 func (rn *RawNode) ReportSnapshot(id uint64, status SnapshotStatus) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rej := status == SnapshotFailure
@@ -193,9 +225,13 @@ func (rn *RawNode) ReportSnapshot(id uint64, status SnapshotStatus) {
 func (rn *RawNode) TransferLeader(transferee uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_ = rn.raft.Step(pb.Message{Type: pb.MsgTransferLeader, From: transferee})
 }
 func (rn *RawNode) ReadIndex(rctx []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_ = rn.raft.Step(pb.Message{Type: pb.MsgReadIndex, Entries: []pb.Entry{{Data: rctx}}})

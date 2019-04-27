@@ -11,9 +11,13 @@ import (
 func createTestNode(size int) *Node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Node{Key: strings.Repeat("a", 30), Value: strings.Repeat("a", size), CreatedIndex: 123456, ModifiedIndex: 123456, TTL: 123456789}
 }
 func createTestNodeWithChildren(children, size int) *Node {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	node := createTestNode(size)
@@ -25,9 +29,13 @@ func createTestNodeWithChildren(children, size int) *Node {
 func createTestResponse(children, size int) *Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Response{Action: "aaaaa", Node: createTestNodeWithChildren(children, size), PrevNode: nil}
 }
 func benchmarkResponseUnmarshalling(b *testing.B, children, size int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	header := http.Header{}
@@ -51,9 +59,13 @@ func benchmarkResponseUnmarshalling(b *testing.B, children, size int) {
 func BenchmarkSmallResponseUnmarshal(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	benchmarkResponseUnmarshalling(b, 30, 20)
 }
 func BenchmarkManySmallResponseUnmarshal(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	benchmarkResponseUnmarshalling(b, 3000, 20)
@@ -61,9 +73,13 @@ func BenchmarkManySmallResponseUnmarshal(b *testing.B) {
 func BenchmarkMediumResponseUnmarshal(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	benchmarkResponseUnmarshalling(b, 300, 200)
 }
 func BenchmarkLargeResponseUnmarshal(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	benchmarkResponseUnmarshalling(b, 3000, 2000)

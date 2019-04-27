@@ -31,6 +31,8 @@ type watchctx struct {
 func runWatchTest(t *testing.T, f watcherTest) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -47,9 +49,13 @@ func runWatchTest(t *testing.T, f watcherTest) {
 func TestWatchMultiWatcher(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	runWatchTest(t, testWatchMultiWatcher)
 }
 func testWatchMultiWatcher(t *testing.T, wctx *watchctx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	numKeyUpdates := 4
@@ -135,9 +141,13 @@ func testWatchMultiWatcher(t *testing.T, wctx *watchctx) {
 func TestWatchRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	runWatchTest(t, testWatchRange)
 }
 func testWatchRange(t *testing.T, wctx *watchctx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if wctx.ch = wctx.w.Watch(context.TODO(), "a", clientv3.WithRange("c")); wctx.ch == nil {
@@ -150,9 +160,13 @@ func testWatchRange(t *testing.T, wctx *watchctx) {
 func TestWatchReconnRequest(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	runWatchTest(t, testWatchReconnRequest)
 }
 func testWatchReconnRequest(t *testing.T, wctx *watchctx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	donec, stopc := make(chan struct{}), make(chan struct{}, 1)
@@ -185,9 +199,13 @@ func testWatchReconnRequest(t *testing.T, wctx *watchctx) {
 func TestWatchReconnInit(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	runWatchTest(t, testWatchReconnInit)
 }
 func testWatchReconnInit(t *testing.T, wctx *watchctx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if wctx.ch = wctx.w.Watch(context.TODO(), "a"); wctx.ch == nil {
@@ -199,9 +217,13 @@ func testWatchReconnInit(t *testing.T, wctx *watchctx) {
 func TestWatchReconnRunning(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	runWatchTest(t, testWatchReconnRunning)
 }
 func testWatchReconnRunning(t *testing.T, wctx *watchctx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if wctx.ch = wctx.w.Watch(context.TODO(), "a"); wctx.ch == nil {
@@ -214,9 +236,13 @@ func testWatchReconnRunning(t *testing.T, wctx *watchctx) {
 func TestWatchCancelImmediate(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	runWatchTest(t, testWatchCancelImmediate)
 }
 func testWatchCancelImmediate(t *testing.T, wctx *watchctx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := context.WithCancel(context.Background())
@@ -234,9 +260,13 @@ func testWatchCancelImmediate(t *testing.T, wctx *watchctx) {
 func TestWatchCancelInit(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	runWatchTest(t, testWatchCancelInit)
 }
 func testWatchCancelInit(t *testing.T, wctx *watchctx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := context.WithCancel(context.Background())
@@ -256,9 +286,13 @@ func testWatchCancelInit(t *testing.T, wctx *watchctx) {
 func TestWatchCancelRunning(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	runWatchTest(t, testWatchCancelRunning)
 }
 func testWatchCancelRunning(t *testing.T, wctx *watchctx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := context.WithCancel(context.Background())
@@ -289,6 +323,8 @@ func testWatchCancelRunning(t *testing.T, wctx *watchctx) {
 func putAndWatch(t *testing.T, wctx *watchctx, key, val string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, err := wctx.kv.Put(context.TODO(), key, val); err != nil {
 		t.Fatal(err)
 	}
@@ -305,6 +341,8 @@ func putAndWatch(t *testing.T, wctx *watchctx, key, val string) {
 	}
 }
 func TestWatchResumeInitRev(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -348,6 +386,8 @@ func TestWatchResumeInitRev(t *testing.T) {
 	}
 }
 func TestWatchResumeCompacted(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -422,6 +462,8 @@ func TestWatchResumeCompacted(t *testing.T) {
 func TestWatchCompactRevision(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -453,14 +495,20 @@ func TestWatchCompactRevision(t *testing.T) {
 func TestWatchWithProgressNotify(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testWatchWithProgressNotify(t, true)
 }
 func TestWatchWithProgressNotifyNoEvent(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testWatchWithProgressNotify(t, false)
 }
 func testWatchWithProgressNotify(t *testing.T, watchOnPut bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -508,6 +556,8 @@ func testWatchWithProgressNotify(t *testing.T, watchOnPut bool) {
 	}
 }
 func TestWatchEventType(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
@@ -564,6 +614,8 @@ func TestWatchEventType(t *testing.T) {
 func TestWatchErrConnClosed(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -589,6 +641,8 @@ func TestWatchErrConnClosed(t *testing.T) {
 func TestWatchAfterClose(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -612,6 +666,8 @@ func TestWatchAfterClose(t *testing.T) {
 	}
 }
 func TestWatchWithRequireLeader(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -657,6 +713,8 @@ func TestWatchWithRequireLeader(t *testing.T) {
 func TestWatchWithFilter(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cluster := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer cluster.Terminate(t)
 	client := cluster.RandClient()
@@ -688,6 +746,8 @@ func TestWatchWithFilter(t *testing.T) {
 func TestWatchWithCreatedNotification(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cluster := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer cluster.Terminate(t)
 	client := cluster.RandClient()
@@ -699,6 +759,8 @@ func TestWatchWithCreatedNotification(t *testing.T) {
 	}
 }
 func TestWatchWithCreatedNotificationDropConn(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
@@ -717,6 +779,8 @@ func TestWatchWithCreatedNotificationDropConn(t *testing.T) {
 	}
 }
 func TestWatchCancelOnServer(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
@@ -762,11 +826,15 @@ func TestWatchCancelOnServer(t *testing.T) {
 func TestWatchOverlapContextCancel(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f := func(clus *integration.ClusterV3) {
 	}
 	testWatchOverlapContextCancel(t, f)
 }
 func TestWatchOverlapDropConnContextCancel(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f := func(clus *integration.ClusterV3) {
@@ -775,6 +843,8 @@ func TestWatchOverlapDropConnContextCancel(t *testing.T) {
 	testWatchOverlapContextCancel(t, f)
 }
 func testWatchOverlapContextCancel(t *testing.T, f func(*integration.ClusterV3)) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -830,6 +900,8 @@ func testWatchOverlapContextCancel(t *testing.T, f func(*integration.ClusterV3))
 func TestWatchCancelAndCloseClient(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -858,6 +930,8 @@ func TestWatchCancelAndCloseClient(t *testing.T) {
 func TestWatchStressResumeClose(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -875,6 +949,8 @@ func TestWatchStressResumeClose(t *testing.T) {
 	clus.TakeClient(0)
 }
 func TestWatchCancelDisconnected(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

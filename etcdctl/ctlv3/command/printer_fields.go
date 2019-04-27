@@ -12,6 +12,8 @@ type fieldsPrinter struct{ printer }
 func (p *fieldsPrinter) kv(pfx string, kv *spb.KeyValue) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("\"%sKey\" : %q\n", pfx, string(kv.Key))
 	fmt.Printf("\"%sCreateRevision\" : %d\n", pfx, kv.CreateRevision)
 	fmt.Printf("\"%sModRevision\" : %d\n", pfx, kv.ModRevision)
@@ -22,12 +24,16 @@ func (p *fieldsPrinter) kv(pfx string, kv *spb.KeyValue) {
 func (p *fieldsPrinter) hdr(h *pb.ResponseHeader) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Println(`"ClusterID" :`, h.ClusterId)
 	fmt.Println(`"MemberID" :`, h.MemberId)
 	fmt.Println(`"Revision" :`, h.Revision)
 	fmt.Println(`"RaftTerm" :`, h.RaftTerm)
 }
 func (p *fieldsPrinter) Del(r v3.DeleteResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.hdr(r.Header)
@@ -37,6 +43,8 @@ func (p *fieldsPrinter) Del(r v3.DeleteResponse) {
 	}
 }
 func (p *fieldsPrinter) Get(r v3.GetResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.hdr(r.Header)
@@ -49,12 +57,16 @@ func (p *fieldsPrinter) Get(r v3.GetResponse) {
 func (p *fieldsPrinter) Put(r v3.PutResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 	if r.PrevKv != nil {
 		p.kv("Prev", r.PrevKv)
 	}
 }
 func (p *fieldsPrinter) Txn(r v3.TxnResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.hdr(r.Header)
@@ -75,6 +87,8 @@ func (p *fieldsPrinter) Txn(r v3.TxnResponse) {
 func (p *fieldsPrinter) Watch(resp v3.WatchResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(&resp.Header)
 	for _, e := range resp.Events {
 		fmt.Println(`"Type" :`, e.Type)
@@ -87,6 +101,8 @@ func (p *fieldsPrinter) Watch(resp v3.WatchResponse) {
 func (p *fieldsPrinter) Grant(r v3.LeaseGrantResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.ResponseHeader)
 	fmt.Println(`"ID" :`, r.ID)
 	fmt.Println(`"TTL" :`, r.TTL)
@@ -94,9 +110,13 @@ func (p *fieldsPrinter) Grant(r v3.LeaseGrantResponse) {
 func (p *fieldsPrinter) Revoke(id v3.LeaseID, r v3.LeaseRevokeResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 }
 func (p *fieldsPrinter) KeepAlive(r v3.LeaseKeepAliveResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.hdr(r.ResponseHeader)
@@ -104,6 +124,8 @@ func (p *fieldsPrinter) KeepAlive(r v3.LeaseKeepAliveResponse) {
 	fmt.Println(`"TTL" :`, r.TTL)
 }
 func (p *fieldsPrinter) TimeToLive(r v3.LeaseTimeToLiveResponse, keys bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.hdr(r.ResponseHeader)
@@ -117,12 +139,16 @@ func (p *fieldsPrinter) TimeToLive(r v3.LeaseTimeToLiveResponse, keys bool) {
 func (p *fieldsPrinter) Leases(r v3.LeaseLeasesResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.ResponseHeader)
 	for _, item := range r.Leases {
 		fmt.Println(`"ID" :`, item.ID)
 	}
 }
 func (p *fieldsPrinter) MemberList(r v3.MemberListResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.hdr(r.Header)
@@ -141,6 +167,8 @@ func (p *fieldsPrinter) MemberList(r v3.MemberListResponse) {
 func (p *fieldsPrinter) EndpointStatus(eps []epStatus) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, ep := range eps {
 		p.hdr(ep.Resp.Header)
 		fmt.Printf("\"Version\" : %q\n", ep.Resp.Version)
@@ -155,6 +183,8 @@ func (p *fieldsPrinter) EndpointStatus(eps []epStatus) {
 func (p *fieldsPrinter) EndpointHashKV(hs []epHashKV) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, h := range hs {
 		p.hdr(h.Resp.Header)
 		fmt.Printf("\"Endpoint\" : %q\n", h.Ep)
@@ -163,6 +193,8 @@ func (p *fieldsPrinter) EndpointHashKV(hs []epHashKV) {
 	}
 }
 func (p *fieldsPrinter) Alarm(r v3.AlarmResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.hdr(r.Header)
@@ -175,6 +207,8 @@ func (p *fieldsPrinter) Alarm(r v3.AlarmResponse) {
 func (p *fieldsPrinter) DBStatus(r dbstatus) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Println(`"Hash" :`, r.Hash)
 	fmt.Println(`"Revision" :`, r.Revision)
 	fmt.Println(`"Keys" :`, r.TotalKey)
@@ -183,9 +217,13 @@ func (p *fieldsPrinter) DBStatus(r dbstatus) {
 func (p *fieldsPrinter) RoleAdd(role string, r v3.AuthRoleAddResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 }
 func (p *fieldsPrinter) RoleGet(role string, r v3.AuthRoleGetResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.hdr(r.Header)
@@ -198,9 +236,13 @@ func (p *fieldsPrinter) RoleGet(role string, r v3.AuthRoleGetResponse) {
 func (p *fieldsPrinter) RoleDelete(role string, r v3.AuthRoleDeleteResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 }
 func (p *fieldsPrinter) RoleList(r v3.AuthRoleListResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.hdr(r.Header)
@@ -213,9 +255,13 @@ func (p *fieldsPrinter) RoleList(r v3.AuthRoleListResponse) {
 func (p *fieldsPrinter) RoleGrantPermission(role string, r v3.AuthRoleGrantPermissionResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 }
 func (p *fieldsPrinter) RoleRevokePermission(role string, key string, end string, r v3.AuthRoleRevokePermissionResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.hdr(r.Header)
@@ -223,9 +269,13 @@ func (p *fieldsPrinter) RoleRevokePermission(role string, key string, end string
 func (p *fieldsPrinter) UserAdd(user string, r v3.AuthUserAddResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 }
 func (p *fieldsPrinter) UserChangePassword(r v3.AuthUserChangePasswordResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.hdr(r.Header)
@@ -233,14 +283,20 @@ func (p *fieldsPrinter) UserChangePassword(r v3.AuthUserChangePasswordResponse) 
 func (p *fieldsPrinter) UserGrantRole(user string, role string, r v3.AuthUserGrantRoleResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 }
 func (p *fieldsPrinter) UserRevokeRole(user string, role string, r v3.AuthUserRevokeRoleResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 }
 func (p *fieldsPrinter) UserDelete(user string, r v3.AuthUserDeleteResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.hdr(r.Header)

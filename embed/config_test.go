@@ -13,6 +13,8 @@ import (
 func TestConfigFileOtherFields(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctls := securityConfig{CAFile: "cca", CertFile: "ccert", KeyFile: "ckey"}
 	ptls := securityConfig{CAFile: "pca", CertFile: "pcert", KeyFile: "pkey"}
 	yc := struct {
@@ -43,6 +45,8 @@ func TestConfigFileOtherFields(t *testing.T) {
 func TestUpdateDefaultClusterFromName(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := NewConfig()
 	defaultInitialCluster := cfg.InitialCluster
 	oldscheme := cfg.APUrls[0].Scheme
@@ -63,6 +67,8 @@ func TestUpdateDefaultClusterFromName(t *testing.T) {
 	}
 }
 func TestUpdateDefaultClusterFromNameOverwrite(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if defaultHostname == "" {
@@ -97,9 +103,13 @@ func TestUpdateDefaultClusterFromNameOverwrite(t *testing.T) {
 func (s *securityConfig) equals(t *transport.TLSInfo) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.CAFile == t.CAFile && s.CertFile == t.CertFile && s.CertAuth == t.ClientCertAuth && s.TrustedCAFile == t.TrustedCAFile
 }
 func mustCreateCfgFile(t *testing.T, b []byte) *os.File {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tmpfile, err := ioutil.TempFile("", "servercfg")
@@ -117,6 +127,8 @@ func mustCreateCfgFile(t *testing.T, b []byte) *os.File {
 func TestAutoCompactionModeInvalid(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := NewConfig()
 	cfg.AutoCompactionMode = "period"
 	err := cfg.Validate()
@@ -125,6 +137,8 @@ func TestAutoCompactionModeInvalid(t *testing.T) {
 	}
 }
 func TestAutoCompactionModeParse(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dur, err := parseCompactionRetention("revision", "1")

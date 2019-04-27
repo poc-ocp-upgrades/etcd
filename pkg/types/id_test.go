@@ -9,6 +9,8 @@ import (
 func TestIDString(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		input	ID
 		want	string
@@ -21,6 +23,8 @@ func TestIDString(t *testing.T) {
 	}
 }
 func TestIDFromString(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -41,6 +45,8 @@ func TestIDFromString(t *testing.T) {
 func TestIDFromStringFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []string{"", "XXX", "612840dae127353612840dae127353"}
 	for i, tt := range tests {
 		_, err := IDFromString(tt)
@@ -50,6 +56,8 @@ func TestIDFromStringFail(t *testing.T) {
 	}
 }
 func TestIDSlice(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	g := []ID{10, 500, 5, 1, 100, 25}

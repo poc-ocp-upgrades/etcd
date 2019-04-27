@@ -25,11 +25,15 @@ type RecorderBuffered struct {
 func (r *RecorderBuffered) Record(a Action) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.Lock()
 	r.actions = append(r.actions, a)
 	r.Unlock()
 }
 func (r *RecorderBuffered) Action() []Action {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r.Lock()
@@ -41,6 +45,8 @@ func (r *RecorderBuffered) Action() []Action {
 func (r *RecorderBuffered) Wait(n int) (acts []Action, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	WaitSchedule()
 	acts = r.Action()
 	if len(acts) < n {
@@ -49,6 +55,8 @@ func (r *RecorderBuffered) Wait(n int) (acts []Action, err error) {
 	return acts, err
 }
 func (r *RecorderBuffered) Chan() <-chan Action {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ch := make(chan Action)
@@ -67,14 +75,20 @@ type recorderStream struct{ ch chan Action }
 func NewRecorderStream() Recorder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &recorderStream{ch: make(chan Action)}
 }
 func (r *recorderStream) Record(a Action) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.ch <- a
 }
 func (r *recorderStream) Action() (acts []Action) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -89,9 +103,13 @@ func (r *recorderStream) Action() (acts []Action) {
 func (r *recorderStream) Chan() <-chan Action {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.ch
 }
 func (r *recorderStream) Wait(n int) ([]Action, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	acts := make([]Action, n)
@@ -112,6 +130,8 @@ func (r *recorderStream) Wait(n int) ([]Action, error) {
 	return acts, nil
 }
 func newLenErr(expected int, actual int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := fmt.Sprintf("len(actions) = %d, expected >= %d", actual, expected)

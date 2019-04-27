@@ -12,9 +12,13 @@ import (
 func TestCtlV3Alarm(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, alarmTest, withQuota(int64(13*os.Getpagesize())))
 }
 func alarmTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	smallbuf := strings.Repeat("a", 64)
@@ -65,6 +69,8 @@ func alarmTest(cx ctlCtx) {
 	}
 }
 func ctlV3Alarm(cx ctlCtx, cmd string, as ...string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "alarm", cmd)

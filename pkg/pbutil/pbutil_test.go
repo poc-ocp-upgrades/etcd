@@ -9,6 +9,8 @@ import (
 func TestMarshaler(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data := []byte("test data")
 	m := &fakeMarshaler{data: data}
 	if g := MustMarshal(m); !reflect.DeepEqual(g, data) {
@@ -16,6 +18,8 @@ func TestMarshaler(t *testing.T) {
 	}
 }
 func TestMarshalerPanic(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer func() {
@@ -29,6 +33,8 @@ func TestMarshalerPanic(t *testing.T) {
 func TestUnmarshaler(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data := []byte("test data")
 	m := &fakeUnmarshaler{}
 	MustUnmarshal(m, data)
@@ -37,6 +43,8 @@ func TestUnmarshaler(t *testing.T) {
 	}
 }
 func TestUnmarshalerPanic(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer func() {
@@ -48,6 +56,8 @@ func TestUnmarshalerPanic(t *testing.T) {
 	MustUnmarshal(m, nil)
 }
 func TestGetBool(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -74,6 +84,8 @@ type fakeMarshaler struct {
 func (m *fakeMarshaler) Marshal() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.data, m.err
 }
 
@@ -83,6 +95,8 @@ type fakeUnmarshaler struct {
 }
 
 func (m *fakeUnmarshaler) Unmarshal(data []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.data = data

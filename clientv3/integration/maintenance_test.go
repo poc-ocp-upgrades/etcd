@@ -20,6 +20,8 @@ import (
 func TestMaintenanceHashKV(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -50,6 +52,8 @@ func TestMaintenanceHashKV(t *testing.T) {
 func TestMaintenanceMoveLeader(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -73,6 +77,8 @@ func TestMaintenanceMoveLeader(t *testing.T) {
 	}
 }
 func TestMaintenanceSnapshotError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -103,6 +109,8 @@ func TestMaintenanceSnapshotError(t *testing.T) {
 	}
 }
 func TestMaintenanceSnapshotErrorInflight(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

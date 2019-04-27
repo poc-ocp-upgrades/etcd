@@ -11,6 +11,8 @@ import (
 func TestNewTransportTLSInvalidCipherSuites(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tlsInfo, del, err := createSelfCert()
 	if err != nil {
 		t.Fatalf("unable to create cert: %v", err)

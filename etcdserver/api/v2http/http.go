@@ -24,6 +24,8 @@ var (
 func writeError(w http.ResponseWriter, r *http.Request, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err == nil {
 		return
 	}
@@ -39,6 +41,8 @@ func writeError(w http.ResponseWriter, r *http.Request, err error) {
 func allowMethod(w http.ResponseWriter, m string, ms ...string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, meth := range ms {
 		if m == meth {
 			return true
@@ -49,6 +53,8 @@ func allowMethod(w http.ResponseWriter, m string, ms ...string) bool {
 	return false
 }
 func requestLogger(handler http.Handler) http.Handler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

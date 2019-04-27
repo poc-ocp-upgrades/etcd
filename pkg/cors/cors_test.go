@@ -10,6 +10,8 @@ import (
 func TestCORSInfo(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		s	string
 		winfo	CORSInfo
@@ -31,6 +33,8 @@ func TestCORSInfo(t *testing.T) {
 func TestCORSInfoOriginAllowed(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		set		string
 		origin		string
@@ -47,6 +51,8 @@ func TestCORSInfoOriginAllowed(t *testing.T) {
 	}
 }
 func TestCORSHandler(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	info := &CORSInfo{}

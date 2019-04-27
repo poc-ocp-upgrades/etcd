@@ -18,6 +18,8 @@ var (
 func NewPutCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "put [options] <key> <value> (<value> can also be given from stdin)", Short: "Puts the given key into the store", Long: `
 Puts the given key into the store.
 
@@ -46,6 +48,8 @@ will store the content of the file to <key>.
 func putCommandFunc(cmd *cobra.Command, args []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key, value, opts := getPutOp(cmd, args)
 	ctx, cancel := commandCtx(cmd)
 	resp, err := mustClientFromCmd(cmd).Put(ctx, key, value, opts...)
@@ -56,6 +60,8 @@ func putCommandFunc(cmd *cobra.Command, args []string) {
 	display.Put(*resp)
 }
 func getPutOp(cmd *cobra.Command, args []string) (string, string, []clientv3.OpOption) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) == 0 {

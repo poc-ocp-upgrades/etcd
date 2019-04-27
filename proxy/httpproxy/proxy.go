@@ -17,6 +17,8 @@ type GetProxyURLs func() []string
 func NewHandler(t *http.Transport, urlsFunc GetProxyURLs, failureWait time.Duration, refreshInterval time.Duration) http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if t.TLSClientConfig != nil {
 		err := http2.ConfigureTransport(t)
 		if err != nil {
@@ -32,10 +34,14 @@ func NewHandler(t *http.Transport, urlsFunc GetProxyURLs, failureWait time.Durat
 func NewReadonlyHandler(hdlr http.Handler) http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	readonly := readonlyHandlerFunc(hdlr)
 	return http.HandlerFunc(readonly)
 }
 func readonlyHandlerFunc(next http.Handler) func(http.ResponseWriter, *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(w http.ResponseWriter, req *http.Request) {
@@ -47,6 +53,8 @@ func readonlyHandlerFunc(next http.Handler) func(http.ResponseWriter, *http.Requ
 	}
 }
 func (p *reverseProxy) configHandler(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET") {
@@ -63,6 +71,8 @@ func (p *reverseProxy) configHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(proxyConfig)
 }
 func allowMethod(w http.ResponseWriter, m string, ms ...string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, meth := range ms {

@@ -9,6 +9,8 @@ import (
 func TestIntervalTreeIntersects(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ivt := &IntervalTree{}
 	ivt.Insert(NewStringInterval("1", "3"), 123)
 	if ivt.Intersects(NewStringPoint("0")) {
@@ -30,6 +32,8 @@ func TestIntervalTreeIntersects(t *testing.T) {
 func TestIntervalTreeStringAffine(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ivt := &IntervalTree{}
 	ivt.Insert(NewStringAffineInterval("8", ""), 123)
 	if !ivt.Intersects(NewStringAffinePoint("9")) {
@@ -40,6 +44,8 @@ func TestIntervalTreeStringAffine(t *testing.T) {
 	}
 }
 func TestIntervalTreeStab(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ivt := &IntervalTree{}
@@ -80,6 +86,8 @@ type xy struct {
 }
 
 func TestIntervalTreeRandom(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ivs := make(map[xy]struct{})
@@ -124,6 +132,8 @@ func TestIntervalTreeRandom(t *testing.T) {
 func TestIntervalTreeSortedVisit(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		ivls		[]Interval
 		visitRange	Interval
@@ -150,6 +160,8 @@ func TestIntervalTreeSortedVisit(t *testing.T) {
 	}
 }
 func TestIntervalTreeVisitExit(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ivls := []Interval{NewInt64Interval(1, 10), NewInt64Interval(2, 5), NewInt64Interval(3, 6), NewInt64Interval(4, 8)}
@@ -182,6 +194,8 @@ func TestIntervalTreeVisitExit(t *testing.T) {
 	}
 }
 func TestIntervalTreeContains(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {

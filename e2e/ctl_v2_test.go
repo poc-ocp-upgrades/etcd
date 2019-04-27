@@ -13,9 +13,13 @@ import (
 func TestCtlV2Set(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2Set(t, &configNoTLS, false)
 }
 func TestCtlV2SetQuorum(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtlV2Set(t, &configNoTLS, true)
@@ -23,9 +27,13 @@ func TestCtlV2SetQuorum(t *testing.T) {
 func TestCtlV2SetClientTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2Set(t, &configClientTLS, false)
 }
 func TestCtlV2SetPeerTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtlV2Set(t, &configPeerTLS, false)
@@ -33,9 +41,13 @@ func TestCtlV2SetPeerTLS(t *testing.T) {
 func TestCtlV2SetTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2Set(t, &configTLS, false)
 }
 func testCtlV2Set(t *testing.T, cfg *etcdProcessClusterConfig, quorum bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -56,9 +68,13 @@ func testCtlV2Set(t *testing.T, cfg *etcdProcessClusterConfig, quorum bool) {
 func TestCtlV2Mk(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2Mk(t, &configNoTLS, false)
 }
 func TestCtlV2MkQuorum(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtlV2Mk(t, &configNoTLS, true)
@@ -66,9 +82,13 @@ func TestCtlV2MkQuorum(t *testing.T) {
 func TestCtlV2MkTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2Mk(t, &configTLS, false)
 }
 func testCtlV2Mk(t *testing.T, cfg *etcdProcessClusterConfig, quorum bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -92,14 +112,20 @@ func testCtlV2Mk(t *testing.T, cfg *etcdProcessClusterConfig, quorum bool) {
 func TestCtlV2Rm(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2Rm(t, &configNoTLS)
 }
 func TestCtlV2RmTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2Rm(t, &configTLS)
 }
 func testCtlV2Rm(t *testing.T, cfg *etcdProcessClusterConfig) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -123,9 +149,13 @@ func testCtlV2Rm(t *testing.T, cfg *etcdProcessClusterConfig) {
 func TestCtlV2Ls(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2Ls(t, &configNoTLS, false)
 }
 func TestCtlV2LsQuorum(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtlV2Ls(t, &configNoTLS, true)
@@ -133,9 +163,13 @@ func TestCtlV2LsQuorum(t *testing.T) {
 func TestCtlV2LsTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2Ls(t, &configTLS, false)
 }
 func testCtlV2Ls(t *testing.T, cfg *etcdProcessClusterConfig, quorum bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -156,14 +190,20 @@ func testCtlV2Ls(t *testing.T, cfg *etcdProcessClusterConfig, quorum bool) {
 func TestCtlV2Watch(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2Watch(t, &configNoTLS, false)
 }
 func TestCtlV2WatchTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2Watch(t, &configTLS, false)
 }
 func testCtlV2Watch(t *testing.T, cfg *etcdProcessClusterConfig, noSync bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -188,6 +228,8 @@ func testCtlV2Watch(t *testing.T, cfg *etcdProcessClusterConfig, noSync bool) {
 	}
 }
 func TestCtlV2GetRoleUser(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -218,14 +260,20 @@ func TestCtlV2GetRoleUser(t *testing.T) {
 func TestCtlV2UserListUsername(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2UserList(t, "username")
 }
 func TestCtlV2UserListRoot(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2UserList(t, "root")
 }
 func testCtlV2UserList(t *testing.T, username string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -245,6 +293,8 @@ func testCtlV2UserList(t *testing.T, username string) {
 func TestCtlV2RoleList(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	epc := setupEtcdctlTest(t, &configNoTLS, false)
 	defer func() {
@@ -262,9 +312,13 @@ func TestCtlV2RoleList(t *testing.T) {
 func TestCtlV2Backup(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2Backup(t, 0, false)
 }
 func TestCtlV2BackupSnapshot(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtlV2Backup(t, 1, false)
@@ -272,14 +326,20 @@ func TestCtlV2BackupSnapshot(t *testing.T) {
 func TestCtlV2BackupV3(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2Backup(t, 0, true)
 }
 func TestCtlV2BackupV3Snapshot(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV2Backup(t, 1, true)
 }
 func testCtlV2Backup(t *testing.T, snapCount int, v3 bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -339,6 +399,8 @@ func testCtlV2Backup(t *testing.T, snapCount int, v3 bool) {
 func TestCtlV2AuthWithCommonName(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	copiedCfg := configClientTLS
 	copiedCfg.clientCertAuthEnabled = true
@@ -373,6 +435,8 @@ func TestCtlV2AuthWithCommonName(t *testing.T) {
 func TestCtlV2ClusterHealth(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	epc := setupEtcdctlTest(t, &configNoTLS, true)
 	defer func() {
@@ -402,6 +466,8 @@ func TestCtlV2ClusterHealth(t *testing.T) {
 func etcdctlPrefixArgs(clus *etcdProcessCluster) []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	endpoints := strings.Join(clus.EndpointsV2(), ",")
 	cmdArgs := []string{ctlBinPath, "--endpoints", endpoints}
 	if clus.cfg.clientTLS == clientTLS {
@@ -412,16 +478,22 @@ func etcdctlPrefixArgs(clus *etcdProcessCluster) []string {
 func etcdctlClusterHealth(clus *etcdProcessCluster, val string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "cluster-health")
 	return spawnWithExpect(cmdArgs, val)
 }
 func etcdctlSet(clus *etcdProcessCluster, key, value string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "set", key, value)
 	return spawnWithExpect(cmdArgs, value)
 }
 func etcdctlMk(clus *etcdProcessCluster, key, value string, first bool) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "mk", key, value)
@@ -433,6 +505,8 @@ func etcdctlMk(clus *etcdProcessCluster, key, value string, first bool) error {
 func etcdctlGet(clus *etcdProcessCluster, key, value string, quorum bool) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "get", key)
 	if quorum {
 		cmdArgs = append(cmdArgs, "--quorum")
@@ -440,6 +514,8 @@ func etcdctlGet(clus *etcdProcessCluster, key, value string, quorum bool) error 
 	return spawnWithExpect(cmdArgs, value)
 }
 func etcdctlRm(clus *etcdProcessCluster, key, value string, first bool) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "rm", key)
@@ -451,6 +527,8 @@ func etcdctlRm(clus *etcdProcessCluster, key, value string, first bool) error {
 func etcdctlLs(clus *etcdProcessCluster, key string, quorum bool) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "ls")
 	if quorum {
 		cmdArgs = append(cmdArgs, "--quorum")
@@ -458,6 +536,8 @@ func etcdctlLs(clus *etcdProcessCluster, key string, quorum bool) error {
 	return spawnWithExpect(cmdArgs, key)
 }
 func etcdctlWatch(clus *etcdProcessCluster, key, value string, noSync bool) <-chan error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "watch", "--after-index=1", key)
@@ -473,10 +553,14 @@ func etcdctlWatch(clus *etcdProcessCluster, key, value string, noSync bool) <-ch
 func etcdctlRoleAdd(clus *etcdProcessCluster, role string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "role", "add", role)
 	return spawnWithExpect(cmdArgs, role)
 }
 func etcdctlRoleGrant(clus *etcdProcessCluster, role string, perms ...string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "role", "grant")
@@ -487,10 +571,14 @@ func etcdctlRoleGrant(clus *etcdProcessCluster, role string, perms ...string) er
 func etcdctlRoleList(clus *etcdProcessCluster, expectedRole string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "role", "list")
 	return spawnWithExpect(cmdArgs, expectedRole)
 }
 func etcdctlUserAdd(clus *etcdProcessCluster, user, pass string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "user", "add", user+":"+pass)
@@ -499,10 +587,14 @@ func etcdctlUserAdd(clus *etcdProcessCluster, user, pass string) error {
 func etcdctlUserGrant(clus *etcdProcessCluster, user, role string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "user", "grant", "--roles", role, user)
 	return spawnWithExpect(cmdArgs, "User "+user+" updated")
 }
 func etcdctlUserGet(clus *etcdProcessCluster, user string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "user", "get", user)
@@ -511,16 +603,22 @@ func etcdctlUserGet(clus *etcdProcessCluster, user string) error {
 func etcdctlUserList(clus *etcdProcessCluster, expectedUser string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "user", "list")
 	return spawnWithExpect(cmdArgs, expectedUser)
 }
 func etcdctlAuthEnable(clus *etcdProcessCluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "auth", "enable")
 	return spawnWithExpect(cmdArgs, "Authentication Enabled")
 }
 func etcdctlBackup(clus *etcdProcessCluster, dataDir, backupDir string, v3 bool) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(etcdctlPrefixArgs(clus), "backup", "--data-dir", dataDir, "--backup-dir", backupDir)
@@ -536,11 +634,15 @@ func etcdctlBackup(clus *etcdProcessCluster, dataDir, backupDir string, v3 bool)
 func mustEtcdctl(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !fileutil.Exist(binDir + "/etcdctl") {
 		t.Fatalf("could not find etcdctl binary")
 	}
 }
 func setupEtcdctlTest(t *testing.T, cfg *etcdProcessClusterConfig, quorum bool) *etcdProcessCluster {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mustEtcdctl(t)

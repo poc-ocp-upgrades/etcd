@@ -31,9 +31,13 @@ type msgAppV2Encoder struct {
 func newMsgAppV2Encoder(w io.Writer, fs *stats.FollowerStats) *msgAppV2Encoder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &msgAppV2Encoder{w: w, fs: fs, buf: make([]byte, msgAppV2BufSize), uint64buf: make([]byte, 8), uint8buf: make([]byte, 1)}
 }
 func (enc *msgAppV2Encoder) encode(m *raftpb.Message) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	start := time.Now()
@@ -109,9 +113,13 @@ type msgAppV2Decoder struct {
 func newMsgAppV2Decoder(r io.Reader, local, remote types.ID) *msgAppV2Decoder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &msgAppV2Decoder{r: r, local: local, remote: remote, buf: make([]byte, msgAppV2BufSize), uint64buf: make([]byte, 8), uint8buf: make([]byte, 1)}
 }
 func (dec *msgAppV2Decoder) decode() (raftpb.Message, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var (

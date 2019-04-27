@@ -21,6 +21,8 @@ const (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if prometheus.Register(readCounter) != nil {
 		return
 	}
@@ -32,9 +34,13 @@ func init() {
 func reportReadSuccess(read_action string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	readCounter.WithLabelValues(read_action).Inc()
 }
 func reportReadFailure(read_action string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	readCounter.WithLabelValues(read_action).Inc()
@@ -43,9 +49,13 @@ func reportReadFailure(read_action string) {
 func reportWriteSuccess(write_action string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	writeCounter.WithLabelValues(write_action).Inc()
 }
 func reportWriteFailure(write_action string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	writeCounter.WithLabelValues(write_action).Inc()
@@ -54,9 +64,13 @@ func reportWriteFailure(write_action string) {
 func reportExpiredKey() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	expireCounter.Inc()
 }
 func reportWatchRequest() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	watchRequests.Inc()
@@ -64,9 +78,13 @@ func reportWatchRequest() {
 func reportWatcherAdded() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	watcherCount.Inc()
 }
 func reportWatcherRemoved() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	watcherCount.Dec()

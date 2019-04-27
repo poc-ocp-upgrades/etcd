@@ -9,6 +9,8 @@ import (
 func TestNetworkDrop(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sent := 1000
 	droprate := 0.1
 	nt := newRaftNetwork(1, 2)
@@ -33,6 +35,8 @@ func TestNetworkDrop(t *testing.T) {
 	}
 }
 func TestNetworkDelay(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sent := 1000

@@ -15,9 +15,13 @@ import (
 func isConnectedToQuorumSince(transport rafthttp.Transporter, since time.Time, self types.ID, members []*membership.Member) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return numConnectedSince(transport, since, self, members) >= (len(members)/2)+1
 }
 func isConnectedSince(transport rafthttp.Transporter, since time.Time, remote types.ID) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t := transport.ActiveSince(remote)
@@ -26,9 +30,13 @@ func isConnectedSince(transport rafthttp.Transporter, since time.Time, remote ty
 func isConnectedFullySince(transport rafthttp.Transporter, since time.Time, self types.ID, members []*membership.Member) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return numConnectedSince(transport, since, self, members) == len(members)
 }
 func numConnectedSince(transport rafthttp.Transporter, since time.Time, self types.ID, members []*membership.Member) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	connectedNum := 0
@@ -40,6 +48,8 @@ func numConnectedSince(transport rafthttp.Transporter, since time.Time, self typ
 	return connectedNum
 }
 func longestConnected(tp rafthttp.Transporter, membs []types.ID) (types.ID, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var longest types.ID
@@ -72,15 +82,21 @@ type notifier struct {
 func newNotifier() *notifier {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &notifier{c: make(chan struct{})}
 }
 func (nc *notifier) notify(err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nc.err = err
 	close(nc.c)
 }
 func warnOfExpensiveRequest(now time.Time, reqStringer fmt.Stringer, respMsg proto.Message, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var resp string
@@ -90,6 +106,8 @@ func warnOfExpensiveRequest(now time.Time, reqStringer fmt.Stringer, respMsg pro
 	warnOfExpensiveGenericRequest(now, reqStringer, "", resp, err)
 }
 func warnOfExpensiveReadOnlyTxnRequest(now time.Time, r *pb.TxnRequest, txnResponse *pb.TxnResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqStringer := pb.NewLoggableTxnRequest(r)
@@ -110,6 +128,8 @@ func warnOfExpensiveReadOnlyTxnRequest(now time.Time, r *pb.TxnRequest, txnRespo
 func warnOfExpensiveReadOnlyRangeRequest(now time.Time, reqStringer fmt.Stringer, rangeResponse *pb.RangeResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var resp string
 	if !isNil(rangeResponse) {
 		resp = fmt.Sprintf("range_response_count:%d size:%d", len(rangeResponse.Kvs), proto.Size(rangeResponse))
@@ -117,6 +137,8 @@ func warnOfExpensiveReadOnlyRangeRequest(now time.Time, reqStringer fmt.Stringer
 	warnOfExpensiveGenericRequest(now, reqStringer, "read-only range ", resp, err)
 }
 func warnOfExpensiveGenericRequest(now time.Time, reqStringer fmt.Stringer, prefix string, resp string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	d := time.Since(now)
@@ -132,6 +154,8 @@ func warnOfExpensiveGenericRequest(now time.Time, reqStringer fmt.Stringer, pref
 	}
 }
 func isNil(msg proto.Message) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return msg == nil || reflect.ValueOf(msg).IsNil()

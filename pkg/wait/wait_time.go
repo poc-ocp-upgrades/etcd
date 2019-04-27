@@ -12,6 +12,8 @@ var closec chan struct{}
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	closec = make(chan struct{})
 	close(closec)
 }
@@ -25,9 +27,13 @@ type timeList struct {
 func NewTimeList() *timeList {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &timeList{m: make(map[uint64]chan struct{})}
 }
 func (tl *timeList) Wait(deadline uint64) <-chan struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tl.l.Lock()
@@ -43,6 +49,8 @@ func (tl *timeList) Wait(deadline uint64) <-chan struct{} {
 	return ch
 }
 func (tl *timeList) Trigger(deadline uint64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tl.l.Lock()

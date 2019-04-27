@@ -12,6 +12,8 @@ type ttlKeyHeap struct {
 func newTtlKeyHeap() *ttlKeyHeap {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	h := &ttlKeyHeap{keyMap: make(map[*node]int)}
 	heap.Init(h)
 	return h
@@ -19,14 +21,20 @@ func newTtlKeyHeap() *ttlKeyHeap {
 func (h ttlKeyHeap) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(h.array)
 }
 func (h ttlKeyHeap) Less(i, j int) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return h.array[i].ExpireTime.Before(h.array[j].ExpireTime)
 }
 func (h ttlKeyHeap) Swap(i, j int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h.array[i], h.array[j] = h.array[j], h.array[i]
@@ -36,11 +44,15 @@ func (h ttlKeyHeap) Swap(i, j int) {
 func (h *ttlKeyHeap) Push(x interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n, _ := x.(*node)
 	h.keyMap[n] = len(h.array)
 	h.array = append(h.array, n)
 }
 func (h *ttlKeyHeap) Pop() interface{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	old := h.array
@@ -54,12 +66,16 @@ func (h *ttlKeyHeap) Pop() interface{} {
 func (h *ttlKeyHeap) top() *node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if h.Len() != 0 {
 		return h.array[0]
 	}
 	return nil
 }
 func (h *ttlKeyHeap) pop() *node {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	x := heap.Pop(h)
@@ -69,9 +85,13 @@ func (h *ttlKeyHeap) pop() *node {
 func (h *ttlKeyHeap) push(x interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	heap.Push(h, x)
 }
 func (h *ttlKeyHeap) update(n *node) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	index, ok := h.keyMap[n]
@@ -81,6 +101,8 @@ func (h *ttlKeyHeap) update(n *node) {
 	}
 }
 func (h *ttlKeyHeap) remove(n *node) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	index, ok := h.keyMap[n]

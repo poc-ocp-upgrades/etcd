@@ -11,9 +11,13 @@ import (
 func TestV2CurlNoTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCurlPutGet(t, &configNoTLS)
 }
 func TestV2CurlAutoTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCurlPutGet(t, &configAutoTLS)
@@ -21,9 +25,13 @@ func TestV2CurlAutoTLS(t *testing.T) {
 func TestV2CurlAllTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCurlPutGet(t, &configTLS)
 }
 func TestV2CurlPeerTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCurlPutGet(t, &configPeerTLS)
@@ -31,14 +39,20 @@ func TestV2CurlPeerTLS(t *testing.T) {
 func TestV2CurlClientTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCurlPutGet(t, &configClientTLS)
 }
 func TestV2CurlClientBoth(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCurlPutGet(t, &configClientBoth)
 }
 func testCurlPutGet(t *testing.T, cfg *etcdProcessClusterConfig) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -69,6 +83,8 @@ func testCurlPutGet(t *testing.T, cfg *etcdProcessClusterConfig) {
 	}
 }
 func TestV2CurlIssue5182(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -131,6 +147,8 @@ type cURLReq struct {
 func cURLPrefixArgs(clus *etcdProcessCluster, method string, req cURLReq) []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var (
 		cmdArgs	= []string{"curl"}
 		acurl	= clus.procs[rand.Intn(clus.cfg.clusterSize)].Config().acurl
@@ -177,14 +195,20 @@ func cURLPrefixArgs(clus *etcdProcessCluster, method string, req cURLReq) []stri
 func cURLPost(clus *etcdProcessCluster, req cURLReq) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return spawnWithExpect(cURLPrefixArgs(clus, "POST", req), req.expected)
 }
 func cURLPut(clus *etcdProcessCluster, req cURLReq) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return spawnWithExpect(cURLPrefixArgs(clus, "PUT", req), req.expected)
 }
 func cURLGet(clus *etcdProcessCluster, req cURLReq) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return spawnWithExpect(cURLPrefixArgs(clus, "GET", req), req.expected)

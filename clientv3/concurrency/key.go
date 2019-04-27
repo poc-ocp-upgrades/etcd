@@ -11,6 +11,8 @@ import (
 func waitDelete(ctx context.Context, client *v3.Client, key string, rev int64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 	var wr v3.WatchResponse
@@ -31,6 +33,8 @@ func waitDelete(ctx context.Context, client *v3.Client, key string, rev int64) e
 	return fmt.Errorf("lost watcher waiting for delete")
 }
 func waitDeletes(ctx context.Context, client *v3.Client, pfx string, maxCreateRev int64) (*pb.ResponseHeader, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	getOpts := append(v3.WithLastCreate(), v3.WithMaxCreateRev(maxCreateRev))

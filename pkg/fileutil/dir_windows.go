@@ -8,6 +8,8 @@ import (
 func OpenDir(path string) (*os.File, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fd, err := openDir(path)
 	if err != nil {
 		return nil, err
@@ -15,6 +17,8 @@ func OpenDir(path string) (*os.File, error) {
 	return os.NewFile(uintptr(fd), path), nil
 }
 func openDir(path string) (fd syscall.Handle, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(path) == 0 {

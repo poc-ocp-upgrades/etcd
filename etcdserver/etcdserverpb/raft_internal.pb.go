@@ -21,9 +21,13 @@ type RequestHeader struct {
 func (m *RequestHeader) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = RequestHeader{}
 }
 func (m *RequestHeader) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -31,8 +35,12 @@ func (m *RequestHeader) String() string {
 func (*RequestHeader) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*RequestHeader) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRaftInternal, []int{0}
@@ -71,9 +79,13 @@ type InternalRaftRequest struct {
 func (m *InternalRaftRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = InternalRaftRequest{}
 }
 func (m *InternalRaftRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -81,8 +93,12 @@ func (m *InternalRaftRequest) String() string {
 func (*InternalRaftRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*InternalRaftRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRaftInternal, []int{1}
@@ -93,9 +109,13 @@ type EmptyResponse struct{}
 func (m *EmptyResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = EmptyResponse{}
 }
 func (m *EmptyResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -103,8 +123,12 @@ func (m *EmptyResponse) String() string {
 func (*EmptyResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*EmptyResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRaftInternal, []int{2}
@@ -119,9 +143,13 @@ type InternalAuthenticateRequest struct {
 func (m *InternalAuthenticateRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = InternalAuthenticateRequest{}
 }
 func (m *InternalAuthenticateRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -129,13 +157,19 @@ func (m *InternalAuthenticateRequest) String() string {
 func (*InternalAuthenticateRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*InternalAuthenticateRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRaftInternal, []int{3}
 }
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	proto.RegisterType((*RequestHeader)(nil), "etcdserverpb.RequestHeader")
@@ -144,6 +178,8 @@ func init() {
 	proto.RegisterType((*InternalAuthenticateRequest)(nil), "etcdserverpb.InternalAuthenticateRequest")
 }
 func (m *RequestHeader) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -155,6 +191,8 @@ func (m *RequestHeader) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *RequestHeader) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -182,6 +220,8 @@ func (m *RequestHeader) MarshalTo(dAtA []byte) (int, error) {
 func (m *InternalRaftRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -191,6 +231,8 @@ func (m *InternalRaftRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *InternalRaftRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -501,6 +543,8 @@ func (m *InternalRaftRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *EmptyResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -512,6 +556,8 @@ func (m *EmptyResponse) Marshal() (dAtA []byte, err error) {
 func (m *EmptyResponse) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var i int
 	_ = i
 	var l int
@@ -519,6 +565,8 @@ func (m *EmptyResponse) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *InternalAuthenticateRequest) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -530,6 +578,8 @@ func (m *InternalAuthenticateRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *InternalAuthenticateRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -559,6 +609,8 @@ func (m *InternalAuthenticateRequest) MarshalTo(dAtA []byte) (int, error) {
 func encodeVarintRaftInternal(dAtA []byte, offset int, v uint64) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
 		v >>= 7
@@ -568,6 +620,8 @@ func encodeVarintRaftInternal(dAtA []byte, offset int, v uint64) int {
 	return offset + 1
 }
 func (m *RequestHeader) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -585,6 +639,8 @@ func (m *RequestHeader) Size() (n int) {
 	return n
 }
 func (m *InternalRaftRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -701,11 +757,15 @@ func (m *InternalRaftRequest) Size() (n int) {
 func (m *EmptyResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	return n
 }
 func (m *InternalAuthenticateRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -727,6 +787,8 @@ func (m *InternalAuthenticateRequest) Size() (n int) {
 func sovRaftInternal(x uint64) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		n++
 		x >>= 7
@@ -739,9 +801,13 @@ func sovRaftInternal(x uint64) (n int) {
 func sozRaftInternal(x uint64) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sovRaftInternal(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
 func (m *RequestHeader) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -860,6 +926,8 @@ func (m *RequestHeader) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *InternalRaftRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -1790,6 +1858,8 @@ func (m *InternalRaftRequest) Unmarshal(dAtA []byte) error {
 func (m *EmptyResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1839,6 +1909,8 @@ func (m *EmptyResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *InternalAuthenticateRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -1979,6 +2051,8 @@ func (m *InternalAuthenticateRequest) Unmarshal(dAtA []byte) error {
 func skipRaftInternal(dAtA []byte) (n int, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2084,6 +2158,8 @@ var (
 )
 
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	proto.RegisterFile("raft_internal.proto", fileDescriptorRaftInternal)

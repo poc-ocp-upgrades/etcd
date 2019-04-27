@@ -8,6 +8,8 @@ import (
 func Example() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ivt := &adt.IntervalTree{}
 	ivt.Insert(adt.NewInt64Interval(1, 3), 123)
 	ivt.Insert(adt.NewInt64Interval(9, 13), 456)

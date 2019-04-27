@@ -15,6 +15,8 @@ import (
 func TestV2KeysURLHelper(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		endpoint	url.URL
 		prefix		string
@@ -29,6 +31,8 @@ func TestV2KeysURLHelper(t *testing.T) {
 	}
 }
 func TestGetAction(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ep := url.URL{Scheme: "http", Host: "example.com", Path: "/v2/keys"}
@@ -54,6 +58,8 @@ func TestGetAction(t *testing.T) {
 func TestWaitAction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ep := url.URL{Scheme: "http", Host: "example.com", Path: "/v2/keys"}
 	baseWantURL := &url.URL{Scheme: "http", Host: "example.com", Path: "/v2/keys/foo/bar"}
 	wantHeader := http.Header{}
@@ -76,6 +82,8 @@ func TestWaitAction(t *testing.T) {
 func TestSetAction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wantHeader := http.Header(map[string][]string{"Content-Type": {"application/x-www-form-urlencoded"}})
 	tests := []struct {
 		act		setAction
@@ -94,6 +102,8 @@ func TestSetAction(t *testing.T) {
 	}
 }
 func TestCreateInOrderAction(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wantHeader := http.Header(map[string][]string{"Content-Type": {"application/x-www-form-urlencoded"}})
@@ -116,6 +126,8 @@ func TestCreateInOrderAction(t *testing.T) {
 func TestDeleteAction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wantHeader := http.Header(map[string][]string{"Content-Type": {"application/x-www-form-urlencoded"}})
 	tests := []struct {
 		act	deleteAction
@@ -133,6 +145,8 @@ func TestDeleteAction(t *testing.T) {
 	}
 }
 func assertRequest(got http.Request, wantMethod string, wantURL *url.URL, wantHeader http.Header, wantBody []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if wantMethod != got.Method {
@@ -163,6 +177,8 @@ func assertRequest(got http.Request, wantMethod string, wantURL *url.URL, wantHe
 	return nil
 }
 func TestUnmarshalSuccessfulResponse(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var expiration time.Time
@@ -201,6 +217,8 @@ func TestUnmarshalSuccessfulResponse(t *testing.T) {
 func TestUnmarshalFailedKeysResponse(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	body := []byte(`{"errorCode":100,"message":"Key not found","cause":"/foo","index":18}`)
 	wantErr := Error{Code: 100, Message: "Key not found", Cause: "/foo", Index: uint64(18)}
 	gotErr := unmarshalFailedKeysResponse(body)
@@ -211,6 +229,8 @@ func TestUnmarshalFailedKeysResponse(t *testing.T) {
 func TestUnmarshalFailedKeysResponseBadJSON(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := unmarshalFailedKeysResponse([]byte(`{"er`))
 	if err == nil {
 		t.Errorf("got nil error")
@@ -219,6 +239,8 @@ func TestUnmarshalFailedKeysResponseBadJSON(t *testing.T) {
 	}
 }
 func TestHTTPWatcherNextWaitAction(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	initAction := waitAction{Prefix: "/pants", Key: "/foo/bar", Recursive: true, WaitIndex: 19}
@@ -240,6 +262,8 @@ func TestHTTPWatcherNextWaitAction(t *testing.T) {
 func TestHTTPWatcherNextFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []httpClient{&staticHTTPClient{err: errors.New("fail!")}, &staticHTTPClient{resp: http.Response{StatusCode: http.StatusTeapot}}, &staticHTTPClient{resp: http.Response{StatusCode: http.StatusNotFound}, body: []byte(`{"errorCode":100,"message":"Key not found","cause":"/foo","index":18}`)}}
 	for i, tt := range tests {
 		act := waitAction{Prefix: "/pants", Key: "/foo/bar", Recursive: true, WaitIndex: 19}
@@ -259,6 +283,8 @@ func TestHTTPWatcherNextFail(t *testing.T) {
 func TestHTTPKeysAPIWatcherAction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		key	string
 		opts	*WatcherOptions
@@ -276,6 +302,8 @@ func TestHTTPKeysAPIWatcherAction(t *testing.T) {
 func TestHTTPKeysAPISetAction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		key		string
 		value		string
@@ -289,6 +317,8 @@ func TestHTTPKeysAPISetAction(t *testing.T) {
 	}
 }
 func TestHTTPKeysAPISetError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []httpClient{&staticHTTPClient{err: errors.New("fail!")}, &staticHTTPClient{resp: http.Response{StatusCode: http.StatusTeapot}}, &staticHTTPClient{resp: http.Response{StatusCode: http.StatusInternalServerError}, body: []byte(`{"errorCode":300,"message":"Raft internal error","cause":"/foo","index":18}`)}}
@@ -306,6 +336,8 @@ func TestHTTPKeysAPISetError(t *testing.T) {
 func TestHTTPKeysAPISetResponse(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client := &staticHTTPClient{resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"X-Etcd-Index": []string{"21"}}}, body: []byte(`{"action":"set","node":{"key":"/pants/foo/bar/baz","value":"snarf","modifiedIndex":21,"createdIndex":21},"prevNode":{"key":"/pants/foo/bar/baz","value":"snazz","modifiedIndex":20,"createdIndex":19}}`)}
 	wantResponse := &Response{Action: "set", Node: &Node{Key: "/pants/foo/bar/baz", Value: "snarf", CreatedIndex: uint64(21), ModifiedIndex: uint64(21)}, PrevNode: &Node{Key: "/pants/foo/bar/baz", Value: "snazz", CreatedIndex: uint64(19), ModifiedIndex: uint64(20)}, Index: uint64(21)}
 	kAPI := &httpKeysAPI{client: client, prefix: "/pants"}
@@ -320,6 +352,8 @@ func TestHTTPKeysAPISetResponse(t *testing.T) {
 func TestHTTPKeysAPIGetAction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		key		string
 		opts		*GetOptions
@@ -332,6 +366,8 @@ func TestHTTPKeysAPIGetAction(t *testing.T) {
 	}
 }
 func TestHTTPKeysAPIGetError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []httpClient{&staticHTTPClient{err: errors.New("fail!")}, &staticHTTPClient{resp: http.Response{StatusCode: http.StatusTeapot}}, &staticHTTPClient{resp: http.Response{StatusCode: http.StatusInternalServerError}, body: []byte(`{"errorCode":300,"message":"Raft internal error","cause":"/foo","index":18}`)}}
@@ -349,6 +385,8 @@ func TestHTTPKeysAPIGetError(t *testing.T) {
 func TestHTTPKeysAPIGetResponse(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client := &staticHTTPClient{resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"X-Etcd-Index": []string{"42"}}}, body: []byte(`{"action":"get","node":{"key":"/pants/foo/bar","modifiedIndex":25,"createdIndex":19,"nodes":[{"key":"/pants/foo/bar/baz","value":"snarf","createdIndex":21,"modifiedIndex":25}]}}`)}
 	wantResponse := &Response{Action: "get", Node: &Node{Key: "/pants/foo/bar", Nodes: []*Node{{Key: "/pants/foo/bar/baz", Value: "snarf", CreatedIndex: 21, ModifiedIndex: 25}}, CreatedIndex: uint64(19), ModifiedIndex: uint64(25)}, Index: uint64(42)}
 	kAPI := &httpKeysAPI{client: client, prefix: "/pants"}
@@ -363,6 +401,8 @@ func TestHTTPKeysAPIGetResponse(t *testing.T) {
 func TestHTTPKeysAPIDeleteAction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		key		string
 		opts		*DeleteOptions
@@ -375,6 +415,8 @@ func TestHTTPKeysAPIDeleteAction(t *testing.T) {
 	}
 }
 func TestHTTPKeysAPIDeleteError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []httpClient{&staticHTTPClient{err: errors.New("fail!")}, &staticHTTPClient{resp: http.Response{StatusCode: http.StatusTeapot}}, &staticHTTPClient{resp: http.Response{StatusCode: http.StatusInternalServerError}, body: []byte(`{"errorCode":300,"message":"Raft internal error","cause":"/foo","index":18}`)}}
@@ -392,6 +434,8 @@ func TestHTTPKeysAPIDeleteError(t *testing.T) {
 func TestHTTPKeysAPIDeleteResponse(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client := &staticHTTPClient{resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"X-Etcd-Index": []string{"22"}}}, body: []byte(`{"action":"delete","node":{"key":"/pants/foo/bar/baz","value":"snarf","modifiedIndex":22,"createdIndex":19},"prevNode":{"key":"/pants/foo/bar/baz","value":"snazz","modifiedIndex":20,"createdIndex":19}}`)}
 	wantResponse := &Response{Action: "delete", Node: &Node{Key: "/pants/foo/bar/baz", Value: "snarf", CreatedIndex: uint64(19), ModifiedIndex: uint64(22)}, PrevNode: &Node{Key: "/pants/foo/bar/baz", Value: "snazz", CreatedIndex: uint64(19), ModifiedIndex: uint64(20)}, Index: uint64(22)}
 	kAPI := &httpKeysAPI{client: client, prefix: "/pants"}
@@ -406,11 +450,15 @@ func TestHTTPKeysAPIDeleteResponse(t *testing.T) {
 func TestHTTPKeysAPICreateAction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	act := &setAction{Key: "/foo", Value: "bar", PrevExist: PrevNoExist, PrevIndex: 0, PrevValue: "", TTL: 0}
 	kAPI := httpKeysAPI{client: &actionAssertingHTTPClient{t: t, act: act}}
 	kAPI.Create(context.Background(), "/foo", "bar")
 }
 func TestHTTPKeysAPICreateInOrderAction(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	act := &createInOrderAction{Dir: "/foo", Value: "bar", TTL: 0}
@@ -420,11 +468,15 @@ func TestHTTPKeysAPICreateInOrderAction(t *testing.T) {
 func TestHTTPKeysAPIUpdateAction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	act := &setAction{Key: "/foo", Value: "bar", PrevExist: PrevExist, PrevIndex: 0, PrevValue: "", TTL: 0}
 	kAPI := httpKeysAPI{client: &actionAssertingHTTPClient{t: t, act: act}}
 	kAPI.Update(context.Background(), "/foo", "bar")
 }
 func TestNodeTTLDuration(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {

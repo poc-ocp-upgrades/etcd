@@ -14,12 +14,16 @@ import (
 func NewExecWatchCommand() cli.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cli.Command{Name: "exec-watch", Usage: "watch a key for changes and exec an executable", ArgsUsage: "<key> <command> [args...]", Flags: []cli.Flag{cli.IntFlag{Name: "after-index", Value: 0, Usage: "watch after the given index"}, cli.BoolFlag{Name: "recursive, r", Usage: "watch all values for key and child keys"}}, Action: func(c *cli.Context) error {
 		execWatchCommandFunc(c, mustNewKeyAPI(c))
 		return nil
 	}}
 }
 func execWatchCommandFunc(c *cli.Context, ki client.KeysAPI) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := c.Args()
@@ -81,6 +85,8 @@ func execWatchCommandFunc(c *cli.Context, ki client.KeysAPI) {
 	}
 }
 func environResponse(resp *client.Response, env []string) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	env = append(env, "ETCD_WATCH_ACTION="+resp.Action)

@@ -21,6 +21,8 @@ type Interval struct {
 func (ivl *Interval) Compare(c Comparable) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ivl2 := c.(*Interval)
 	ivbCmpBegin := ivl.Begin.Compare(ivl2.Begin)
 	ivbCmpEnd := ivl.Begin.Compare(ivl2.End)
@@ -45,12 +47,16 @@ type intervalNode struct {
 func (x *intervalNode) color() rbcolor {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if x == nil {
 		return black
 	}
 	return x.c
 }
 func (n *intervalNode) height() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if n == nil {
@@ -66,12 +72,16 @@ func (n *intervalNode) height() int {
 func (x *intervalNode) min() *intervalNode {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for x.left != nil {
 		x = x.left
 	}
 	return x
 }
 func (x *intervalNode) successor() *intervalNode {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if x.right != nil {
@@ -85,6 +95,8 @@ func (x *intervalNode) successor() *intervalNode {
 	return y
 }
 func (x *intervalNode) updateMax() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for x != nil {
@@ -107,6 +119,8 @@ func (x *intervalNode) updateMax() {
 type nodeVisitor func(n *intervalNode) bool
 
 func (x *intervalNode) visit(iv *Interval, nv nodeVisitor) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if x == nil {
@@ -145,6 +159,8 @@ type IntervalTree struct {
 func (ivt *IntervalTree) Delete(ivl Interval) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	z := ivt.find(ivl)
 	if z == nil {
 		return false
@@ -181,6 +197,8 @@ func (ivt *IntervalTree) Delete(ivl Interval) bool {
 	return true
 }
 func (ivt *IntervalTree) deleteFixup(x *intervalNode) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for x != ivt.root && x.color() == black && x.parent != nil {
@@ -247,6 +265,8 @@ func (ivt *IntervalTree) deleteFixup(x *intervalNode) {
 func (ivt *IntervalTree) Insert(ivl Interval, val interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var y *intervalNode
 	z := &intervalNode{iv: IntervalValue{ivl, val}, max: ivl.End, c: red}
 	x := ivt.root
@@ -274,6 +294,8 @@ func (ivt *IntervalTree) Insert(ivl Interval, val interface{}) {
 	ivt.count++
 }
 func (ivt *IntervalTree) insertFixup(z *intervalNode) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for z.parent != nil && z.parent.parent != nil && z.parent.color() == red {
@@ -316,6 +338,8 @@ func (ivt *IntervalTree) insertFixup(z *intervalNode) {
 func (ivt *IntervalTree) rotateLeft(x *intervalNode) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	y := x.right
 	x.right = y.left
 	if y.left != nil {
@@ -327,6 +351,8 @@ func (ivt *IntervalTree) rotateLeft(x *intervalNode) {
 	y.updateMax()
 }
 func (ivt *IntervalTree) rotateRight(x *intervalNode) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if x == nil {
@@ -345,6 +371,8 @@ func (ivt *IntervalTree) rotateRight(x *intervalNode) {
 func (ivt *IntervalTree) replaceParent(x *intervalNode, y *intervalNode) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	y.parent = x.parent
 	if x.parent == nil {
 		ivt.root = y
@@ -361,14 +389,20 @@ func (ivt *IntervalTree) replaceParent(x *intervalNode, y *intervalNode) {
 func (ivt *IntervalTree) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ivt.count
 }
 func (ivt *IntervalTree) Height() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ivt.root.height()
 }
 func (ivt *IntervalTree) MaxHeight() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return int((2 * math.Log2(float64(ivt.Len()+1))) + 0.5)
@@ -379,11 +413,15 @@ type IntervalVisitor func(n *IntervalValue) bool
 func (ivt *IntervalTree) Visit(ivl Interval, ivv IntervalVisitor) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ivt.root.visit(&ivl, func(n *intervalNode) bool {
 		return ivv(&n.iv)
 	})
 }
 func (ivt *IntervalTree) find(ivl Interval) (ret *intervalNode) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f := func(n *intervalNode) bool {
@@ -399,6 +437,8 @@ func (ivt *IntervalTree) find(ivl Interval) (ret *intervalNode) {
 func (ivt *IntervalTree) Find(ivl Interval) (ret *IntervalValue) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n := ivt.find(ivl)
 	if n == nil {
 		return nil
@@ -406,6 +446,8 @@ func (ivt *IntervalTree) Find(ivl Interval) (ret *IntervalValue) {
 	return &n.iv
 }
 func (ivt *IntervalTree) Intersects(iv Interval) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	x := ivt.root
@@ -419,6 +461,8 @@ func (ivt *IntervalTree) Intersects(iv Interval) bool {
 	return x != nil
 }
 func (ivt *IntervalTree) Contains(ivl Interval) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var maxEnd, minBegin Comparable
@@ -443,6 +487,8 @@ func (ivt *IntervalTree) Contains(ivl Interval) bool {
 func (ivt *IntervalTree) Stab(iv Interval) (ivs []*IntervalValue) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ivt.count == 0 {
 		return nil
 	}
@@ -454,6 +500,8 @@ func (ivt *IntervalTree) Stab(iv Interval) (ivs []*IntervalValue) {
 	return ivs
 }
 func (ivt *IntervalTree) Union(inIvt IntervalTree, ivl Interval) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f := func(n *IntervalValue) bool {
@@ -468,6 +516,8 @@ type StringComparable string
 func (s StringComparable) Compare(c Comparable) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc := c.(StringComparable)
 	if s < sc {
 		return -1
@@ -480,9 +530,13 @@ func (s StringComparable) Compare(c Comparable) int {
 func NewStringInterval(begin, end string) Interval {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Interval{StringComparable(begin), StringComparable(end)}
 }
 func NewStringPoint(s string) Interval {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return Interval{StringComparable(s), StringComparable(s + "\x00")}
@@ -491,6 +545,8 @@ func NewStringPoint(s string) Interval {
 type StringAffineComparable string
 
 func (s StringAffineComparable) Compare(c Comparable) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sc := c.(StringAffineComparable)
@@ -514,9 +570,13 @@ func (s StringAffineComparable) Compare(c Comparable) int {
 func NewStringAffineInterval(begin, end string) Interval {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Interval{StringAffineComparable(begin), StringAffineComparable(end)}
 }
 func NewStringAffinePoint(s string) Interval {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return NewStringAffineInterval(s, s+"\x00")
@@ -524,9 +584,13 @@ func NewStringAffinePoint(s string) Interval {
 func NewInt64Interval(a int64, b int64) Interval {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Interval{Int64Comparable(a), Int64Comparable(b)}
 }
 func NewInt64Point(a int64) Interval {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return Interval{Int64Comparable(a), Int64Comparable(a + 1)}
@@ -535,6 +599,8 @@ func NewInt64Point(a int64) Interval {
 type Int64Comparable int64
 
 func (v Int64Comparable) Compare(c Comparable) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vc := c.(Int64Comparable)
@@ -553,6 +619,8 @@ type BytesAffineComparable []byte
 func (b BytesAffineComparable) Compare(c Comparable) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bc := c.(BytesAffineComparable)
 	if len(b) == 0 {
 		if len(bc) == 0 {
@@ -568,9 +636,13 @@ func (b BytesAffineComparable) Compare(c Comparable) int {
 func NewBytesAffineInterval(begin, end []byte) Interval {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Interval{BytesAffineComparable(begin), BytesAffineComparable(end)}
 }
 func NewBytesAffinePoint(b []byte) Interval {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	be := make([]byte, len(b)+1)

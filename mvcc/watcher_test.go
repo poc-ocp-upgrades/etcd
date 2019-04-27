@@ -15,6 +15,8 @@ import (
 func TestWatcherWatchID(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
 	s := WatchableKV(newWatchableStore(b, &lease.FakeLessor{}, nil))
 	defer cleanup(s, b, tmpPath)
@@ -53,6 +55,8 @@ func TestWatcherWatchID(t *testing.T) {
 	}
 }
 func TestWatcherWatchPrefix(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -114,6 +118,8 @@ func TestWatcherWatchPrefix(t *testing.T) {
 func TestWatcherWatchWrongRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
 	s := WatchableKV(newWatchableStore(b, &lease.FakeLessor{}, nil))
 	defer cleanup(s, b, tmpPath)
@@ -130,6 +136,8 @@ func TestWatcherWatchWrongRange(t *testing.T) {
 	}
 }
 func TestWatchDeleteRange(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -159,6 +167,8 @@ func TestWatchDeleteRange(t *testing.T) {
 func TestWatchStreamCancelWatcherByID(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
 	s := WatchableKV(newWatchableStore(b, &lease.FakeLessor{}, nil))
 	defer cleanup(s, b, tmpPath)
@@ -180,6 +190,8 @@ func TestWatchStreamCancelWatcherByID(t *testing.T) {
 	}
 }
 func TestWatcherRequestProgress(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -220,6 +232,8 @@ func TestWatcherRequestProgress(t *testing.T) {
 	}
 }
 func TestWatcherWatchWithFilter(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()

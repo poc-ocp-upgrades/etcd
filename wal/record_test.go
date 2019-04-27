@@ -18,6 +18,8 @@ var (
 func TestReadRecord(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	badInfoRecord := make([]byte, len(infoRecord))
 	copy(badInfoRecord, infoRecord)
 	badInfoRecord[len(badInfoRecord)-1] = 'a'
@@ -41,6 +43,8 @@ func TestReadRecord(t *testing.T) {
 	}
 }
 func TestWriteRecord(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b := &walpb.Record{}

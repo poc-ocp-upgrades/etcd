@@ -21,6 +21,8 @@ type quotaAlarmer struct {
 func (qa *quotaAlarmer) check(ctx context.Context, r interface{}) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if qa.q.Available(r) {
 		return nil
 	}
@@ -31,9 +33,13 @@ func (qa *quotaAlarmer) check(ctx context.Context, r interface{}) error {
 func NewQuotaKVServer(s *etcdserver.EtcdServer) pb.KVServer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &quotaKVServer{NewKVServer(s), quotaAlarmer{etcdserver.NewBackendQuota(s), s, s.ID()}}
 }
 func (s *quotaKVServer) Put(ctx context.Context, r *pb.PutRequest) (*pb.PutResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := s.qa.check(ctx, r); err != nil {
@@ -42,6 +48,8 @@ func (s *quotaKVServer) Put(ctx context.Context, r *pb.PutRequest) (*pb.PutRespo
 	return s.KVServer.Put(ctx, r)
 }
 func (s *quotaKVServer) Txn(ctx context.Context, r *pb.TxnRequest) (*pb.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := s.qa.check(ctx, r); err != nil {
@@ -58,12 +66,16 @@ type quotaLeaseServer struct {
 func (s *quotaLeaseServer) LeaseGrant(ctx context.Context, cr *pb.LeaseGrantRequest) (*pb.LeaseGrantResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := s.qa.check(ctx, cr); err != nil {
 		return nil, err
 	}
 	return s.LeaseServer.LeaseGrant(ctx, cr)
 }
 func NewQuotaLeaseServer(s *etcdserver.EtcdServer) pb.LeaseServer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &quotaLeaseServer{NewLeaseServer(s), quotaAlarmer{etcdserver.NewBackendQuota(s), s, s.ID()}}

@@ -12,11 +12,15 @@ import (
 func HandleHealth(mux *http.ServeMux, c *clientv3.Client) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mux.Handle(etcdhttp.PathHealth, etcdhttp.NewHealthHandler(func() etcdhttp.Health {
 		return checkHealth(c)
 	}))
 }
 func checkHealth(c *clientv3.Client) etcdhttp.Health {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h := etcdhttp.Health{Health: "false"}

@@ -53,6 +53,8 @@ type peer struct {
 func startPeer(transport *Transport, urls types.URLs, peerID types.ID, fs *stats.FollowerStats) *peer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	plog.Infof("starting peer %s...", peerID)
 	defer plog.Infof("started peer %s", peerID)
 	status := newPeerStatus(peerID)
@@ -97,6 +99,8 @@ func startPeer(transport *Transport, urls types.URLs, peerID types.ID, fs *stats
 func (p *peer) send(m raftpb.Message) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.mu.Lock()
 	paused := p.paused
 	p.mu.Unlock()
@@ -121,14 +125,20 @@ func (p *peer) send(m raftpb.Message) {
 func (p *peer) sendSnap(m snap.Message) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	go p.snapSender.send(m)
 }
 func (p *peer) update(urls types.URLs) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.picker.update(urls)
 }
 func (p *peer) attachOutgoingConn(conn *outgoingConn) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var ok bool
@@ -147,9 +157,13 @@ func (p *peer) attachOutgoingConn(conn *outgoingConn) {
 func (p *peer) activeSince() time.Time {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return p.status.activeSince()
 }
 func (p *peer) Pause() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.mu.Lock()
@@ -161,6 +175,8 @@ func (p *peer) Pause() {
 func (p *peer) Resume() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.mu.Lock()
 	defer p.mu.Unlock()
 	p.paused = false
@@ -168,6 +184,8 @@ func (p *peer) Resume() {
 	p.msgAppV2Reader.resume()
 }
 func (p *peer) stop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	plog.Infof("stopping peer %s...", p.id)
@@ -184,6 +202,8 @@ func (p *peer) stop() {
 func (p *peer) pick(m raftpb.Message) (writec chan<- raftpb.Message, picked string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var ok bool
 	if isMsgSnap(m) {
 		return p.pipeline.msgc, pipelineMsg
@@ -197,9 +217,13 @@ func (p *peer) pick(m raftpb.Message) (writec chan<- raftpb.Message, picked stri
 func isMsgApp(m raftpb.Message) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.Type == raftpb.MsgApp
 }
 func isMsgSnap(m raftpb.Message) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return m.Type == raftpb.MsgSnap

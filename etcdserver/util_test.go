@@ -14,6 +14,8 @@ import (
 func TestLongestConnected(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	umap, err := types.NewURLsMap("mem1=http://10.1:2379,mem2=http://10.2:2379,mem3=http://10.3:2379")
 	if err != nil {
 		t.Fatal(err)
@@ -47,6 +49,8 @@ type nopTransporterWithActiveTime struct{ activeMap map[types.ID]time.Time }
 func newNopTransporterWithActiveTime(memberIDs []types.ID) rafthttp.Transporter {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	am := make(map[types.ID]time.Time)
 	for i, id := range memberIDs {
 		am[id] = time.Now().Add(time.Duration(i) * time.Second)
@@ -56,9 +60,13 @@ func newNopTransporterWithActiveTime(memberIDs []types.ID) rafthttp.Transporter 
 func (s *nopTransporterWithActiveTime) Start() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (s *nopTransporterWithActiveTime) Handler() http.Handler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -66,32 +74,48 @@ func (s *nopTransporterWithActiveTime) Handler() http.Handler {
 func (s *nopTransporterWithActiveTime) Send(m []raftpb.Message) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (s *nopTransporterWithActiveTime) SendSnapshot(m snap.Message) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (s *nopTransporterWithActiveTime) AddRemote(id types.ID, us []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (s *nopTransporterWithActiveTime) AddPeer(id types.ID, us []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (s *nopTransporterWithActiveTime) RemovePeer(id types.ID) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (s *nopTransporterWithActiveTime) RemoveAllPeers() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (s *nopTransporterWithActiveTime) UpdatePeer(id types.ID, us []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (s *nopTransporterWithActiveTime) ActiveSince(id types.ID) time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.activeMap[id]
@@ -99,21 +123,31 @@ func (s *nopTransporterWithActiveTime) ActiveSince(id types.ID) time.Time {
 func (s *nopTransporterWithActiveTime) ActivePeers() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 0
 }
 func (s *nopTransporterWithActiveTime) Stop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (s *nopTransporterWithActiveTime) Pause() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (s *nopTransporterWithActiveTime) Resume() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (s *nopTransporterWithActiveTime) reset(am map[types.ID]time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.activeMap = am

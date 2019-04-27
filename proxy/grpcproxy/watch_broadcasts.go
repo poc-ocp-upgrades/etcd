@@ -18,6 +18,8 @@ const maxCoalesceReceivers = 5
 func newWatchBroadcasts(wp *watchProxy) *watchBroadcasts {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wbs := &watchBroadcasts{wp: wp, bcasts: make(map[*watchBroadcast]struct{}), watchers: make(map[*watcher]*watchBroadcast), updatec: make(chan *watchBroadcast, 1), donec: make(chan struct{})}
 	go func() {
 		defer close(wbs.donec)
@@ -28,6 +30,8 @@ func newWatchBroadcasts(wp *watchProxy) *watchBroadcasts {
 	return wbs
 }
 func (wbs *watchBroadcasts) coalesce(wb *watchBroadcast) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if wb.size() >= maxCoalesceReceivers {
@@ -60,6 +64,8 @@ func (wbs *watchBroadcasts) coalesce(wb *watchBroadcast) {
 func (wbs *watchBroadcasts) add(w *watcher) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wbs.mu.Lock()
 	defer wbs.mu.Unlock()
 	for wb := range wbs.bcasts {
@@ -73,6 +79,8 @@ func (wbs *watchBroadcasts) add(w *watcher) {
 	wbs.bcasts[wb] = struct{}{}
 }
 func (wbs *watchBroadcasts) delete(w *watcher) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wbs.mu.Lock()
@@ -92,6 +100,8 @@ func (wbs *watchBroadcasts) delete(w *watcher) int {
 func (wbs *watchBroadcasts) stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wbs.mu.Lock()
 	for wb := range wbs.bcasts {
 		wb.stop()
@@ -102,6 +112,8 @@ func (wbs *watchBroadcasts) stop() {
 	<-wbs.donec
 }
 func (wbs *watchBroadcasts) update(wb *watchBroadcast) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {

@@ -33,6 +33,8 @@ var (
 func configStandalone(cfg etcdProcessClusterConfig) *etcdProcessClusterConfig {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ret := cfg
 	ret.clusterSize = 1
 	return &ret
@@ -68,6 +70,8 @@ type etcdProcessClusterConfig struct {
 func newEtcdProcessCluster(cfg *etcdProcessClusterConfig) (*etcdProcessCluster, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	etcdCfgs := cfg.etcdServerProcessConfigs()
 	epc := &etcdProcessCluster{cfg: cfg, procs: make([]etcdProcess, cfg.clusterSize)}
 	for i := range etcdCfgs {
@@ -86,12 +90,16 @@ func newEtcdProcessCluster(cfg *etcdProcessClusterConfig) (*etcdProcessCluster, 
 func (cfg *etcdProcessClusterConfig) clientScheme() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if cfg.clientTLS == clientTLS {
 		return "https"
 	}
 	return "http"
 }
 func (cfg *etcdProcessClusterConfig) peerScheme() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	peerScheme := cfg.baseScheme
@@ -104,6 +112,8 @@ func (cfg *etcdProcessClusterConfig) peerScheme() string {
 	return peerScheme
 }
 func (cfg *etcdProcessClusterConfig) etcdServerProcessConfigs() []*etcdServerProcessConfig {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cfg.basePort == 0 {
@@ -174,6 +184,8 @@ func (cfg *etcdProcessClusterConfig) etcdServerProcessConfigs() []*etcdServerPro
 func (cfg *etcdProcessClusterConfig) tlsArgs() (args []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if cfg.clientTLS != clientNonTLS {
 		if cfg.isClientAutoTLS {
 			args = append(args, "--auto-tls")
@@ -204,6 +216,8 @@ func (cfg *etcdProcessClusterConfig) tlsArgs() (args []string) {
 func (epc *etcdProcessCluster) EndpointsV2() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return epc.endpoints(func(ep etcdProcess) []string {
 		return ep.EndpointsV2()
 	})
@@ -211,11 +225,15 @@ func (epc *etcdProcessCluster) EndpointsV2() []string {
 func (epc *etcdProcessCluster) EndpointsV3() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return epc.endpoints(func(ep etcdProcess) []string {
 		return ep.EndpointsV3()
 	})
 }
 func (epc *etcdProcessCluster) endpoints(f func(ep etcdProcess) []string) (ret []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, p := range epc.procs {
@@ -226,6 +244,8 @@ func (epc *etcdProcessCluster) endpoints(f func(ep etcdProcess) []string) (ret [
 func (epc *etcdProcessCluster) Start() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return epc.start(func(ep etcdProcess) error {
 		return ep.Start()
 	})
@@ -233,11 +253,15 @@ func (epc *etcdProcessCluster) Start() error {
 func (epc *etcdProcessCluster) Restart() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return epc.start(func(ep etcdProcess) error {
 		return ep.Restart()
 	})
 }
 func (epc *etcdProcessCluster) start(f func(ep etcdProcess) error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	readyC := make(chan error, len(epc.procs))
@@ -257,6 +281,8 @@ func (epc *etcdProcessCluster) start(f func(ep etcdProcess) error) error {
 func (epc *etcdProcessCluster) Stop() (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, p := range epc.procs {
 		if p == nil {
 			continue
@@ -274,6 +300,8 @@ func (epc *etcdProcessCluster) Stop() (err error) {
 func (epc *etcdProcessCluster) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := epc.Stop()
 	for _, p := range epc.procs {
 		if p == nil {
@@ -286,6 +314,8 @@ func (epc *etcdProcessCluster) Close() error {
 	return err
 }
 func (epc *etcdProcessCluster) WithStopSignal(sig os.Signal) (ret os.Signal) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, p := range epc.procs {

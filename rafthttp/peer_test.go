@@ -8,6 +8,8 @@ import (
 func TestPeerPick(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		msgappWorking	bool
 		messageWorking	bool

@@ -9,6 +9,8 @@ import (
 func WaitEvents(c *clientv3.Client, key string, rev int64, evs []mvccpb.Event_EventType) (*clientv3.Event, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wc := c.Watch(context.Background(), key, clientv3.WithRev(rev))
 	if wc == nil {
 		return nil, ErrNoWatcher
@@ -18,6 +20,8 @@ func WaitEvents(c *clientv3.Client, key string, rev int64, evs []mvccpb.Event_Ev
 func WaitPrefixEvents(c *clientv3.Client, prefix string, rev int64, evs []mvccpb.Event_EventType) (*clientv3.Event, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wc := c.Watch(context.Background(), prefix, clientv3.WithPrefix(), clientv3.WithRev(rev))
 	if wc == nil {
 		return nil, ErrNoWatcher
@@ -25,6 +29,8 @@ func WaitPrefixEvents(c *clientv3.Client, prefix string, rev int64, evs []mvccpb
 	return waitEvents(wc, evs), nil
 }
 func waitEvents(wc clientv3.WatchChan, evs []mvccpb.Event_EventType) *clientv3.Event {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	i := 0

@@ -12,6 +12,8 @@ import (
 func TestMetricDbSizeBoot(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -24,6 +26,8 @@ func TestMetricDbSizeBoot(t *testing.T) {
 	}
 }
 func TestMetricDbSizeDefrag(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

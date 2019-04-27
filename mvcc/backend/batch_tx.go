@@ -28,6 +28,8 @@ type batchTx struct {
 func (t *batchTx) UnsafeCreateBucket(name []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := t.tx.CreateBucket(name)
 	if err != nil && err != bolt.ErrBucketExists {
 		plog.Fatalf("cannot create bucket %s (%v)", name, err)
@@ -37,14 +39,20 @@ func (t *batchTx) UnsafeCreateBucket(name []byte) {
 func (t *batchTx) UnsafePut(bucketName []byte, key []byte, value []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.unsafePut(bucketName, key, value, false)
 }
 func (t *batchTx) UnsafeSeqPut(bucketName []byte, key []byte, value []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.unsafePut(bucketName, key, value, true)
 }
 func (t *batchTx) unsafePut(bucketName []byte, key []byte, value []byte, seq bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bucket := t.tx.Bucket(bucketName)
@@ -62,6 +70,8 @@ func (t *batchTx) unsafePut(bucketName []byte, key []byte, value []byte, seq boo
 func (t *batchTx) UnsafeRange(bucketName, key, endKey []byte, limit int64) ([][]byte, [][]byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bucket := t.tx.Bucket(bucketName)
 	if bucket == nil {
 		plog.Fatalf("bucket %s does not exist", bucketName)
@@ -69,6 +79,8 @@ func (t *batchTx) UnsafeRange(bucketName, key, endKey []byte, limit int64) ([][]
 	return unsafeRange(bucket.Cursor(), key, endKey, limit)
 }
 func unsafeRange(c *bolt.Cursor, key, endKey []byte, limit int64) (keys [][]byte, vs [][]byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if limit <= 0 {
@@ -97,6 +109,8 @@ func unsafeRange(c *bolt.Cursor, key, endKey []byte, limit int64) (keys [][]byte
 func (t *batchTx) UnsafeDelete(bucketName []byte, key []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bucket := t.tx.Bucket(bucketName)
 	if bucket == nil {
 		plog.Fatalf("bucket %s does not exist", bucketName)
@@ -110,9 +124,13 @@ func (t *batchTx) UnsafeDelete(bucketName []byte, key []byte) {
 func (t *batchTx) UnsafeForEach(bucketName []byte, visitor func(k, v []byte) error) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return unsafeForEach(t.tx, bucketName, visitor)
 }
 func unsafeForEach(tx *bolt.Tx, bucket []byte, visitor func(k, v []byte) error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if b := tx.Bucket(bucket); b != nil {
@@ -123,11 +141,15 @@ func unsafeForEach(tx *bolt.Tx, bucket []byte, visitor func(k, v []byte) error) 
 func (t *batchTx) Commit() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.Lock()
 	t.commit(false)
 	t.Unlock()
 }
 func (t *batchTx) CommitAndStop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.Lock()
@@ -137,12 +159,16 @@ func (t *batchTx) CommitAndStop() {
 func (t *batchTx) Unlock() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if t.pending >= t.backend.batchLimit {
 		t.commit(false)
 	}
 	t.Mutex.Unlock()
 }
 func (t *batchTx) commit(stop bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if t.tx != nil {
@@ -171,11 +197,15 @@ type batchTxBuffered struct {
 func newBatchTxBuffered(backend *backend) *batchTxBuffered {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tx := &batchTxBuffered{batchTx: batchTx{backend: backend}, buf: txWriteBuffer{txBuffer: txBuffer{make(map[string]*bucketBuffer)}, seq: true}}
 	tx.Commit()
 	return tx
 }
 func (t *batchTxBuffered) Unlock() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if t.pending != 0 {
@@ -191,11 +221,15 @@ func (t *batchTxBuffered) Unlock() {
 func (t *batchTxBuffered) Commit() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.Lock()
 	t.commit(false)
 	t.Unlock()
 }
 func (t *batchTxBuffered) CommitAndStop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.Lock()
@@ -205,11 +239,15 @@ func (t *batchTxBuffered) CommitAndStop() {
 func (t *batchTxBuffered) commit(stop bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.backend.readTx.mu.Lock()
 	t.unsafeCommit(stop)
 	t.backend.readTx.mu.Unlock()
 }
 func (t *batchTxBuffered) unsafeCommit(stop bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if t.backend.readTx.tx != nil {
@@ -226,10 +264,14 @@ func (t *batchTxBuffered) unsafeCommit(stop bool) {
 func (t *batchTxBuffered) UnsafePut(bucketName []byte, key []byte, value []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.batchTx.UnsafePut(bucketName, key, value)
 	t.buf.put(bucketName, key, value)
 }
 func (t *batchTxBuffered) UnsafeSeqPut(bucketName []byte, key []byte, value []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.batchTx.UnsafeSeqPut(bucketName, key, value)

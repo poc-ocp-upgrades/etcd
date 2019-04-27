@@ -20,6 +20,8 @@ type keyIndex struct {
 func (ki *keyIndex) put(main int64, sub int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rev := revision{main: main, sub: sub}
 	if !rev.GreaterThan(ki.modified) {
 		plog.Panicf("store.keyindex: put with unexpected smaller revision [%v / %v]", rev, ki.modified)
@@ -39,6 +41,8 @@ func (ki *keyIndex) put(main int64, sub int64) {
 func (ki *keyIndex) restore(created, modified revision, ver int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(ki.generations) != 0 {
 		plog.Panicf("store.keyindex: cannot restore non-empty keyIndex")
 	}
@@ -48,6 +52,8 @@ func (ki *keyIndex) restore(created, modified revision, ver int64) {
 	keysGauge.Inc()
 }
 func (ki *keyIndex) tombstone(main int64, sub int64) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ki.isEmpty() {
@@ -62,6 +68,8 @@ func (ki *keyIndex) tombstone(main int64, sub int64) error {
 	return nil
 }
 func (ki *keyIndex) get(atRev int64) (modified, created revision, ver int64, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ki.isEmpty() {
@@ -80,6 +88,8 @@ func (ki *keyIndex) get(atRev int64) (modified, created revision, ver int64, err
 	return revision{}, revision{}, 0, ErrRevisionNotFound
 }
 func (ki *keyIndex) since(rev int64) []revision {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ki.isEmpty() {
@@ -116,6 +126,8 @@ func (ki *keyIndex) since(rev int64) []revision {
 func (ki *keyIndex) compact(atRev int64, available map[revision]struct{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ki.isEmpty() {
 		plog.Panicf("store.keyindex: unexpected compact on empty keyIndex %s", string(ki.key))
 	}
@@ -135,6 +147,8 @@ func (ki *keyIndex) compact(atRev int64, available map[revision]struct{}) {
 func (ki *keyIndex) keep(atRev int64, available map[revision]struct{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ki.isEmpty() {
 		return
 	}
@@ -147,6 +161,8 @@ func (ki *keyIndex) keep(atRev int64, available map[revision]struct{}) {
 	}
 }
 func (ki *keyIndex) doCompact(atRev int64, available map[revision]struct{}) (genIdx int, revIndex int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f := func(rev revision) bool {
@@ -170,9 +186,13 @@ func (ki *keyIndex) doCompact(atRev int64, available map[revision]struct{}) (gen
 func (ki *keyIndex) isEmpty() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(ki.generations) == 1 && ki.generations[0].isEmpty()
 }
 func (ki *keyIndex) findGeneration(rev int64) *generation {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lastg := len(ki.generations) - 1
@@ -198,9 +218,13 @@ func (ki *keyIndex) findGeneration(rev int64) *generation {
 func (a *keyIndex) Less(b btree.Item) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return bytes.Compare(a.key, b.(*keyIndex).key) == -1
 }
 func (a *keyIndex) equal(b *keyIndex) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !bytes.Equal(a.key, b.key) {
@@ -223,6 +247,8 @@ func (a *keyIndex) equal(b *keyIndex) bool {
 func (ki *keyIndex) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var s string
 	for _, g := range ki.generations {
 		s += g.String()
@@ -239,9 +265,13 @@ type generation struct {
 func (g *generation) isEmpty() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return g == nil || len(g.revs) == 0
 }
 func (g *generation) walk(f func(rev revision) bool) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(g.revs)
@@ -256,9 +286,13 @@ func (g *generation) walk(f func(rev revision) bool) int {
 func (g *generation) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("g: created[%d] ver[%d], revs %#v\n", g.created, g.ver, g.revs)
 }
 func (a generation) equal(b generation) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if a.ver != b.ver {

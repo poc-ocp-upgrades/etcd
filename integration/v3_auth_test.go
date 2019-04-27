@@ -16,6 +16,8 @@ import (
 func TestV3AuthEmptyUserGet(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -29,6 +31,8 @@ func TestV3AuthEmptyUserGet(t *testing.T) {
 	}
 }
 func TestV3AuthTokenWithDisable(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -59,6 +63,8 @@ func TestV3AuthTokenWithDisable(t *testing.T) {
 func TestV3AuthRevision(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -81,6 +87,8 @@ func TestV3AuthRevision(t *testing.T) {
 	}
 }
 func TestV3AuthWithLeaseRevokeWithRoot(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -125,6 +133,8 @@ type user struct {
 func TestV3AuthWithLeaseRevoke(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -156,6 +166,8 @@ func TestV3AuthWithLeaseRevoke(t *testing.T) {
 	}
 }
 func TestV3AuthWithLeaseAttach(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -204,6 +216,8 @@ func TestV3AuthWithLeaseAttach(t *testing.T) {
 func authSetupUsers(t *testing.T, auth pb.AuthClient, users []user) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, user := range users {
 		if _, err := auth.UserAdd(context.TODO(), &pb.AuthUserAddRequest{Name: user.name, Password: user.password}); err != nil {
 			t.Fatal(err)
@@ -226,6 +240,8 @@ func authSetupUsers(t *testing.T, auth pb.AuthClient, users []user) {
 func authSetupRoot(t *testing.T, auth pb.AuthClient) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	root := []user{{name: "root", password: "123", role: "root", key: ""}}
 	authSetupUsers(t, auth, root)
 	if _, err := auth.AuthEnable(context.TODO(), &pb.AuthEnableRequest{}); err != nil {
@@ -233,6 +249,8 @@ func authSetupRoot(t *testing.T, auth pb.AuthClient) {
 	}
 }
 func TestV3AuthNonAuthorizedRPCs(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -252,6 +270,8 @@ func TestV3AuthNonAuthorizedRPCs(t *testing.T) {
 	}
 }
 func TestV3AuthOldRevConcurrent(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

@@ -11,13 +11,19 @@ type v2TestStore struct{ store.Store }
 func (s *v2TestStore) Close() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func newTestStore(t *testing.T, ns ...string) StoreCloser {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &v2TestStore{store.New(ns...)}
 }
 func TestStoreRecover(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)

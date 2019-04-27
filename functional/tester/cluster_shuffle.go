@@ -9,6 +9,8 @@ import (
 func (clus *Cluster) shuffleCases() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rand.Seed(time.Now().UnixNano())
 	offset := rand.Intn(1000)
 	n := len(clus.cases)
@@ -23,6 +25,8 @@ func (clus *Cluster) shuffleCases() {
 func coprime(n int) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	coprime := 1
 	for i := n / 2; i < n; i++ {
 		if gcd(i, n) == 1 {
@@ -33,6 +37,8 @@ func coprime(n int) int {
 	return coprime
 }
 func gcd(x, y int) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if y == 0 {

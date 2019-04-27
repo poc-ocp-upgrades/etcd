@@ -19,11 +19,15 @@ var (
 func NewTxnCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "txn [options]", Short: "Txn processes all the requests in one transaction", Run: txnCommandFunc}
 	cmd.Flags().BoolVarP(&txnInteractive, "interactive", "i", false, "Input transaction in interactive mode")
 	return cmd
 }
 func txnCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 0 {
@@ -46,11 +50,15 @@ func txnCommandFunc(cmd *cobra.Command, args []string) {
 func promptInteractive(s string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if txnInteractive {
 		fmt.Println(s)
 	}
 }
 func readCompares(r *bufio.Reader) (cmps []clientv3.Cmp) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -73,6 +81,8 @@ func readCompares(r *bufio.Reader) (cmps []clientv3.Cmp) {
 func readOps(r *bufio.Reader) (ops []clientv3.Op) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		line, err := r.ReadString('\n')
 		if err != nil {
@@ -91,6 +101,8 @@ func readOps(r *bufio.Reader) (ops []clientv3.Op) {
 	return ops
 }
 func parseRequestUnion(line string) (*clientv3.Op, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := argify(line)
@@ -123,6 +135,8 @@ func parseRequestUnion(line string) (*clientv3.Op, error) {
 	return &op, nil
 }
 func parseCompare(line string) (*clientv3.Cmp, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var (

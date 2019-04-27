@@ -100,6 +100,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err error
 	defaultLogger, err = zap.NewProduction()
 	if err != nil {
@@ -107,6 +109,8 @@ func init() {
 	}
 }
 func NewServer(cfg ServerConfig) Server {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p := &proxyServer{lg: cfg.Logger, from: cfg.From, to: cfg.To, tlsInfo: cfg.TLSInfo, dialTimeout: cfg.DialTimeout, bufferSize: cfg.BufferSize, retryInterval: cfg.RetryInterval, readyc: make(chan struct{}), donec: make(chan struct{}), errc: make(chan error, 16), pauseAcceptc: make(chan struct{}), pauseTxc: make(chan struct{}), blackholeTxc: make(chan struct{}), pauseRxc: make(chan struct{}), blackholeRxc: make(chan struct{})}
@@ -152,14 +156,20 @@ func NewServer(cfg ServerConfig) Server {
 func (p *proxyServer) From() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s://%s", p.from.Scheme, p.from.Host)
 }
 func (p *proxyServer) To() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s://%s", p.to.Scheme, p.to.Host)
 }
 func (p *proxyServer) listenAndServe() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer p.closeWg.Done()
@@ -273,14 +283,20 @@ func (p *proxyServer) listenAndServe() {
 func (p *proxyServer) transmit(dst io.Writer, src io.Reader) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.ioCopy(dst, src, true)
 }
 func (p *proxyServer) receive(dst io.Writer, src io.Reader) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.ioCopy(dst, src, false)
 }
 func (p *proxyServer) ioCopy(dst io.Writer, src io.Reader, proxySend bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	buf := make([]byte, p.bufferSize)
@@ -428,9 +444,13 @@ func (p *proxyServer) ioCopy(dst io.Writer, src io.Reader, proxySend bool) {
 func (p *proxyServer) Ready() <-chan struct{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return p.readyc
 }
 func (p *proxyServer) Done() <-chan struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return p.donec
@@ -438,9 +458,13 @@ func (p *proxyServer) Done() <-chan struct{} {
 func (p *proxyServer) Error() <-chan error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return p.errc
 }
 func (p *proxyServer) Close() (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.closeOnce.Do(func() {
@@ -459,6 +483,8 @@ func (p *proxyServer) Close() (err error) {
 func (p *proxyServer) DelayAccept(latency, rv time.Duration) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if latency <= 0 {
 		return
 	}
@@ -471,6 +497,8 @@ func (p *proxyServer) DelayAccept(latency, rv time.Duration) {
 func (p *proxyServer) UndelayAccept() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.latencyAcceptMu.Lock()
 	d := p.latencyAccept
 	p.latencyAccept = 0
@@ -480,12 +508,16 @@ func (p *proxyServer) UndelayAccept() {
 func (p *proxyServer) LatencyAccept() time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.latencyAcceptMu.RLock()
 	d := p.latencyAccept
 	p.latencyAcceptMu.RUnlock()
 	return d
 }
 func (p *proxyServer) DelayTx(latency, rv time.Duration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if latency <= 0 {
@@ -500,6 +532,8 @@ func (p *proxyServer) DelayTx(latency, rv time.Duration) {
 func (p *proxyServer) UndelayTx() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.latencyTxMu.Lock()
 	d := p.latencyTx
 	p.latencyTx = 0
@@ -509,12 +543,16 @@ func (p *proxyServer) UndelayTx() {
 func (p *proxyServer) LatencyTx() time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.latencyTxMu.RLock()
 	d := p.latencyTx
 	p.latencyTxMu.RUnlock()
 	return d
 }
 func (p *proxyServer) DelayRx(latency, rv time.Duration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if latency <= 0 {
@@ -529,6 +567,8 @@ func (p *proxyServer) DelayRx(latency, rv time.Duration) {
 func (p *proxyServer) UndelayRx() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.latencyRxMu.Lock()
 	d := p.latencyRx
 	p.latencyRx = 0
@@ -538,12 +578,16 @@ func (p *proxyServer) UndelayRx() {
 func (p *proxyServer) LatencyRx() time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.latencyRxMu.RLock()
 	d := p.latencyRx
 	p.latencyRxMu.RUnlock()
 	return d
 }
 func computeLatency(lat, rv time.Duration) time.Duration {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if rv == 0 {
@@ -566,12 +610,16 @@ func computeLatency(lat, rv time.Duration) time.Duration {
 func (p *proxyServer) PauseAccept() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.acceptMu.Lock()
 	p.pauseAcceptc = make(chan struct{})
 	p.acceptMu.Unlock()
 	p.lg.Info("paused accepting new connections", zap.String("from", p.From()), zap.String("to", p.To()))
 }
 func (p *proxyServer) UnpauseAccept() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.acceptMu.Lock()
@@ -589,12 +637,16 @@ func (p *proxyServer) UnpauseAccept() {
 func (p *proxyServer) PauseTx() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.txMu.Lock()
 	p.pauseTxc = make(chan struct{})
 	p.txMu.Unlock()
 	p.lg.Info("paused transmit listen", zap.String("from", p.From()), zap.String("to", p.To()))
 }
 func (p *proxyServer) UnpauseTx() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.txMu.Lock()
@@ -612,12 +664,16 @@ func (p *proxyServer) UnpauseTx() {
 func (p *proxyServer) PauseRx() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.rxMu.Lock()
 	p.pauseRxc = make(chan struct{})
 	p.rxMu.Unlock()
 	p.lg.Info("paused receive listen", zap.String("from", p.To()), zap.String("to", p.From()))
 }
 func (p *proxyServer) UnpauseRx() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.rxMu.Lock()
@@ -635,6 +691,8 @@ func (p *proxyServer) UnpauseRx() {
 func (p *proxyServer) BlackholeTx() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.txMu.Lock()
 	select {
 	case <-p.blackholeTxc:
@@ -650,12 +708,16 @@ func (p *proxyServer) BlackholeTx() {
 func (p *proxyServer) UnblackholeTx() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.txMu.Lock()
 	p.blackholeTxc = make(chan struct{})
 	p.txMu.Unlock()
 	p.lg.Info("unblackholed transmit", zap.String("from", p.From()), zap.String("to", p.To()))
 }
 func (p *proxyServer) BlackholeRx() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.rxMu.Lock()
@@ -673,12 +735,16 @@ func (p *proxyServer) BlackholeRx() {
 func (p *proxyServer) UnblackholeRx() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.rxMu.Lock()
 	p.blackholeRxc = make(chan struct{})
 	p.rxMu.Unlock()
 	p.lg.Info("unblackholed receive", zap.String("from", p.To()), zap.String("to", p.From()))
 }
 func (p *proxyServer) CorruptTx(f func([]byte) []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.corruptTxMu.Lock()
@@ -689,12 +755,16 @@ func (p *proxyServer) CorruptTx(f func([]byte) []byte) {
 func (p *proxyServer) UncorruptTx() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.corruptTxMu.Lock()
 	p.corruptTx = nil
 	p.corruptTxMu.Unlock()
 	p.lg.Info("stopped corrupting transmit", zap.String("from", p.From()), zap.String("to", p.To()))
 }
 func (p *proxyServer) CorruptRx(f func([]byte) []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.corruptRxMu.Lock()
@@ -705,12 +775,16 @@ func (p *proxyServer) CorruptRx(f func([]byte) []byte) {
 func (p *proxyServer) UncorruptRx() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.corruptRxMu.Lock()
 	p.corruptRx = nil
 	p.corruptRxMu.Unlock()
 	p.lg.Info("stopped corrupting receive", zap.String("from", p.To()), zap.String("to", p.From()))
 }
 func (p *proxyServer) ResetListener() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.listenerMu.Lock()

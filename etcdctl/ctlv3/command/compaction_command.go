@@ -12,11 +12,15 @@ var compactPhysical bool
 func NewCompactionCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "compaction [options] <revision>", Short: "Compacts the event history in etcd", Run: compactionCommandFunc}
 	cmd.Flags().BoolVar(&compactPhysical, "physical", false, "'true' to wait for compaction to physically remove all old revisions")
 	return cmd
 }
 func compactionCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {

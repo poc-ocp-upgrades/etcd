@@ -22,6 +22,8 @@ const (
 func TestNewProxyFuncUnset(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pf, err := newProxyFunc("")
 	if pf != nil {
 		t.Fatal("unexpected non-nil proxyFunc")
@@ -31,6 +33,8 @@ func TestNewProxyFuncUnset(t *testing.T) {
 	}
 }
 func TestNewProxyFuncBad(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []string{"%%", "http://foo.com/%1"}
@@ -45,6 +49,8 @@ func TestNewProxyFuncBad(t *testing.T) {
 	}
 }
 func TestNewProxyFunc(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := map[string]string{"bar.com": "http://bar.com", "http://disco.foo.bar": "http://disco.foo.bar"}
@@ -68,6 +74,8 @@ func TestNewProxyFunc(t *testing.T) {
 	}
 }
 func TestCheckCluster(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := "/prefix/1000"
@@ -116,6 +124,8 @@ func TestCheckCluster(t *testing.T) {
 func TestWaitNodes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	all := []*client.Node{0: {Key: "/1000/1", CreatedIndex: 2}, 1: {Key: "/1000/2", CreatedIndex: 3}, 2: {Key: "/1000/3", CreatedIndex: 4}}
 	tests := []struct {
 		nodes	[]*client.Node
@@ -152,6 +162,8 @@ func TestWaitNodes(t *testing.T) {
 func TestCreateSelf(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rs := []*client.Response{{Node: &client.Node{Key: "1000/1", CreatedIndex: 2}}}
 	w := &watcherWithResp{rs: rs}
 	errw := &watcherWithErr{err: errors.New("watch err")}
@@ -173,6 +185,8 @@ func TestCreateSelf(t *testing.T) {
 func TestNodesToCluster(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		nodes		[]*client.Node
 		size		int
@@ -190,6 +204,8 @@ func TestNodesToCluster(t *testing.T) {
 	}
 }
 func TestSortableNodes(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ns := []*client.Node{0: {CreatedIndex: 5}, 1: {CreatedIndex: 1}, 2: {CreatedIndex: 3}, 3: {CreatedIndex: 4}}
@@ -214,6 +230,8 @@ func TestSortableNodes(t *testing.T) {
 	}
 }
 func TestRetryFailure(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nRetries = maxRetryInTest
@@ -244,6 +262,8 @@ type clientWithResp struct {
 func (c *clientWithResp) Create(ctx context.Context, key string, value string) (*client.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(c.rs) == 0 {
 		return &client.Response{}, nil
 	}
@@ -254,6 +274,8 @@ func (c *clientWithResp) Create(ctx context.Context, key string, value string) (
 func (c *clientWithResp) Get(ctx context.Context, key string, opts *client.GetOptions) (*client.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(c.rs) == 0 {
 		return &client.Response{}, &client.Error{Code: client.ErrorCodeKeyNotFound}
 	}
@@ -262,6 +284,8 @@ func (c *clientWithResp) Get(ctx context.Context, key string, opts *client.GetOp
 	return r, nil
 }
 func (c *clientWithResp) Watcher(key string, opts *client.WatcherOptions) client.Watcher {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return c.w
@@ -276,14 +300,20 @@ type clientWithErr struct {
 func (c *clientWithErr) Create(ctx context.Context, key string, value string) (*client.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &client.Response{}, c.err
 }
 func (c *clientWithErr) Get(ctx context.Context, key string, opts *client.GetOptions) (*client.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &client.Response{}, c.err
 }
 func (c *clientWithErr) Watcher(key string, opts *client.WatcherOptions) client.Watcher {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return c.w
@@ -295,6 +325,8 @@ type watcherWithResp struct {
 }
 
 func (w *watcherWithResp) Next(context.Context) (*client.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(w.rs) == 0 {
@@ -310,6 +342,8 @@ type watcherWithErr struct{ err error }
 func (w *watcherWithErr) Next(context.Context) (*client.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &client.Response{}, w.err
 }
 
@@ -322,6 +356,8 @@ type clientWithRetry struct {
 func (c *clientWithRetry) Create(ctx context.Context, key string, value string) (*client.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.failCount < c.failTimes {
 		c.failCount++
 		return nil, &client.ClusterError{Errors: []error{context.DeadlineExceeded}}
@@ -329,6 +365,8 @@ func (c *clientWithRetry) Create(ctx context.Context, key string, value string) 
 	return c.clientWithResp.Create(ctx, key, value)
 }
 func (c *clientWithRetry) Get(ctx context.Context, key string, opts *client.GetOptions) (*client.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.failCount < c.failTimes {
@@ -345,6 +383,8 @@ type watcherWithRetry struct {
 }
 
 func (w *watcherWithRetry) Next(context.Context) (*client.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if w.failCount < w.failTimes {

@@ -10,9 +10,13 @@ import (
 func WaitSchedule() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	time.Sleep(10 * time.Millisecond)
 }
 func MustNewURLs(t *testing.T, urls []string) []url.URL {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if urls == nil {
@@ -28,6 +32,8 @@ func MustNewURLs(t *testing.T, urls []string) []url.URL {
 func MustNewURL(t *testing.T, s string) *url.URL {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u, err := url.Parse(s)
 	if err != nil {
 		t.Fatalf("parse %v error: %v", s, err)
@@ -35,6 +41,8 @@ func MustNewURL(t *testing.T, s string) *url.URL {
 	return u
 }
 func FatalStack(t *testing.T, s string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	stackTrace := make([]byte, 1024*1024)
@@ -46,6 +54,8 @@ func FatalStack(t *testing.T, s string) {
 type ConditionFunc func() (bool, error)
 
 func Poll(interval time.Duration, timeout time.Duration, condition ConditionFunc) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	timeoutCh := time.After(timeout)

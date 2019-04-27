@@ -18,6 +18,8 @@ type cluster struct {
 func newCluster(n int) *cluster {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	peers := make([]string, n)
 	for i := range peers {
 		peers[i] = fmt.Sprintf("http://127.0.0.1:%d", 10000+i)
@@ -35,6 +37,8 @@ func newCluster(n int) *cluster {
 func (clus *cluster) sinkReplay() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i := range clus.peers {
 		for s := range clus.commitC[i] {
 			if s == nil {
@@ -44,6 +48,8 @@ func (clus *cluster) sinkReplay() {
 	}
 }
 func (clus *cluster) Close() (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := range clus.peers {
@@ -61,11 +67,15 @@ func (clus *cluster) Close() (err error) {
 func (clus *cluster) closeNoErrors(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := clus.Close(); err != nil {
 		t.Fatal(err)
 	}
 }
 func TestProposeOnCommit(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := newCluster(3)
@@ -101,10 +111,14 @@ func TestProposeOnCommit(t *testing.T) {
 func TestCloseProposerBeforeReplay(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := newCluster(1)
 	defer clus.closeNoErrors(t)
 }
 func TestCloseProposerInflight(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := newCluster(1)

@@ -17,6 +17,8 @@ import (
 func TestGetIDs(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	addcc := &raftpb.ConfChange{Type: raftpb.ConfChangeAddNode, NodeID: 2}
 	addEntry := raftpb.Entry{Type: raftpb.EntryConfChange, Data: pbutil.MustMarshal(addcc)}
 	removecc := &raftpb.ConfChange{Type: raftpb.ConfChangeRemoveNode, NodeID: 2}
@@ -43,6 +45,8 @@ func TestGetIDs(t *testing.T) {
 func TestCreateConfigChangeEnts(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := membership.Member{ID: types.ID(1), RaftAttributes: membership.RaftAttributes{PeerURLs: []string{"http://localhost:2380"}}}
 	ctx, err := json.Marshal(m)
 	if err != nil {
@@ -67,6 +71,8 @@ func TestCreateConfigChangeEnts(t *testing.T) {
 func TestStopRaftWhenWaitingForApplyDone(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n := newNopReadyNode()
 	r := newRaftNode(raftNodeConfig{Node: n, storage: mockstorage.NewStorageRecorder(""), raftStorage: raft.NewMemoryStorage(), transport: rafthttp.NewNopTransporter()})
 	srv := &EtcdServer{r: *r}
@@ -85,6 +91,8 @@ func TestStopRaftWhenWaitingForApplyDone(t *testing.T) {
 	}
 }
 func TestConfgChangeBlocksApply(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := newNopReadyNode()

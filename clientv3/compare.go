@@ -19,6 +19,8 @@ type Cmp pb.Compare
 func Compare(cmp Cmp, result string, v interface{}) Cmp {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var r pb.Compare_CompareResult
 	switch result {
 	case "=":
@@ -56,9 +58,13 @@ func Compare(cmp Cmp, result string, v interface{}) Cmp {
 func Value(key string) Cmp {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Cmp{Key: []byte(key), Target: pb.Compare_VALUE}
 }
 func Version(key string) Cmp {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return Cmp{Key: []byte(key), Target: pb.Compare_VERSION}
@@ -66,9 +72,13 @@ func Version(key string) Cmp {
 func CreateRevision(key string) Cmp {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Cmp{Key: []byte(key), Target: pb.Compare_CREATE}
 }
 func ModRevision(key string) Cmp {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return Cmp{Key: []byte(key), Target: pb.Compare_MOD}
@@ -76,9 +86,13 @@ func ModRevision(key string) Cmp {
 func LeaseValue(key string) Cmp {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Cmp{Key: []byte(key), Target: pb.Compare_LEASE}
 }
 func (cmp *Cmp) KeyBytes() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return cmp.Key
@@ -86,9 +100,13 @@ func (cmp *Cmp) KeyBytes() []byte {
 func (cmp *Cmp) WithKeyBytes(key []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmp.Key = key
 }
 func (cmp *Cmp) ValueBytes() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if tu, ok := cmp.TargetUnion.(*pb.Compare_Value); ok {
@@ -99,9 +117,13 @@ func (cmp *Cmp) ValueBytes() []byte {
 func (cmp *Cmp) WithValueBytes(v []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmp.TargetUnion.(*pb.Compare_Value).Value = v
 }
 func (cmp Cmp) WithRange(end string) Cmp {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmp.RangeEnd = []byte(end)
@@ -110,10 +132,14 @@ func (cmp Cmp) WithRange(end string) Cmp {
 func (cmp Cmp) WithPrefix() Cmp {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmp.RangeEnd = getPrefix(cmp.Key)
 	return cmp
 }
 func mustInt64(val interface{}) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if v, ok := val.(int64); ok {
@@ -125,6 +151,8 @@ func mustInt64(val interface{}) int64 {
 	panic("bad value")
 }
 func mustInt64orLeaseID(val interface{}) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if v, ok := val.(LeaseID); ok {

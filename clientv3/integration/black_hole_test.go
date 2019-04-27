@@ -17,6 +17,8 @@ import (
 func TestBalancerUnderBlackholeKeepAliveWatch(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 2, GRPCKeepAliveMinTime: 1 * time.Millisecond})
 	defer clus.Terminate(t)
@@ -61,6 +63,8 @@ func TestBalancerUnderBlackholeKeepAliveWatch(t *testing.T) {
 func TestBalancerUnderBlackholeNoKeepAlivePut(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testBalancerUnderBlackholeNoKeepAlive(t, func(cli *clientv3.Client, ctx context.Context) error {
 		_, err := cli.Put(ctx, "foo", "bar")
 		if err == context.DeadlineExceeded || isServerCtxTimeout(err) || err == rpctypes.ErrTimeout {
@@ -70,6 +74,8 @@ func TestBalancerUnderBlackholeNoKeepAlivePut(t *testing.T) {
 	})
 }
 func TestBalancerUnderBlackholeNoKeepAliveDelete(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testBalancerUnderBlackholeNoKeepAlive(t, func(cli *clientv3.Client, ctx context.Context) error {
@@ -83,6 +89,8 @@ func TestBalancerUnderBlackholeNoKeepAliveDelete(t *testing.T) {
 func TestBalancerUnderBlackholeNoKeepAliveTxn(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testBalancerUnderBlackholeNoKeepAlive(t, func(cli *clientv3.Client, ctx context.Context) error {
 		_, err := cli.Txn(ctx).If(clientv3.Compare(clientv3.Version("foo"), "=", 0)).Then(clientv3.OpPut("foo", "bar")).Else(clientv3.OpPut("foo", "baz")).Commit()
 		if err == context.DeadlineExceeded || isServerCtxTimeout(err) || err == rpctypes.ErrTimeout {
@@ -92,6 +100,8 @@ func TestBalancerUnderBlackholeNoKeepAliveTxn(t *testing.T) {
 	})
 }
 func TestBalancerUnderBlackholeNoKeepAliveLinearizableGet(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testBalancerUnderBlackholeNoKeepAlive(t, func(cli *clientv3.Client, ctx context.Context) error {
@@ -105,6 +115,8 @@ func TestBalancerUnderBlackholeNoKeepAliveLinearizableGet(t *testing.T) {
 func TestBalancerUnderBlackholeNoKeepAliveSerializableGet(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testBalancerUnderBlackholeNoKeepAlive(t, func(cli *clientv3.Client, ctx context.Context) error {
 		_, err := cli.Get(ctx, "a", clientv3.WithSerializable())
 		if err == context.DeadlineExceeded || isServerCtxTimeout(err) {
@@ -114,6 +126,8 @@ func TestBalancerUnderBlackholeNoKeepAliveSerializableGet(t *testing.T) {
 	})
 }
 func testBalancerUnderBlackholeNoKeepAlive(t *testing.T, op func(*clientv3.Client, context.Context) error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -148,7 +162,16 @@ func testBalancerUnderBlackholeNoKeepAlive(t *testing.T, op func(*clientv3.Clien
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

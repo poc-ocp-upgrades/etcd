@@ -12,11 +12,15 @@ import (
 func NewLockRacerCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "lock-racer [name of lock (defaults to 'racers')]", Short: "Performs lock race operation", Run: runRacerFunc}
 	cmd.Flags().IntVar(&totalClientConnections, "total-client-connections", 10, "total number of client connections")
 	return cmd
 }
 func runRacerFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	racers := "racers"

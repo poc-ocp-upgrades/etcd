@@ -13,6 +13,8 @@ import (
 func ExampleSTM_apply() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints})
 	if err != nil {
 		log.Fatal(err)

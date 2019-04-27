@@ -14,6 +14,8 @@ var (
 func TestGateway(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ec, err := newEtcdProcessCluster(&configNoTLS)
 	if err != nil {
 		t.Fatal(err)
@@ -30,6 +32,8 @@ func TestGateway(t *testing.T) {
 	}
 }
 func startGateway(t *testing.T, endpoints string) *expect.ExpectProcess {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p, err := expect.NewExpect(binPath, "gateway", "--endpoints="+endpoints, "start")

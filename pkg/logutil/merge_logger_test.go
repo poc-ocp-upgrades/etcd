@@ -15,6 +15,8 @@ var (
 func TestMergeLogger(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var (
 		txt		= "hello"
 		repeatN		= 6

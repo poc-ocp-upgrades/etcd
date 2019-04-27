@@ -18,6 +18,8 @@ import (
 func TestLeasingPutGet(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -68,6 +70,8 @@ func TestLeasingPutGet(t *testing.T) {
 func TestLeasingInterval(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -100,6 +104,8 @@ func TestLeasingInterval(t *testing.T) {
 func TestLeasingPutInvalidateNew(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -125,6 +131,8 @@ func TestLeasingPutInvalidateNew(t *testing.T) {
 	}
 }
 func TestLeasingPutInvalidateExisting(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -157,6 +165,8 @@ func TestLeasingPutInvalidateExisting(t *testing.T) {
 func TestLeasingGetNoLeaseTTL(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -177,6 +187,8 @@ func TestLeasingGetNoLeaseTTL(t *testing.T) {
 	testutil.AssertEqual(t, err, ctx.Err())
 }
 func TestLeasingGetSerializable(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -211,6 +223,8 @@ func TestLeasingGetSerializable(t *testing.T) {
 func TestLeasingPrevKey(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 2})
 	defer clus.Terminate(t)
@@ -232,6 +246,8 @@ func TestLeasingPrevKey(t *testing.T) {
 	}
 }
 func TestLeasingRevGet(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -265,6 +281,8 @@ func TestLeasingRevGet(t *testing.T) {
 func TestLeasingGetWithOpts(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -294,6 +312,8 @@ func TestLeasingGetWithOpts(t *testing.T) {
 	}
 }
 func TestLeasingConcurrentPut(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -336,6 +356,8 @@ func TestLeasingConcurrentPut(t *testing.T) {
 func TestLeasingDisconnectedGet(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -358,6 +380,8 @@ func TestLeasingDisconnectedGet(t *testing.T) {
 	}
 }
 func TestLeasingDeleteOwner(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -389,6 +413,8 @@ func TestLeasingDeleteOwner(t *testing.T) {
 func TestLeasingDeleteNonOwner(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -418,6 +444,8 @@ func TestLeasingDeleteNonOwner(t *testing.T) {
 func TestLeasingOverwriteResponse(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -445,6 +473,8 @@ func TestLeasingOverwriteResponse(t *testing.T) {
 	}
 }
 func TestLeasingOwnerPutResponse(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -482,6 +512,8 @@ func TestLeasingOwnerPutResponse(t *testing.T) {
 func TestLeasingTxnOwnerGetRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -507,6 +539,8 @@ func TestLeasingTxnOwnerGetRange(t *testing.T) {
 	}
 }
 func TestLeasingTxnOwnerGet(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -569,6 +603,8 @@ func TestLeasingTxnOwnerGet(t *testing.T) {
 func TestLeasingTxnOwnerDeleteRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -603,6 +639,8 @@ func TestLeasingTxnOwnerDeleteRange(t *testing.T) {
 func TestLeasingTxnOwnerDelete(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -627,6 +665,8 @@ func TestLeasingTxnOwnerDelete(t *testing.T) {
 	}
 }
 func TestLeasingTxnOwnerIf(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -663,6 +703,8 @@ func TestLeasingTxnOwnerIf(t *testing.T) {
 func TestLeasingTxnCancel(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -689,6 +731,8 @@ func TestLeasingTxnCancel(t *testing.T) {
 	}
 }
 func TestLeasingTxnNonOwnerPut(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -750,6 +794,8 @@ func TestLeasingTxnNonOwnerPut(t *testing.T) {
 	}
 }
 func TestLeasingTxnRandIfThenOrElse(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -841,6 +887,8 @@ func TestLeasingTxnRandIfThenOrElse(t *testing.T) {
 func TestLeasingOwnerPutError(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -858,6 +906,8 @@ func TestLeasingOwnerPutError(t *testing.T) {
 	}
 }
 func TestLeasingOwnerDeleteError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -879,6 +929,8 @@ func TestLeasingOwnerDeleteError(t *testing.T) {
 func TestLeasingNonOwnerPutError(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -895,14 +947,20 @@ func TestLeasingNonOwnerPutError(t *testing.T) {
 func TestLeasingOwnerDeletePrefix(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testLeasingOwnerDelete(t, clientv3.OpDelete("key/", clientv3.WithPrefix()))
 }
 func TestLeasingOwnerDeleteFrom(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testLeasingOwnerDelete(t, clientv3.OpDelete("kd", clientv3.WithFromKey()))
 }
 func testLeasingOwnerDelete(t *testing.T, del clientv3.Op) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -939,6 +997,8 @@ func testLeasingOwnerDelete(t *testing.T, del clientv3.Op) {
 	}
 }
 func TestLeasingDeleteRangeBounds(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -981,16 +1041,22 @@ func TestLeasingDeleteRangeBounds(t *testing.T) {
 func TestLeasingDeleteRangeContendTxn(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	then := []clientv3.Op{clientv3.OpDelete("key/", clientv3.WithPrefix())}
 	testLeasingDeleteRangeContend(t, clientv3.OpTxn(nil, then, nil))
 }
 func TestLeaseDeleteRangeContendDel(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	op := clientv3.OpDelete("key/", clientv3.WithPrefix())
 	testLeasingDeleteRangeContend(t, op)
 }
 func testLeasingDeleteRangeContend(t *testing.T, op clientv3.Op) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -1045,6 +1111,8 @@ func testLeasingDeleteRangeContend(t *testing.T, op clientv3.Op) {
 func TestLeasingPutGetDeleteConcurrent(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -1095,6 +1163,8 @@ func TestLeasingPutGetDeleteConcurrent(t *testing.T) {
 	}
 }
 func TestLeasingReconnectOwnerRevoke(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -1149,6 +1219,8 @@ func TestLeasingReconnectOwnerRevoke(t *testing.T) {
 func TestLeasingReconnectOwnerRevokeCompact(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -1190,6 +1262,8 @@ func TestLeasingReconnectOwnerRevokeCompact(t *testing.T) {
 	}
 }
 func TestLeasingReconnectOwnerConsistency(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -1254,6 +1328,8 @@ func TestLeasingReconnectOwnerConsistency(t *testing.T) {
 	}
 }
 func TestLeasingTxnAtomicCache(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -1325,6 +1401,8 @@ func TestLeasingTxnAtomicCache(t *testing.T) {
 func TestLeasingReconnectTxn(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -1350,6 +1428,8 @@ func TestLeasingReconnectTxn(t *testing.T) {
 	}
 }
 func TestLeasingReconnectNonOwnerGet(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -1400,6 +1480,8 @@ func TestLeasingReconnectNonOwnerGet(t *testing.T) {
 func TestLeasingTxnRangeCmp(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -1428,6 +1510,8 @@ func TestLeasingTxnRangeCmp(t *testing.T) {
 	}
 }
 func TestLeasingDo(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -1462,6 +1546,8 @@ func TestLeasingDo(t *testing.T) {
 	}
 }
 func TestLeasingTxnOwnerPutBranch(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -1503,6 +1589,8 @@ func TestLeasingTxnOwnerPutBranch(t *testing.T) {
 func makePutTreeOp(pfx string, v *int, depth int) clientv3.Op {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := fmt.Sprintf("%s/%d", pfx, *v)
 	*v = *v + 1
 	if depth == 0 {
@@ -1519,6 +1607,8 @@ func makePutTreeOp(pfx string, v *int, depth int) clientv3.Op {
 	return clientv3.OpTxn(cmps, []clientv3.Op{t, tPut}, []clientv3.Op{e, ePut})
 }
 func randCmps(pfx string, dat []*clientv3.PutResponse) (cmps []clientv3.Cmp, then bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := 0; i < len(dat); i++ {
@@ -1547,6 +1637,8 @@ func randCmps(pfx string, dat []*clientv3.PutResponse) (cmps []clientv3.Cmp, the
 	return cmps, false
 }
 func TestLeasingSessionExpire(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -1579,6 +1671,8 @@ func TestLeasingSessionExpire(t *testing.T) {
 	}
 }
 func TestLeasingSessionExpireCancel(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -1643,6 +1737,8 @@ func TestLeasingSessionExpireCancel(t *testing.T) {
 func waitForLeasingExpire(kv clientv3.KV, lkey string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		time.Sleep(1 * time.Second)
 		resp, err := kv.Get(context.TODO(), lkey, clientv3.WithPrefix())
@@ -1655,6 +1751,8 @@ func waitForLeasingExpire(kv clientv3.KV, lkey string) error {
 	}
 }
 func waitForExpireAck(t *testing.T, kv clientv3.KV) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := 0; i < 10; i++ {

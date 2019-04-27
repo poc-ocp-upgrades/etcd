@@ -12,6 +12,8 @@ import (
 func TestElectionWait(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
 	leaders := 3
@@ -77,6 +79,8 @@ func TestElectionWait(t *testing.T) {
 func TestElectionFailover(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
 	cctx, cancel := context.WithCancel(context.TODO())
@@ -127,6 +131,8 @@ func TestElectionFailover(t *testing.T) {
 func TestElectionSessionRecampaign(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
 	cli := clus.RandClient()
@@ -152,6 +158,8 @@ func TestElectionSessionRecampaign(t *testing.T) {
 func TestElectionOnPrefixOfExistingKey(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
 	cli := clus.RandClient()
@@ -171,6 +179,8 @@ func TestElectionOnPrefixOfExistingKey(t *testing.T) {
 	}
 }
 func TestElectionOnSessionRestart(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
@@ -208,6 +218,8 @@ func TestElectionOnSessionRestart(t *testing.T) {
 	}
 }
 func TestElectionObserveCompacted(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})

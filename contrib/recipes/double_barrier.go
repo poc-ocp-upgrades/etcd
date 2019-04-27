@@ -18,9 +18,13 @@ type DoubleBarrier struct {
 func NewDoubleBarrier(s *concurrency.Session, key string, count int) *DoubleBarrier {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &DoubleBarrier{s: s, ctx: context.TODO(), key: key, count: count}
 }
 func (b *DoubleBarrier) Enter() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client := b.s.Client()
@@ -44,6 +48,8 @@ func (b *DoubleBarrier) Enter() error {
 	return err
 }
 func (b *DoubleBarrier) Leave() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client := b.s.Client()

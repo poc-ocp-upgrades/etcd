@@ -9,6 +9,8 @@ import (
 func TestFindConflict(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	previousEnts := []pb.Entry{{Index: 1, Term: 1}, {Index: 2, Term: 2}, {Index: 3, Term: 3}}
 	tests := []struct {
 		ents		[]pb.Entry
@@ -24,6 +26,8 @@ func TestFindConflict(t *testing.T) {
 	}
 }
 func TestIsUpToDate(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	previousEnts := []pb.Entry{{Index: 1, Term: 1}, {Index: 2, Term: 2}, {Index: 3, Term: 3}}
@@ -42,6 +46,8 @@ func TestIsUpToDate(t *testing.T) {
 	}
 }
 func TestAppend(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	previousEnts := []pb.Entry{{Index: 1, Term: 1}, {Index: 2, Term: 2}}
@@ -72,6 +78,8 @@ func TestAppend(t *testing.T) {
 	}
 }
 func TestLogMaybeAppend(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	previousEnts := []pb.Entry{{Index: 1, Term: 1}, {Index: 2, Term: 2}, {Index: 3, Term: 3}}
@@ -124,6 +132,8 @@ func TestLogMaybeAppend(t *testing.T) {
 	}
 }
 func TestCompactionSideEffects(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i uint64
@@ -181,6 +191,8 @@ func TestCompactionSideEffects(t *testing.T) {
 func TestHasNextEnts(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	snap := pb.Snapshot{Metadata: pb.SnapshotMetadata{Term: 1, Index: 3}}
 	ents := []pb.Entry{{Term: 1, Index: 4}, {Term: 1, Index: 5}, {Term: 1, Index: 6}}
 	tests := []struct {
@@ -203,6 +215,8 @@ func TestHasNextEnts(t *testing.T) {
 func TestNextEnts(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	snap := pb.Snapshot{Metadata: pb.SnapshotMetadata{Term: 1, Index: 3}}
 	ents := []pb.Entry{{Term: 1, Index: 4}, {Term: 1, Index: 5}, {Term: 1, Index: 6}}
 	tests := []struct {
@@ -223,6 +237,8 @@ func TestNextEnts(t *testing.T) {
 	}
 }
 func TestUnstableEnts(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	previousEnts := []pb.Entry{{Term: 1, Index: 1}, {Term: 2, Index: 2}}
@@ -249,6 +265,8 @@ func TestUnstableEnts(t *testing.T) {
 	}
 }
 func TestCommitTo(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	previousEnts := []pb.Entry{{Term: 1, Index: 1}, {Term: 2, Index: 2}, {Term: 3, Index: 3}}
@@ -280,6 +298,8 @@ func TestCommitTo(t *testing.T) {
 func TestStableTo(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		stablei		uint64
 		stablet		uint64
@@ -295,6 +315,8 @@ func TestStableTo(t *testing.T) {
 	}
 }
 func TestStableToWithSnap(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	snapi, snapt := uint64(5), uint64(2)
@@ -316,6 +338,8 @@ func TestStableToWithSnap(t *testing.T) {
 	}
 }
 func TestCompaction(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -358,6 +382,8 @@ func TestCompaction(t *testing.T) {
 func TestLogRestore(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	index := uint64(1000)
 	term := uint64(1000)
 	snap := pb.SnapshotMetadata{Index: index, Term: term}
@@ -381,6 +407,8 @@ func TestLogRestore(t *testing.T) {
 	}
 }
 func TestIsOutOfBounds(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	offset := uint64(100)
@@ -422,6 +450,8 @@ func TestIsOutOfBounds(t *testing.T) {
 func TestTerm(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var i uint64
 	offset := uint64(100)
 	num := uint64(100)
@@ -445,6 +475,8 @@ func TestTerm(t *testing.T) {
 func TestTermWithUnstableSnapshot(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	storagesnapi := uint64(100)
 	unstablesnapi := storagesnapi + 5
 	storage := NewMemoryStorage()
@@ -463,6 +495,8 @@ func TestTermWithUnstableSnapshot(t *testing.T) {
 	}
 }
 func TestSlice(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i uint64
@@ -510,6 +544,8 @@ func TestSlice(t *testing.T) {
 	}
 }
 func mustTerm(term uint64, err error) uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err != nil {

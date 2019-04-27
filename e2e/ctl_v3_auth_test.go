@@ -10,9 +10,13 @@ import (
 func TestCtlV3AuthEnable(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, authEnableTest)
 }
 func TestCtlV3AuthDisable(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, authDisableTest)
@@ -20,9 +24,13 @@ func TestCtlV3AuthDisable(t *testing.T) {
 func TestCtlV3AuthWriteKey(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, authCredWriteKeyTest)
 }
 func TestCtlV3AuthRoleUpdate(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, authRoleUpdateTest)
@@ -30,9 +38,13 @@ func TestCtlV3AuthRoleUpdate(t *testing.T) {
 func TestCtlV3AuthUserDeleteDuringOps(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, authUserDeleteDuringOpsTest)
 }
 func TestCtlV3AuthRoleRevokeDuringOps(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, authRoleRevokeDuringOpsTest)
@@ -40,9 +52,13 @@ func TestCtlV3AuthRoleRevokeDuringOps(t *testing.T) {
 func TestCtlV3AuthTxn(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, authTestTxn)
 }
 func TestCtlV3AuthPrefixPerm(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, authTestPrefixPerm)
@@ -50,9 +66,13 @@ func TestCtlV3AuthPrefixPerm(t *testing.T) {
 func TestCtlV3AuthMemberAdd(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, authTestMemberAdd)
 }
 func TestCtlV3AuthMemberRemove(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, authTestMemberRemove, withQuorum(), withNoStrictReconfig())
@@ -60,9 +80,13 @@ func TestCtlV3AuthMemberRemove(t *testing.T) {
 func TestCtlV3AuthMemberUpdate(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, authTestMemberUpdate)
 }
 func TestCtlV3AuthCertCN(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, authTestCertCN, withCfg(configClientTLSCertAuth))
@@ -70,9 +94,13 @@ func TestCtlV3AuthCertCN(t *testing.T) {
 func TestCtlV3AuthRevokeWithDelete(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, authTestRevokeWithDelete)
 }
 func TestCtlV3AuthInvalidMgmt(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, authTestInvalidMgmt)
@@ -80,9 +108,13 @@ func TestCtlV3AuthInvalidMgmt(t *testing.T) {
 func TestCtlV3AuthFromKeyPerm(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, authTestFromKeyPerm)
 }
 func TestCtlV3AuthAndWatch(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, authTestWatch)
@@ -90,9 +122,13 @@ func TestCtlV3AuthAndWatch(t *testing.T) {
 func TestCtlV3AuthLeaseTestKeepAlive(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, authLeaseTestKeepAlive)
 }
 func TestCtlV3AuthLeaseTestTimeToLiveExpired(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, authLeaseTestTimeToLiveExpired)
@@ -100,9 +136,13 @@ func TestCtlV3AuthLeaseTestTimeToLiveExpired(t *testing.T) {
 func TestCtlV3AuthRoleGet(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, authTestRoleGet)
 }
 func TestCtlV3AuthUserGet(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, authTestUserGet)
@@ -110,9 +150,13 @@ func TestCtlV3AuthUserGet(t *testing.T) {
 func TestCtlV3AuthRoleList(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, authTestRoleList)
 }
 func TestCtlV3AuthDefrag(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, authTestDefrag)
@@ -120,9 +164,13 @@ func TestCtlV3AuthDefrag(t *testing.T) {
 func TestCtlV3AuthEndpointHealth(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, authTestEndpointHealth, withQuorum())
 }
 func TestCtlV3AuthSnapshot(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, authTestSnapshot)
@@ -130,9 +178,13 @@ func TestCtlV3AuthSnapshot(t *testing.T) {
 func TestCtlV3AuthCertCNAndUsername(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, authTestCertCNAndUsername, withCfg(configClientTLSCertAuth))
 }
 func authEnableTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
@@ -140,6 +192,8 @@ func authEnableTest(cx ctlCtx) {
 	}
 }
 func authEnable(cx ctlCtx) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ctlV3User(cx, []string{"add", "root", "--interactive=false"}, "User root created", []string{"root"}); err != nil {
@@ -156,10 +210,14 @@ func authEnable(cx ctlCtx) error {
 func ctlV3AuthEnable(cx ctlCtx) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "auth", "enable")
 	return spawnWithExpect(cmdArgs, "Authentication Enabled")
 }
 func authDisableTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ctlV3Put(cx, "hoo", "a", ""); err != nil {
@@ -193,10 +251,14 @@ func authDisableTest(cx ctlCtx) {
 func ctlV3AuthDisable(cx ctlCtx) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "auth", "disable")
 	return spawnWithExpect(cmdArgs, "Authentication Disabled")
 }
 func authCredWriteKeyTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ctlV3Put(cx, "foo", "a", ""); err != nil {
@@ -240,6 +302,8 @@ func authCredWriteKeyTest(cx ctlCtx) {
 func authRoleUpdateTest(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := ctlV3Put(cx, "foo", "bar", ""); err != nil {
 		cx.t.Fatal(err)
 	}
@@ -278,6 +342,8 @@ func authRoleUpdateTest(cx ctlCtx) {
 func authUserDeleteDuringOpsTest(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := ctlV3Put(cx, "foo", "bar", ""); err != nil {
 		cx.t.Fatal(err)
 	}
@@ -304,6 +370,8 @@ func authUserDeleteDuringOpsTest(cx ctlCtx) {
 	}
 }
 func authRoleRevokeDuringOpsTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ctlV3Put(cx, "foo", "bar", ""); err != nil {
@@ -358,14 +426,20 @@ func authRoleRevokeDuringOpsTest(cx ctlCtx) {
 func ctlV3PutFailAuth(cx ctlCtx, key, val string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return spawnWithExpect(append(cx.PrefixArgs(), "put", key, val), "authentication failed")
 }
 func ctlV3PutFailPerm(cx ctlCtx, key, val string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return spawnWithExpect(append(cx.PrefixArgs(), "put", key, val), "permission denied")
 }
 func authSetupTestUser(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ctlV3User(cx, []string{"add", "test-user", "--interactive=false"}, "User test-user created", []string{"pass"}); err != nil {
@@ -383,6 +457,8 @@ func authSetupTestUser(cx ctlCtx) {
 	}
 }
 func authTestTxn(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	keys := []string{"c1", "s1", "f1"}
@@ -430,6 +506,8 @@ func authTestTxn(cx ctlCtx) {
 func authTestPrefixPerm(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
 		cx.t.Fatal(err)
 	}
@@ -466,6 +544,8 @@ func authTestPrefixPerm(cx ctlCtx) {
 func authTestMemberAdd(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
 		cx.t.Fatal(err)
 	}
@@ -484,6 +564,8 @@ func authTestMemberAdd(cx ctlCtx) {
 func authTestMemberRemove(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
 		cx.t.Fatal(err)
 	}
@@ -500,6 +582,8 @@ func authTestMemberRemove(cx ctlCtx) {
 	}
 }
 func authTestMemberUpdate(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
@@ -523,6 +607,8 @@ func authTestMemberUpdate(cx ctlCtx) {
 	}
 }
 func authTestCertCN(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
@@ -553,6 +639,8 @@ func authTestCertCN(cx ctlCtx) {
 func authTestRevokeWithDelete(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
 		cx.t.Fatal(err)
 	}
@@ -578,6 +666,8 @@ func authTestRevokeWithDelete(cx ctlCtx) {
 func authTestInvalidMgmt(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
 		cx.t.Fatal(err)
 	}
@@ -589,6 +679,8 @@ func authTestInvalidMgmt(cx ctlCtx) {
 	}
 }
 func authTestFromKeyPerm(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
@@ -654,6 +746,8 @@ func authTestFromKeyPerm(cx ctlCtx) {
 func authLeaseTestKeepAlive(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
 		cx.t.Fatal(err)
 	}
@@ -676,6 +770,8 @@ func authLeaseTestKeepAlive(cx ctlCtx) {
 func authLeaseTestTimeToLiveExpired(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
 		cx.t.Fatal(err)
 	}
@@ -687,6 +783,8 @@ func authLeaseTestTimeToLiveExpired(cx ctlCtx) {
 	}
 }
 func authTestWatch(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
@@ -731,6 +829,8 @@ func authTestWatch(cx ctlCtx) {
 func authTestRoleGet(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
 		cx.t.Fatal(err)
 	}
@@ -750,6 +850,8 @@ func authTestRoleGet(cx ctlCtx) {
 	}
 }
 func authTestUserGet(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
@@ -773,6 +875,8 @@ func authTestUserGet(cx ctlCtx) {
 func authTestRoleList(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
 		cx.t.Fatal(err)
 	}
@@ -783,6 +887,8 @@ func authTestRoleList(cx ctlCtx) {
 	}
 }
 func authTestDefrag(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	maintenanceInitKeys(cx)
@@ -801,6 +907,8 @@ func authTestDefrag(cx ctlCtx) {
 	}
 }
 func authTestSnapshot(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	maintenanceInitKeys(cx)
@@ -833,6 +941,8 @@ func authTestSnapshot(cx ctlCtx) {
 func authTestEndpointHealth(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {
 		cx.t.Fatal(err)
 	}
@@ -855,6 +965,8 @@ func authTestEndpointHealth(cx ctlCtx) {
 	}
 }
 func authTestCertCNAndUsername(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := authEnable(cx); err != nil {

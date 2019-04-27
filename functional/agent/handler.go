@@ -19,6 +19,8 @@ import (
 func (srv *Server) handleTesterRequest(req *rpcpb.Request) (resp *rpcpb.Response, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer func() {
 		if err == nil && req != nil {
 			srv.last = req.Operation
@@ -64,6 +66,8 @@ func (srv *Server) handleTesterRequest(req *rpcpb.Request) (resp *rpcpb.Response
 func (srv *Server) handle_INITIAL_START_ETCD(req *rpcpb.Request) (*rpcpb.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if srv.last != rpcpb.Operation_NOT_STARTED {
 		return &rpcpb.Response{Success: false, Status: fmt.Sprintf("%q is not valid; last server operation was %q", rpcpb.Operation_INITIAL_START_ETCD.String(), srv.last.String()), Member: req.Member}, nil
 	}
@@ -93,6 +97,8 @@ func (srv *Server) handle_INITIAL_START_ETCD(req *rpcpb.Request) (*rpcpb.Respons
 	return &rpcpb.Response{Success: true, Status: "start etcd PASS", Member: srv.Member}, nil
 }
 func (srv *Server) startProxy() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if srv.Member.EtcdClientProxy {
@@ -134,6 +140,8 @@ func (srv *Server) startProxy() error {
 func (srv *Server) stopProxy() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if srv.Member.EtcdClientProxy && len(srv.advertiseClientPortToProxy) > 0 {
 		for port, px := range srv.advertiseClientPortToProxy {
 			if err := px.Close(); err != nil {
@@ -168,6 +176,8 @@ func (srv *Server) stopProxy() {
 func (srv *Server) createEtcdLogFile() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err error
 	srv.etcdLogFile, err = os.Create(srv.Member.EtcdLogPath)
 	if err != nil {
@@ -177,6 +187,8 @@ func (srv *Server) createEtcdLogFile() error {
 	return nil
 }
 func (srv *Server) creatEtcdCmd(fromSnapshot bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	etcdPath, etcdFlags := srv.Member.EtcdExecPath, srv.Member.Etcd.Flags()
@@ -191,6 +203,8 @@ func (srv *Server) creatEtcdCmd(fromSnapshot bool) {
 	srv.etcdCmd.Stderr = srv.etcdLogFile
 }
 func (srv *Server) saveTLSAssets() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if srv.Member.PeerCertPath != "" {
@@ -252,6 +266,8 @@ func (srv *Server) saveTLSAssets() error {
 func (srv *Server) loadAutoTLSAssets() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if srv.Member.Etcd.PeerAutoTLS {
 		time.Sleep(time.Second)
 		fdir := filepath.Join(srv.Member.Etcd.DataDir, "fixtures", "peer")
@@ -305,9 +321,13 @@ func (srv *Server) loadAutoTLSAssets() error {
 func (srv *Server) startEtcdCmd() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return srv.etcdCmd.Start()
 }
 func (srv *Server) handle_RESTART_ETCD() (*rpcpb.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -337,6 +357,8 @@ func (srv *Server) handle_RESTART_ETCD() (*rpcpb.Response, error) {
 func (srv *Server) handle_SIGTERM_ETCD() (*rpcpb.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	srv.stopProxy()
 	err := stopWithSig(srv.etcdCmd, syscall.SIGTERM)
 	if err != nil {
@@ -346,6 +368,8 @@ func (srv *Server) handle_SIGTERM_ETCD() (*rpcpb.Response, error) {
 	return &rpcpb.Response{Success: true, Status: "killed etcd"}, nil
 }
 func (srv *Server) handle_SIGQUIT_ETCD_AND_REMOVE_DATA() (*rpcpb.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	srv.stopProxy()
@@ -377,6 +401,8 @@ func (srv *Server) handle_SIGQUIT_ETCD_AND_REMOVE_DATA() (*rpcpb.Response, error
 func (srv *Server) handle_SAVE_SNAPSHOT() (*rpcpb.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := srv.Member.SaveSnapshot(srv.lg)
 	if err != nil {
 		return nil, err
@@ -384,6 +410,8 @@ func (srv *Server) handle_SAVE_SNAPSHOT() (*rpcpb.Response, error) {
 	return &rpcpb.Response{Success: true, Status: "saved snapshot", SnapshotInfo: srv.Member.SnapshotInfo}, nil
 }
 func (srv *Server) handle_RESTORE_RESTART_FROM_SNAPSHOT() (resp *rpcpb.Response, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err = srv.Member.RestoreSnapshot(srv.lg)
@@ -397,6 +425,8 @@ func (srv *Server) handle_RESTORE_RESTART_FROM_SNAPSHOT() (resp *rpcpb.Response,
 	return resp, err
 }
 func (srv *Server) handle_RESTART_FROM_SNAPSHOT() (resp *rpcpb.Response, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	srv.creatEtcdCmd(true)
@@ -417,6 +447,8 @@ func (srv *Server) handle_RESTART_FROM_SNAPSHOT() (resp *rpcpb.Response, err err
 	return &rpcpb.Response{Success: true, Status: "restarted etcd from snapshot", SnapshotInfo: srv.Member.SnapshotInfo}, nil
 }
 func (srv *Server) handle_SIGQUIT_ETCD_AND_ARCHIVE_DATA() (*rpcpb.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	srv.stopProxy()
@@ -444,6 +476,8 @@ func (srv *Server) handle_SIGQUIT_ETCD_AND_ARCHIVE_DATA() (*rpcpb.Response, erro
 func (srv *Server) handle_SIGQUIT_ETCD_AND_REMOVE_DATA_AND_STOP_AGENT() (*rpcpb.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	srv.stopProxy()
 	err := stopWithSig(srv.etcdCmd, syscall.SIGQUIT)
 	if err != nil {
@@ -463,6 +497,8 @@ func (srv *Server) handle_SIGQUIT_ETCD_AND_REMOVE_DATA_AND_STOP_AGENT() (*rpcpb.
 func (srv *Server) handle_BLACKHOLE_PEER_PORT_TX_RX() (*rpcpb.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for port, px := range srv.advertisePeerPortToProxy {
 		srv.lg.Info("blackholing", zap.Int("peer-port", port))
 		px.BlackholeTx()
@@ -472,6 +508,8 @@ func (srv *Server) handle_BLACKHOLE_PEER_PORT_TX_RX() (*rpcpb.Response, error) {
 	return &rpcpb.Response{Success: true, Status: "blackholed peer port tx/rx"}, nil
 }
 func (srv *Server) handle_UNBLACKHOLE_PEER_PORT_TX_RX() (*rpcpb.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for port, px := range srv.advertisePeerPortToProxy {
@@ -485,6 +523,8 @@ func (srv *Server) handle_UNBLACKHOLE_PEER_PORT_TX_RX() (*rpcpb.Response, error)
 func (srv *Server) handle_DELAY_PEER_PORT_TX_RX() (*rpcpb.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lat := time.Duration(srv.Tester.UpdatedDelayLatencyMs) * time.Millisecond
 	rv := time.Duration(srv.Tester.DelayLatencyMsRv) * time.Millisecond
 	for port, px := range srv.advertisePeerPortToProxy {
@@ -496,6 +536,8 @@ func (srv *Server) handle_DELAY_PEER_PORT_TX_RX() (*rpcpb.Response, error) {
 	return &rpcpb.Response{Success: true, Status: "delayed peer port tx/rx"}, nil
 }
 func (srv *Server) handle_UNDELAY_PEER_PORT_TX_RX() (*rpcpb.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for port, px := range srv.advertisePeerPortToProxy {

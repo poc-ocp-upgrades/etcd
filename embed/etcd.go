@@ -58,6 +58,8 @@ type peerListener struct {
 func StartEtcd(inCfg *Config) (e *Etcd, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err = inCfg.Validate(); err != nil {
 		return nil, err
 	}
@@ -131,9 +133,13 @@ func StartEtcd(inCfg *Config) (e *Etcd, err error) {
 func (e *Etcd) Config() Config {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.cfg
 }
 func (e *Etcd) Close() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	e.closeOnce.Do(func() {
@@ -175,6 +181,8 @@ func (e *Etcd) Close() {
 func stopServers(ctx context.Context, ss *servers) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	shutdownNow := func() {
 		ss.http.Shutdown(ctx)
 		ss.grpc.Stop()
@@ -198,9 +206,13 @@ func stopServers(ctx context.Context, ss *servers) {
 func (e *Etcd) Err() <-chan error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.errc
 }
 func startPeerListeners(cfg *Config) (peers []*peerListener, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err = updateCipherSuites(&cfg.PeerTLSInfo, cfg.CipherSuites); err != nil {
@@ -252,6 +264,8 @@ func startPeerListeners(cfg *Config) (peers []*peerListener, err error) {
 func (e *Etcd) servePeers() (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ph := etcdhttp.NewPeerHandler(e.Server)
 	var peerTLScfg *tls.Config
 	if !e.cfg.PeerTLSInfo.Empty() {
@@ -281,6 +295,8 @@ func (e *Etcd) servePeers() (err error) {
 	return nil
 }
 func startClientListeners(cfg *Config) (sctxs map[string]*serveCtx, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err = updateCipherSuites(&cfg.ClientTLSInfo, cfg.CipherSuites); err != nil {
@@ -358,6 +374,8 @@ func startClientListeners(cfg *Config) (sctxs map[string]*serveCtx, err error) {
 func (e *Etcd) serveClients() (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !e.cfg.ClientTLSInfo.Empty() {
 		plog.Infof("ClientTLS: %s", e.cfg.ClientTLSInfo)
 	}
@@ -395,6 +413,8 @@ func (e *Etcd) serveClients() (err error) {
 func (e *Etcd) serveMetrics() (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if e.cfg.Metrics == "extensive" {
 		grpc_prometheus.EnableHandlingTimeHistogram()
 	}
@@ -422,6 +442,8 @@ func (e *Etcd) serveMetrics() (err error) {
 func (e *Etcd) errHandler(err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case <-e.stopc:
 		return
@@ -433,6 +455,8 @@ func (e *Etcd) errHandler(err error) {
 	}
 }
 func parseCompactionRetention(mode, retention string) (ret time.Duration, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h, err := strconv.Atoi(retention)

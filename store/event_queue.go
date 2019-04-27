@@ -11,6 +11,8 @@ type eventQueue struct {
 func (eq *eventQueue) insert(e *Event) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	eq.Events[eq.Back] = e
 	eq.Back = (eq.Back + 1) % eq.Capacity
 	if eq.Size == eq.Capacity {

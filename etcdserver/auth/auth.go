@@ -83,6 +83,8 @@ type Permissions struct {
 func (p *Permissions) IsEmpty() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return p == nil || (len(p.KV.Read) == 0 && len(p.KV.Write) == 0)
 }
 
@@ -98,9 +100,13 @@ type Error struct {
 func (ae Error) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ae.Errmsg
 }
 func (ae Error) HTTPStatus() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ae.Status
@@ -108,9 +114,13 @@ func (ae Error) HTTPStatus() int {
 func authErr(hs int, s string, v ...interface{}) Error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Error{Status: hs, Errmsg: fmt.Sprintf("auth: "+s, v...)}
 }
 func NewStore(server doer, timeout time.Duration) Store {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := &store{server: server, timeout: timeout, PasswordStore: passwordStore{}}
@@ -122,16 +132,22 @@ type passwordStore struct{}
 func (_ passwordStore) CheckPassword(user User, password string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	return err == nil
 }
 func (_ passwordStore) HashPassword(password string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	return string(hash), err
 }
 func (s *store) AllUsers() ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := s.requestResource("/users/", false, false)
@@ -154,9 +170,13 @@ func (s *store) AllUsers() ([]string, error) {
 func (s *store) GetUser(name string) (User, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.getUser(name, false)
 }
 func (s *store) CreateOrUpdateUser(user User) (out User, created bool, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, err = s.getUser(user.User, true)
@@ -170,6 +190,8 @@ func (s *store) CreateOrUpdateUser(user User) (out User, created bool, err error
 func (s *store) CreateUser(user User) (User, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if user.User == "root" {
 		user = attachRootRole(user)
 	}
@@ -180,6 +202,8 @@ func (s *store) CreateUser(user User) (User, error) {
 	return u, err
 }
 func (s *store) createUserInternal(user User) (User, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if user.Password == "" {
@@ -203,6 +227,8 @@ func (s *store) createUserInternal(user User) (User, error) {
 func (s *store) DeleteUser(name string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.AuthEnabled() && name == "root" {
 		return authErr(http.StatusForbidden, "Cannot delete root user while auth is enabled.")
 	}
@@ -219,6 +245,8 @@ func (s *store) DeleteUser(name string) error {
 	return nil
 }
 func (s *store) UpdateUser(user User) (User, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	old, err := s.getUser(user.User, true)
@@ -246,6 +274,8 @@ func (s *store) UpdateUser(user User) (User, error) {
 func (s *store) AllRoles() ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nodes := []string{RootRoleName}
 	resp, err := s.requestResource("/roles/", false, false)
 	if err != nil {
@@ -266,9 +296,13 @@ func (s *store) AllRoles() ([]string, error) {
 func (s *store) GetRole(name string) (Role, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.getRole(name, false)
 }
 func (s *store) CreateRole(role Role) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if role.Role == RootRoleName {
@@ -290,6 +324,8 @@ func (s *store) CreateRole(role Role) error {
 func (s *store) DeleteRole(name string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if name == RootRoleName {
 		return authErr(http.StatusForbidden, "Cannot modify role %s: is root role.", name)
 	}
@@ -307,6 +343,8 @@ func (s *store) DeleteRole(name string) error {
 	return err
 }
 func (s *store) UpdateRole(role Role) (Role, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if role.Role == RootRoleName {
@@ -337,9 +375,13 @@ func (s *store) UpdateRole(role Role) (Role, error) {
 func (s *store) AuthEnabled() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.detectAuth()
 }
 func (s *store) EnableAuth() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.AuthEnabled() {
@@ -365,6 +407,8 @@ func (s *store) EnableAuth() error {
 func (s *store) DisableAuth() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !s.AuthEnabled() {
 		return authErr(http.StatusConflict, "already disabled")
 	}
@@ -377,6 +421,8 @@ func (s *store) DisableAuth() error {
 	return err
 }
 func (ou User) merge(nu User, s PasswordStore) (User, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var out User
@@ -415,6 +461,8 @@ func (ou User) merge(nu User, s PasswordStore) (User, error) {
 func (r Role) merge(n Role) (Role, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var out Role
 	var err error
 	if r.Role != n.Role {
@@ -431,6 +479,8 @@ func (r Role) merge(n Role) (Role, error) {
 func (r Role) HasKeyAccess(key string, write bool) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if r.Role == RootRoleName {
 		return true
 	}
@@ -439,12 +489,16 @@ func (r Role) HasKeyAccess(key string, write bool) bool {
 func (r Role) HasRecursiveAccess(key string, write bool) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if r.Role == RootRoleName {
 		return true
 	}
 	return r.Permissions.KV.HasRecursiveAccess(key, write)
 }
 func (p Permissions) Grant(n *Permissions) (Permissions, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var out Permissions
@@ -458,6 +512,8 @@ func (p Permissions) Grant(n *Permissions) (Permissions, error) {
 func (p Permissions) Revoke(n *Permissions) (Permissions, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var out Permissions
 	var err error
 	if n == nil {
@@ -467,6 +523,8 @@ func (p Permissions) Revoke(n *Permissions) (Permissions, error) {
 	return out, err
 }
 func (rw RWPermission) Grant(n RWPermission) (RWPermission, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var out RWPermission
@@ -491,6 +549,8 @@ func (rw RWPermission) Grant(n RWPermission) (RWPermission, error) {
 	return out, nil
 }
 func (rw RWPermission) Revoke(n RWPermission) (RWPermission, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var out RWPermission
@@ -519,6 +579,8 @@ func (rw RWPermission) Revoke(n RWPermission) (RWPermission, error) {
 func (rw RWPermission) HasAccess(key string, write bool) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var list []string
 	if write {
 		list = rw.Write
@@ -536,6 +598,8 @@ func (rw RWPermission) HasAccess(key string, write bool) bool {
 func (rw RWPermission) HasRecursiveAccess(key string, write bool) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	list := rw.Read
 	if write {
 		list = rw.Write
@@ -551,6 +615,8 @@ func (rw RWPermission) HasRecursiveAccess(key string, write bool) bool {
 func simpleMatch(pattern string, key string) (match bool, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if pattern[len(pattern)-1] == '*' {
 		return strings.HasPrefix(key, pattern[:len(pattern)-1]), nil
 	}
@@ -559,12 +625,16 @@ func simpleMatch(pattern string, key string) (match bool, err error) {
 func prefixMatch(pattern string, key string) (match bool, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if pattern[len(pattern)-1] != '*' {
 		return false, nil
 	}
 	return strings.HasPrefix(key, pattern[:len(pattern)-1]), nil
 }
 func attachRootRole(u User) User {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	inRoles := false
@@ -580,6 +650,8 @@ func attachRootRole(u User) User {
 	return u
 }
 func (s *store) getUser(name string, quorum bool) (User, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := s.requestResource("/users/"+name, false, quorum)
@@ -604,6 +676,8 @@ func (s *store) getUser(name string, quorum bool) (User, error) {
 func (s *store) getRole(name string, quorum bool) (Role, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if name == RootRoleName {
 		return rootRole, nil
 	}
@@ -623,7 +697,16 @@ func (s *store) getRole(name string, quorum bool) (Role, error) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

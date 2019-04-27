@@ -14,9 +14,13 @@ type pbMarshal interface{ Marshal() ([]byte, error) }
 func newPBPrinter() printer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &pbPrinter{&printerRPC{newPrinterUnsupported("protobuf"), printPB}}
 }
 func (p *pbPrinter) Watch(r v3.WatchResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	evs := make([]*mvccpb.Event, len(r.Events))
@@ -27,6 +31,8 @@ func (p *pbPrinter) Watch(r v3.WatchResponse) {
 	printPB(&wr)
 }
 func printPB(v interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m, ok := v.(pbMarshal)

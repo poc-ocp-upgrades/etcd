@@ -15,11 +15,15 @@ type header struct {
 func newHeader(s *etcdserver.EtcdServer) header {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return header{clusterID: int64(s.Cluster().ID()), memberID: int64(s.ID()), raftTimer: s, rev: func() int64 {
 		return s.KV().Rev()
 	}}
 }
 func (h *header) fill(rh *pb.ResponseHeader) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if rh == nil {

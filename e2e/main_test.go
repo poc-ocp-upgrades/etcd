@@ -24,6 +24,8 @@ var (
 func TestMain(m *testing.M) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	os.Setenv("ETCD_UNSUPPORTED_ARCH", runtime.GOARCH)
 	os.Unsetenv("ETCDCTL_API")
 	flag.StringVar(&binDir, "bin-dir", "../bin", "The directory for store etcd and etcdctl binaries.")

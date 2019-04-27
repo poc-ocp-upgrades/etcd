@@ -16,6 +16,8 @@ type storeTxnRead struct {
 func (s *store) Read() TxnRead {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.mu.RLock()
 	tx := s.b.ReadTx()
 	s.revMu.RLock()
@@ -27,9 +29,13 @@ func (s *store) Read() TxnRead {
 func (tr *storeTxnRead) FirstRev() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return tr.firstRev
 }
 func (tr *storeTxnRead) Rev() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return tr.rev
@@ -37,9 +43,13 @@ func (tr *storeTxnRead) Rev() int64 {
 func (tr *storeTxnRead) Range(key, end []byte, ro RangeOptions) (r *RangeResult, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return tr.rangeKeys(key, end, tr.Rev(), ro)
 }
 func (tr *storeTxnRead) End() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tr.tx.Unlock()
@@ -56,6 +66,8 @@ type storeTxnWrite struct {
 func (s *store) Write() TxnWrite {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.mu.RLock()
 	tx := s.b.BatchTx()
 	tx.Lock()
@@ -65,9 +77,13 @@ func (s *store) Write() TxnWrite {
 func (tw *storeTxnWrite) Rev() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return tw.beginRev
 }
 func (tw *storeTxnWrite) Range(key, end []byte, ro RangeOptions) (r *RangeResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rev := tw.beginRev
@@ -79,6 +95,8 @@ func (tw *storeTxnWrite) Range(key, end []byte, ro RangeOptions) (r *RangeResult
 func (tw *storeTxnWrite) DeleteRange(key, end []byte) (int64, int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if n := tw.deleteRange(key, end); n != 0 || len(tw.changes) > 0 {
 		return n, int64(tw.beginRev + 1)
 	}
@@ -87,10 +105,14 @@ func (tw *storeTxnWrite) DeleteRange(key, end []byte) (int64, int64) {
 func (tw *storeTxnWrite) Put(key, value []byte, lease lease.LeaseID) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tw.put(key, value, lease)
 	return int64(tw.beginRev + 1)
 }
 func (tw *storeTxnWrite) End() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(tw.changes) != 0 {
@@ -105,6 +127,8 @@ func (tw *storeTxnWrite) End() {
 	tw.s.mu.RUnlock()
 }
 func (tr *storeTxnRead) rangeKeys(key, end []byte, curRev int64, ro RangeOptions) (*RangeResult, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rev := ro.Rev
@@ -143,6 +167,8 @@ func (tr *storeTxnRead) rangeKeys(key, end []byte, curRev int64, ro RangeOptions
 	return &RangeResult{KVs: kvs, Count: len(revpairs), Rev: curRev}, nil
 }
 func (tw *storeTxnWrite) put(key, value []byte, leaseID lease.LeaseID) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rev := tw.beginRev + 1
@@ -187,6 +213,8 @@ func (tw *storeTxnWrite) put(key, value []byte, leaseID lease.LeaseID) {
 func (tw *storeTxnWrite) deleteRange(key, end []byte) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rrev := tw.beginRev
 	if len(tw.changes) > 0 {
 		rrev += 1
@@ -201,6 +229,8 @@ func (tw *storeTxnWrite) deleteRange(key, end []byte) int64 {
 	return int64(len(keys))
 }
 func (tw *storeTxnWrite) delete(key []byte, rev revision) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ibytes := newRevBytes()
@@ -228,6 +258,8 @@ func (tw *storeTxnWrite) delete(key []byte, rev revision) {
 	}
 }
 func (tw *storeTxnWrite) Changes() []mvccpb.KeyValue {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return tw.changes

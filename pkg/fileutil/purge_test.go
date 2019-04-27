@@ -13,6 +13,8 @@ import (
 func TestPurgeFile(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir, err := ioutil.TempDir("", "purgefile")
 	if err != nil {
 		t.Fatal(err)
@@ -66,6 +68,8 @@ func TestPurgeFile(t *testing.T) {
 	close(stop)
 }
 func TestPurgeFileHoldingLockFile(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dir, err := ioutil.TempDir("", "purgefile")

@@ -5,4 +5,6 @@ import "syscall"
 func dflSignal(sig syscall.Signal) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }

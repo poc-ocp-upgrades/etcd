@@ -40,9 +40,13 @@ type pipelineHandler struct {
 func newPipelineHandler(tr Transporter, r Raft, cid types.ID) http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &pipelineHandler{tr: tr, r: r, cid: cid}
 }
 func (h *pipelineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if r.Method != "POST" {
@@ -97,12 +101,16 @@ type snapshotHandler struct {
 func newSnapshotHandler(tr Transporter, r Raft, snapshotter *snap.Snapshotter, cid types.ID) http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &snapshotHandler{tr: tr, r: r, snapshotter: snapshotter, cid: cid}
 }
 
 const unknownSnapshotSender = "UNKNOWN_SNAPSHOT_SENDER"
 
 func (h *snapshotHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	start := time.Now()
@@ -176,9 +184,13 @@ type streamHandler struct {
 func newStreamHandler(tr *Transport, pg peerGetter, r Raft, id, cid types.ID) http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &streamHandler{tr: tr, peerGetter: pg, r: r, id: id, cid: cid}
 }
 func (h *streamHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if r.Method != "GET" {
@@ -240,6 +252,8 @@ func (h *streamHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func checkClusterCompatibilityFromHeader(header http.Header, cid types.ID) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := checkVersionCompability(header.Get("X-Server-From"), serverVersion(header), minClusterVersion(header)); err != nil {
 		plog.Errorf("request version incompatibility (%v)", err)
 		return errIncompatibleVersion
@@ -256,15 +270,21 @@ type closeNotifier struct{ done chan struct{} }
 func newCloseNotifier() *closeNotifier {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &closeNotifier{done: make(chan struct{})}
 }
 func (n *closeNotifier) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	close(n.done)
 	return nil
 }
 func (n *closeNotifier) closeNotify() <-chan struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return n.done

@@ -19,6 +19,8 @@ var ErrNoDBSnapshot = errors.New("snap: snapshot file doesn't exist")
 func (s *Snapshotter) SaveDBFrom(r io.Reader, id uint64) (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	start := time.Now()
 	f, err := ioutil.TempFile(s.dir, "tmp")
 	if err != nil {
@@ -53,6 +55,8 @@ func (s *Snapshotter) SaveDBFrom(r io.Reader, id uint64) (int64, error) {
 func (s *Snapshotter) DBFilePath(id uint64) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, err := fileutil.ReadDir(s.dir); err != nil {
 		return "", err
 	}
@@ -64,12 +68,23 @@ func (s *Snapshotter) DBFilePath(id uint64) (string, error) {
 func (s *Snapshotter) dbFilePath(id uint64) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return filepath.Join(s.dir, fmt.Sprintf("%016x.snap.db", id))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

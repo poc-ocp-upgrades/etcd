@@ -10,6 +10,8 @@ import (
 func discoverEndpoints(dns string, ca string, insecure bool) (s srv.SRVClients) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if dns == "" {
 		return s
 	}

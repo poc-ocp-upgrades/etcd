@@ -22,9 +22,13 @@ type leaseExpireChecker struct {
 func newLeaseExpireChecker(ls *leaseStresser) Checker {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &leaseExpireChecker{ctype: rpcpb.Checker_LEASE_EXPIRE, lg: ls.lg, m: ls.m, ls: ls}
 }
 func (lc *leaseExpireChecker) Type() rpcpb.Checker {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return lc.ctype
@@ -32,9 +36,13 @@ func (lc *leaseExpireChecker) Type() rpcpb.Checker {
 func (lc *leaseExpireChecker) EtcdClientEndpoints() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []string{lc.m.EtcdClientEndpoint}
 }
 func (lc *leaseExpireChecker) Check() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if lc.ls == nil {
@@ -67,6 +75,8 @@ const leaseExpireCheckerTimeout = 10 * time.Second
 func (lc *leaseExpireChecker) checkShortLivedLeases() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithTimeout(context.Background(), leaseExpireCheckerTimeout)
 	errc := make(chan error)
 	defer cancel()
@@ -84,6 +94,8 @@ func (lc *leaseExpireChecker) checkShortLivedLeases() error {
 	return errsToError(errs)
 }
 func (lc *leaseExpireChecker) checkShortLivedLease(ctx context.Context, leaseID int64) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var resp *clientv3.LeaseTimeToLiveResponse
@@ -114,6 +126,8 @@ func (lc *leaseExpireChecker) checkShortLivedLease(ctx context.Context, leaseID 
 func (lc *leaseExpireChecker) checkLease(ctx context.Context, expired bool, leaseID int64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	keysExpired, err := lc.hasKeysAttachedToLeaseExpired(ctx, leaseID)
 	if err != nil {
 		lc.lg.Warn("hasKeysAttachedToLeaseExpired failed", zap.String("endpoint", lc.m.EtcdClientEndpoint), zap.Error(err))
@@ -135,6 +149,8 @@ func (lc *leaseExpireChecker) checkLease(ctx context.Context, expired bool, leas
 func (lc *leaseExpireChecker) check(expired bool, leases map[int64]time.Time) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithTimeout(context.Background(), leaseExpireCheckerTimeout)
 	defer cancel()
 	for leaseID := range leases {
@@ -147,9 +163,13 @@ func (lc *leaseExpireChecker) check(expired bool, leases map[int64]time.Time) er
 func (lc *leaseExpireChecker) getLeaseByID(ctx context.Context, leaseID int64) (*clientv3.LeaseTimeToLiveResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return lc.cli.TimeToLive(ctx, clientv3.LeaseID(leaseID), clientv3.WithAttachedKeys())
 }
 func (lc *leaseExpireChecker) hasLeaseExpired(ctx context.Context, leaseID int64) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for ctx.Err() == nil {
@@ -166,6 +186,8 @@ func (lc *leaseExpireChecker) hasLeaseExpired(ctx context.Context, leaseID int64
 	return false, ctx.Err()
 }
 func (lc *leaseExpireChecker) hasKeysAttachedToLeaseExpired(ctx context.Context, leaseID int64) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := lc.cli.Get(ctx, fmt.Sprintf("%d", leaseID), clientv3.WithPrefix())

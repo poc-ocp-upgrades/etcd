@@ -11,6 +11,8 @@ type InternalRaftStringer struct{ Request *InternalRaftRequest }
 func (as *InternalRaftStringer) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch {
 	case as.Request.LeaseGrant != nil:
 		return fmt.Sprintf("header:<%s> lease_grant:<ttl:%d-second id:%016x>", as.Request.Header.String(), as.Request.LeaseGrant.TTL, as.Request.LeaseGrant.ID)
@@ -36,9 +38,13 @@ type txnRequestStringer struct{ Request *TxnRequest }
 func NewLoggableTxnRequest(request *TxnRequest) *txnRequestStringer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &txnRequestStringer{request}
 }
 func (as *txnRequestStringer) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var compare []string
@@ -66,9 +72,13 @@ type requestOpStringer struct{ Op *RequestOp }
 func newLoggableRequestOp(op *RequestOp) *requestOpStringer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &requestOpStringer{op}
 }
 func (as *requestOpStringer) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch op := as.Op.Request.(type) {
@@ -92,9 +102,13 @@ type loggableValueCompare struct {
 func newLoggableValueCompare(c *Compare, cv *Compare_Value) *loggableValueCompare {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &loggableValueCompare{c.Result, c.Target, c.Key, len(cv.Value), c.RangeEnd}
 }
 func (m *loggableValueCompare) Reset() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*m = loggableValueCompare{}
@@ -102,9 +116,13 @@ func (m *loggableValueCompare) Reset() {
 func (m *loggableValueCompare) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
 }
 func (*loggableValueCompare) ProtoMessage() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
@@ -121,9 +139,13 @@ type loggablePutRequest struct {
 func NewLoggablePutRequest(request *PutRequest) *loggablePutRequest {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &loggablePutRequest{request.Key, len(request.Value), request.Lease, request.PrevKv, request.IgnoreValue, request.IgnoreLease}
 }
 func (m *loggablePutRequest) Reset() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*m = loggablePutRequest{}
@@ -131,9 +153,13 @@ func (m *loggablePutRequest) Reset() {
 func (m *loggablePutRequest) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
 }
 func (*loggablePutRequest) ProtoMessage() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }

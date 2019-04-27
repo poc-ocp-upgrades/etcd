@@ -24,6 +24,8 @@ type watchServer struct {
 func NewWatchServer(s *etcdserver.EtcdServer) pb.WatchServer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &watchServer{clusterID: int64(s.Cluster().ID()), memberID: int64(s.ID()), raftTimer: s, watchable: s.Watchable(), ag: s}
 }
 
@@ -35,11 +37,15 @@ var (
 func GetProgressReportInterval() time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	progressReportIntervalMu.RLock()
 	defer progressReportIntervalMu.RUnlock()
 	return progressReportInterval
 }
 func SetProgressReportInterval(newTimeout time.Duration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	progressReportIntervalMu.Lock()
@@ -68,6 +74,8 @@ type serverWatchStream struct {
 }
 
 func (ws *watchServer) Watch(stream pb.Watch_WatchServer) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sws := serverWatchStream{clusterID: ws.clusterID, memberID: ws.memberID, raftTimer: ws.raftTimer, watchable: ws.watchable, gRPCStream: stream, watchStream: ws.watchable.NewWatchStream(), ctrlStream: make(chan *pb.WatchResponse, ctrlStreamBufLen), progress: make(map[mvcc.WatchID]bool), prevKV: make(map[mvcc.WatchID]bool), closec: make(chan struct{}), ag: ws.ag}
@@ -102,6 +110,8 @@ func (ws *watchServer) Watch(stream pb.Watch_WatchServer) (err error) {
 func (sws *serverWatchStream) isWatchPermitted(wcr *pb.WatchCreateRequest) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	authInfo, err := sws.ag.AuthInfoFromCtx(sws.gRPCStream.Context())
 	if err != nil {
 		return false
@@ -112,6 +122,8 @@ func (sws *serverWatchStream) isWatchPermitted(wcr *pb.WatchCreateRequest) bool 
 	return sws.ag.AuthStore().IsRangePermitted(authInfo, wcr.Key, wcr.RangeEnd) == nil
 }
 func (sws *serverWatchStream) recvLoop() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -186,6 +198,8 @@ func (sws *serverWatchStream) recvLoop() error {
 	}
 }
 func (sws *serverWatchStream) sendLoop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ids := make(map[mvcc.WatchID]struct{})
@@ -294,6 +308,8 @@ func (sws *serverWatchStream) sendLoop() {
 func (sws *serverWatchStream) close() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sws.watchStream.Close()
 	close(sws.closec)
 	sws.wg.Wait()
@@ -301,9 +317,13 @@ func (sws *serverWatchStream) close() {
 func (sws *serverWatchStream) newResponseHeader(rev int64) *pb.ResponseHeader {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &pb.ResponseHeader{ClusterId: uint64(sws.clusterID), MemberId: uint64(sws.memberID), Revision: rev, RaftTerm: sws.raftTimer.Term()}
 }
 func filterNoDelete(e mvccpb.Event) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return e.Type == mvccpb.DELETE
@@ -311,9 +331,13 @@ func filterNoDelete(e mvccpb.Event) bool {
 func filterNoPut(e mvccpb.Event) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.Type == mvccpb.PUT
 }
 func FiltersFromRequest(creq *pb.WatchCreateRequest) []mvcc.FilterFunc {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	filters := make([]mvcc.FilterFunc, 0, len(creq.Filters))

@@ -30,9 +30,13 @@ type CampaignRequest struct {
 func (m *CampaignRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = CampaignRequest{}
 }
 func (m *CampaignRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -40,13 +44,19 @@ func (m *CampaignRequest) String() string {
 func (*CampaignRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*CampaignRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorV3Election, []int{0}
 }
 func (m *CampaignRequest) GetName() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -57,12 +67,16 @@ func (m *CampaignRequest) GetName() []byte {
 func (m *CampaignRequest) GetLease() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Lease
 	}
 	return 0
 }
 func (m *CampaignRequest) GetValue() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -79,9 +93,13 @@ type CampaignResponse struct {
 func (m *CampaignResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = CampaignResponse{}
 }
 func (m *CampaignResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -89,13 +107,19 @@ func (m *CampaignResponse) String() string {
 func (*CampaignResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*CampaignResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorV3Election, []int{1}
 }
 func (m *CampaignResponse) GetHeader() *etcdserverpb.ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -104,6 +128,8 @@ func (m *CampaignResponse) GetHeader() *etcdserverpb.ResponseHeader {
 	return nil
 }
 func (m *CampaignResponse) GetLeader() *LeaderKey {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -122,9 +148,13 @@ type LeaderKey struct {
 func (m *LeaderKey) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaderKey{}
 }
 func (m *LeaderKey) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -132,13 +162,19 @@ func (m *LeaderKey) String() string {
 func (*LeaderKey) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaderKey) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorV3Election, []int{2}
 }
 func (m *LeaderKey) GetName() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -149,6 +185,8 @@ func (m *LeaderKey) GetName() []byte {
 func (m *LeaderKey) GetKey() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Key
 	}
@@ -157,12 +195,16 @@ func (m *LeaderKey) GetKey() []byte {
 func (m *LeaderKey) GetRev() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Rev
 	}
 	return 0
 }
 func (m *LeaderKey) GetLease() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -178,9 +220,13 @@ type LeaderRequest struct {
 func (m *LeaderRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaderRequest{}
 }
 func (m *LeaderRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -188,13 +234,19 @@ func (m *LeaderRequest) String() string {
 func (*LeaderRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaderRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorV3Election, []int{3}
 }
 func (m *LeaderRequest) GetName() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -211,9 +263,13 @@ type LeaderResponse struct {
 func (m *LeaderResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaderResponse{}
 }
 func (m *LeaderResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -221,13 +277,19 @@ func (m *LeaderResponse) String() string {
 func (*LeaderResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaderResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorV3Election, []int{4}
 }
 func (m *LeaderResponse) GetHeader() *etcdserverpb.ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -236,6 +298,8 @@ func (m *LeaderResponse) GetHeader() *etcdserverpb.ResponseHeader {
 	return nil
 }
 func (m *LeaderResponse) GetKv() *mvccpb.KeyValue {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -251,9 +315,13 @@ type ResignRequest struct {
 func (m *ResignRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = ResignRequest{}
 }
 func (m *ResignRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -261,13 +329,19 @@ func (m *ResignRequest) String() string {
 func (*ResignRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*ResignRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorV3Election, []int{5}
 }
 func (m *ResignRequest) GetLeader() *LeaderKey {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -283,9 +357,13 @@ type ResignResponse struct {
 func (m *ResignResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = ResignResponse{}
 }
 func (m *ResignResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -293,13 +371,19 @@ func (m *ResignResponse) String() string {
 func (*ResignResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*ResignResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorV3Election, []int{6}
 }
 func (m *ResignResponse) GetHeader() *etcdserverpb.ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -316,9 +400,13 @@ type ProclaimRequest struct {
 func (m *ProclaimRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = ProclaimRequest{}
 }
 func (m *ProclaimRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -326,13 +414,19 @@ func (m *ProclaimRequest) String() string {
 func (*ProclaimRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*ProclaimRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorV3Election, []int{7}
 }
 func (m *ProclaimRequest) GetLeader() *LeaderKey {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -341,6 +435,8 @@ func (m *ProclaimRequest) GetLeader() *LeaderKey {
 	return nil
 }
 func (m *ProclaimRequest) GetValue() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -356,9 +452,13 @@ type ProclaimResponse struct {
 func (m *ProclaimResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = ProclaimResponse{}
 }
 func (m *ProclaimResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -366,13 +466,19 @@ func (m *ProclaimResponse) String() string {
 func (*ProclaimResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*ProclaimResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorV3Election, []int{8}
 }
 func (m *ProclaimResponse) GetHeader() *etcdserverpb.ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -381,6 +487,8 @@ func (m *ProclaimResponse) GetHeader() *etcdserverpb.ResponseHeader {
 	return nil
 }
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	proto.RegisterType((*CampaignRequest)(nil), "v3electionpb.CampaignRequest")
@@ -411,9 +519,13 @@ type electionClient struct{ cc *grpc.ClientConn }
 func NewElectionClient(cc *grpc.ClientConn) ElectionClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &electionClient{cc}
 }
 func (c *electionClient) Campaign(ctx context.Context, in *CampaignRequest, opts ...grpc.CallOption) (*CampaignResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(CampaignResponse)
@@ -426,6 +538,8 @@ func (c *electionClient) Campaign(ctx context.Context, in *CampaignRequest, opts
 func (c *electionClient) Proclaim(ctx context.Context, in *ProclaimRequest, opts ...grpc.CallOption) (*ProclaimResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(ProclaimResponse)
 	err := grpc.Invoke(ctx, "/v3electionpb.Election/Proclaim", in, out, c.cc, opts...)
 	if err != nil {
@@ -436,6 +550,8 @@ func (c *electionClient) Proclaim(ctx context.Context, in *ProclaimRequest, opts
 func (c *electionClient) Leader(ctx context.Context, in *LeaderRequest, opts ...grpc.CallOption) (*LeaderResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(LeaderResponse)
 	err := grpc.Invoke(ctx, "/v3electionpb.Election/Leader", in, out, c.cc, opts...)
 	if err != nil {
@@ -444,6 +560,8 @@ func (c *electionClient) Leader(ctx context.Context, in *LeaderRequest, opts ...
 	return out, nil
 }
 func (c *electionClient) Observe(ctx context.Context, in *LeaderRequest, opts ...grpc.CallOption) (Election_ObserveClient, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	stream, err := grpc.NewClientStream(ctx, &_Election_serviceDesc.Streams[0], c.cc, "/v3electionpb.Election/Observe", opts...)
@@ -469,6 +587,8 @@ type electionObserveClient struct{ grpc.ClientStream }
 func (x *electionObserveClient) Recv() (*LeaderResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := new(LeaderResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -476,6 +596,8 @@ func (x *electionObserveClient) Recv() (*LeaderResponse, error) {
 	return m, nil
 }
 func (c *electionClient) Resign(ctx context.Context, in *ResignRequest, opts ...grpc.CallOption) (*ResignResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(ResignResponse)
@@ -497,9 +619,13 @@ type ElectionServer interface {
 func RegisterElectionServer(s *grpc.Server, srv ElectionServer) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.RegisterService(&_Election_serviceDesc, srv)
 }
 func _Election_Campaign_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(CampaignRequest)
@@ -518,6 +644,8 @@ func _Election_Campaign_Handler(srv interface{}, ctx context.Context, dec func(i
 func _Election_Proclaim_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(ProclaimRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -532,6 +660,8 @@ func _Election_Proclaim_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 func _Election_Leader_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(LeaderRequest)
@@ -550,6 +680,8 @@ func _Election_Leader_Handler(srv interface{}, ctx context.Context, dec func(int
 func _Election_Observe_Handler(srv interface{}, stream grpc.ServerStream) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := new(LeaderRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
@@ -566,9 +698,13 @@ type electionObserveServer struct{ grpc.ServerStream }
 func (x *electionObserveServer) Send(m *LeaderResponse) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return x.ServerStream.SendMsg(m)
 }
 func _Election_Resign_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(ResignRequest)
@@ -590,6 +726,8 @@ var _Election_serviceDesc = grpc.ServiceDesc{ServiceName: "v3electionpb.Election
 func (m *CampaignRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -599,6 +737,8 @@ func (m *CampaignRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *CampaignRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -627,6 +767,8 @@ func (m *CampaignRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *CampaignResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -636,6 +778,8 @@ func (m *CampaignResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *CampaignResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -667,6 +811,8 @@ func (m *CampaignResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaderKey) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -676,6 +822,8 @@ func (m *LeaderKey) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaderKey) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -709,6 +857,8 @@ func (m *LeaderKey) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaderRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -718,6 +868,8 @@ func (m *LeaderRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaderRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -735,6 +887,8 @@ func (m *LeaderRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaderResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -744,6 +898,8 @@ func (m *LeaderResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaderResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -775,6 +931,8 @@ func (m *LeaderResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *ResignRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -784,6 +942,8 @@ func (m *ResignRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *ResignRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -805,6 +965,8 @@ func (m *ResignRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *ResignResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -814,6 +976,8 @@ func (m *ResignResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *ResignResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -835,6 +999,8 @@ func (m *ResignResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *ProclaimRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -844,6 +1010,8 @@ func (m *ProclaimRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *ProclaimRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -871,6 +1039,8 @@ func (m *ProclaimRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *ProclaimResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -880,6 +1050,8 @@ func (m *ProclaimResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *ProclaimResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -901,6 +1073,8 @@ func (m *ProclaimResponse) MarshalTo(dAtA []byte) (int, error) {
 func encodeVarintV3Election(dAtA []byte, offset int, v uint64) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
 		v >>= 7
@@ -910,6 +1084,8 @@ func encodeVarintV3Election(dAtA []byte, offset int, v uint64) int {
 	return offset + 1
 }
 func (m *CampaignRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -930,6 +1106,8 @@ func (m *CampaignRequest) Size() (n int) {
 func (m *CampaignResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -943,6 +1121,8 @@ func (m *CampaignResponse) Size() (n int) {
 	return n
 }
 func (m *LeaderKey) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -966,6 +1146,8 @@ func (m *LeaderKey) Size() (n int) {
 func (m *LeaderRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	l = len(m.Name)
@@ -975,6 +1157,8 @@ func (m *LeaderRequest) Size() (n int) {
 	return n
 }
 func (m *LeaderResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -992,6 +1176,8 @@ func (m *LeaderResponse) Size() (n int) {
 func (m *ResignRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Leader != nil {
@@ -1003,6 +1189,8 @@ func (m *ResignRequest) Size() (n int) {
 func (m *ResignResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -1012,6 +1200,8 @@ func (m *ResignResponse) Size() (n int) {
 	return n
 }
 func (m *ProclaimRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -1029,6 +1219,8 @@ func (m *ProclaimRequest) Size() (n int) {
 func (m *ProclaimResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -1038,6 +1230,8 @@ func (m *ProclaimResponse) Size() (n int) {
 	return n
 }
 func sovV3Election(x uint64) (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -1052,9 +1246,13 @@ func sovV3Election(x uint64) (n int) {
 func sozV3Election(x uint64) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sovV3Election(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
 func (m *CampaignRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -1189,6 +1387,8 @@ func (m *CampaignRequest) Unmarshal(dAtA []byte) error {
 func (m *CampaignResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1304,6 +1504,8 @@ func (m *CampaignResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *LeaderKey) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -1457,6 +1659,8 @@ func (m *LeaderKey) Unmarshal(dAtA []byte) error {
 func (m *LeaderRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1537,6 +1741,8 @@ func (m *LeaderRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *LeaderResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -1656,6 +1862,8 @@ func (m *LeaderResponse) Unmarshal(dAtA []byte) error {
 func (m *ResignRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1740,6 +1948,8 @@ func (m *ResignRequest) Unmarshal(dAtA []byte) error {
 func (m *ResignResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1822,6 +2032,8 @@ func (m *ResignResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *ProclaimRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -1939,6 +2151,8 @@ func (m *ProclaimRequest) Unmarshal(dAtA []byte) error {
 func (m *ProclaimResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2021,6 +2235,8 @@ func (m *ProclaimResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func skipV3Election(dAtA []byte) (n int, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -2130,6 +2346,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	proto.RegisterFile("v3election.proto", fileDescriptorV3Election)
 }
 
@@ -2138,7 +2356,16 @@ var fileDescriptorV3Election = []byte{0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

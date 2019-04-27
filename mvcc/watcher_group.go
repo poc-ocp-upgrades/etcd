@@ -20,6 +20,8 @@ type eventBatch struct {
 func (eb *eventBatch) add(ev mvccpb.Event) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if eb.revs > watchBatchMaxRevs {
 		return
 	}
@@ -45,6 +47,8 @@ type watcherBatch map[*watcher]*eventBatch
 func (wb watcherBatch) add(w *watcher, ev mvccpb.Event) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	eb := wb[w]
 	if eb == nil {
 		eb = &eventBatch{}
@@ -53,6 +57,8 @@ func (wb watcherBatch) add(w *watcher, ev mvccpb.Event) {
 	eb.add(ev)
 }
 func newWatcherBatch(wg *watcherGroup, evs []mvccpb.Event) watcherBatch {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(wg.watchers) == 0 {
@@ -74,6 +80,8 @@ type watcherSet map[*watcher]struct{}
 func (w watcherSet) add(wa *watcher) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, ok := w[wa]; ok {
 		panic("add watcher twice!")
 	}
@@ -82,11 +90,15 @@ func (w watcherSet) add(wa *watcher) {
 func (w watcherSet) union(ws watcherSet) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for wa := range ws {
 		w.add(wa)
 	}
 }
 func (w watcherSet) delete(wa *watcher) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if _, ok := w[wa]; !ok {
@@ -100,6 +112,8 @@ type watcherSetByKey map[string]watcherSet
 func (w watcherSetByKey) add(wa *watcher) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	set := w[string(wa.key)]
 	if set == nil {
 		set = make(watcherSet)
@@ -108,6 +122,8 @@ func (w watcherSetByKey) add(wa *watcher) {
 	set.add(wa)
 }
 func (w watcherSetByKey) delete(wa *watcher) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	k := string(wa.key)
@@ -132,9 +148,13 @@ type watcherGroup struct {
 func newWatcherGroup() watcherGroup {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return watcherGroup{keyWatchers: make(watcherSetByKey), watchers: make(watcherSet)}
 }
 func (wg *watcherGroup) add(wa *watcher) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wg.watchers.add(wa)
@@ -154,15 +174,21 @@ func (wg *watcherGroup) add(wa *watcher) {
 func (wg *watcherGroup) contains(key string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, ok := wg.keyWatchers[key]
 	return ok || wg.ranges.Intersects(adt.NewStringAffinePoint(key))
 }
 func (wg *watcherGroup) size() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(wg.watchers)
 }
 func (wg *watcherGroup) delete(wa *watcher) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if _, ok := wg.watchers[wa]; !ok {
@@ -190,6 +216,8 @@ func (wg *watcherGroup) delete(wa *watcher) bool {
 func (wg *watcherGroup) choose(maxWatchers int, curRev, compactRev int64) (*watcherGroup, int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(wg.watchers) < maxWatchers {
 		return wg, wg.chooseAll(curRev, compactRev)
 	}
@@ -204,6 +232,8 @@ func (wg *watcherGroup) choose(maxWatchers int, curRev, compactRev int64) (*watc
 	return &ret, ret.chooseAll(curRev, compactRev)
 }
 func (wg *watcherGroup) chooseAll(curRev, compactRev int64) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	minRev := int64(math.MaxInt64)
@@ -230,6 +260,8 @@ func (wg *watcherGroup) chooseAll(curRev, compactRev int64) int64 {
 	return minRev
 }
 func (wg *watcherGroup) watcherSetByKey(key string) watcherSet {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wkeys := wg.keyWatchers[key]

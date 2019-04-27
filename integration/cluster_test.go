@@ -19,6 +19,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	log.SetFlags(log.Ltime | log.Lmicroseconds | log.Lshortfile)
 	if t := os.Getenv("ETCD_ELECTION_TIMEOUT_TICKS"); t != "" {
 		if i, err := strconv.ParseInt(t, 10, 64); err == nil {
@@ -29,14 +31,20 @@ func init() {
 func TestClusterOf1(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCluster(t, 1)
 }
 func TestClusterOf3(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCluster(t, 3)
 }
 func testCluster(t *testing.T, size int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -48,6 +56,8 @@ func testCluster(t *testing.T, size int) {
 func TestTLSClusterOf3(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	c := NewClusterByConfig(t, &ClusterConfig{Size: 3, PeerTLS: &testTLSInfo})
 	c.Launch(t)
@@ -57,14 +67,20 @@ func TestTLSClusterOf3(t *testing.T) {
 func TestClusterOf1UsingDiscovery(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testClusterUsingDiscovery(t, 1)
 }
 func TestClusterOf3UsingDiscovery(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testClusterUsingDiscovery(t, 3)
 }
 func testClusterUsingDiscovery(t *testing.T, size int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -86,6 +102,8 @@ func testClusterUsingDiscovery(t *testing.T, size int) {
 func TestTLSClusterOf3UsingDiscovery(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	dc := NewCluster(t, 1)
 	dc.Launch(t)
@@ -105,14 +123,20 @@ func TestTLSClusterOf3UsingDiscovery(t *testing.T) {
 func TestDoubleClusterSizeOf1(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testDoubleClusterSize(t, 1)
 }
 func TestDoubleClusterSizeOf3(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testDoubleClusterSize(t, 3)
 }
 func testDoubleClusterSize(t *testing.T, size int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -127,6 +151,8 @@ func testDoubleClusterSize(t *testing.T, size int) {
 func TestDoubleTLSClusterSizeOf3(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	c := NewClusterByConfig(t, &ClusterConfig{Size: 3, PeerTLS: &testTLSInfo})
 	c.Launch(t)
@@ -139,14 +165,20 @@ func TestDoubleTLSClusterSizeOf3(t *testing.T) {
 func TestDecreaseClusterSizeOf3(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testDecreaseClusterSize(t, 3)
 }
 func TestDecreaseClusterSizeOf5(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testDecreaseClusterSize(t, 5)
 }
 func testDecreaseClusterSize(t *testing.T, size int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -168,6 +200,8 @@ func testDecreaseClusterSize(t *testing.T, size int) {
 	clusterMustProgress(t, c.Members)
 }
 func TestForceNewCluster(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := NewCluster(t, 3)
@@ -207,6 +241,8 @@ func TestForceNewCluster(t *testing.T) {
 func TestAddMemberAfterClusterFullRotation(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	c := NewCluster(t, 3)
 	c.Launch(t)
@@ -224,6 +260,8 @@ func TestAddMemberAfterClusterFullRotation(t *testing.T) {
 func TestIssue2681(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	c := NewCluster(t, 5)
 	c.Launch(t)
@@ -237,14 +275,20 @@ func TestIssue2681(t *testing.T) {
 func TestIssue2746(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testIssue2746(t, 5)
 }
 func TestIssue2746WithThree(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testIssue2746(t, 3)
 }
 func testIssue2746(t *testing.T, members int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -266,6 +310,8 @@ func testIssue2746(t *testing.T, members int) {
 func TestIssue2904(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	c := NewCluster(t, 1)
 	c.Launch(t)
@@ -284,6 +330,8 @@ func TestIssue2904(t *testing.T) {
 	c.waitMembersMatch(t, c.HTTPMembers())
 }
 func TestIssue3699(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -322,6 +370,8 @@ func TestIssue3699(t *testing.T) {
 func TestRejectUnhealthyAdd(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	c := NewCluster(t, 3)
 	for _, m := range c.Members {
@@ -356,6 +406,8 @@ func TestRejectUnhealthyAdd(t *testing.T) {
 func TestRejectUnhealthyRemove(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	c := NewCluster(t, 5)
 	for _, m := range c.Members {
@@ -384,6 +436,8 @@ func TestRejectUnhealthyRemove(t *testing.T) {
 	}
 }
 func TestRestartRemoved(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -420,6 +474,8 @@ func TestRestartRemoved(t *testing.T) {
 func clusterMustProgress(t *testing.T, membs []*member) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cc := MustNewHTTPClient(t, []string{membs[0].URL()}, nil)
 	kapi := client.NewKeysAPI(cc)
 	key := fmt.Sprintf("foo%d", rand.Int())
@@ -451,6 +507,8 @@ func clusterMustProgress(t *testing.T, membs []*member) {
 	}
 }
 func TestSpeedyTerminate(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

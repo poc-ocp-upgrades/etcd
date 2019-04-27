@@ -63,6 +63,8 @@ type Transport struct {
 func (t *Transport) Start() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err error
 	t.streamRt, err = newStreamRoundTripper(t.TLSInfo, t.DialTimeout)
 	if err != nil {
@@ -84,6 +86,8 @@ func (t *Transport) Start() error {
 func (t *Transport) Handler() http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pipelineHandler := newPipelineHandler(t, t.Raft, t.ClusterID)
 	streamHandler := newStreamHandler(t, t, t.Raft, t.ID, t.ClusterID)
 	snapHandler := newSnapshotHandler(t, t.Raft, t.Snapshotter, t.ClusterID)
@@ -97,11 +101,15 @@ func (t *Transport) Handler() http.Handler {
 func (t *Transport) Get(id types.ID) Peer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.mu.RLock()
 	defer t.mu.RUnlock()
 	return t.peers[id]
 }
 func (t *Transport) Send(msgs []raftpb.Message) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, m := range msgs {
@@ -130,6 +138,8 @@ func (t *Transport) Send(msgs []raftpb.Message) {
 func (t *Transport) Stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.mu.Lock()
 	defer t.mu.Unlock()
 	for _, r := range t.remotes {
@@ -152,6 +162,8 @@ func (t *Transport) Stop() {
 func (t *Transport) CutPeer(id types.ID) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.mu.RLock()
 	p, pok := t.peers[id]
 	g, gok := t.remotes[id]
@@ -166,6 +178,8 @@ func (t *Transport) CutPeer(id types.ID) {
 func (t *Transport) MendPeer(id types.ID) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.mu.RLock()
 	p, pok := t.peers[id]
 	g, gok := t.remotes[id]
@@ -178,6 +192,8 @@ func (t *Transport) MendPeer(id types.ID) {
 	}
 }
 func (t *Transport) AddRemote(id types.ID, us []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.mu.Lock()
@@ -198,6 +214,8 @@ func (t *Transport) AddRemote(id types.ID, us []string) {
 	t.remotes[id] = startRemote(t, urls, id)
 }
 func (t *Transport) AddPeer(id types.ID, us []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.mu.Lock()
@@ -221,11 +239,15 @@ func (t *Transport) AddPeer(id types.ID, us []string) {
 func (t *Transport) RemovePeer(id types.ID) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.mu.Lock()
 	defer t.mu.Unlock()
 	t.removePeer(id)
 }
 func (t *Transport) RemoveAllPeers() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.mu.Lock()
@@ -235,6 +257,8 @@ func (t *Transport) RemoveAllPeers() {
 	}
 }
 func (t *Transport) removePeer(id types.ID) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if peer, ok := t.peers[id]; ok {
@@ -249,6 +273,8 @@ func (t *Transport) removePeer(id types.ID) {
 	plog.Infof("removed peer %s", id)
 }
 func (t *Transport) UpdatePeer(id types.ID, us []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.mu.Lock()
@@ -270,6 +296,8 @@ func (t *Transport) UpdatePeer(id types.ID, us []string) {
 func (t *Transport) ActiveSince(id types.ID) time.Time {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.mu.Lock()
 	defer t.mu.Unlock()
 	if p, ok := t.peers[id]; ok {
@@ -278,6 +306,8 @@ func (t *Transport) ActiveSince(id types.ID) time.Time {
 	return time.Time{}
 }
 func (t *Transport) SendSnapshot(m snap.Message) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.mu.Lock()
@@ -298,6 +328,8 @@ type Pausable interface {
 func (t *Transport) Pause() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, p := range t.peers {
 		p.(Pausable).Pause()
 	}
@@ -305,11 +337,15 @@ func (t *Transport) Pause() {
 func (t *Transport) Resume() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, p := range t.peers {
 		p.(Pausable).Resume()
 	}
 }
 func (t *Transport) ActivePeers() (cnt int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.mu.RLock()
@@ -327,9 +363,13 @@ type nopTransporter struct{}
 func NewNopTransporter() Transporter {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &nopTransporter{}
 }
 func (s *nopTransporter) Start() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -337,37 +377,55 @@ func (s *nopTransporter) Start() error {
 func (s *nopTransporter) Handler() http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (s *nopTransporter) Send(m []raftpb.Message) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (s *nopTransporter) SendSnapshot(m snap.Message) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (s *nopTransporter) AddRemote(id types.ID, us []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (s *nopTransporter) AddPeer(id types.ID, us []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (s *nopTransporter) RemovePeer(id types.ID) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (s *nopTransporter) RemoveAllPeers() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (s *nopTransporter) UpdatePeer(id types.ID, us []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (s *nopTransporter) ActiveSince(id types.ID) time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return time.Time{}
@@ -375,17 +433,25 @@ func (s *nopTransporter) ActiveSince(id types.ID) time.Time {
 func (s *nopTransporter) ActivePeers() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 0
 }
 func (s *nopTransporter) Stop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (s *nopTransporter) Pause() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (s *nopTransporter) Resume() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
@@ -399,11 +465,15 @@ type snapTransporter struct {
 func NewSnapTransporter(snapDir string) (Transporter, <-chan snap.Message) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ch := make(chan snap.Message, 1)
 	tr := &snapTransporter{snapDoneC: ch, snapDir: snapDir}
 	return tr, ch
 }
 func (s *snapTransporter) SendSnapshot(m snap.Message) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ss := snap.New(s.snapDir)

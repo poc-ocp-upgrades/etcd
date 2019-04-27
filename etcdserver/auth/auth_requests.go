@@ -12,6 +12,8 @@ import (
 func (s *store) ensureAuthDirectories() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.ensuredOnce {
 		return nil
 	}
@@ -51,16 +53,22 @@ func (s *store) ensureAuthDirectories() error {
 func (s *store) enableAuth() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := s.updateResource("/enabled", true)
 	return err
 }
 func (s *store) disableAuth() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := s.updateResource("/enabled", false)
 	return err
 }
 func (s *store) detectAuth() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.server == nil {
@@ -87,6 +95,8 @@ func (s *store) detectAuth() bool {
 func (s *store) requestResource(res string, dir, quorum bool) (etcdserver.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithTimeout(context.Background(), s.timeout)
 	defer cancel()
 	p := path.Join(StorePermsPrefix, res)
@@ -100,14 +110,20 @@ func (s *store) requestResource(res string, dir, quorum bool) (etcdserver.Respon
 func (s *store) updateResource(res string, value interface{}) (etcdserver.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.setResource(res, value, true)
 }
 func (s *store) createResource(res string, value interface{}) (etcdserver.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.setResource(res, value, false)
 }
 func (s *store) setResource(res string, value interface{}, prevexist bool) (etcdserver.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := s.ensureAuthDirectories()
@@ -125,6 +141,8 @@ func (s *store) setResource(res string, value interface{}, prevexist bool) (etcd
 	return s.server.Do(ctx, rr)
 }
 func (s *store) deleteResource(res string) (etcdserver.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := s.ensureAuthDirectories()

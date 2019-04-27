@@ -9,14 +9,20 @@ import (
 func TestCtlV3Compact(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, compactTest)
 }
 func TestCtlV3CompactPhysical(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, compactTest, withCompactPhysical())
 }
 func compactTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	compactPhysical := cx.compactPhysical
@@ -55,6 +61,8 @@ func compactTest(cx ctlCtx) {
 	}
 }
 func ctlV3Compact(cx ctlCtx, rev int64, physical bool) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rs := strconv.FormatInt(rev, 10)

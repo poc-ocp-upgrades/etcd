@@ -19,6 +19,8 @@ var exampleTransport *http.Transport
 func TestMain(m *testing.M) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	useCluster, hasRunArg := false, false
 	for _, arg := range os.Args {
 		if strings.HasPrefix(arg, "-test.run=") {

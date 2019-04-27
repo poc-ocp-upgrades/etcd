@@ -15,6 +15,8 @@ import (
 func TestEntry(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []raftpb.Entry{{}, {Term: 1, Index: 1}, {Term: 1, Index: 1, Data: []byte("some data")}}
 	for i, tt := range tests {
 		b := &bytes.Buffer{}
@@ -35,6 +37,8 @@ func TestEntry(t *testing.T) {
 func TestCompareMajorMinorVersion(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		va, vb	*semver.Version
 		w	int
@@ -46,6 +50,8 @@ func TestCompareMajorMinorVersion(t *testing.T) {
 	}
 }
 func TestServerVersion(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -62,6 +68,8 @@ func TestServerVersion(t *testing.T) {
 func TestMinClusterVersion(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		h	http.Header
 		wv	*semver.Version
@@ -74,6 +82,8 @@ func TestMinClusterVersion(t *testing.T) {
 	}
 }
 func TestCheckVersionCompatibility(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ls := semver.Must(semver.NewVersion(version.Version))
@@ -93,6 +103,8 @@ func TestCheckVersionCompatibility(t *testing.T) {
 func writeEntryTo(w io.Writer, ent *raftpb.Entry) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := ent.Size()
 	if err := binary.Write(w, binary.BigEndian, uint64(size)); err != nil {
 		return err
@@ -105,6 +117,8 @@ func writeEntryTo(w io.Writer, ent *raftpb.Entry) error {
 	return err
 }
 func readEntryFrom(r io.Reader, ent *raftpb.Entry) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l uint64

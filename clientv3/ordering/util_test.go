@@ -12,6 +12,8 @@ import (
 func TestEndpointSwitchResolvesViolation(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -47,6 +49,8 @@ func TestEndpointSwitchResolvesViolation(t *testing.T) {
 	}
 }
 func TestUnresolvableOrderViolation(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

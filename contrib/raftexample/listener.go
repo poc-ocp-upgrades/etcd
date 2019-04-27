@@ -14,6 +14,8 @@ type stoppableListener struct {
 func newStoppableListener(addr string, stopc <-chan struct{}) (*stoppableListener, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ln, err := net.Listen("tcp", addr)
 	if err != nil {
 		return nil, err
@@ -21,6 +23,8 @@ func newStoppableListener(addr string, stopc <-chan struct{}) (*stoppableListene
 	return &stoppableListener{ln.(*net.TCPListener), stopc}, nil
 }
 func (ln stoppableListener) Accept() (c net.Conn, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	connc := make(chan *net.TCPConn, 1)

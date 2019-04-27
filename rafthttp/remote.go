@@ -14,6 +14,8 @@ type remote struct {
 func startRemote(tr *Transport, urls types.URLs, id types.ID) *remote {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	picker := newURLPicker(urls)
 	status := newPeerStatus(id)
 	pipeline := &pipeline{peerID: id, tr: tr, picker: picker, status: status, raft: tr.Raft, errorc: tr.ErrorC}
@@ -21,6 +23,8 @@ func startRemote(tr *Transport, urls types.URLs, id types.ID) *remote {
 	return &remote{id: id, status: status, pipeline: pipeline}
 }
 func (g *remote) send(m raftpb.Message) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {
@@ -36,14 +40,20 @@ func (g *remote) send(m raftpb.Message) {
 func (g *remote) stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	g.pipeline.stop()
 }
 func (g *remote) Pause() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	g.stop()
 }
 func (g *remote) Resume() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	g.pipeline.start()

@@ -13,6 +13,8 @@ import (
 func TestGRPCError(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tt := []struct {
 		err	error
 		exp	error

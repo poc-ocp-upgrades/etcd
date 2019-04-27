@@ -15,6 +15,8 @@ import (
 func TestKVProxyRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -42,11 +44,15 @@ type kvproxyTestServer struct {
 func (kts *kvproxyTestServer) close() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	kts.server.Stop()
 	kts.l.Close()
 	kts.c.Close()
 }
 func newKVProxyServer(endpoints []string, t *testing.T) *kvproxyTestServer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfg := clientv3.Config{Endpoints: endpoints, DialTimeout: 5 * time.Second}

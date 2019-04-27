@@ -9,6 +9,8 @@ import (
 func TestRangePermission(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		perms	[]adt.Interval
 		begin	[]byte

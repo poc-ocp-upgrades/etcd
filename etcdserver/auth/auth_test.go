@@ -16,9 +16,13 @@ type fakeDoer struct{}
 func (_ fakeDoer) Do(context.Context, etcdserverpb.Request) (etcdserver.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return etcdserver.Response{}, nil
 }
 func TestCheckPassword(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	st := NewStore(fakeDoer{}, 5*time.Second)
@@ -32,6 +36,8 @@ func TestCheckPassword(t *testing.T) {
 const testTimeout = time.Millisecond
 
 func TestMergeUser(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tbl := []struct {
@@ -53,6 +59,8 @@ func TestMergeUser(t *testing.T) {
 	}
 }
 func TestMergeRole(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tbl := []struct {
@@ -85,6 +93,8 @@ type testDoer struct {
 func (td *testDoer) Do(_ context.Context, req etcdserverpb.Request) (etcdserver.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if td.explicitlyEnabled && (req.Path == StorePermsPrefix+"/enabled") {
 		t := "true"
 		return etcdserver.Response{Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/users/cat", Value: &t}}}, nil
@@ -112,6 +122,8 @@ func (td *testDoer) Do(_ context.Context, req etcdserverpb.Request) (etcdserver.
 func TestAllUsers(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d := &testDoer{get: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Nodes: etcdstore.NodeExterns([]*etcdstore.NodeExtern{{Key: StorePermsPrefix + "/users/cat"}, {Key: StorePermsPrefix + "/users/dog"}})}}}}}
 	expected := []string{"cat", "dog"}
 	s := store{server: d, timeout: testTimeout, ensuredOnce: false}
@@ -124,6 +136,8 @@ func TestAllUsers(t *testing.T) {
 	}
 }
 func TestGetAndDeleteUser(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	data := `{"user": "cat", "roles" : ["animal"]}`
@@ -145,6 +159,8 @@ func TestGetAndDeleteUser(t *testing.T) {
 func TestAllRoles(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d := &testDoer{get: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Nodes: etcdstore.NodeExterns([]*etcdstore.NodeExtern{{Key: StorePermsPrefix + "/roles/animal"}, {Key: StorePermsPrefix + "/roles/human"}})}}}}, explicitlyEnabled: true}
 	expected := []string{"animal", "human", "root"}
 	s := store{server: d, timeout: testTimeout, ensuredOnce: false}
@@ -157,6 +173,8 @@ func TestAllRoles(t *testing.T) {
 	}
 }
 func TestGetAndDeleteRole(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	data := `{"role": "animal"}`
@@ -178,6 +196,8 @@ func TestGetAndDeleteRole(t *testing.T) {
 func TestEnsure(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d := &testDoer{get: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Set, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix, Dir: true}}}, {Event: &etcdstore.Event{Action: etcdstore.Set, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/users/", Dir: true}}}, {Event: &etcdstore.Event{Action: etcdstore.Set, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/roles/", Dir: true}}}}}
 	s := store{server: d, timeout: testTimeout, ensuredOnce: false}
 	err := s.ensureAuthDirectories()
@@ -191,14 +211,20 @@ type fastPasswordStore struct{}
 func (_ fastPasswordStore) CheckPassword(user User, password string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return user.Password == password
 }
 func (_ fastPasswordStore) HashPassword(password string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return password, nil
 }
 func TestCreateAndUpdateUser(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	olduser := `{"user": "cat", "roles" : ["animal"]}`
@@ -233,6 +259,8 @@ func TestCreateAndUpdateUser(t *testing.T) {
 func TestUpdateRole(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	oldrole := `{"role": "animal", "permissions" : {"kv": {"read": ["/animal"], "write": []}}}`
 	newrole := `{"role": "animal", "permissions" : {"kv": {"read": ["/animal"], "write": ["/animal"]}}}`
 	d := &testDoer{get: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Get, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/roles/animal", Value: &oldrole}}}}, put: []etcdserver.Response{{Event: &etcdstore.Event{Action: etcdstore.Update, Node: &etcdstore.NodeExtern{Key: StorePermsPrefix + "/roles/animal", Value: &newrole}}}}, explicitlyEnabled: true}
@@ -248,6 +276,8 @@ func TestUpdateRole(t *testing.T) {
 	}
 }
 func TestCreateRole(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	role := `{"role": "animal", "permissions" : {"kv": {"read": ["/animal"], "write": []}}}`
@@ -270,6 +300,8 @@ func TestCreateRole(t *testing.T) {
 func TestEnableAuth(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rootUser := `{"user": "root", "password": ""}`
 	guestRole := `{"role": "guest", "permissions" : {"kv": {"read": ["*"], "write": ["*"]}}}`
 	trueval := "true"
@@ -282,6 +314,8 @@ func TestEnableAuth(t *testing.T) {
 	}
 }
 func TestDisableAuth(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	trueval := "true"
@@ -298,6 +332,8 @@ func TestDisableAuth(t *testing.T) {
 	}
 }
 func TestSimpleMatch(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	role := Role{Role: "foo", Permissions: Permissions{KV: RWPermission{Read: []string{"/foodir/*", "/fookey"}, Write: []string{"/bardir/*", "/barkey"}}}}

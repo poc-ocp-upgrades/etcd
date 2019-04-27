@@ -22,6 +22,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(watchersCoalescing)
 	prometheus.MustRegister(eventsCoalescing)
 	prometheus.MustRegister(cacheKeys)
@@ -29,6 +31,8 @@ func init() {
 	prometheus.MustRegister(cachedMisses)
 }
 func HandleMetrics(mux *http.ServeMux, c *http.Client, eps []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := rand.New(rand.NewSource(int64(time.Now().Nanosecond())))
@@ -56,6 +60,8 @@ func HandleMetrics(mux *http.ServeMux, c *http.Client, eps []string) {
 	})
 }
 func shuffleEndpoints(r *rand.Rand, eps []string) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := len(eps)

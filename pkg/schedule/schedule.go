@@ -29,6 +29,8 @@ type fifo struct {
 func NewFIFOScheduler() Scheduler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f := &fifo{resume: make(chan struct{}, 1), donec: make(chan struct{}, 1)}
 	f.finishCond = sync.NewCond(&f.mu)
 	f.ctx, f.cancel = context.WithCancel(context.Background())
@@ -36,6 +38,8 @@ func NewFIFOScheduler() Scheduler {
 	return f
 }
 func (f *fifo) Schedule(j Job) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f.mu.Lock()
@@ -54,11 +58,15 @@ func (f *fifo) Schedule(j Job) {
 func (f *fifo) Pending() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	return len(f.pendings)
 }
 func (f *fifo) Scheduled() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f.mu.Lock()
@@ -68,11 +76,15 @@ func (f *fifo) Scheduled() int {
 func (f *fifo) Finished() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f.finishCond.L.Lock()
 	defer f.finishCond.L.Unlock()
 	return f.finished
 }
 func (f *fifo) WaitFinish(n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f.finishCond.L.Lock()
@@ -84,6 +96,8 @@ func (f *fifo) WaitFinish(n int) {
 func (f *fifo) Stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f.mu.Lock()
 	f.cancel()
 	f.cancel = nil
@@ -91,6 +105,8 @@ func (f *fifo) Stop() {
 	<-f.donec
 }
 func (f *fifo) run() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer func() {

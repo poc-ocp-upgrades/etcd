@@ -49,6 +49,8 @@ var (
 func NewSnapshotCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "snapshot <subcommand>", Short: "Manages etcd node snapshots"}
 	cmd.AddCommand(NewSnapshotSaveCommand())
 	cmd.AddCommand(NewSnapshotRestoreCommand())
@@ -58,9 +60,13 @@ func NewSnapshotCommand() *cobra.Command {
 func NewSnapshotSaveCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &cobra.Command{Use: "save <filename>", Short: "Stores an etcd node backend snapshot to a given file", Run: snapshotSaveCommandFunc}
 }
 func newSnapshotStatusCommand() *cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &cobra.Command{Use: "status <filename>", Short: "Gets backend snapshot status of a given file", Long: `When --write-out is set to simple, this command prints out comma-separated status lists for each endpoint.
@@ -68,6 +74,8 @@ The items in the lists are hash, revision, total keys, total size.
 `, Run: snapshotStatusCommandFunc}
 }
 func NewSnapshotRestoreCommand() *cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "restore <filename> [options]", Short: "Restores an etcd member snapshot to an etcd directory", Run: snapshotRestoreCommandFunc}
@@ -81,6 +89,8 @@ func NewSnapshotRestoreCommand() *cobra.Command {
 	return cmd
 }
 func snapshotSaveCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {
@@ -115,6 +125,8 @@ func snapshotSaveCommandFunc(cmd *cobra.Command, args []string) {
 func snapshotStatusCommandFunc(cmd *cobra.Command, args []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(args) != 1 {
 		err := fmt.Errorf("snapshot status requires exactly one argument")
 		ExitWithError(ExitBadArgs, err)
@@ -124,6 +136,8 @@ func snapshotStatusCommandFunc(cmd *cobra.Command, args []string) {
 	display.DBStatus(ds)
 }
 func snapshotRestoreCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {
@@ -160,6 +174,8 @@ func snapshotRestoreCommandFunc(cmd *cobra.Command, args []string) {
 func initialClusterFromName(name string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n := name
 	if name == "" {
 		n = defaultName
@@ -167,6 +183,8 @@ func initialClusterFromName(name string) string {
 	return fmt.Sprintf("%s=http://localhost:2380", n)
 }
 func makeWALAndSnap(waldir, snapdir string, cl *membership.RaftCluster) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := fileutil.CreateDirAll(waldir); err != nil {
@@ -231,9 +249,13 @@ type initIndex int
 func (i *initIndex) ConsistentIndex() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return uint64(*i)
 }
 func makeDB(snapdir, dbfile string, commit int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f, ferr := os.OpenFile(dbfile, os.O_RDONLY, 0600)
@@ -318,6 +340,8 @@ type dbstatus struct {
 func dbStatus(p string) dbstatus {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, err := os.Stat(p); err != nil {
 		ExitWithError(ExitError, err)
 	}
@@ -371,6 +395,8 @@ type revision struct {
 }
 
 func bytesToRev(bytes []byte) revision {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return revision{main: int64(binary.BigEndian.Uint64(bytes[0:8])), sub: int64(binary.BigEndian.Uint64(bytes[9:]))}

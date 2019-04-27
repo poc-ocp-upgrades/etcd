@@ -13,6 +13,8 @@ import (
 func TestNodeStep(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i, msgn := range raftpb.MessageType_name {
 		n := &node{propc: make(chan raftpb.Message, 1), recvc: make(chan raftpb.Message, 1)}
 		msgt := raftpb.MessageType(i)
@@ -41,6 +43,8 @@ func TestNodeStep(t *testing.T) {
 	}
 }
 func TestNodeStepUnblock(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := &node{propc: make(chan raftpb.Message), done: make(chan struct{})}
@@ -80,6 +84,8 @@ func TestNodeStepUnblock(t *testing.T) {
 func TestNodePropose(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	msgs := []raftpb.Message{}
 	appendStep := func(r *raft, m raftpb.Message) {
 		msgs = append(msgs, m)
@@ -112,6 +118,8 @@ func TestNodePropose(t *testing.T) {
 	}
 }
 func TestNodeReadIndex(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	msgs := []raftpb.Message{}
@@ -154,6 +162,8 @@ func TestNodeReadIndex(t *testing.T) {
 func TestDisableProposalForwarding(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r1 := newTestRaft(1, []uint64{1, 2, 3}, 10, 1, NewMemoryStorage())
 	r2 := newTestRaft(2, []uint64{1, 2, 3}, 10, 1, NewMemoryStorage())
 	cfg3 := newTestConfig(3, []uint64{1, 2, 3}, 10, 1, NewMemoryStorage())
@@ -172,6 +182,8 @@ func TestDisableProposalForwarding(t *testing.T) {
 	}
 }
 func TestNodeReadIndexToOldLeader(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r1 := newTestRaft(1, []uint64{1, 2, 3}, 10, 1, NewMemoryStorage())
@@ -213,6 +225,8 @@ func TestNodeReadIndexToOldLeader(t *testing.T) {
 func TestNodeProposeConfig(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	msgs := []raftpb.Message{}
 	appendStep := func(r *raft, m raftpb.Message) {
 		msgs = append(msgs, m)
@@ -250,6 +264,8 @@ func TestNodeProposeConfig(t *testing.T) {
 	}
 }
 func TestNodeProposeAddDuplicateNode(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := newNode()
@@ -314,6 +330,8 @@ func TestNodeProposeAddDuplicateNode(t *testing.T) {
 func TestBlockProposal(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n := newNode()
 	r := newTestRaft(1, []uint64{1}, 10, 1, NewMemoryStorage())
 	go n.run(r)
@@ -341,6 +359,8 @@ func TestBlockProposal(t *testing.T) {
 func TestNodeTick(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n := newNode()
 	s := NewMemoryStorage()
 	r := newTestRaft(1, []uint64{1}, 10, 1, s)
@@ -356,6 +376,8 @@ func TestNodeTick(t *testing.T) {
 	}
 }
 func TestNodeStop(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := newNode()
@@ -386,6 +408,8 @@ func TestNodeStop(t *testing.T) {
 func TestReadyContainUpdates(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		rd		Ready
 		wcontain	bool
@@ -397,6 +421,8 @@ func TestReadyContainUpdates(t *testing.T) {
 	}
 }
 func TestNodeStart(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := context.WithCancel(context.Background())
@@ -438,6 +464,8 @@ func TestNodeStart(t *testing.T) {
 func TestNodeRestart(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	entries := []raftpb.Entry{{Term: 1, Index: 1}, {Term: 1, Index: 2, Data: []byte("foo")}}
 	st := raftpb.HardState{Term: 1, Commit: 1}
 	want := Ready{HardState: st, CommittedEntries: entries[:st.Commit], MustSync: true}
@@ -458,6 +486,8 @@ func TestNodeRestart(t *testing.T) {
 	}
 }
 func TestNodeRestartFromSnapshot(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	snap := raftpb.Snapshot{Metadata: raftpb.SnapshotMetadata{ConfState: raftpb.ConfState{Nodes: []uint64{1, 2}}, Index: 2, Term: 1}}
@@ -483,6 +513,8 @@ func TestNodeRestartFromSnapshot(t *testing.T) {
 	}
 }
 func TestNodeAdvance(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := context.WithCancel(context.Background())
@@ -513,6 +545,8 @@ func TestNodeAdvance(t *testing.T) {
 func TestSoftStateEqual(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		st	*SoftState
 		we	bool
@@ -524,6 +558,8 @@ func TestSoftStateEqual(t *testing.T) {
 	}
 }
 func TestIsHardStateEqual(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {

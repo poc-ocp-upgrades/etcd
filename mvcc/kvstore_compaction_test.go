@@ -12,6 +12,8 @@ import (
 func TestScheduleCompaction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	revs := []revision{{1, 0}, {2, 0}, {3, 0}}
 	tests := []struct {
 		rev	int64
@@ -48,6 +50,8 @@ func TestScheduleCompaction(t *testing.T) {
 	}
 }
 func TestCompactAllAndRestore(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()

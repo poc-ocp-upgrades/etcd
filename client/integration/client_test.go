@@ -20,6 +20,8 @@ import (
 func TestV2NoRetryEOF(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	lEOF := integration.NewListenerWithAddr(t, fmt.Sprintf("127.0.0.1:%05d", os.Getpid()))
 	defer lEOF.Close()
@@ -51,6 +53,8 @@ func TestV2NoRetryEOF(t *testing.T) {
 func TestV2NoRetryNoLeader(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	lHttp := integration.NewListenerWithAddr(t, fmt.Sprintf("127.0.0.1:%05d", os.Getpid()))
 	eh := &errHandler{errCode: http.StatusServiceUnavailable}
@@ -73,6 +77,8 @@ func TestV2NoRetryNoLeader(t *testing.T) {
 	}
 }
 func TestV2RetryRefuse(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -99,11 +105,15 @@ type errHandler struct {
 func (eh *errHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req.Body.Close()
 	eh.reqs++
 	w.WriteHeader(eh.errCode)
 }
 func noRetryList(kapi client.KeysAPI) []func() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return []func() error{func() error {
@@ -118,7 +128,16 @@ func noRetryList(kapi client.KeysAPI) []func() error {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

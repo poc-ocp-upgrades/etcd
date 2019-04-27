@@ -8,6 +8,8 @@ import (
 func TestEventQueue(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	eh := newEventHistory(100)
 	for i := 0; i < 200; i++ {
 		e := newEvent(Create, "/foo", uint64(i), uint64(i))
@@ -26,6 +28,8 @@ func TestEventQueue(t *testing.T) {
 	}
 }
 func TestScanHistory(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	eh := newEventHistory(100)
@@ -61,6 +65,8 @@ func TestScanHistory(t *testing.T) {
 func TestEventIndexHistoryCleared(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	eh := newEventHistory(5)
 	eh.addEvent(newEvent(Create, "/foo", 1, 1))
 	eh.addEvent(newEvent(Create, "/foo/bar", 2, 2))
@@ -76,6 +82,8 @@ func TestEventIndexHistoryCleared(t *testing.T) {
 func TestFullEventQueue(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	eh := newEventHistory(10)
 	for i := 0; i < 1000; i++ {
 		ce := newEvent(Create, "/foo", uint64(i), uint64(i))
@@ -89,6 +97,8 @@ func TestFullEventQueue(t *testing.T) {
 	}
 }
 func TestCloneEvent(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	e1 := &Event{Action: Create, EtcdIndex: 1, Node: nil, PrevNode: nil}

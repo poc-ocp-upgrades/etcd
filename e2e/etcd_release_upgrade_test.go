@@ -14,6 +14,8 @@ import (
 func TestReleaseUpgrade(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lastReleaseBinary := binDir + "/etcd-last-release"
 	if !fileutil.Exist(lastReleaseBinary) {
 		t.Skipf("%q does not exist", lastReleaseBinary)
@@ -72,6 +74,8 @@ func TestReleaseUpgrade(t *testing.T) {
 	}
 }
 func TestReleaseUpgradeWithRestart(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lastReleaseBinary := binDir + "/etcd-last-release"

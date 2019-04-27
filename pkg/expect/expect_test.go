@@ -9,6 +9,8 @@ import (
 func TestExpectFunc(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ep, err := NewExpect("/bin/echo", "hello world")
 	if err != nil {
 		t.Fatal(err)
@@ -28,6 +30,8 @@ func TestExpectFunc(t *testing.T) {
 	}
 }
 func TestEcho(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ep, err := NewExpect("/bin/echo", "hello world")
@@ -52,6 +56,8 @@ func TestEcho(t *testing.T) {
 func TestLineCount(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ep, err := NewExpect("/usr/bin/printf", "1\n2\n3")
 	if err != nil {
 		t.Fatal(err)
@@ -74,6 +80,8 @@ func TestLineCount(t *testing.T) {
 func TestSend(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ep, err := NewExpect("/usr/bin/tr", "a", "b")
 	if err != nil {
 		t.Fatal(err)
@@ -89,6 +97,8 @@ func TestSend(t *testing.T) {
 	}
 }
 func TestSignal(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ep, err := NewExpect("/bin/sleep", "100")

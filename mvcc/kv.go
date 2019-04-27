@@ -39,9 +39,13 @@ type txnReadWrite struct{ TxnRead }
 func (trw *txnReadWrite) DeleteRange(key, end []byte) (n, rev int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	panic("unexpected DeleteRange")
 }
 func (trw *txnReadWrite) Put(key, value []byte, lease lease.LeaseID) (rev int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	panic("unexpected Put")
@@ -49,9 +53,13 @@ func (trw *txnReadWrite) Put(key, value []byte, lease lease.LeaseID) (rev int64)
 func (trw *txnReadWrite) Changes() []mvccpb.KeyValue {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func NewReadOnlyTxnWrite(txn TxnRead) TxnWrite {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &txnReadWrite{txn}

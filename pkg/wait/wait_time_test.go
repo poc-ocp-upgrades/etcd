@@ -8,6 +8,8 @@ import (
 func TestWaitTime(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wt := NewTimeList()
 	ch1 := wt.Wait(1)
 	wt.Trigger(2)
@@ -38,6 +40,8 @@ func TestWaitTime(t *testing.T) {
 func TestWaitTestStress(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	chs := make([]<-chan struct{}, 0)
 	wt := NewTimeList()
 	for i := 0; i < 10000; i++ {
@@ -55,12 +59,16 @@ func TestWaitTestStress(t *testing.T) {
 func BenchmarkWaitTime(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wt := NewTimeList()
 	for i := 0; i < b.N; i++ {
 		wt.Wait(1)
 	}
 }
 func BenchmarkTriggerAnd10KWaitTime(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := 0; i < b.N; i++ {

@@ -9,6 +9,8 @@ import (
 func TestMain(m *testing.M) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	v := m.Run()
 	if v == 0 && testutil.CheckLeakedGoroutine() {
 		os.Exit(1)

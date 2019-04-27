@@ -17,6 +17,8 @@ type GRPCResolver struct{ Client *etcd.Client }
 func (gr *GRPCResolver) Update(ctx context.Context, target string, nm naming.Update, opts ...etcd.OpOption) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch nm.Op {
 	case naming.Add:
 		var v []byte
@@ -34,6 +36,8 @@ func (gr *GRPCResolver) Update(ctx context.Context, target string, nm naming.Upd
 func (gr *GRPCResolver) Resolve(target string) (naming.Watcher, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithCancel(context.Background())
 	w := &gRPCWatcher{c: gr.Client, target: target + "/", ctx: ctx, cancel: cancel}
 	return w, nil
@@ -49,6 +53,8 @@ type gRPCWatcher struct {
 }
 
 func (gw *gRPCWatcher) Next() ([]*naming.Update, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if gw.wch == nil {
@@ -86,6 +92,8 @@ func (gw *gRPCWatcher) Next() ([]*naming.Update, error) {
 func (gw *gRPCWatcher) firstNext() ([]*naming.Update, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := gw.c.Get(gw.ctx, gw.target, etcd.WithPrefix(), etcd.WithSerializable())
 	if gw.err = err; err != nil {
 		return nil, err
@@ -103,6 +111,8 @@ func (gw *gRPCWatcher) firstNext() ([]*naming.Update, error) {
 	return updates, nil
 }
 func (gw *gRPCWatcher) Close() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gw.cancel()

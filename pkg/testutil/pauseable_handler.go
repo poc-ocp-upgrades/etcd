@@ -14,6 +14,8 @@ type PauseableHandler struct {
 func (ph *PauseableHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ph.mu.Lock()
 	paused := ph.paused
 	ph.mu.Unlock()
@@ -34,11 +36,15 @@ func (ph *PauseableHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (ph *PauseableHandler) Pause() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ph.mu.Lock()
 	defer ph.mu.Unlock()
 	ph.paused = true
 }
 func (ph *PauseableHandler) Resume() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ph.mu.Lock()

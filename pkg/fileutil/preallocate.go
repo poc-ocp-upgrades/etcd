@@ -8,6 +8,8 @@ import (
 func Preallocate(f *os.File, sizeInBytes int64, extendFile bool) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if sizeInBytes == 0 {
 		return nil
 	}
@@ -17,6 +19,8 @@ func Preallocate(f *os.File, sizeInBytes int64, extendFile bool) error {
 	return preallocFixed(f, sizeInBytes)
 }
 func preallocExtendTrunc(f *os.File, sizeInBytes int64) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	curOff, err := f.Seek(0, io.SeekCurrent)

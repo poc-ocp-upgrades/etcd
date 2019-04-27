@@ -24,9 +24,13 @@ type storage struct {
 func NewStorage(w *wal.WAL, s *snap.Snapshotter) Storage {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &storage{w, s}
 }
 func (st *storage) SaveSnap(snap raftpb.Snapshot) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	walsnap := walpb.Snapshot{Index: snap.Metadata.Index, Term: snap.Metadata.Term}
@@ -41,6 +45,8 @@ func (st *storage) SaveSnap(snap raftpb.Snapshot) error {
 	return st.WAL.ReleaseLockTo(snap.Metadata.Index)
 }
 func readWAL(waldir string, snap walpb.Snapshot) (w *wal.WAL, id, cid types.ID, st raftpb.HardState, ents []raftpb.Entry) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var (

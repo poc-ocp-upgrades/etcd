@@ -10,6 +10,8 @@ import (
 func BenchmarkProposal3Nodes(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	peers := []raft.Peer{{1, nil}, {2, nil}, {3, nil}}
 	nt := newRaftNetwork(1, 2, 3)
 	nodes := make([]*node, 0)

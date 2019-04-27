@@ -10,6 +10,8 @@ import (
 func BenchmarkKVWatcherMemoryUsage(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	be, tmpPath := backend.NewDefaultTmpBackend()
 	watchable := newWatchableStore(be, &lease.FakeLessor{}, nil)
 	defer cleanup(watchable, be, tmpPath)

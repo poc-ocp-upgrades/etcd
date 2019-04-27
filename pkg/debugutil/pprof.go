@@ -11,6 +11,8 @@ const HTTPPrefixPProf = "/debug/pprof"
 func PProfHandlers() map[string]http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if runtime.SetMutexProfileFraction(-1) == 0 {
 		runtime.SetMutexProfileFraction(5)
 	}

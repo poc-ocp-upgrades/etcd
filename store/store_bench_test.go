@@ -10,9 +10,13 @@ import (
 func BenchmarkStoreSet128Bytes(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	benchStoreSet(b, 128, nil)
 }
 func BenchmarkStoreSet1024Bytes(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	benchStoreSet(b, 1024, nil)
@@ -20,9 +24,13 @@ func BenchmarkStoreSet1024Bytes(b *testing.B) {
 func BenchmarkStoreSet4096Bytes(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	benchStoreSet(b, 4096, nil)
 }
 func BenchmarkStoreSetWithJson128Bytes(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	benchStoreSet(b, 128, json.Marshal)
@@ -30,14 +38,20 @@ func BenchmarkStoreSetWithJson128Bytes(b *testing.B) {
 func BenchmarkStoreSetWithJson1024Bytes(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	benchStoreSet(b, 1024, json.Marshal)
 }
 func BenchmarkStoreSetWithJson4096Bytes(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	benchStoreSet(b, 4096, json.Marshal)
 }
 func BenchmarkStoreDelete(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b.StopTimer()
@@ -79,6 +93,8 @@ func BenchmarkStoreDelete(b *testing.B) {
 func BenchmarkWatch(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.StopTimer()
 	s := newStore()
 	kvs, _ := generateNRandomKV(b.N, 128)
@@ -102,6 +118,8 @@ func BenchmarkWatch(b *testing.B) {
 func BenchmarkWatchWithSet(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.StopTimer()
 	s := newStore()
 	kvs, _ := generateNRandomKV(b.N, 128)
@@ -113,6 +131,8 @@ func BenchmarkWatchWithSet(b *testing.B) {
 	}
 }
 func BenchmarkWatchWithSetBatch(b *testing.B) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b.StopTimer()
@@ -133,6 +153,8 @@ func BenchmarkWatchWithSetBatch(b *testing.B) {
 func BenchmarkWatchOneKey(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore()
 	watchers := make([]Watcher, b.N)
 	for i := 0; i < b.N; i++ {
@@ -144,6 +166,8 @@ func BenchmarkWatchOneKey(b *testing.B) {
 	}
 }
 func benchStoreSet(b *testing.B, valueSize int, process func(interface{}) ([]byte, error)) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newStore()
@@ -169,6 +193,8 @@ func benchStoreSet(b *testing.B, valueSize int, process func(interface{}) ([]byt
 	fmt.Printf("\nAlloc: %vKB; Data: %vKB; Kvs: %v; Alloc/Data:%v\n", memStats.Alloc/1000, size/1000, b.N, memStats.Alloc/size)
 }
 func generateNRandomKV(n int, valueSize int) ([][]string, uint64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var size uint64

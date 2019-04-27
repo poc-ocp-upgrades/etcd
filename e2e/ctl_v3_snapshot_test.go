@@ -17,9 +17,13 @@ import (
 func TestCtlV3Snapshot(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, snapshotTest)
 }
 func snapshotTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	maintenanceInitKeys(cx)
@@ -49,9 +53,13 @@ func snapshotTest(cx ctlCtx) {
 func TestCtlV3SnapshotCorrupt(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, snapshotCorruptTest)
 }
 func snapshotCorruptTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fpath := "test.snapshot"
@@ -76,9 +84,13 @@ func snapshotCorruptTest(cx ctlCtx) {
 func TestCtlV3SnapshotStatusBeforeRestore(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, snapshotStatusBeforeRestoreTest)
 }
 func snapshotStatusBeforeRestoreTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fpath := "test.snapshot"
@@ -99,6 +111,8 @@ func snapshotStatusBeforeRestoreTest(cx ctlCtx) {
 func ctlV3SnapshotSave(cx ctlCtx, fpath string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "snapshot", "save", fpath)
 	return spawnWithExpect(cmdArgs, fmt.Sprintf("Snapshot saved at %s", fpath))
 }
@@ -111,6 +125,8 @@ type snapshotStatus struct {
 }
 
 func getSnapshotStatus(cx ctlCtx, fpath string) (snapshotStatus, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "--write-out", "json", "snapshot", "status", fpath)
@@ -134,6 +150,8 @@ func getSnapshotStatus(cx ctlCtx, fpath string) (snapshotStatus, error) {
 	return resp, nil
 }
 func TestIssue6361(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

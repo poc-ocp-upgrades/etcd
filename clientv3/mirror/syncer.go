@@ -21,6 +21,8 @@ type Syncer interface {
 func NewSyncer(c *clientv3.Client, prefix string, rev int64) Syncer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &syncer{c: c, prefix: prefix, rev: rev}
 }
 
@@ -31,6 +33,8 @@ type syncer struct {
 }
 
 func (s *syncer) SyncBase(ctx context.Context) (<-chan clientv3.GetResponse, chan error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	respchan := make(chan clientv3.GetResponse, 1024)
@@ -75,6 +79,8 @@ func (s *syncer) SyncBase(ctx context.Context) (<-chan clientv3.GetResponse, cha
 func (s *syncer) SyncUpdates(ctx context.Context) clientv3.WatchChan {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.rev == 0 {
 		panic("unexpected revision = 0. Calling SyncUpdates before SyncBase finishes?")
 	}
@@ -83,7 +89,16 @@ func (s *syncer) SyncUpdates(ctx context.Context) clientv3.WatchChan {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

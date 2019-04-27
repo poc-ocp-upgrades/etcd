@@ -16,6 +16,8 @@ type StoreCloser interface {
 func TestNewStoreWithNamespaces(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t, "/0", "/1")
 	defer s.Close()
 	_, err := s.Get("/0", false, false)
@@ -24,6 +26,8 @@ func TestNewStoreWithNamespaces(t *testing.T) {
 	testutil.AssertNil(t, err)
 }
 func TestStoreGetValue(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -38,6 +42,8 @@ func TestStoreGetValue(t *testing.T) {
 	testutil.AssertEqual(t, *e.Node.Value, "bar")
 }
 func TestStoreGetSorted(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -72,6 +78,8 @@ func TestStoreGetSorted(t *testing.T) {
 	}
 }
 func TestSet(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -136,6 +144,8 @@ func TestSet(t *testing.T) {
 func TestStoreCreateValue(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	var eidx uint64 = 1
@@ -166,6 +176,8 @@ func TestStoreCreateValue(t *testing.T) {
 func TestStoreCreateDirectory(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	var eidx uint64 = 1
@@ -177,6 +189,8 @@ func TestStoreCreateDirectory(t *testing.T) {
 	testutil.AssertTrue(t, e.Node.Dir)
 }
 func TestStoreCreateFailsIfExists(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -191,6 +205,8 @@ func TestStoreCreateFailsIfExists(t *testing.T) {
 	testutil.AssertNil(t, e)
 }
 func TestStoreUpdateValue(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -234,6 +250,8 @@ func TestStoreUpdateValue(t *testing.T) {
 func TestStoreUpdateFailsIfDirectory(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	s.Create("/foo", true, "", false, store.TTLOptionSet{ExpireTime: store.Permanent})
@@ -245,6 +263,8 @@ func TestStoreUpdateFailsIfDirectory(t *testing.T) {
 	testutil.AssertNil(t, e)
 }
 func TestStoreDeleteValue(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -260,6 +280,8 @@ func TestStoreDeleteValue(t *testing.T) {
 	testutil.AssertEqual(t, *e.PrevNode.Value, "bar")
 }
 func TestStoreDeleteDirectory(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -284,6 +306,8 @@ func TestStoreDeleteDirectory(t *testing.T) {
 func TestStoreDeleteDirectoryFailsIfNonRecursiveAndDir(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	s.Create("/foo", true, "", false, store.TTLOptionSet{ExpireTime: store.Permanent})
@@ -294,6 +318,8 @@ func TestStoreDeleteDirectoryFailsIfNonRecursiveAndDir(t *testing.T) {
 	testutil.AssertNil(t, e)
 }
 func TestRootRdOnly(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t, "/0")
@@ -314,6 +340,8 @@ func TestRootRdOnly(t *testing.T) {
 func TestStoreCompareAndDeletePrevValue(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	var eidx uint64 = 2
@@ -332,6 +360,8 @@ func TestStoreCompareAndDeletePrevValue(t *testing.T) {
 func TestStoreCompareAndDeletePrevValueFailsIfNotMatch(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	var eidx uint64 = 1
@@ -346,6 +376,8 @@ func TestStoreCompareAndDeletePrevValueFailsIfNotMatch(t *testing.T) {
 	testutil.AssertEqual(t, *e.Node.Value, "bar")
 }
 func TestStoreCompareAndDeletePrevIndex(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -365,6 +397,8 @@ func TestStoreCompareAndDeletePrevIndex(t *testing.T) {
 func TestStoreCompareAndDeletePrevIndexFailsIfNotMatch(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	var eidx uint64 = 1
@@ -382,6 +416,8 @@ func TestStoreCompareAndDeletePrevIndexFailsIfNotMatch(t *testing.T) {
 func TestStoreCompareAndDeleteDirectoryFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	s.Create("/foo", true, "", false, store.TTLOptionSet{ExpireTime: store.Permanent})
@@ -391,6 +427,8 @@ func TestStoreCompareAndDeleteDirectoryFail(t *testing.T) {
 	testutil.AssertEqual(t, err.ErrorCode, etcdErr.EcodeNotFile)
 }
 func TestStoreCompareAndSwapPrevValue(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -413,6 +451,8 @@ func TestStoreCompareAndSwapPrevValue(t *testing.T) {
 func TestStoreCompareAndSwapPrevValueFailsIfNotMatch(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	var eidx uint64 = 1
@@ -427,6 +467,8 @@ func TestStoreCompareAndSwapPrevValueFailsIfNotMatch(t *testing.T) {
 	testutil.AssertEqual(t, e.EtcdIndex, eidx)
 }
 func TestStoreCompareAndSwapPrevIndex(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -450,6 +492,8 @@ func TestStoreCompareAndSwapPrevIndex(t *testing.T) {
 func TestStoreCompareAndSwapPrevIndexFailsIfNotMatch(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	var eidx uint64 = 1
@@ -464,6 +508,8 @@ func TestStoreCompareAndSwapPrevIndexFailsIfNotMatch(t *testing.T) {
 	testutil.AssertEqual(t, *e.Node.Value, "bar")
 }
 func TestStoreWatchCreate(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -487,6 +533,8 @@ func TestStoreWatchCreate(t *testing.T) {
 func TestStoreWatchRecursiveCreate(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	var eidx uint64 = 0
@@ -503,6 +551,8 @@ func TestStoreWatchRecursiveCreate(t *testing.T) {
 func TestStoreWatchUpdate(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	var eidx uint64 = 1
@@ -517,6 +567,8 @@ func TestStoreWatchUpdate(t *testing.T) {
 	testutil.AssertEqual(t, e.Node.Key, "/foo")
 }
 func TestStoreWatchRecursiveUpdate(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -536,6 +588,8 @@ func TestStoreWatchRecursiveUpdate(t *testing.T) {
 func TestStoreWatchDelete(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	var eidx uint64 = 1
@@ -550,6 +604,8 @@ func TestStoreWatchDelete(t *testing.T) {
 	testutil.AssertEqual(t, e.Node.Key, "/foo")
 }
 func TestStoreWatchRecursiveDelete(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -569,6 +625,8 @@ func TestStoreWatchRecursiveDelete(t *testing.T) {
 func TestStoreWatchCompareAndSwap(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	var eidx uint64 = 1
@@ -585,6 +643,8 @@ func TestStoreWatchCompareAndSwap(t *testing.T) {
 func TestStoreWatchRecursiveCompareAndSwap(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	var eidx uint64 = 1
@@ -599,6 +659,8 @@ func TestStoreWatchRecursiveCompareAndSwap(t *testing.T) {
 	testutil.AssertEqual(t, e.Node.Key, "/foo/bar")
 }
 func TestStoreWatchStream(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -632,6 +694,8 @@ func TestStoreWatchStream(t *testing.T) {
 func TestStoreWatchCreateWithHiddenKey(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	var eidx uint64 = 1
@@ -648,6 +712,8 @@ func TestStoreWatchCreateWithHiddenKey(t *testing.T) {
 	}
 }
 func TestStoreWatchRecursiveCreateWithHiddenKey(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -673,6 +739,8 @@ func TestStoreWatchRecursiveCreateWithHiddenKey(t *testing.T) {
 func TestStoreWatchUpdateWithHiddenKey(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	s.Create("/_foo", false, "bar", false, store.TTLOptionSet{ExpireTime: store.Permanent})
@@ -687,6 +755,8 @@ func TestStoreWatchUpdateWithHiddenKey(t *testing.T) {
 func TestStoreWatchRecursiveUpdateWithHiddenKey(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	s.Create("/foo/_bar", false, "baz", false, store.TTLOptionSet{ExpireTime: store.Permanent})
@@ -696,6 +766,8 @@ func TestStoreWatchRecursiveUpdateWithHiddenKey(t *testing.T) {
 	testutil.AssertNil(t, e)
 }
 func TestStoreWatchDeleteWithHiddenKey(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -714,6 +786,8 @@ func TestStoreWatchDeleteWithHiddenKey(t *testing.T) {
 func TestStoreWatchRecursiveDeleteWithHiddenKey(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	s.Create("/foo/_bar", false, "baz", false, store.TTLOptionSet{ExpireTime: store.Permanent})
@@ -723,6 +797,8 @@ func TestStoreWatchRecursiveDeleteWithHiddenKey(t *testing.T) {
 	testutil.AssertNil(t, e)
 }
 func TestStoreWatchRecursiveCreateDeeperThanHiddenKey(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newTestStore(t)
@@ -739,6 +815,8 @@ func TestStoreWatchRecursiveCreateDeeperThanHiddenKey(t *testing.T) {
 func TestStoreWatchSlowConsumer(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newTestStore(t)
 	defer s.Close()
 	s.Watch("/foo", true, true, 0)
@@ -751,6 +829,8 @@ func TestStoreWatchSlowConsumer(t *testing.T) {
 func nbselect(c <-chan *store.Event) *store.Event {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case e := <-c:
 		return e
@@ -759,6 +839,8 @@ func nbselect(c <-chan *store.Event) *store.Event {
 	}
 }
 func timeoutSelect(t *testing.T, c <-chan *store.Event) *store.Event {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {

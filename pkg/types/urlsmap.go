@@ -11,6 +11,8 @@ type URLsMap map[string]URLs
 func NewURLsMap(s string) (URLsMap, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := parse(s)
 	cl := URLsMap{}
 	for name, urls := range m {
@@ -23,6 +25,8 @@ func NewURLsMap(s string) (URLsMap, error) {
 	return cl, nil
 }
 func NewURLsMapFromStringMap(m map[string]string, sep string) (URLsMap, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -38,6 +42,8 @@ func NewURLsMapFromStringMap(m map[string]string, sep string) (URLsMap, error) {
 func (c URLsMap) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var pairs []string
 	for name, urls := range c {
 		for _, url := range urls {
@@ -48,6 +54,8 @@ func (c URLsMap) String() string {
 	return strings.Join(pairs, ",")
 }
 func (c URLsMap) URLs() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var urls []string
@@ -62,9 +70,13 @@ func (c URLsMap) URLs() []string {
 func (c URLsMap) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(c)
 }
 func parse(s string) map[string][]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := make(map[string][]string)

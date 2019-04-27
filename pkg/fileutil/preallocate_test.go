@@ -9,6 +9,8 @@ import (
 func TestPreallocateExtend(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pf := func(f *os.File, sz int64) error {
 		return Preallocate(f, sz, true)
 	}
@@ -20,12 +22,16 @@ func TestPreallocateExtend(t *testing.T) {
 func TestPreallocateExtendTrunc(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tf := func(t *testing.T, f *os.File) {
 		testPreallocateExtend(t, f, preallocExtendTrunc)
 	}
 	runPreallocTest(t, tf)
 }
 func testPreallocateExtend(t *testing.T, f *os.File, pf func(*os.File, int64) error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := int64(64 * 1000)
@@ -43,9 +49,13 @@ func testPreallocateExtend(t *testing.T, f *os.File, pf func(*os.File, int64) er
 func TestPreallocateFixed(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	runPreallocTest(t, testPreallocateFixed)
 }
 func testPreallocateFixed(t *testing.T, f *os.File) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := int64(64 * 1000)
@@ -61,6 +71,8 @@ func testPreallocateFixed(t *testing.T, f *os.File) {
 	}
 }
 func runPreallocTest(t *testing.T, test func(*testing.T, *os.File)) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p, err := ioutil.TempDir(os.TempDir(), "preallocateTest")

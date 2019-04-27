@@ -17,6 +17,8 @@ type raftLog struct {
 func newLog(storage Storage, logger Logger) *raftLog {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if storage == nil {
 		log.Panic("storage must not be nil")
 	}
@@ -38,9 +40,13 @@ func newLog(storage Storage, logger Logger) *raftLog {
 func (l *raftLog) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("committed=%d, applied=%d, unstable.offset=%d, len(unstable.Entries)=%d", l.committed, l.applied, l.unstable.offset, len(l.unstable.entries))
 }
 func (l *raftLog) maybeAppend(index, logTerm, committed uint64, ents ...pb.Entry) (lastnewi uint64, ok bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if l.matchTerm(index, logTerm) {
@@ -62,6 +68,8 @@ func (l *raftLog) maybeAppend(index, logTerm, committed uint64, ents ...pb.Entry
 func (l *raftLog) append(ents ...pb.Entry) uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(ents) == 0 {
 		return l.lastIndex()
 	}
@@ -72,6 +80,8 @@ func (l *raftLog) append(ents ...pb.Entry) uint64 {
 	return l.lastIndex()
 }
 func (l *raftLog) findConflict(ents []pb.Entry) uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, ne := range ents {
@@ -87,12 +97,16 @@ func (l *raftLog) findConflict(ents []pb.Entry) uint64 {
 func (l *raftLog) unstableEntries() []pb.Entry {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(l.unstable.entries) == 0 {
 		return nil
 	}
 	return l.unstable.entries
 }
 func (l *raftLog) nextEnts() (ents []pb.Entry) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	off := max(l.applied+1, l.firstIndex())
@@ -108,10 +122,14 @@ func (l *raftLog) nextEnts() (ents []pb.Entry) {
 func (l *raftLog) hasNextEnts() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	off := max(l.applied+1, l.firstIndex())
 	return l.committed+1 > off
 }
 func (l *raftLog) snapshot() (pb.Snapshot, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if l.unstable.snapshot != nil {
@@ -120,6 +138,8 @@ func (l *raftLog) snapshot() (pb.Snapshot, error) {
 	return l.storage.Snapshot()
 }
 func (l *raftLog) firstIndex() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if i, ok := l.unstable.maybeFirstIndex(); ok {
@@ -134,6 +154,8 @@ func (l *raftLog) firstIndex() uint64 {
 func (l *raftLog) lastIndex() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if i, ok := l.unstable.maybeLastIndex(); ok {
 		return i
 	}
@@ -146,6 +168,8 @@ func (l *raftLog) lastIndex() uint64 {
 func (l *raftLog) commitTo(tocommit uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if l.committed < tocommit {
 		if l.lastIndex() < tocommit {
 			l.logger.Panicf("tocommit(%d) is out of range [lastIndex(%d)]. Was the raft log corrupted, truncated, or lost?", tocommit, l.lastIndex())
@@ -154,6 +178,8 @@ func (l *raftLog) commitTo(tocommit uint64) {
 	}
 }
 func (l *raftLog) appliedTo(i uint64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if i == 0 {
@@ -167,14 +193,20 @@ func (l *raftLog) appliedTo(i uint64) {
 func (l *raftLog) stableTo(i, t uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l.unstable.stableTo(i, t)
 }
 func (l *raftLog) stableSnapTo(i uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l.unstable.stableSnapTo(i)
 }
 func (l *raftLog) lastTerm() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t, err := l.term(l.lastIndex())
@@ -184,6 +216,8 @@ func (l *raftLog) lastTerm() uint64 {
 	return t
 }
 func (l *raftLog) term(i uint64) (uint64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dummyIndex := l.firstIndex() - 1
@@ -205,12 +239,16 @@ func (l *raftLog) term(i uint64) (uint64, error) {
 func (l *raftLog) entries(i, maxsize uint64) ([]pb.Entry, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if i > l.lastIndex() {
 		return nil, nil
 	}
 	return l.slice(i, l.lastIndex()+1, maxsize)
 }
 func (l *raftLog) allEntries() []pb.Entry {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ents, err := l.entries(l.firstIndex(), noLimit)
@@ -225,9 +263,13 @@ func (l *raftLog) allEntries() []pb.Entry {
 func (l *raftLog) isUpToDate(lasti, term uint64) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return term > l.lastTerm() || (term == l.lastTerm() && lasti >= l.lastIndex())
 }
 func (l *raftLog) matchTerm(i, term uint64) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t, err := l.term(i)
@@ -239,6 +281,8 @@ func (l *raftLog) matchTerm(i, term uint64) bool {
 func (l *raftLog) maybeCommit(maxIndex, term uint64) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if maxIndex > l.committed && l.zeroTermOnErrCompacted(l.term(maxIndex)) == term {
 		l.commitTo(maxIndex)
 		return true
@@ -248,11 +292,15 @@ func (l *raftLog) maybeCommit(maxIndex, term uint64) bool {
 func (l *raftLog) restore(s pb.Snapshot) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l.logger.Infof("log [%s] starts to restore snapshot [index: %d, term: %d]", l, s.Metadata.Index, s.Metadata.Term)
 	l.committed = s.Metadata.Index
 	l.unstable.restore(s)
 }
 func (l *raftLog) slice(lo, hi, maxSize uint64) ([]pb.Entry, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := l.mustCheckOutOfBounds(lo, hi)
@@ -291,6 +339,8 @@ func (l *raftLog) slice(lo, hi, maxSize uint64) ([]pb.Entry, error) {
 func (l *raftLog) mustCheckOutOfBounds(lo, hi uint64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if lo > hi {
 		l.logger.Panicf("invalid slice %d > %d", lo, hi)
 	}
@@ -305,6 +355,8 @@ func (l *raftLog) mustCheckOutOfBounds(lo, hi uint64) error {
 	return nil
 }
 func (l *raftLog) zeroTermOnErrCompacted(t uint64, err error) uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err == nil {

@@ -11,6 +11,8 @@ import (
 func TestMemberUnmarshal(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		body		[]byte
 		wantMember	Member
@@ -31,6 +33,8 @@ func TestMemberUnmarshal(t *testing.T) {
 func TestMemberCreateRequestUnmarshal(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	body := []byte(`{"peerURLs": ["http://127.0.0.1:8081", "https://127.0.0.1:8080"]}`)
 	want := MemberCreateRequest{PeerURLs: types.URLs([]url.URL{{Scheme: "http", Host: "127.0.0.1:8081"}, {Scheme: "https", Host: "127.0.0.1:8080"}})}
 	var req MemberCreateRequest
@@ -42,6 +46,8 @@ func TestMemberCreateRequestUnmarshal(t *testing.T) {
 	}
 }
 func TestMemberCreateRequestUnmarshalFail(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := [][]byte{[]byte(``), []byte(`{`), []byte(`{"peerURLs": "foo"}`), []byte(`{"peerURLs": ["."]}`), []byte(`{"peerURLs": []}`), []byte(`{"peerURLs": ["http://127.0.0.1:2379/foo"]}`), []byte(`{"peerURLs": ["http://127.0.0.1"]}`)}

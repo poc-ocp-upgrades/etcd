@@ -11,6 +11,8 @@ import (
 func TestNodeExternClone(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var eNode *NodeExtern
 	if g := eNode.Clone(); g != nil {
 		t.Fatalf("nil.Clone=%v, want nil", g)
@@ -71,6 +73,8 @@ func TestNodeExternClone(t *testing.T) {
 	testutil.AssertEqual(t, gNode.Key, "/baz")
 }
 func sameSlice(a, b []*NodeExtern) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ah := (*reflect.SliceHeader)(unsafe.Pointer(&a))

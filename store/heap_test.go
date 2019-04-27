@@ -9,6 +9,8 @@ import (
 func TestHeapPushPop(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	h := newTtlKeyHeap()
 	for i := 0; i < 10; i++ {
 		path := fmt.Sprintf("%v", 10-i)
@@ -26,6 +28,8 @@ func TestHeapPushPop(t *testing.T) {
 	}
 }
 func TestHeapUpdate(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h := newTtlKeyHeap()

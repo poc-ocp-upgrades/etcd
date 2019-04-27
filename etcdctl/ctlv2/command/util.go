@@ -27,6 +27,8 @@ var (
 func argOrStdin(args []string, stdin io.Reader, i int) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if i < len(args) {
 		return args[i], nil
 	}
@@ -37,6 +39,8 @@ func argOrStdin(args []string, stdin io.Reader, i int) (string, error) {
 	return string(bytes), nil
 }
 func getPeersFlagValue(c *cli.Context) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	peerstr := c.GlobalString("endpoints")
@@ -61,6 +65,8 @@ func getPeersFlagValue(c *cli.Context) []string {
 	return strings.Split(peerstr, ",")
 }
 func getDomainDiscoveryFlagValue(c *cli.Context) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	domainstr, insecure := getDiscoveryDomain(c)
@@ -88,6 +94,8 @@ func getDomainDiscoveryFlagValue(c *cli.Context) ([]string, error) {
 func getDiscoveryDomain(c *cli.Context) (domainstr string, insecure bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	domainstr = c.GlobalString("discovery-srv")
 	if domainstr == "" {
 		domainstr = os.Getenv("ETCDCTL_DISCOVERY_SRV")
@@ -96,6 +104,8 @@ func getDiscoveryDomain(c *cli.Context) (domainstr string, insecure bool) {
 	return domainstr, insecure
 }
 func getEndpoints(c *cli.Context) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	eps, err := getDomainDiscoveryFlagValue(c)
@@ -118,6 +128,8 @@ func getEndpoints(c *cli.Context) ([]string, error) {
 	return eps, nil
 }
 func getTransport(c *cli.Context) (*http.Transport, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cafile := c.GlobalString("ca-file")
@@ -147,9 +159,13 @@ func getTransport(c *cli.Context) (*http.Transport, error) {
 func getUsernamePasswordFromFlag(usernameFlag string) (username string, password string, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getUsernamePassword("Password: ", usernameFlag)
 }
 func getUsernamePassword(prompt, usernameFlag string) (username string, password string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	colon := strings.Index(usernameFlag, ":")
@@ -168,14 +184,20 @@ func getUsernamePassword(prompt, usernameFlag string) (username string, password
 func mustNewKeyAPI(c *cli.Context) client.KeysAPI {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return client.NewKeysAPI(mustNewClient(c))
 }
 func mustNewMembersAPI(c *cli.Context) client.MembersAPI {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return client.NewMembersAPI(mustNewClient(c))
 }
 func mustNewClient(c *cli.Context) client.Client {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	hc, err := newClient(c)
@@ -216,6 +238,8 @@ func mustNewClient(c *cli.Context) client.Client {
 func isConnectionError(err error) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch t := err.(type) {
 	case *client.ClusterError:
 		for _, cerr := range t.Errors {
@@ -243,6 +267,8 @@ func isConnectionError(err error) bool {
 func mustNewClientNoSync(c *cli.Context) client.Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	hc, err := newClient(c)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err.Error())
@@ -255,6 +281,8 @@ func mustNewClientNoSync(c *cli.Context) client.Client {
 	return hc
 }
 func newClient(c *cli.Context) (client.Client, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	eps, err := getEndpoints(c)
@@ -281,6 +309,8 @@ func newClient(c *cli.Context) (client.Client, error) {
 	return client.New(cfg)
 }
 func contextWithTotalTimeout(c *cli.Context) (context.Context, context.CancelFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return context.WithTimeout(context.Background(), c.GlobalDuration("total-timeout"))

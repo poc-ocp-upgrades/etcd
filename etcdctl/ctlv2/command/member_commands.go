@@ -10,9 +10,13 @@ import (
 func NewMemberCommand() cli.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cli.Command{Name: "member", Usage: "member add, remove and list subcommands", Subcommands: []cli.Command{{Name: "list", Usage: "enumerate existing cluster members", ArgsUsage: " ", Action: actionMemberList}, {Name: "add", Usage: "add a new member to the etcd cluster", ArgsUsage: "<name> <peerURL>", Action: actionMemberAdd}, {Name: "remove", Usage: "remove an existing member from the etcd cluster", ArgsUsage: "<memberID>", Action: actionMemberRemove}, {Name: "update", Usage: "update an existing member in the etcd cluster", ArgsUsage: "<memberID> <peerURLs>", Action: actionMemberUpdate}}}
 }
 func actionMemberList(c *cli.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(c.Args()) != 0 {
@@ -46,6 +50,8 @@ func actionMemberList(c *cli.Context) error {
 	return nil
 }
 func actionMemberAdd(c *cli.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := c.Args()
@@ -89,6 +95,8 @@ func actionMemberAdd(c *cli.Context) error {
 func actionMemberRemove(c *cli.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := c.Args()
 	if len(args) != 1 {
 		fmt.Fprintln(os.Stderr, "Provide a single member ID")
@@ -126,6 +134,8 @@ func actionMemberRemove(c *cli.Context) error {
 	return nil
 }
 func actionMemberUpdate(c *cli.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := c.Args()

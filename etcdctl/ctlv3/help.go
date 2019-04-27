@@ -30,6 +30,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	commandUsage := `
 {{ $cmd := .Cmd }}\
 {{ $cmdname := cmdName .Cmd .Cmd.Root }}\
@@ -85,6 +87,8 @@ GLOBAL OPTIONS:
 func etcdFlagUsages(flagSet *pflag.FlagSet) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	x := new(bytes.Buffer)
 	flagSet.VisitAll(func(flag *pflag.Flag) {
 		if len(flag.Deprecated) > 0 {
@@ -116,6 +120,8 @@ func etcdFlagUsages(flagSet *pflag.FlagSet) string {
 func getSubCommands(cmd *cobra.Command) []*cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var subCommands []*cobra.Command
 	for _, subCmd := range cmd.Commands() {
 		subCommands = append(subCommands, subCmd)
@@ -124,6 +130,8 @@ func getSubCommands(cmd *cobra.Command) []*cobra.Command {
 	return subCommands
 }
 func usageFunc(cmd *cobra.Command) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	subCommands := getSubCommands(cmd)
@@ -140,6 +148,8 @@ func usageFunc(cmd *cobra.Command) error {
 	return nil
 }
 func getTabOutWithWriter(writer io.Writer) *tabwriter.Writer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	aTabOut := new(tabwriter.Writer)

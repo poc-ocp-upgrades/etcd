@@ -9,6 +9,8 @@ import (
 func NewTimeoutTransport(info TLSInfo, dialtimeoutd, rdtimeoutd, wtimeoutd time.Duration) (*http.Transport, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tr, err := NewTransport(info, dialtimeoutd)
 	if err != nil {
 		return nil, err

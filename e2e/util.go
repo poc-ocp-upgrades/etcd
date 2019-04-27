@@ -10,6 +10,8 @@ import (
 func waitReadyExpectProc(exproc *expect.ExpectProcess, readyStrs []string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := 0
 	matchSet := func(l string) bool {
 		for _, s := range readyStrs {
@@ -26,15 +28,21 @@ func waitReadyExpectProc(exproc *expect.ExpectProcess, readyStrs []string) error
 func spawnWithExpect(args []string, expected string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return spawnWithExpects(args, []string{expected}...)
 }
 func spawnWithExpects(args []string, xs ...string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, err := spawnWithExpectLines(args, xs...)
 	return err
 }
 func spawnWithExpectLines(args []string, xs ...string) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	proc, err := spawnCmd(args)
@@ -69,6 +77,8 @@ func spawnWithExpectLines(args []string, xs ...string) ([]string, error) {
 func closeWithTimeout(p *expect.ExpectProcess, d time.Duration) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	errc := make(chan error, 1)
 	go func() {
 		errc <- p.Close()
@@ -83,6 +93,8 @@ func closeWithTimeout(p *expect.ExpectProcess, d time.Duration) error {
 	return fmt.Errorf("took longer than %v to Close process %+v", d, p)
 }
 func toTLS(s string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return strings.Replace(s, "http://", "https://", 1)

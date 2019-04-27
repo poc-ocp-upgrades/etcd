@@ -15,6 +15,8 @@ var prstmap = [...]string{"ProgressStateProbe", "ProgressStateReplicate", "Progr
 func (st ProgressStateType) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return prstmap[uint64(st)]
 }
 
@@ -31,12 +33,16 @@ type Progress struct {
 func (pr *Progress) resetState(state ProgressStateType) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pr.Paused = false
 	pr.PendingSnapshot = 0
 	pr.State = state
 	pr.ins.reset()
 }
 func (pr *Progress) becomeProbe() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if pr.State == ProgressStateSnapshot {
@@ -51,16 +57,22 @@ func (pr *Progress) becomeProbe() {
 func (pr *Progress) becomeReplicate() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pr.resetState(ProgressStateReplicate)
 	pr.Next = pr.Match + 1
 }
 func (pr *Progress) becomeSnapshot(snapshoti uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pr.resetState(ProgressStateSnapshot)
 	pr.PendingSnapshot = snapshoti
 }
 func (pr *Progress) maybeUpdate(n uint64) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var updated bool
@@ -77,9 +89,13 @@ func (pr *Progress) maybeUpdate(n uint64) bool {
 func (pr *Progress) optimisticUpdate(n uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pr.Next = n + 1
 }
 func (pr *Progress) maybeDecrTo(rejected, last uint64) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if pr.State == ProgressStateReplicate {
@@ -101,14 +117,20 @@ func (pr *Progress) maybeDecrTo(rejected, last uint64) bool {
 func (pr *Progress) pause() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pr.Paused = true
 }
 func (pr *Progress) resume() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pr.Paused = false
 }
 func (pr *Progress) IsPaused() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch pr.State {
@@ -125,14 +147,20 @@ func (pr *Progress) IsPaused() bool {
 func (pr *Progress) snapshotFailure() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pr.PendingSnapshot = 0
 }
 func (pr *Progress) needSnapshotAbort() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pr.State == ProgressStateSnapshot && pr.Match >= pr.PendingSnapshot
 }
 func (pr *Progress) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf("next = %d, match = %d, state = %s, waiting = %v, pendingSnapshot = %d", pr.Next, pr.Match, pr.State, pr.IsPaused(), pr.PendingSnapshot)
@@ -148,9 +176,13 @@ type inflights struct {
 func newInflights(size int) *inflights {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &inflights{size: size}
 }
 func (in *inflights) add(inflight uint64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if in.full() {
@@ -170,6 +202,8 @@ func (in *inflights) add(inflight uint64) {
 func (in *inflights) growBuf() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	newSize := len(in.buffer) * 2
 	if newSize == 0 {
 		newSize = 1
@@ -181,6 +215,8 @@ func (in *inflights) growBuf() {
 	in.buffer = newBuffer
 }
 func (in *inflights) freeTo(to uint64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if in.count == 0 || to < in.buffer[in.start] {
@@ -206,14 +242,20 @@ func (in *inflights) freeTo(to uint64) {
 func (in *inflights) freeFirstOne() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in.freeTo(in.buffer[in.start])
 }
 func (in *inflights) full() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return in.count == in.size
 }
 func (in *inflights) reset() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in.count = 0

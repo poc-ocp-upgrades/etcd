@@ -16,6 +16,8 @@ type chanServerStream struct {
 func (ss *chanServerStream) SendHeader(md metadata.MD) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ss.headerc == nil {
 		return errAlreadySentHeader
 	}
@@ -37,6 +39,8 @@ func (ss *chanServerStream) SendHeader(md metadata.MD) error {
 func (ss *chanServerStream) SetHeader(md metadata.MD) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ss.headerc == nil {
 		return errAlreadySentHeader
 	}
@@ -44,6 +48,8 @@ func (ss *chanServerStream) SetHeader(md metadata.MD) error {
 	return nil
 }
 func (ss *chanServerStream) SetTrailer(md metadata.MD) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ss.trailerc <- md
@@ -58,6 +64,8 @@ type chanClientStream struct {
 func (cs *chanClientStream) Header() (metadata.MD, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case md := <-cs.headerc:
 		return md, nil
@@ -68,6 +76,8 @@ func (cs *chanClientStream) Header() (metadata.MD, error) {
 func (cs *chanClientStream) Trailer() metadata.MD {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case md := <-cs.trailerc:
 		return md
@@ -76,6 +86,8 @@ func (cs *chanClientStream) Trailer() metadata.MD {
 	}
 }
 func (cs *chanClientStream) CloseSend() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	close(cs.chanStream.sendc)
@@ -92,9 +104,13 @@ type chanStream struct {
 func (s *chanStream) Context() context.Context {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.ctx
 }
 func (s *chanStream) SendMsg(m interface{}) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {
@@ -108,6 +124,8 @@ func (s *chanStream) SendMsg(m interface{}) error {
 	return s.ctx.Err()
 }
 func (s *chanStream) RecvMsg(m interface{}) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	v := m.(*interface{})
@@ -131,6 +149,8 @@ func (s *chanStream) RecvMsg(m interface{}) error {
 	return s.ctx.Err()
 }
 func newPipeStream(ctx context.Context, ssHandler func(chanServerStream) error) chanClientStream {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ch1, ch2 := make(chan interface{}, 1), make(chan interface{})

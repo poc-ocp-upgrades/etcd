@@ -57,9 +57,13 @@ type Error struct {
 func NewRequestError(errorCode int, cause string) *Error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewError(errorCode, cause, 0)
 }
 func NewError(errorCode int, cause string, index uint64) *Error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &Error{ErrorCode: errorCode, Message: errors[errorCode], Cause: cause, Index: index}
@@ -67,15 +71,21 @@ func NewError(errorCode int, cause string, index uint64) *Error {
 func (e Error) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.Message + " (" + e.Cause + ")"
 }
 func (e Error) toJsonString() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, _ := json.Marshal(e)
 	return string(b)
 }
 func (e Error) StatusCode() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	status, ok := errorStatus[e.ErrorCode]
@@ -87,6 +97,8 @@ func (e Error) StatusCode() int {
 func (e Error) WriteTo(w http.ResponseWriter) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	w.Header().Add("X-Etcd-Index", fmt.Sprint(e.Index))
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(e.StatusCode())
@@ -96,7 +108,16 @@ func (e Error) WriteTo(w http.ResponseWriter) error {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -8,9 +8,13 @@ import (
 func TestCtlV3RoleAdd(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, roleAddTest)
 }
 func TestCtlV3RoleAddNoTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, roleAddTest, withCfg(configNoTLS))
@@ -18,9 +22,13 @@ func TestCtlV3RoleAddNoTLS(t *testing.T) {
 func TestCtlV3RoleAddClientTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, roleAddTest, withCfg(configClientTLS))
 }
 func TestCtlV3RoleAddPeerTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, roleAddTest, withCfg(configPeerTLS))
@@ -28,14 +36,20 @@ func TestCtlV3RoleAddPeerTLS(t *testing.T) {
 func TestCtlV3RoleAddTimeout(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, roleAddTest, withDialTimeout(0))
 }
 func TestCtlV3RoleGrant(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, roleGrantTest)
 }
 func roleAddTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdSet := []struct {
@@ -53,6 +67,8 @@ func roleAddTest(cx ctlCtx) {
 func roleGrantTest(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdSet := []struct {
 		args		[]string
 		expectedStr	string
@@ -66,11 +82,15 @@ func roleGrantTest(cx ctlCtx) {
 func ctlV3Role(cx ctlCtx, args []string, expStr string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "role")
 	cmdArgs = append(cmdArgs, args...)
 	return spawnWithExpect(cmdArgs, expStr)
 }
 func ctlV3RoleGrantPermission(cx ctlCtx, rolename string, perm grantingPerm) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "role", "grant-permission")
@@ -90,6 +110,8 @@ func ctlV3RoleGrantPermission(cx ctlCtx, rolename string, perm grantingPerm) err
 	return err
 }
 func ctlV3RoleRevokePermission(cx ctlCtx, rolename string, key, rangeEnd string, fromKey bool) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "role", "revoke-permission")
@@ -122,6 +144,8 @@ type grantingPerm struct {
 }
 
 func grantingPermToArgs(perm grantingPerm) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	permstr := ""

@@ -15,6 +15,8 @@ var (
 func NewUserCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ac := &cobra.Command{Use: "user <subcommand>", Short: "User related commands"}
 	ac.AddCommand(newUserAddCommand())
 	ac.AddCommand(newUserDeleteCommand())
@@ -33,6 +35,8 @@ var (
 func newUserAddCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := cobra.Command{Use: "add <user name or user:password> [options]", Short: "Adds a new user", Run: userAddCommandFunc}
 	cmd.Flags().BoolVar(&passwordInteractive, "interactive", true, "Read password from stdin instead of interactive terminal")
 	return &cmd
@@ -40,9 +44,13 @@ func newUserAddCommand() *cobra.Command {
 func newUserDeleteCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &cobra.Command{Use: "delete <user name>", Short: "Deletes a user", Run: userDeleteCommandFunc}
 }
 func newUserGetCommand() *cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := cobra.Command{Use: "get <user name> [options]", Short: "Gets detailed information of a user", Run: userGetCommandFunc}
@@ -52,9 +60,13 @@ func newUserGetCommand() *cobra.Command {
 func newUserListCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &cobra.Command{Use: "list", Short: "Lists all users", Run: userListCommandFunc}
 }
 func newUserChangePasswordCommand() *cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := cobra.Command{Use: "passwd <user name> [options]", Short: "Changes password of user", Run: userChangePasswordCommandFunc}
@@ -64,14 +76,20 @@ func newUserChangePasswordCommand() *cobra.Command {
 func newUserGrantRoleCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &cobra.Command{Use: "grant-role <user name> <role name>", Short: "Grants a role to a user", Run: userGrantRoleCommandFunc}
 }
 func newUserRevokeRoleCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &cobra.Command{Use: "revoke-role <user name> <role name>", Short: "Revokes a role from a user", Run: userRevokeRoleCommandFunc}
 }
 func userAddCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {
@@ -103,6 +121,8 @@ func userAddCommandFunc(cmd *cobra.Command, args []string) {
 func userDeleteCommandFunc(cmd *cobra.Command, args []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(args) != 1 {
 		ExitWithError(ExitBadArgs, fmt.Errorf("user delete command requires user name as its argument."))
 	}
@@ -113,6 +133,8 @@ func userDeleteCommandFunc(cmd *cobra.Command, args []string) {
 	display.UserDelete(args[0], *resp)
 }
 func userGetCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {
@@ -141,6 +163,8 @@ func userGetCommandFunc(cmd *cobra.Command, args []string) {
 func userListCommandFunc(cmd *cobra.Command, args []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(args) != 0 {
 		ExitWithError(ExitBadArgs, fmt.Errorf("user list command requires no arguments."))
 	}
@@ -151,6 +175,8 @@ func userListCommandFunc(cmd *cobra.Command, args []string) {
 	display.UserList(*resp)
 }
 func userChangePasswordCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {
@@ -171,6 +197,8 @@ func userChangePasswordCommandFunc(cmd *cobra.Command, args []string) {
 func userGrantRoleCommandFunc(cmd *cobra.Command, args []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(args) != 2 {
 		ExitWithError(ExitBadArgs, fmt.Errorf("user grant command requires user name and role name as its argument."))
 	}
@@ -183,6 +211,8 @@ func userGrantRoleCommandFunc(cmd *cobra.Command, args []string) {
 func userRevokeRoleCommandFunc(cmd *cobra.Command, args []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(args) != 2 {
 		ExitWithError(ExitBadArgs, fmt.Errorf("user revoke-role requires user name and role name as its argument."))
 	}
@@ -193,6 +223,8 @@ func userRevokeRoleCommandFunc(cmd *cobra.Command, args []string) {
 	display.UserRevokeRole(args[0], args[1], *resp)
 }
 func readPasswordInteractive(name string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	prompt1 := fmt.Sprintf("Password of %s: ", name)

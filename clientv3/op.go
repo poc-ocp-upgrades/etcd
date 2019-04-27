@@ -46,9 +46,13 @@ type Op struct {
 func (op Op) IsTxn() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return op.t == tTxn
 }
 func (op Op) Txn() ([]Cmp, []Op, []Op) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return op.cmps, op.thenOps, op.elseOps
@@ -56,9 +60,13 @@ func (op Op) Txn() ([]Cmp, []Op, []Op) {
 func (op Op) KeyBytes() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return op.key
 }
 func (op *Op) WithKeyBytes(key []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	op.key = key
@@ -66,9 +74,13 @@ func (op *Op) WithKeyBytes(key []byte) {
 func (op Op) RangeBytes() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return op.end
 }
 func (op Op) Rev() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return op.rev
@@ -76,9 +88,13 @@ func (op Op) Rev() int64 {
 func (op Op) IsPut() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return op.t == tPut
 }
 func (op Op) IsGet() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return op.t == tRange
@@ -86,9 +102,13 @@ func (op Op) IsGet() bool {
 func (op Op) IsDelete() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return op.t == tDeleteRange
 }
 func (op Op) IsSerializable() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return op.serializable == true
@@ -96,9 +116,13 @@ func (op Op) IsSerializable() bool {
 func (op Op) IsKeysOnly() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return op.keysOnly == true
 }
 func (op Op) IsCountOnly() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return op.countOnly == true
@@ -106,9 +130,13 @@ func (op Op) IsCountOnly() bool {
 func (op Op) MinModRev() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return op.minModRev
 }
 func (op Op) MaxModRev() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return op.maxModRev
@@ -116,9 +144,13 @@ func (op Op) MaxModRev() int64 {
 func (op Op) MinCreateRev() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return op.minCreateRev
 }
 func (op Op) MaxCreateRev() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return op.maxCreateRev
@@ -126,9 +158,13 @@ func (op Op) MaxCreateRev() int64 {
 func (op *Op) WithRangeBytes(end []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	op.end = end
 }
 func (op Op) ValueBytes() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return op.val
@@ -136,9 +172,13 @@ func (op Op) ValueBytes() []byte {
 func (op *Op) WithValueBytes(v []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	op.val = v
 }
 func (op Op) toRangeRequest() *pb.RangeRequest {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if op.t != tRange {
@@ -152,6 +192,8 @@ func (op Op) toRangeRequest() *pb.RangeRequest {
 	return r
 }
 func (op Op) toTxnRequest() *pb.TxnRequest {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	thenOps := make([]*pb.RequestOp, len(op.thenOps))
@@ -169,6 +211,8 @@ func (op Op) toTxnRequest() *pb.TxnRequest {
 	return &pb.TxnRequest{Compare: cmps, Success: thenOps, Failure: elseOps}
 }
 func (op Op) toRequestOp() *pb.RequestOp {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch op.t {
@@ -189,6 +233,8 @@ func (op Op) toRequestOp() *pb.RequestOp {
 func (op Op) isWrite() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if op.t == tTxn {
 		for _, tOp := range op.thenOps {
 			if tOp.isWrite() {
@@ -207,11 +253,15 @@ func (op Op) isWrite() bool {
 func OpGet(key string, opts ...OpOption) Op {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ret := Op{t: tRange, key: []byte(key)}
 	ret.applyOpts(opts)
 	return ret
 }
 func OpDelete(key string, opts ...OpOption) Op {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ret := Op{t: tDeleteRange, key: []byte(key)}
@@ -243,6 +293,8 @@ func OpDelete(key string, opts ...OpOption) Op {
 func OpPut(key, val string, opts ...OpOption) Op {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ret := Op{t: tPut, key: []byte(key), val: []byte(val)}
 	ret.applyOpts(opts)
 	switch {
@@ -272,9 +324,13 @@ func OpPut(key, val string, opts ...OpOption) Op {
 func OpTxn(cmps []Cmp, thenOps []Op, elseOps []Op) Op {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Op{t: tTxn, cmps: cmps, thenOps: thenOps, elseOps: elseOps}
 }
 func opWatch(key string, opts ...OpOption) Op {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ret := Op{t: tRange, key: []byte(key)}
@@ -300,6 +356,8 @@ func opWatch(key string, opts ...OpOption) Op {
 func (op *Op) applyOpts(opts []OpOption) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, opt := range opts {
 		opt(op)
 	}
@@ -310,11 +368,15 @@ type OpOption func(*Op)
 func WithLease(leaseID LeaseID) OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(op *Op) {
 		op.leaseID = leaseID
 	}
 }
 func WithLimit(n int64) OpOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(op *Op) {
@@ -324,11 +386,15 @@ func WithLimit(n int64) OpOption {
 func WithRev(rev int64) OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(op *Op) {
 		op.rev = rev
 	}
 }
 func WithSort(target SortTarget, order SortOrder) OpOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(op *Op) {
@@ -341,9 +407,13 @@ func WithSort(target SortTarget, order SortOrder) OpOption {
 func GetPrefixRangeEnd(prefix string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return string(getPrefix([]byte(prefix)))
 }
 func getPrefix(key []byte) []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	end := make([]byte, len(key))
@@ -360,6 +430,8 @@ func getPrefix(key []byte) []byte {
 func WithPrefix() OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(op *Op) {
 		if len(op.key) == 0 {
 			op.key, op.end = []byte{0}, []byte{0}
@@ -371,6 +443,8 @@ func WithPrefix() OpOption {
 func WithRange(endKey string) OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(op *Op) {
 		op.end = []byte(endKey)
 	}
@@ -378,9 +452,13 @@ func WithRange(endKey string) OpOption {
 func WithFromKey() OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return WithRange("\x00")
 }
 func WithSerializable() OpOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(op *Op) {
@@ -390,11 +468,15 @@ func WithSerializable() OpOption {
 func WithKeysOnly() OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(op *Op) {
 		op.keysOnly = true
 	}
 }
 func WithCountOnly() OpOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(op *Op) {
@@ -404,11 +486,15 @@ func WithCountOnly() OpOption {
 func WithMinModRev(rev int64) OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(op *Op) {
 		op.minModRev = rev
 	}
 }
 func WithMaxModRev(rev int64) OpOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(op *Op) {
@@ -418,11 +504,15 @@ func WithMaxModRev(rev int64) OpOption {
 func WithMinCreateRev(rev int64) OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(op *Op) {
 		op.minCreateRev = rev
 	}
 }
 func WithMaxCreateRev(rev int64) OpOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(op *Op) {
@@ -432,9 +522,13 @@ func WithMaxCreateRev(rev int64) OpOption {
 func WithFirstCreate() []OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return withTop(SortByCreateRevision, SortAscend)
 }
 func WithLastCreate() []OpOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return withTop(SortByCreateRevision, SortDescend)
@@ -442,9 +536,13 @@ func WithLastCreate() []OpOption {
 func WithFirstKey() []OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return withTop(SortByKey, SortAscend)
 }
 func WithLastKey() []OpOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return withTop(SortByKey, SortDescend)
@@ -452,9 +550,13 @@ func WithLastKey() []OpOption {
 func WithFirstRev() []OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return withTop(SortByModRevision, SortAscend)
 }
 func WithLastRev() []OpOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return withTop(SortByModRevision, SortDescend)
@@ -462,9 +564,13 @@ func WithLastRev() []OpOption {
 func withTop(target SortTarget, order SortOrder) []OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []OpOption{WithPrefix(), WithSort(target, order), WithLimit(1)}
 }
 func WithProgressNotify() OpOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(op *Op) {
@@ -474,11 +580,15 @@ func WithProgressNotify() OpOption {
 func WithCreatedNotify() OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(op *Op) {
 		op.createdNotify = true
 	}
 }
 func WithFilterPut() OpOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(op *Op) {
@@ -488,11 +598,15 @@ func WithFilterPut() OpOption {
 func WithFilterDelete() OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(op *Op) {
 		op.filterDelete = true
 	}
 }
 func WithPrevKV() OpOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(op *Op) {
@@ -502,11 +616,15 @@ func WithPrevKV() OpOption {
 func WithIgnoreValue() OpOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(op *Op) {
 		op.ignoreValue = true
 	}
 }
 func WithIgnoreLease() OpOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(op *Op) {
@@ -523,6 +641,8 @@ type LeaseOption func(*LeaseOp)
 func (op *LeaseOp) applyOpts(opts []LeaseOption) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, opt := range opts {
 		opt(op)
 	}
@@ -530,11 +650,15 @@ func (op *LeaseOp) applyOpts(opts []LeaseOption) {
 func WithAttachedKeys() LeaseOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(op *LeaseOp) {
 		op.attachedKeys = true
 	}
 }
 func toLeaseTimeToLiveRequest(id LeaseID, opts ...LeaseOption) *pb.LeaseTimeToLiveRequest {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ret := &LeaseOp{id: id}

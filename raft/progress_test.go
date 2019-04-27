@@ -8,6 +8,8 @@ import (
 func TestInflightsAdd(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := &inflights{size: 10, buffer: make([]uint64, 10)}
 	for i := 0; i < 5; i++ {
 		in.add(uint64(i))
@@ -42,6 +44,8 @@ func TestInflightsAdd(t *testing.T) {
 func TestInflightFreeTo(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := newInflights(10)
 	for i := 0; i < 10; i++ {
 		in.add(uint64(i))
@@ -71,6 +75,8 @@ func TestInflightFreeTo(t *testing.T) {
 	}
 }
 func TestInflightFreeFirstOne(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := newInflights(10)

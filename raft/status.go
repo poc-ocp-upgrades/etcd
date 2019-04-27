@@ -17,6 +17,8 @@ type Status struct {
 func getStatus(r *raft) Status {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := Status{ID: r.id, LeadTransferee: r.leadTransferee}
 	s.HardState = r.hardState()
 	s.SoftState = *r.softState()
@@ -35,6 +37,8 @@ func getStatus(r *raft) Status {
 func (s Status) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	j := fmt.Sprintf(`{"id":"%x","term":%d,"vote":"%x","commit":%d,"lead":"%x","raftState":%q,"applied":%d,"progress":{`, s.ID, s.Term, s.Vote, s.Commit, s.Lead, s.RaftState, s.Applied)
 	if len(s.Progress) == 0 {
 		j += "},"
@@ -49,6 +53,8 @@ func (s Status) MarshalJSON() ([]byte, error) {
 	return []byte(j), nil
 }
 func (s Status) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, err := s.MarshalJSON()

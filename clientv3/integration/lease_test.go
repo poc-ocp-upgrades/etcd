@@ -18,6 +18,8 @@ import (
 func TestLeaseNotFoundError(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -28,6 +30,8 @@ func TestLeaseNotFoundError(t *testing.T) {
 	}
 }
 func TestLeaseGrant(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -51,6 +55,8 @@ func TestLeaseGrant(t *testing.T) {
 func TestLeaseRevoke(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -72,6 +78,8 @@ func TestLeaseRevoke(t *testing.T) {
 func TestLeaseKeepAliveOnce(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -90,6 +98,8 @@ func TestLeaseKeepAliveOnce(t *testing.T) {
 	}
 }
 func TestLeaseKeepAlive(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -121,6 +131,8 @@ func TestLeaseKeepAlive(t *testing.T) {
 func TestLeaseKeepAliveOneSecond(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -140,6 +152,8 @@ func TestLeaseKeepAliveOneSecond(t *testing.T) {
 	}
 }
 func TestLeaseKeepAliveHandleFailure(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.Skip("test it when we have a cluster client")
@@ -185,6 +199,8 @@ type leaseCh struct {
 func TestLeaseKeepAliveNotFound(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -220,6 +236,8 @@ func TestLeaseKeepAliveNotFound(t *testing.T) {
 func TestLeaseGrantErrConnClosed(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -243,6 +261,8 @@ func TestLeaseGrantErrConnClosed(t *testing.T) {
 	}
 }
 func TestLeaseKeepAliveFullResponseQueue(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -275,6 +295,8 @@ func TestLeaseKeepAliveFullResponseQueue(t *testing.T) {
 func TestLeaseGrantNewAfterClose(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -297,6 +319,8 @@ func TestLeaseGrantNewAfterClose(t *testing.T) {
 	}
 }
 func TestLeaseRevokeNewAfterClose(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -326,6 +350,8 @@ func TestLeaseRevokeNewAfterClose(t *testing.T) {
 	}
 }
 func TestLeaseKeepAliveCloseAfterDisconnectRevoke(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -363,6 +389,8 @@ func TestLeaseKeepAliveCloseAfterDisconnectRevoke(t *testing.T) {
 func TestLeaseKeepAliveInitTimeout(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -387,6 +415,8 @@ func TestLeaseKeepAliveInitTimeout(t *testing.T) {
 	clus.Members[0].Restart(t)
 }
 func TestLeaseKeepAliveTTLTimeout(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -416,6 +446,8 @@ func TestLeaseKeepAliveTTLTimeout(t *testing.T) {
 	clus.Members[0].Restart(t)
 }
 func TestLeaseTimeToLive(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -469,6 +501,8 @@ func TestLeaseTimeToLive(t *testing.T) {
 func TestLeaseTimeToLiveLeaseNotFound(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -501,6 +535,8 @@ func TestLeaseTimeToLiveLeaseNotFound(t *testing.T) {
 func TestLeaseLeases(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -527,6 +563,8 @@ func TestLeaseLeases(t *testing.T) {
 	}
 }
 func TestLeaseRenewLostQuorum(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -565,6 +603,8 @@ func TestLeaseRenewLostQuorum(t *testing.T) {
 func TestLeaseKeepAliveLoopExit(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -582,6 +622,8 @@ func TestLeaseKeepAliveLoopExit(t *testing.T) {
 	}
 }
 func TestV3LeaseFailureOverlap(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 2})
@@ -629,6 +671,8 @@ func TestV3LeaseFailureOverlap(t *testing.T) {
 	wg.Wait()
 }
 func TestLeaseWithRequireLeader(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

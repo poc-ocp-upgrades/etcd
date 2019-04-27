@@ -15,6 +15,8 @@ import (
 func CheckLeakedGoroutine() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if testing.Short() {
 		return false
 	}
@@ -35,6 +37,8 @@ func CheckLeakedGoroutine() bool {
 	return true
 }
 func CheckAfterTest(d time.Duration) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	http.DefaultTransport.(*http.Transport).CloseIdleConnections()
@@ -63,11 +67,15 @@ func CheckAfterTest(d time.Duration) error {
 func AfterTest(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := CheckAfterTest(300 * time.Millisecond); err != nil {
 		t.Errorf("Test %v", err)
 	}
 }
 func interestingGoroutines() (gs []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	buf := make([]byte, 2<<20)

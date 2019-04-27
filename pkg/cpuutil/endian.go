@@ -12,9 +12,13 @@ var byteOrder binary.ByteOrder
 func ByteOrder() binary.ByteOrder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return byteOrder
 }
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int = 0x1

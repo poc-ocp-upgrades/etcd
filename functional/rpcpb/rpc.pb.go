@@ -39,9 +39,13 @@ var Operation_value = map[string]int32{"NOT_STARTED": 0, "INITIAL_START_ETCD": 1
 func (x Operation) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(Operation_name, int32(x))
 }
 func (Operation) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{0}
@@ -91,9 +95,13 @@ var Case_value = map[string]int32{"SIGTERM_ONE_FOLLOWER": 0, "SIGTERM_ONE_FOLLOW
 func (x Case) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(Case_name, int32(x))
 }
 func (Case) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{1}
@@ -116,9 +124,13 @@ var Stresser_value = map[string]int32{"KV": 0, "LEASE": 1, "ELECTION_RUNNER": 2,
 func (x Stresser) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(Stresser_name, int32(x))
 }
 func (Stresser) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{2}
@@ -139,9 +151,13 @@ var Checker_value = map[string]int32{"KV_HASH": 0, "LEASE_EXPIRE": 1, "RUNNER": 
 func (x Checker) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(Checker_name, int32(x))
 }
 func (Checker) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{3}
@@ -156,9 +172,13 @@ type Request struct {
 func (m *Request) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Request{}
 }
 func (m *Request) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -166,8 +186,12 @@ func (m *Request) String() string {
 func (*Request) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Request) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{0}
@@ -188,9 +212,13 @@ type SnapshotInfo struct {
 func (m *SnapshotInfo) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = SnapshotInfo{}
 }
 func (m *SnapshotInfo) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -198,8 +226,12 @@ func (m *SnapshotInfo) String() string {
 func (*SnapshotInfo) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*SnapshotInfo) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{1}
@@ -215,9 +247,13 @@ type Response struct {
 func (m *Response) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Response{}
 }
 func (m *Response) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -225,8 +261,12 @@ func (m *Response) String() string {
 func (*Response) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Response) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{2}
@@ -262,9 +302,13 @@ type Member struct {
 func (m *Member) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Member{}
 }
 func (m *Member) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -272,8 +316,12 @@ func (m *Member) String() string {
 func (*Member) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Member) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{3}
@@ -309,9 +357,13 @@ type Tester struct {
 func (m *Tester) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Tester{}
 }
 func (m *Tester) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -319,8 +371,12 @@ func (m *Tester) String() string {
 func (*Tester) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Tester) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{4}
@@ -358,9 +414,13 @@ type Etcd struct {
 func (m *Etcd) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Etcd{}
 }
 func (m *Etcd) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -368,13 +428,19 @@ func (m *Etcd) String() string {
 func (*Etcd) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Etcd) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{5}
 }
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	proto.RegisterType((*Request)(nil), "rpcpb.Request")
@@ -402,9 +468,13 @@ type transportClient struct{ cc *grpc.ClientConn }
 func NewTransportClient(cc *grpc.ClientConn) TransportClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &transportClient{cc}
 }
 func (c *transportClient) Transport(ctx context.Context, opts ...grpc.CallOption) (Transport_TransportClient, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	stream, err := grpc.NewClientStream(ctx, &_Transport_serviceDesc.Streams[0], c.cc, "/rpcpb.Transport/Transport", opts...)
@@ -425,9 +495,13 @@ type transportTransportClient struct{ grpc.ClientStream }
 func (x *transportTransportClient) Send(m *Request) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return x.ClientStream.SendMsg(m)
 }
 func (x *transportTransportClient) Recv() (*Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := new(Response)
@@ -444,9 +518,13 @@ type TransportServer interface {
 func RegisterTransportServer(s *grpc.Server, srv TransportServer) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.RegisterService(&_Transport_serviceDesc, srv)
 }
 func _Transport_Transport_Handler(srv interface{}, stream grpc.ServerStream) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return srv.(TransportServer).Transport(&transportTransportServer{stream})
@@ -462,9 +540,13 @@ type transportTransportServer struct{ grpc.ServerStream }
 func (x *transportTransportServer) Send(m *Response) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return x.ServerStream.SendMsg(m)
 }
 func (x *transportTransportServer) Recv() (*Request, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := new(Request)
@@ -479,6 +561,8 @@ var _Transport_serviceDesc = grpc.ServiceDesc{ServiceName: "rpcpb.Transport", Ha
 func (m *Request) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -488,6 +572,8 @@ func (m *Request) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Request) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -524,6 +610,8 @@ func (m *Request) MarshalTo(dAtA []byte) (int, error) {
 func (m *SnapshotInfo) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -533,6 +621,8 @@ func (m *SnapshotInfo) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *SnapshotInfo) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -604,6 +694,8 @@ func (m *SnapshotInfo) MarshalTo(dAtA []byte) (int, error) {
 func (m *Response) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -613,6 +705,8 @@ func (m *Response) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Response) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -660,6 +754,8 @@ func (m *Response) MarshalTo(dAtA []byte) (int, error) {
 func (m *Member) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -669,6 +765,8 @@ func (m *Member) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Member) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -886,6 +984,8 @@ func (m *Member) MarshalTo(dAtA []byte) (int, error) {
 func (m *Tester) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -895,6 +995,8 @@ func (m *Tester) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Tester) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -1122,6 +1224,8 @@ func (m *Tester) MarshalTo(dAtA []byte) (int, error) {
 func (m *Etcd) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -1131,6 +1235,8 @@ func (m *Etcd) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Etcd) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -1396,6 +1502,8 @@ func (m *Etcd) MarshalTo(dAtA []byte) (int, error) {
 func encodeVarintRpc(dAtA []byte, offset int, v uint64) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
 		v >>= 7
@@ -1405,6 +1513,8 @@ func encodeVarintRpc(dAtA []byte, offset int, v uint64) int {
 	return offset + 1
 }
 func (m *Request) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -1423,6 +1533,8 @@ func (m *Request) Size() (n int) {
 	return n
 }
 func (m *SnapshotInfo) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -1467,6 +1579,8 @@ func (m *SnapshotInfo) Size() (n int) {
 func (m *Response) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Success {
@@ -1487,6 +1601,8 @@ func (m *Response) Size() (n int) {
 	return n
 }
 func (m *Member) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -1590,6 +1706,8 @@ func (m *Member) Size() (n int) {
 func (m *Tester) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	l = len(m.DataDir)
@@ -1684,6 +1802,8 @@ func (m *Tester) Size() (n int) {
 	return n
 }
 func (m *Etcd) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -1795,6 +1915,8 @@ func (m *Etcd) Size() (n int) {
 func sovRpc(x uint64) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		n++
 		x >>= 7
@@ -1807,9 +1929,13 @@ func sovRpc(x uint64) (n int) {
 func sozRpc(x uint64) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sovRpc(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
 func (m *Request) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -1946,6 +2072,8 @@ func (m *Request) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *SnapshotInfo) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -2230,6 +2358,8 @@ func (m *SnapshotInfo) Unmarshal(dAtA []byte) error {
 func (m *Response) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2394,6 +2524,8 @@ func (m *Response) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *Member) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -3137,6 +3269,8 @@ func (m *Member) Unmarshal(dAtA []byte) error {
 func (m *Tester) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -3735,6 +3869,8 @@ func (m *Tester) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *Etcd) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -4448,6 +4584,8 @@ func (m *Etcd) Unmarshal(dAtA []byte) error {
 func skipRpc(dAtA []byte) (n int, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -4553,6 +4691,8 @@ var (
 )
 
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	proto.RegisterFile("rpcpb/rpc.proto", fileDescriptorRpc)

@@ -15,6 +15,8 @@ import (
 func TestTxnError(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -34,6 +36,8 @@ func TestTxnError(t *testing.T) {
 	}
 }
 func TestTxnWriteFail(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -76,6 +80,8 @@ func TestTxnWriteFail(t *testing.T) {
 func TestTxnReadRetry(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.Skipf("skipping txn read retry test: re-enable after we do retry on txn read request")
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
@@ -105,6 +111,8 @@ func TestTxnReadRetry(t *testing.T) {
 func TestTxnSuccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -123,6 +131,8 @@ func TestTxnSuccess(t *testing.T) {
 	}
 }
 func TestTxnCompareRange(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -145,6 +155,8 @@ func TestTxnCompareRange(t *testing.T) {
 	}
 }
 func TestTxnNested(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

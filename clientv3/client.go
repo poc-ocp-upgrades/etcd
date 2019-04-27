@@ -49,6 +49,8 @@ type Client struct {
 func New(cfg Config) (*Client, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(cfg.Endpoints) == 0 {
 		return nil, ErrNoAvailableEndpoints
 	}
@@ -57,15 +59,21 @@ func New(cfg Config) (*Client, error) {
 func NewCtxClient(ctx context.Context) *Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cctx, cancel := context.WithCancel(ctx)
 	return &Client{ctx: cctx, cancel: cancel}
 }
 func NewFromURL(url string) (*Client, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return New(Config{Endpoints: []string{url}})
 }
 func (c *Client) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.cancel()
@@ -79,9 +87,13 @@ func (c *Client) Close() error {
 func (c *Client) Ctx() context.Context {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.ctx
 }
 func (c *Client) Endpoints() (eps []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	eps = make([]string, len(c.cfg.Endpoints))
@@ -89,6 +101,8 @@ func (c *Client) Endpoints() (eps []string) {
 	return
 }
 func (c *Client) SetEndpoints(eps ...string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.mu.Lock()
@@ -108,6 +122,8 @@ func (c *Client) SetEndpoints(eps ...string) {
 func (c *Client) Sync(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mresp, err := c.MemberList(ctx)
 	if err != nil {
 		return err
@@ -120,6 +136,8 @@ func (c *Client) Sync(ctx context.Context) error {
 	return nil
 }
 func (c *Client) autoSync() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.cfg.AutoSyncInterval == time.Duration(0) {
@@ -148,9 +166,13 @@ type authTokenCredential struct {
 func (cred authTokenCredential) RequireTransportSecurity() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return false
 }
 func (cred authTokenCredential) GetRequestMetadata(ctx context.Context, s ...string) (map[string]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cred.tokenMu.RLock()
@@ -158,6 +180,8 @@ func (cred authTokenCredential) GetRequestMetadata(ctx context.Context, s ...str
 	return map[string]string{"token": cred.token}, nil
 }
 func parseEndpoint(endpoint string) (proto string, host string, scheme string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	proto = "tcp"
@@ -181,6 +205,8 @@ func parseEndpoint(endpoint string) (proto string, host string, scheme string) {
 func (c *Client) processCreds(scheme string) (creds *credentials.TransportCredentials) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	creds = c.creds
 	switch scheme {
 	case "unix":
@@ -199,6 +225,8 @@ func (c *Client) processCreds(scheme string) (creds *credentials.TransportCreden
 	return creds
 }
 func (c *Client) dialSetupOpts(endpoint string, dopts ...grpc.DialOption) (opts []grpc.DialOption) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.cfg.DialTimeout > 0 {
@@ -247,9 +275,13 @@ func (c *Client) dialSetupOpts(endpoint string, dopts ...grpc.DialOption) (opts 
 func (c *Client) Dial(endpoint string) (*grpc.ClientConn, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.dial(endpoint)
 }
 func (c *Client) getToken(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -275,6 +307,8 @@ func (c *Client) getToken(ctx context.Context) error {
 	return err
 }
 func (c *Client) dial(endpoint string, dopts ...grpc.DialOption) (*grpc.ClientConn, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	opts := c.dialSetupOpts(endpoint, dopts...)
@@ -309,10 +343,14 @@ func (c *Client) dial(endpoint string, dopts ...grpc.DialOption) (*grpc.ClientCo
 func WithRequireLeader(ctx context.Context) context.Context {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	md := metadata.Pairs(rpctypes.MetadataRequireLeaderKey, rpctypes.MetadataHasLeader)
 	return metadata.NewOutgoingContext(ctx, md)
 }
 func newClient(cfg *Config) (*Client, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cfg == nil {
@@ -395,6 +433,8 @@ func newClient(cfg *Config) (*Client, error) {
 func (c *Client) checkVersion() (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var wg sync.WaitGroup
 	errc := make(chan error, len(c.cfg.Endpoints))
 	ctx, cancel := context.WithCancel(c.ctx)
@@ -434,9 +474,13 @@ func (c *Client) checkVersion() (err error) {
 func (c *Client) ActiveConnection() *grpc.ClientConn {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.conn
 }
 func isHaltErr(ctx context.Context, err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ctx != nil && ctx.Err() != nil {
@@ -451,6 +495,8 @@ func isHaltErr(ctx context.Context, err error) bool {
 func isUnavailableErr(ctx context.Context, err error) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ctx != nil && ctx.Err() != nil {
 		return false
 	}
@@ -461,6 +507,8 @@ func isUnavailableErr(ctx context.Context, err error) bool {
 	return ev.Code() == codes.Unavailable
 }
 func toErr(ctx context.Context, err error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err == nil {
@@ -486,6 +534,8 @@ func toErr(ctx context.Context, err error) error {
 	return err
 }
 func canceledByCaller(stopCtx context.Context, err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if stopCtx.Err() == nil || err == nil {

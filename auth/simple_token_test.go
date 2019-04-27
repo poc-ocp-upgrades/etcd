@@ -8,6 +8,8 @@ import (
 func TestSimpleTokenDisabled(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	initialState := newTokenProviderSimple(dummyIndexWaiter)
 	explicitlyDisabled := newTokenProviderSimple(dummyIndexWaiter)
 	explicitlyDisabled.enable()
@@ -26,6 +28,8 @@ func TestSimpleTokenDisabled(t *testing.T) {
 	}
 }
 func TestSimpleTokenAssign(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tp := newTokenProviderSimple(dummyIndexWaiter)

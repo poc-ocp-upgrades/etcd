@@ -15,14 +15,20 @@ var (
 func EnablecURLDebug() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cURLDebug = true
 }
 func DisablecURLDebug() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cURLDebug = false
 }
 func printcURL(req *http.Request) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !cURLDebug {

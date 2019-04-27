@@ -15,6 +15,8 @@ var (
 func TestNewKVIs(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nd := newTestNode()
 	if nd.IsHidden() {
 		t.Errorf("nd.Hidden() = %v, want = false", nd.IsHidden())
@@ -27,6 +29,8 @@ func TestNewKVIs(t *testing.T) {
 	}
 }
 func TestNewKVReadWriteCompare(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nd := newTestNode()
@@ -54,6 +58,8 @@ func TestNewKVReadWriteCompare(t *testing.T) {
 func TestNewKVExpiration(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nd := newTestNode()
 	if _, ttl := nd.expirationAndTTL(clockwork.NewFakeClock()); ttl > expiration.Nanoseconds() {
 		t.Errorf("ttl = %d, want %d < %d", ttl, ttl, expiration.Nanoseconds())
@@ -77,6 +83,8 @@ func TestNewKVExpiration(t *testing.T) {
 func TestNewKVListReprCompareClone(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nd := newTestNode()
 	if ns, err := nd.List(); ns != nil || err == nil {
 		t.Errorf("nodes = %v and err = %v, want nodes = nil and err != nil", ns, err)
@@ -97,6 +105,8 @@ func TestNewKVListReprCompareClone(t *testing.T) {
 	}
 }
 func TestNewKVRemove(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nd := newTestNode()
@@ -134,6 +144,8 @@ func TestNewKVRemove(t *testing.T) {
 func TestNewDirIs(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nd, _ := newTestNodeDir()
 	if nd.IsHidden() {
 		t.Errorf("nd.Hidden() = %v, want = false", nd.IsHidden())
@@ -146,6 +158,8 @@ func TestNewDirIs(t *testing.T) {
 	}
 }
 func TestNewDirReadWriteListReprClone(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nd, _ := newTestNodeDir()
@@ -170,6 +184,8 @@ func TestNewDirReadWriteListReprClone(t *testing.T) {
 func TestNewDirExpirationTTL(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nd, _ := newTestNodeDir()
 	if _, ttl := nd.expirationAndTTL(clockwork.NewFakeClock()); ttl > expiration.Nanoseconds() {
 		t.Errorf("ttl = %d, want %d < %d", ttl, ttl, expiration.Nanoseconds())
@@ -181,6 +197,8 @@ func TestNewDirExpirationTTL(t *testing.T) {
 	}
 }
 func TestNewDirChild(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nd, child := newTestNodeDir()
@@ -202,10 +220,14 @@ func TestNewDirChild(t *testing.T) {
 func newTestNode() *node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nd := newKV(newStore(), key, val, 0, nil, time.Now().Add(expiration))
 	return nd
 }
 func newTestNodeDir() (*node, *node) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newStore()

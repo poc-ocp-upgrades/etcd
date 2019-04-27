@@ -10,6 +10,8 @@ import (
 func TestMessage(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	originalLimit := readBytesLimit
 	readBytesLimit = 1000
 	defer func() {

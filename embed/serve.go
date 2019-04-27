@@ -47,10 +47,14 @@ type servers struct {
 func newServeCtx() *serveCtx {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithCancel(context.Background())
 	return &serveCtx{ctx: ctx, cancel: cancel, userHandlers: make(map[string]http.Handler), serversC: make(chan *servers, 2)}
 }
 func (sctx *serveCtx) serve(s *etcdserver.EtcdServer, tlsinfo *transport.TLSInfo, handler http.Handler, errHandler func(error), gopts ...grpc.ServerOption) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	logger := defaultLog.New(ioutil.Discard, "etcdhttp", 0)
@@ -131,6 +135,8 @@ func (sctx *serveCtx) serve(s *etcdserver.EtcdServer, tlsinfo *transport.TLSInfo
 func grpcHandlerFunc(grpcServer *grpc.Server, otherHandler http.Handler) http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if otherHandler == nil {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			grpcServer.ServeHTTP(w, r)
@@ -148,6 +154,8 @@ func grpcHandlerFunc(grpcServer *grpc.Server, otherHandler http.Handler) http.Ha
 type registerHandlerFunc func(context.Context, *gw.ServeMux, *grpc.ClientConn) error
 
 func (sctx *serveCtx) registerGateway(opts []grpc.DialOption) (*gw.ServeMux, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx := sctx.ctx
@@ -173,6 +181,8 @@ func (sctx *serveCtx) registerGateway(opts []grpc.DialOption) (*gw.ServeMux, err
 func (sctx *serveCtx) createMux(gwmux *gw.ServeMux, handler http.Handler) *http.ServeMux {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	httpmux := http.NewServeMux()
 	for path, h := range sctx.userHandlers {
 		httpmux.Handle(path, h)
@@ -189,6 +199,8 @@ func (sctx *serveCtx) createMux(gwmux *gw.ServeMux, handler http.Handler) *http.
 func wrapMux(mux *http.ServeMux) http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &v3alphaMutator{mux: mux}
 }
 
@@ -197,12 +209,16 @@ type v3alphaMutator struct{ mux *http.ServeMux }
 func (m *v3alphaMutator) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if req != nil && req.URL != nil && strings.HasPrefix(req.URL.Path, "/v3alpha/") {
 		req.URL.Path = strings.Replace(req.URL.Path, "/v3alpha/", "/v3beta/", 1)
 	}
 	m.mux.ServeHTTP(rw, req)
 }
 func (sctx *serveCtx) registerUserHandler(s string, h http.Handler) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if sctx.userHandlers[s] != nil {
@@ -214,11 +230,15 @@ func (sctx *serveCtx) registerUserHandler(s string, h http.Handler) {
 func (sctx *serveCtx) registerPprof() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for p, h := range debugutil.PProfHandlers() {
 		sctx.registerUserHandler(p, h)
 	}
 }
 func (sctx *serveCtx) registerTrace() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reqf := func(w http.ResponseWriter, r *http.Request) {

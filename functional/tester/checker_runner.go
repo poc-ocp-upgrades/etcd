@@ -11,9 +11,13 @@ type runnerChecker struct {
 func newRunnerChecker(ep string, errc chan error) Checker {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &runnerChecker{ctype: rpcpb.Checker_RUNNER, etcdClientEndpoint: ep, errc: errc}
 }
 func (rc *runnerChecker) Type() rpcpb.Checker {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return rc.ctype
@@ -21,9 +25,13 @@ func (rc *runnerChecker) Type() rpcpb.Checker {
 func (rc *runnerChecker) EtcdClientEndpoints() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []string{rc.etcdClientEndpoint}
 }
 func (rc *runnerChecker) Check() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {

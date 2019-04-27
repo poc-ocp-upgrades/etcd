@@ -19,9 +19,13 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	BcryptCost = bcrypt.MinCost
 }
 func dummyIndexWaiter(index uint64) <-chan struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ch := make(chan struct{})
@@ -31,6 +35,8 @@ func dummyIndexWaiter(index uint64) <-chan struct{} {
 	return ch
 }
 func TestNewAuthStoreRevision(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tPath := backend.NewDefaultTmpBackend()
@@ -57,6 +63,8 @@ func TestNewAuthStoreRevision(t *testing.T) {
 	}
 }
 func setupAuthStore(t *testing.T) (store *authStore, teardownfunc func(t *testing.T)) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tPath := backend.NewDefaultTmpBackend()
@@ -88,6 +96,8 @@ func setupAuthStore(t *testing.T) (store *authStore, teardownfunc func(t *testin
 func enableAuthAndCreateRoot(as *authStore) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := as.UserAdd(&pb.AuthUserAddRequest{Name: "root", Password: "root"})
 	if err != nil {
 		return err
@@ -103,6 +113,8 @@ func enableAuthAndCreateRoot(as *authStore) error {
 	return as.AuthEnable()
 }
 func TestUserAdd(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
@@ -122,6 +134,8 @@ func TestUserAdd(t *testing.T) {
 	}
 }
 func TestCheckPassword(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
@@ -148,6 +162,8 @@ func TestCheckPassword(t *testing.T) {
 func TestUserDelete(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
 	defer tearDown(t)
 	ud := &pb.AuthUserDeleteRequest{Name: "foo"}
@@ -164,6 +180,8 @@ func TestUserDelete(t *testing.T) {
 	}
 }
 func TestUserChangePassword(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
@@ -193,6 +211,8 @@ func TestUserChangePassword(t *testing.T) {
 func TestRoleAdd(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
 	defer tearDown(t)
 	_, err := as.RoleAdd(&pb.AuthRoleAddRequest{Name: "role-test-1"})
@@ -201,6 +221,8 @@ func TestRoleAdd(t *testing.T) {
 	}
 }
 func TestUserGrant(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
@@ -218,6 +240,8 @@ func TestUserGrant(t *testing.T) {
 	}
 }
 func TestGetUser(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
@@ -241,6 +265,8 @@ func TestGetUser(t *testing.T) {
 func TestListUsers(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
 	defer tearDown(t)
 	ua := &pb.AuthUserAddRequest{Name: "user1", Password: "pwd1"}
@@ -260,6 +286,8 @@ func TestListUsers(t *testing.T) {
 	}
 }
 func TestRoleGrantPermission(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
@@ -282,6 +310,8 @@ func TestRoleGrantPermission(t *testing.T) {
 	}
 }
 func TestRoleRevokePermission(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
@@ -313,6 +343,8 @@ func TestRoleRevokePermission(t *testing.T) {
 	}
 }
 func TestUserRevokePermission(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
@@ -353,6 +385,8 @@ func TestUserRevokePermission(t *testing.T) {
 func TestRoleDelete(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
 	defer tearDown(t)
 	_, err := as.RoleDelete(&pb.AuthRoleDeleteRequest{Role: "role-test"})
@@ -369,6 +403,8 @@ func TestRoleDelete(t *testing.T) {
 	}
 }
 func TestAuthInfoFromCtx(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
@@ -410,6 +446,8 @@ func TestAuthInfoFromCtx(t *testing.T) {
 func TestAuthDisable(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
 	defer tearDown(t)
 	as.AuthDisable()
@@ -425,6 +463,8 @@ func TestAuthDisable(t *testing.T) {
 	}
 }
 func TestAuthInfoFromCtxRace(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tPath := backend.NewDefaultTmpBackend()
@@ -445,6 +485,8 @@ func TestAuthInfoFromCtxRace(t *testing.T) {
 	<-donec
 }
 func TestIsAdminPermitted(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	as, tearDown := setupAuthStore(t)
@@ -468,6 +510,8 @@ func TestIsAdminPermitted(t *testing.T) {
 	}
 }
 func TestRecoverFromSnapshot(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	as, _ := setupAuthStore(t)
@@ -507,6 +551,8 @@ func TestRecoverFromSnapshot(t *testing.T) {
 func contains(array []string, str string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, s := range array {
 		if s == str {
 			return true
@@ -515,6 +561,8 @@ func contains(array []string, str string) bool {
 	return false
 }
 func TestHammerSimpleAuthenticate(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	oldTTL, oldTTLRes := simpleTokenTTL, simpleTokenTTLResolution
@@ -558,6 +606,8 @@ func TestHammerSimpleAuthenticate(t *testing.T) {
 func TestRolesOrder(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tPath := backend.NewDefaultTmpBackend()
 	defer os.Remove(tPath)
 	tp, err := NewTokenProvider(tokenTypeSimple, dummyIndexWaiter)
@@ -598,15 +648,21 @@ func TestRolesOrder(t *testing.T) {
 func TestAuthInfoFromCtxWithRootSimple(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testAuthInfoFromCtxWithRoot(t, tokenTypeSimple)
 }
 func TestAuthInfoFromCtxWithRootJWT(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	opts := testJWTOpts()
 	testAuthInfoFromCtxWithRoot(t, opts)
 }
 func testAuthInfoFromCtxWithRoot(t *testing.T, opts string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tPath := backend.NewDefaultTmpBackend()

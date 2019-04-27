@@ -9,6 +9,8 @@ import (
 func TestSetFlagsFromEnv(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fs := flag.NewFlagSet("testing", flag.ExitOnError)
 	fs.String("a", "", "")
 	fs.String("b", "", "")
@@ -41,6 +43,8 @@ func TestSetFlagsFromEnv(t *testing.T) {
 func TestSetFlagsFromEnvBad(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fs := flag.NewFlagSet("testing", flag.ExitOnError)
 	fs.Int("x", 0, "")
 	os.Setenv("ETCD_X", "not_a_number")
@@ -49,6 +53,8 @@ func TestSetFlagsFromEnvBad(t *testing.T) {
 	}
 }
 func TestSetFlagsFromEnvParsingError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fs := flag.NewFlagSet("etcd", flag.ContinueOnError)

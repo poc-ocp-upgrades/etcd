@@ -5,6 +5,8 @@ import "testing"
 func TestGetDefaultInterface(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ifc, err := GetDefaultInterfaces()
 	if err != nil {
 		t.Fatal(err)
@@ -12,6 +14,8 @@ func TestGetDefaultInterface(t *testing.T) {
 	t.Logf("default network interfaces: %+v\n", ifc)
 }
 func TestGetDefaultHost(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ip, err := GetDefaultHost()

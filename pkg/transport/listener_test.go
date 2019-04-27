@@ -13,6 +13,8 @@ import (
 func createSelfCert() (*TLSInfo, func(), error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d, terr := ioutil.TempDir("", "etcd-test-tls-")
 	if terr != nil {
 		return nil, nil, terr
@@ -28,11 +30,15 @@ func createSelfCert() (*TLSInfo, func(), error) {
 func fakeCertificateParserFunc(cert tls.Certificate, err error) func(certPEMBlock, keyPEMBlock []byte) (tls.Certificate, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(certPEMBlock, keyPEMBlock []byte) (tls.Certificate, error) {
 		return cert, err
 	}
 }
 func TestNewListenerTLSInfo(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tlsInfo, del, err := createSelfCert()
@@ -43,6 +49,8 @@ func TestNewListenerTLSInfo(t *testing.T) {
 	testNewListenerTLSInfoAccept(t, *tlsInfo)
 }
 func testNewListenerTLSInfoAccept(t *testing.T, tlsInfo TLSInfo) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ln, err := NewListener("127.0.0.1:0", "https", &tlsInfo)
@@ -65,12 +73,16 @@ func testNewListenerTLSInfoAccept(t *testing.T, tlsInfo TLSInfo) {
 func TestNewListenerTLSEmptyInfo(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := NewListener("127.0.0.1:0", "https", nil)
 	if err == nil {
 		t.Errorf("err = nil, want not presented error")
 	}
 }
 func TestNewTransportTLSInfo(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tlsinfo, del, err := createSelfCert()
@@ -93,6 +105,8 @@ func TestNewTransportTLSInfo(t *testing.T) {
 func TestTLSInfoNonexist(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tlsInfo := TLSInfo{CertFile: "@badname", KeyFile: "@badname"}
 	_, err := tlsInfo.ServerConfig()
 	werr := &os.PathError{Op: "open", Path: "@badname", Err: errors.New("no such file or directory")}
@@ -101,6 +115,8 @@ func TestTLSInfoNonexist(t *testing.T) {
 	}
 }
 func TestTLSInfoEmpty(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -115,6 +131,8 @@ func TestTLSInfoEmpty(t *testing.T) {
 	}
 }
 func TestTLSInfoMissingFields(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tlsinfo, del, err := createSelfCert()
@@ -135,6 +153,8 @@ func TestTLSInfoMissingFields(t *testing.T) {
 func TestTLSInfoParseFuncError(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tlsinfo, del, err := createSelfCert()
 	if err != nil {
 		t.Fatalf("unable to create cert: %v", err)
@@ -149,6 +169,8 @@ func TestTLSInfoParseFuncError(t *testing.T) {
 	}
 }
 func TestTLSInfoConfigFuncs(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tlsinfo, del, err := createSelfCert()
@@ -182,6 +204,8 @@ func TestTLSInfoConfigFuncs(t *testing.T) {
 func TestNewListenerUnixSocket(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l, err := NewListener("testsocket", "unix", nil)
 	if err != nil {
 		t.Errorf("error listening on unix socket (%v)", err)
@@ -189,6 +213,8 @@ func TestNewListenerUnixSocket(t *testing.T) {
 	l.Close()
 }
 func TestNewListenerTLSInfoSelfCert(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tmpdir, err := ioutil.TempDir(os.TempDir(), "tlsdir")
@@ -206,6 +232,8 @@ func TestNewListenerTLSInfoSelfCert(t *testing.T) {
 	testNewListenerTLSInfoAccept(t, tlsinfo)
 }
 func TestIsClosedConnError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l, err := NewListener("testsocket", "unix", nil)

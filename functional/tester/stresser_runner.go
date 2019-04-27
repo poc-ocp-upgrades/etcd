@@ -26,10 +26,14 @@ type runnerStresser struct {
 func newRunnerStresser(stype rpcpb.Stresser, ep string, lg *zap.Logger, cmdStr string, args []string, rl *rate.Limiter, reqRate int) *runnerStresser {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rl.SetLimit(rl.Limit() - rate.Limit(reqRate))
 	return &runnerStresser{stype: stype, etcdClientEndpoint: ep, cmdStr: cmdStr, args: args, rl: rl, reqRate: reqRate, errc: make(chan error, 1), donec: make(chan struct{})}
 }
 func (rs *runnerStresser) setupOnce() (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if rs.cmd != nil {
@@ -54,6 +58,8 @@ func (rs *runnerStresser) setupOnce() (err error) {
 func (rs *runnerStresser) Stress() (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rs.lg.Info("stress START", zap.String("stress-type", rs.stype.String()))
 	if err = rs.setupOnce(); err != nil {
 		return err
@@ -63,11 +69,15 @@ func (rs *runnerStresser) Stress() (err error) {
 func (rs *runnerStresser) Pause() map[string]int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rs.lg.Info("stress STOP", zap.String("stress-type", rs.stype.String()))
 	syscall.Kill(rs.cmd.Process.Pid, syscall.SIGSTOP)
 	return nil
 }
 func (rs *runnerStresser) Close() map[string]int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	syscall.Kill(rs.cmd.Process.Pid, syscall.SIGINT)
@@ -77,6 +87,8 @@ func (rs *runnerStresser) Close() map[string]int {
 	return nil
 }
 func (rs *runnerStresser) ModifiedKeys() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return 1

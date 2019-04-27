@@ -13,12 +13,16 @@ import (
 func NewWatchCommand() cli.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cli.Command{Name: "watch", Usage: "watch a key for changes", ArgsUsage: "<key>", Flags: []cli.Flag{cli.BoolFlag{Name: "forever, f", Usage: "forever watch a key until CTRL+C"}, cli.IntFlag{Name: "after-index", Value: 0, Usage: "watch after the given index"}, cli.BoolFlag{Name: "recursive, r", Usage: "returns all values for key and child keys"}}, Action: func(c *cli.Context) error {
 		watchCommandFunc(c, mustNewKeyAPI(c))
 		return nil
 	}}
 }
 func watchCommandFunc(c *cli.Context, ki client.KeysAPI) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(c.Args()) == 0 {

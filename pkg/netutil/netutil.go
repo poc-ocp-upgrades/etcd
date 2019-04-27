@@ -22,6 +22,8 @@ const retryInterval = time.Second
 func resolveTCPAddrDefault(ctx context.Context, addr string) (*net.TCPAddr, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	host, port, serr := net.SplitHostPort(addr)
 	if serr != nil {
 		return nil, serr
@@ -44,6 +46,8 @@ func resolveTCPAddrDefault(ctx context.Context, addr string) (*net.TCPAddr, erro
 	return &net.TCPAddr{IP: ip.IP, Port: portnum, Zone: ip.Zone}, nil
 }
 func resolveTCPAddrs(ctx context.Context, urls [][]url.URL) ([][]url.URL, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	newurls := make([][]url.URL, 0)
@@ -70,6 +74,8 @@ func resolveTCPAddrs(ctx context.Context, urls [][]url.URL) ([][]url.URL, error)
 	return newurls, nil
 }
 func resolveURL(ctx context.Context, u url.URL) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if u.Scheme == "unix" || u.Scheme == "unixs" {
@@ -102,6 +108,8 @@ func resolveURL(ctx context.Context, u url.URL) (string, error) {
 func urlsEqual(ctx context.Context, a []url.URL, b []url.URL) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(a) != len(b) {
 		return false, fmt.Errorf("len(%q) != len(%q)", urlsToStrings(a), urlsToStrings(b))
 	}
@@ -121,6 +129,8 @@ func urlsEqual(ctx context.Context, a []url.URL, b []url.URL) (bool, error) {
 	return true, nil
 }
 func URLStringsEqual(ctx context.Context, a []string, b []string) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(a) != len(b) {
@@ -147,6 +157,8 @@ func URLStringsEqual(ctx context.Context, a []string, b []string) (bool, error) 
 func urlsToStrings(us []url.URL) []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rs := make([]string, len(us))
 	for i := range us {
 		rs[i] = us[i].String()
@@ -154,6 +166,8 @@ func urlsToStrings(us []url.URL) []string {
 	return rs
 }
 func IsNetworkTimeoutError(err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nerr, ok := err.(net.Error)

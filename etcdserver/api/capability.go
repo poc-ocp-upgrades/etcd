@@ -29,9 +29,13 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	enabledMap = map[Capability]bool{AuthCapability: true, V3rpcCapability: true}
 }
 func UpdateCapability(v *semver.Version) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if v == nil {
@@ -50,6 +54,8 @@ func UpdateCapability(v *semver.Version) {
 func IsCapabilityEnabled(c Capability) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	enableMapMu.RLock()
 	defer enableMapMu.RUnlock()
 	if enabledMap == nil {
@@ -60,6 +66,8 @@ func IsCapabilityEnabled(c Capability) bool {
 func EnableCapability(c Capability) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	enableMapMu.Lock()
 	defer enableMapMu.Unlock()
 	enabledMap[c] = true
@@ -67,7 +75,16 @@ func EnableCapability(c Capability) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

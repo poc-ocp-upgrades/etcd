@@ -11,6 +11,8 @@ import (
 func ExampleKeysAPI_directory() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c, err := client.New(client.Config{Endpoints: exampleEndpoints, Transport: exampleTransport})
 	if err != nil {
 		log.Fatal(err)
@@ -39,6 +41,8 @@ func ExampleKeysAPI_directory() {
 	}
 }
 func ExampleKeysAPI_setget() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c, err := client.New(client.Config{Endpoints: exampleEndpoints, Transport: exampleTransport})

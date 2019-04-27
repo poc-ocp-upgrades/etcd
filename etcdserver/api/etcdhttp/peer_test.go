@@ -24,14 +24,20 @@ type fakeCluster struct {
 func (c *fakeCluster) ID() types.ID {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return types.ID(c.id)
 }
 func (c *fakeCluster) ClientURLs() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.clientURLs
 }
 func (c *fakeCluster) Members() []*membership.Member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var ms membership.MembersByID
@@ -44,14 +50,20 @@ func (c *fakeCluster) Members() []*membership.Member {
 func (c *fakeCluster) Member(id types.ID) *membership.Member {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.members[uint64(id)]
 }
 func (c *fakeCluster) Version() *semver.Version {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func TestNewPeerHandlerOnRaftPrefix(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -78,6 +90,8 @@ func TestNewPeerHandlerOnRaftPrefix(t *testing.T) {
 func TestServeMembersFails(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		method	string
 		wcode	int
@@ -92,6 +106,8 @@ func TestServeMembersFails(t *testing.T) {
 	}
 }
 func TestServeMembersGet(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	memb1 := membership.Member{ID: 1, Attributes: membership.Attributes{ClientURLs: []string{"http://localhost:8080"}}}

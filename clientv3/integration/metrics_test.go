@@ -22,6 +22,8 @@ import (
 func TestV3ClientMetrics(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	var (
 		addr	string	= "localhost:27989"
@@ -77,6 +79,8 @@ func TestV3ClientMetrics(t *testing.T) {
 func sumCountersForMetricAndLabels(t *testing.T, url string, metricName string, matchingLabelValues ...string) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	count := 0
 	for _, line := range getHTTPBodyAsLines(t, url) {
 		ok := true
@@ -102,6 +106,8 @@ func sumCountersForMetricAndLabels(t *testing.T, url string, metricName string, 
 	return count
 }
 func getHTTPBodyAsLines(t *testing.T, url string) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfgtls := transport.TLSInfo{}

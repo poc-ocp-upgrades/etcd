@@ -11,6 +11,8 @@ import (
 func TestServeVersion(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req, err := http.NewRequest("GET", "", nil)
 	if err != nil {
 		t.Fatalf("error creating request: %v", err)
@@ -33,6 +35,8 @@ func TestServeVersion(t *testing.T) {
 	}
 }
 func TestServeVersionFails(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, m := range []string{"CONNECT", "TRACE", "PUT", "POST", "HEAD"} {

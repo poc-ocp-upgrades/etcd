@@ -20,9 +20,13 @@ import (
 func (m *Member) ElectionTimeout() time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return time.Duration(m.Etcd.ElectionTimeoutMs) * time.Millisecond
 }
 func (m *Member) DialEtcdGRPCServer(opts ...grpc.DialOption) (*grpc.ClientConn, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dialOpts := []grpc.DialOption{grpc.WithTimeout(5 * time.Second), grpc.WithBlock()}
@@ -53,6 +57,8 @@ func (m *Member) DialEtcdGRPCServer(opts ...grpc.DialOption) (*grpc.ClientConn, 
 func (m *Member) CreateEtcdClientConfig(opts ...grpc.DialOption) (cfg *clientv3.Config, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	secure := false
 	for _, cu := range m.Etcd.AdvertiseClientURLs {
 		var u *url.URL
@@ -79,6 +85,8 @@ func (m *Member) CreateEtcdClientConfig(opts ...grpc.DialOption) (cfg *clientv3.
 func (m *Member) CreateEtcdClient(opts ...grpc.DialOption) (*clientv3.Client, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg, err := m.CreateEtcdClientConfig(opts...)
 	if err != nil {
 		return nil, err
@@ -86,6 +94,8 @@ func (m *Member) CreateEtcdClient(opts ...grpc.DialOption) (*clientv3.Client, er
 	return clientv3.New(*cfg)
 }
 func (m *Member) CheckCompact(rev int64) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cli, err := m.CreateEtcdClient()
@@ -108,6 +118,8 @@ func (m *Member) CheckCompact(rev int64) error {
 func (m *Member) Defrag() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := m.CreateEtcdClient()
 	if err != nil {
 		return fmt.Errorf("%v (%q)", err, m.EtcdClientEndpoint)
@@ -119,6 +131,8 @@ func (m *Member) Defrag() error {
 	return err
 }
 func (m *Member) RevHash() (int64, int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	conn, err := m.DialEtcdGRPCServer()
@@ -138,6 +152,8 @@ func (m *Member) RevHash() (int64, int64, error) {
 func (m *Member) Rev(ctx context.Context) (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := m.CreateEtcdClient()
 	if err != nil {
 		return 0, fmt.Errorf("%v (%q)", err, m.EtcdClientEndpoint)
@@ -152,6 +168,8 @@ func (m *Member) Rev(ctx context.Context) (int64, error) {
 func (m *Member) Compact(rev int64, timeout time.Duration) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := m.CreateEtcdClient()
 	if err != nil {
 		return fmt.Errorf("%v (%q)", err, m.EtcdClientEndpoint)
@@ -163,6 +181,8 @@ func (m *Member) Compact(rev int64, timeout time.Duration) error {
 	return err
 }
 func (m *Member) IsLeader() (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cli, err := m.CreateEtcdClient()
@@ -179,6 +199,8 @@ func (m *Member) IsLeader() (bool, error) {
 func (m *Member) WriteHealthKey() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := m.CreateEtcdClient()
 	if err != nil {
 		return fmt.Errorf("%v (%q)", err, m.EtcdClientEndpoint)
@@ -193,6 +215,8 @@ func (m *Member) WriteHealthKey() error {
 	return nil
 }
 func (m *Member) SaveSnapshot(lg *zap.Logger) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err = os.RemoveAll(m.SnapshotPath); err != nil {
@@ -225,6 +249,8 @@ func (m *Member) SaveSnapshot(lg *zap.Logger) (err error) {
 	return nil
 }
 func (m *Member) RestoreSnapshot(lg *zap.Logger) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err = os.RemoveAll(m.EtcdOnSnapshotRestore.DataDir); err != nil {

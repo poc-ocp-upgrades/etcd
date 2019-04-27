@@ -10,6 +10,8 @@ import (
 func ExampleMaintenance_status() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, ep := range endpoints {
 		cli, err := clientv3.New(clientv3.Config{Endpoints: []string{ep}, DialTimeout: dialTimeout})
 		if err != nil {
@@ -24,6 +26,8 @@ func ExampleMaintenance_status() {
 	}
 }
 func ExampleMaintenance_defragment() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, ep := range endpoints {

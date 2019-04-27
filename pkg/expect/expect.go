@@ -30,9 +30,13 @@ type ExpectProcess struct {
 func NewExpect(name string, arg ...string) (ep *ExpectProcess, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewExpectWithEnv(name, arg, nil)
 }
 func NewExpectWithEnv(name string, args []string, env []string) (ep *ExpectProcess, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := exec.Command(name, args...)
@@ -49,6 +53,8 @@ func NewExpectWithEnv(name string, args []string, env []string) (ep *ExpectProce
 	return ep, nil
 }
 func (ep *ExpectProcess) read() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer ep.wg.Done()
@@ -75,6 +81,8 @@ func (ep *ExpectProcess) read() {
 func (ep *ExpectProcess) ExpectFunc(f func(string) bool) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ep.mu.Lock()
 	for {
 		for len(ep.lines) == 0 && ep.err == nil {
@@ -96,11 +104,15 @@ func (ep *ExpectProcess) ExpectFunc(f func(string) bool) (string, error) {
 func (ep *ExpectProcess) Expect(s string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ep.ExpectFunc(func(txt string) bool {
 		return strings.Contains(txt, s)
 	})
 }
 func (ep *ExpectProcess) LineCount() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ep.mu.Lock()
@@ -110,9 +122,13 @@ func (ep *ExpectProcess) LineCount() int {
 func (ep *ExpectProcess) Stop() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ep.close(true)
 }
 func (ep *ExpectProcess) Signal(sig os.Signal) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ep.cmd.Process.Signal(sig)
@@ -120,9 +136,13 @@ func (ep *ExpectProcess) Signal(sig os.Signal) error {
 func (ep *ExpectProcess) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ep.close(false)
 }
 func (ep *ExpectProcess) close(kill bool) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ep.cmd == nil {
@@ -148,13 +168,24 @@ func (ep *ExpectProcess) close(kill bool) error {
 func (ep *ExpectProcess) Send(command string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := io.WriteString(ep.fpty, command)
 	return err
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -11,6 +11,8 @@ import (
 func timeParse(value string) *time.Time {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t, err := time.Parse(time.RFC3339, value)
 	if err != nil {
 		panic(err)
@@ -18,6 +20,8 @@ func timeParse(value string) *time.Time {
 	return &t
 }
 func TestMemberTime(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -31,6 +35,8 @@ func TestMemberTime(t *testing.T) {
 	}
 }
 func TestMemberPick(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -50,6 +56,8 @@ func TestMemberPick(t *testing.T) {
 func TestMemberClone(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []*Member{newTestMember(1, nil, "abc", nil), newTestMember(1, []string{"http://a"}, "abc", nil), newTestMember(1, nil, "abc", []string{"http://b"}), newTestMember(1, []string{"http://a"}, "abc", []string{"http://b"})}
 	for i, tt := range tests {
 		nm := tt.Clone()
@@ -62,6 +70,8 @@ func TestMemberClone(t *testing.T) {
 	}
 }
 func newTestMember(id uint64, peerURLs []string, name string, clientURLs []string) *Member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &Member{ID: types.ID(id), RaftAttributes: RaftAttributes{PeerURLs: peerURLs}, Attributes: Attributes{Name: name, ClientURLs: clientURLs}}

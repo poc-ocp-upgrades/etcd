@@ -23,14 +23,20 @@ type TimeSeries []DataPoint
 func (t TimeSeries) Swap(i, j int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t[i], t[j] = t[j], t[i]
 }
 func (t TimeSeries) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(t)
 }
 func (t TimeSeries) Less(i, j int) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return t[i].Timestamp < t[j].Timestamp
@@ -50,9 +56,13 @@ type secondPoints struct {
 func newSecondPoints() *secondPoints {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &secondPoints{tm: make(map[int64]secondPoint)}
 }
 func (sp *secondPoints) Add(ts time.Time, lat time.Duration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sp.mu.Lock()
@@ -71,6 +81,8 @@ func (sp *secondPoints) Add(ts time.Time, lat time.Duration) {
 	}
 }
 func (sp *secondPoints) getTimeSeries() TimeSeries {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sp.mu.Lock()
@@ -110,6 +122,8 @@ func (sp *secondPoints) getTimeSeries() TimeSeries {
 func (t TimeSeries) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	buf := new(bytes.Buffer)
 	wr := csv.NewWriter(buf)
 	if err := wr.Write([]string{"UNIX-SECOND", "MIN-LATENCY-MS", "AVG-LATENCY-MS", "MAX-LATENCY-MS", "AVG-THROUGHPUT"}); err != nil {
@@ -132,12 +146,16 @@ func (t TimeSeries) String() string {
 func minDuration(a, b time.Duration) time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if a < b {
 		return a
 	}
 	return b
 }
 func maxDuration(a, b time.Duration) time.Duration {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if a > b {

@@ -18,6 +18,8 @@ import (
 func TestV3WatchFromCurrentRevision(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	tests := []struct {
 		putKeys		[]string
@@ -99,6 +101,8 @@ func TestV3WatchFromCurrentRevision(t *testing.T) {
 func TestV3WatchFutureRevision(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -151,6 +155,8 @@ func TestV3WatchFutureRevision(t *testing.T) {
 func TestV3WatchWrongRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -188,16 +194,22 @@ func TestV3WatchWrongRange(t *testing.T) {
 func TestV3WatchCancelSynced(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	testV3WatchCancel(t, 0)
 }
 func TestV3WatchCancelUnsynced(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	testV3WatchCancel(t, 1)
 }
 func testV3WatchCancel(t *testing.T, startRev int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
@@ -240,6 +252,8 @@ func testV3WatchCancel(t *testing.T, startRev int64) {
 	}
 }
 func TestV3WatchCurrentPutOverlap(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -308,6 +322,8 @@ func TestV3WatchCurrentPutOverlap(t *testing.T) {
 func TestV3WatchEmptyKey(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -341,16 +357,22 @@ func TestV3WatchEmptyKey(t *testing.T) {
 func TestV3WatchMultipleWatchersSynced(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	testV3WatchMultipleWatchers(t, 0)
 }
 func TestV3WatchMultipleWatchersUnsynced(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	testV3WatchMultipleWatchers(t, 1)
 }
 func testV3WatchMultipleWatchers(t *testing.T, startRev int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
@@ -431,16 +453,22 @@ func testV3WatchMultipleWatchers(t *testing.T, startRev int64) {
 func TestV3WatchMultipleEventsTxnSynced(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	testV3WatchMultipleEventsTxn(t, 0)
 }
 func TestV3WatchMultipleEventsTxnUnsynced(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	testV3WatchMultipleEventsTxn(t, 1)
 }
 func testV3WatchMultipleEventsTxn(t *testing.T, startRev int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
@@ -496,9 +524,13 @@ type eventsSortByKey []*mvccpb.Event
 func (evs eventsSortByKey) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(evs)
 }
 func (evs eventsSortByKey) Swap(i, j int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	evs[i], evs[j] = evs[j], evs[i]
@@ -506,9 +538,13 @@ func (evs eventsSortByKey) Swap(i, j int) {
 func (evs eventsSortByKey) Less(i, j int) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return bytes.Compare(evs[i].Kv.Key, evs[j].Kv.Key) < 0
 }
 func TestV3WatchMultipleEventsPutUnsynced(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -560,16 +596,22 @@ func TestV3WatchMultipleEventsPutUnsynced(t *testing.T) {
 func TestV3WatchMultipleStreamsSynced(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	testV3WatchMultipleStreams(t, 0)
 }
 func TestV3WatchMultipleStreamsUnsynced(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	testV3WatchMultipleStreams(t, 1)
 }
 func testV3WatchMultipleStreams(t *testing.T, startRev int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
@@ -630,6 +672,8 @@ func testV3WatchMultipleStreams(t *testing.T, startRev int64) {
 func waitResponse(wc pb.Watch_WatchClient, timeout time.Duration) (bool, *pb.WatchResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rCh := make(chan *pb.WatchResponse, 1)
 	donec := make(chan struct{})
 	defer close(donec)
@@ -649,6 +693,8 @@ func waitResponse(wc pb.Watch_WatchClient, timeout time.Duration) (bool, *pb.Wat
 	return true, nil
 }
 func TestWatchWithProgressNotify(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	oldpi := v3rpc.GetProgressReportInterval()
@@ -697,6 +743,8 @@ func TestWatchWithProgressNotify(t *testing.T) {
 func TestV3WatchClose(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -725,6 +773,8 @@ func TestV3WatchClose(t *testing.T) {
 	wg.Wait()
 }
 func TestV3WatchWithFilter(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
@@ -775,6 +825,8 @@ func TestV3WatchWithFilter(t *testing.T) {
 	}
 }
 func TestV3WatchWithPrevKV(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

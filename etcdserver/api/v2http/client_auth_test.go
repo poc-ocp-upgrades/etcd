@@ -24,6 +24,8 @@ const goodPassword = "good"
 func mustJSONRequest(t *testing.T, method string, p string, body string) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req, err := http.NewRequest(method, path.Join(authPrefix, p), strings.NewReader(body))
 	if err != nil {
 		t.Fatalf("Error making JSON request: %s %s %s\n", method, p, body)
@@ -42,6 +44,8 @@ type mockAuthStore struct {
 func (s *mockAuthStore) AllUsers() ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var us []string
 	for u := range s.users {
 		us = append(us, u)
@@ -52,6 +56,8 @@ func (s *mockAuthStore) AllUsers() ([]string, error) {
 func (s *mockAuthStore) GetUser(name string) (auth.User, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u, ok := s.users[name]
 	if !ok {
 		return auth.User{}, s.err
@@ -59,6 +65,8 @@ func (s *mockAuthStore) GetUser(name string) (auth.User, error) {
 	return *u, s.err
 }
 func (s *mockAuthStore) CreateOrUpdateUser(user auth.User) (out auth.User, created bool, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.users == nil {
@@ -71,9 +79,13 @@ func (s *mockAuthStore) CreateOrUpdateUser(user auth.User) (out auth.User, creat
 func (s *mockAuthStore) CreateUser(user auth.User) (auth.User, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return user, s.err
 }
 func (s *mockAuthStore) DeleteUser(name string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.err
@@ -81,14 +93,20 @@ func (s *mockAuthStore) DeleteUser(name string) error {
 func (s *mockAuthStore) UpdateUser(user auth.User) (auth.User, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return *s.users[user.User], s.err
 }
 func (s *mockAuthStore) AllRoles() ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []string{"awesome", "guest", "root"}, s.err
 }
 func (s *mockAuthStore) GetRole(name string) (auth.Role, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r, ok := s.roles[name]
@@ -100,9 +118,13 @@ func (s *mockAuthStore) GetRole(name string) (auth.Role, error) {
 func (s *mockAuthStore) CreateRole(role auth.Role) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.err
 }
 func (s *mockAuthStore) DeleteRole(name string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.err
@@ -110,9 +132,13 @@ func (s *mockAuthStore) DeleteRole(name string) error {
 func (s *mockAuthStore) UpdateRole(role auth.Role) (auth.Role, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return *s.roles[role.Role], s.err
 }
 func (s *mockAuthStore) AuthEnabled() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.enabled
@@ -120,9 +146,13 @@ func (s *mockAuthStore) AuthEnabled() bool {
 func (s *mockAuthStore) EnableAuth() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.err
 }
 func (s *mockAuthStore) DisableAuth() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.err
@@ -130,14 +160,20 @@ func (s *mockAuthStore) DisableAuth() error {
 func (s *mockAuthStore) CheckPassword(user auth.User, password string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return user.Password == password
 }
 func (s *mockAuthStore) HashPassword(password string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return password, nil
 }
 func TestAuthFlow(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	api.EnableCapability(api.AuthCapability)
@@ -172,6 +208,8 @@ func TestAuthFlow(t *testing.T) {
 	}
 }
 func TestGetUserGrantedWithNonexistingRole(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sh := &authHandler{sec: &mockAuthStore{users: map[string]*auth.User{"root": {User: "root", Roles: []string{"root", "foo"}}}, roles: map[string]*auth.Role{"root": {Role: "root"}}}, cluster: &fakeCluster{id: 1}}
@@ -212,6 +250,8 @@ func TestGetUserGrantedWithNonexistingRole(t *testing.T) {
 func mustAuthRequest(method, username, password string) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req, err := http.NewRequest(method, "path", strings.NewReader(""))
 	if err != nil {
 		panic("Cannot make auth request: " + err.Error())
@@ -222,6 +262,8 @@ func mustAuthRequest(method, username, password string) *http.Request {
 func unauthedRequest(method string) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req, err := http.NewRequest(method, "path", strings.NewReader(""))
 	if err != nil {
 		panic("Cannot make request: " + err.Error())
@@ -229,6 +271,8 @@ func unauthedRequest(method string) *http.Request {
 	return req
 }
 func tlsAuthedRequest(req *http.Request, certname string) *http.Request {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bytes, err := ioutil.ReadFile(fmt.Sprintf("testdata/%s.pem", certname))
@@ -244,6 +288,8 @@ func tlsAuthedRequest(req *http.Request, certname string) *http.Request {
 	return req
 }
 func TestPrefixAccess(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var table = []struct {
@@ -275,6 +321,8 @@ func TestPrefixAccess(t *testing.T) {
 func TestUserFromClientCertificate(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	witherror := &mockAuthStore{users: map[string]*auth.User{"user": {User: "user", Roles: []string{"root"}, Password: "password"}, "basicauth": {User: "basicauth", Roles: []string{"root"}, Password: "password"}}, roles: map[string]*auth.Role{"root": {Role: "root"}}, err: errors.New("")}
 	noerror := &mockAuthStore{users: map[string]*auth.User{"user": {User: "user", Roles: []string{"root"}, Password: "password"}, "basicauth": {User: "basicauth", Roles: []string{"root"}, Password: "password"}}, roles: map[string]*auth.Role{"root": {Role: "root"}}}
 	var table = []struct {
@@ -295,6 +343,8 @@ func TestUserFromClientCertificate(t *testing.T) {
 	}
 }
 func TestUserFromBasicAuth(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sec := &mockAuthStore{users: map[string]*auth.User{"user": {User: "user", Roles: []string{"root"}, Password: "password"}}, roles: map[string]*auth.Role{"root": {Role: "root"}}}

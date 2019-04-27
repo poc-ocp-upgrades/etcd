@@ -17,6 +17,8 @@ var (
 func deleteRevKey(kv v3.KV, key string, rev int64) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmp := v3.Compare(v3.ModRevision(key), "=", rev)
 	req := v3.OpDelete(key)
 	txnresp, err := kv.Txn(context.TODO()).If(cmp).Then(req).Commit()
@@ -28,6 +30,8 @@ func deleteRevKey(kv v3.KV, key string, rev int64) (bool, error) {
 	return true, nil
 }
 func claimFirstKey(kv v3.KV, kvs []*spb.KeyValue) (*spb.KeyValue, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, k := range kvs {

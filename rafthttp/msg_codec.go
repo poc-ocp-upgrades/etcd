@@ -13,6 +13,8 @@ type messageEncoder struct{ w io.Writer }
 func (enc *messageEncoder) encode(m *raftpb.Message) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := binary.Write(enc.w, binary.BigEndian, uint64(m.Size())); err != nil {
 		return err
 	}
@@ -30,9 +32,13 @@ var (
 func (dec *messageDecoder) decode() (raftpb.Message, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return dec.decodeLimit(readBytesLimit)
 }
 func (dec *messageDecoder) decodeLimit(numBytes uint64) (raftpb.Message, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var m raftpb.Message

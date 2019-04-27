@@ -24,11 +24,15 @@ type remote struct {
 func (r *remote) inactivate() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	r.inactive = true
 }
 func (r *remote) tryReactivate() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	conn, err := net.Dial("tcp", r.addr)
@@ -42,6 +46,8 @@ func (r *remote) tryReactivate() error {
 	return nil
 }
 func (r *remote) isActive() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r.mu.Lock()
@@ -60,6 +66,8 @@ type TCPProxy struct {
 }
 
 func (tp *TCPProxy) Run() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tp.donec = make(chan struct{})
@@ -85,6 +93,8 @@ func (tp *TCPProxy) Run() error {
 	}
 }
 func (tp *TCPProxy) pick() *remote {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var weighted []*remote
@@ -137,6 +147,8 @@ func (tp *TCPProxy) pick() *remote {
 func (tp *TCPProxy) serve(in net.Conn) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var (
 		err	error
 		out	net.Conn
@@ -171,6 +183,8 @@ func (tp *TCPProxy) serve(in net.Conn) {
 func (tp *TCPProxy) runMonitor() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		select {
 		case <-time.After(tp.MonitorInterval):
@@ -194,6 +208,8 @@ func (tp *TCPProxy) runMonitor() {
 	}
 }
 func (tp *TCPProxy) Stop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tp.Listener.Close()

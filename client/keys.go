@@ -44,6 +44,8 @@ type Error struct {
 func (e Error) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%v: %v (%v) [%v]", e.Code, e.Message, e.Cause, e.Index)
 }
 
@@ -67,9 +69,13 @@ var (
 func NewKeysAPI(c Client) KeysAPI {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewKeysAPIWithPrefix(c, defaultV2KeysPrefix)
 }
 func NewKeysAPIWithPrefix(c Client, p string) KeysAPI {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &httpKeysAPI{client: c, prefix: p}
@@ -133,9 +139,13 @@ type Node struct {
 func (n *Node) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("{Key: %s, CreatedIndex: %d, ModifiedIndex: %d, TTL: %d}", n.Key, n.CreatedIndex, n.ModifiedIndex, n.TTL)
 }
 func (n *Node) TTLDuration() time.Duration {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return time.Duration(n.TTL) * time.Second
@@ -146,14 +156,20 @@ type Nodes []*Node
 func (ns Nodes) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(ns)
 }
 func (ns Nodes) Less(i, j int) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ns[i].Key < ns[j].Key
 }
 func (ns Nodes) Swap(i, j int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ns[i], ns[j] = ns[j], ns[i]
@@ -165,6 +181,8 @@ type httpKeysAPI struct {
 }
 
 func (k *httpKeysAPI) Set(ctx context.Context, key, val string, opts *SetOptions) (*Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	act := &setAction{Prefix: k.prefix, Key: key, Value: val}
@@ -190,9 +208,13 @@ func (k *httpKeysAPI) Set(ctx context.Context, key, val string, opts *SetOptions
 func (k *httpKeysAPI) Create(ctx context.Context, key, val string) (*Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return k.Set(ctx, key, val, &SetOptions{PrevExist: PrevNoExist})
 }
 func (k *httpKeysAPI) CreateInOrder(ctx context.Context, dir, val string, opts *CreateInOrderOptions) (*Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	act := &createInOrderAction{Prefix: k.prefix, Dir: dir, Value: val}
@@ -208,9 +230,13 @@ func (k *httpKeysAPI) CreateInOrder(ctx context.Context, dir, val string, opts *
 func (k *httpKeysAPI) Update(ctx context.Context, key, val string) (*Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return k.Set(ctx, key, val, &SetOptions{PrevExist: PrevExist})
 }
 func (k *httpKeysAPI) Delete(ctx context.Context, key string, opts *DeleteOptions) (*Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	act := &deleteAction{Prefix: k.prefix, Key: key}
@@ -230,6 +256,8 @@ func (k *httpKeysAPI) Delete(ctx context.Context, key string, opts *DeleteOption
 func (k *httpKeysAPI) Get(ctx context.Context, key string, opts *GetOptions) (*Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	act := &getAction{Prefix: k.prefix, Key: key}
 	if opts != nil {
 		act.Recursive = opts.Recursive
@@ -243,6 +271,8 @@ func (k *httpKeysAPI) Get(ctx context.Context, key string, opts *GetOptions) (*R
 	return unmarshalHTTPResponse(resp.StatusCode, resp.Header, body)
 }
 func (k *httpKeysAPI) Watcher(key string, opts *WatcherOptions) Watcher {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	act := waitAction{Prefix: k.prefix, Key: key}
@@ -263,6 +293,8 @@ type httpWatcher struct {
 func (hw *httpWatcher) Next(ctx context.Context) (*Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		httpresp, body, err := hw.client.Do(ctx, &hw.nextWait)
 		if err != nil {
@@ -280,6 +312,8 @@ func (hw *httpWatcher) Next(ctx context.Context) (*Response, error) {
 	}
 }
 func v2KeysURL(ep url.URL, prefix, key string) *url.URL {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if prefix != "" && prefix[0] != '/' {
@@ -303,6 +337,8 @@ type getAction struct {
 func (g *getAction) HTTPRequest(ep url.URL) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u := v2KeysURL(ep, g.Prefix, g.Key)
 	params := u.Query()
 	params.Set("recursive", strconv.FormatBool(g.Recursive))
@@ -321,6 +357,8 @@ type waitAction struct {
 }
 
 func (w *waitAction) HTTPRequest(ep url.URL) *http.Request {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u := v2KeysURL(ep, w.Prefix, w.Key)
@@ -347,6 +385,8 @@ type setAction struct {
 }
 
 func (a *setAction) HTTPRequest(ep url.URL) *http.Request {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u := v2KeysURL(ep, a.Prefix, a.Key)
@@ -394,6 +434,8 @@ type deleteAction struct {
 func (a *deleteAction) HTTPRequest(ep url.URL) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u := v2KeysURL(ep, a.Prefix, a.Key)
 	params := u.Query()
 	if a.PrevValue != "" {
@@ -424,6 +466,8 @@ type createInOrderAction struct {
 func (a *createInOrderAction) HTTPRequest(ep url.URL) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u := v2KeysURL(ep, a.Prefix, a.Dir)
 	form := url.Values{}
 	form.Add("value", a.Value)
@@ -438,6 +482,8 @@ func (a *createInOrderAction) HTTPRequest(ep url.URL) *http.Request {
 func unmarshalHTTPResponse(code int, header http.Header, body []byte) (res *Response, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch code {
 	case http.StatusOK, http.StatusCreated:
 		if len(body) == 0 {
@@ -450,6 +496,8 @@ func unmarshalHTTPResponse(code int, header http.Header, body []byte) (res *Resp
 	return res, err
 }
 func unmarshalSuccessfulKeysResponse(header http.Header, body []byte) (*Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var res Response
@@ -467,6 +515,8 @@ func unmarshalSuccessfulKeysResponse(header http.Header, body []byte) (*Response
 	return &res, nil
 }
 func unmarshalFailedKeysResponse(body []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var etcdErr Error

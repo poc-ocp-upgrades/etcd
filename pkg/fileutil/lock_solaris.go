@@ -8,6 +8,8 @@ import (
 func TryLockFile(path string, flag int, perm os.FileMode) (*LockedFile, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var lock syscall.Flock_t
 	lock.Start = 0
 	lock.Len = 0
@@ -29,6 +31,8 @@ func TryLockFile(path string, flag int, perm os.FileMode) (*LockedFile, error) {
 	return &LockedFile{f}, nil
 }
 func LockFile(path string, flag int, perm os.FileMode) (*LockedFile, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var lock syscall.Flock_t

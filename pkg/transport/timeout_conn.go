@@ -14,6 +14,8 @@ type timeoutConn struct {
 func (c timeoutConn) Write(b []byte) (n int, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.wtimeoutd > 0 {
 		if err := c.SetWriteDeadline(time.Now().Add(c.wtimeoutd)); err != nil {
 			return 0, err
@@ -22,6 +24,8 @@ func (c timeoutConn) Write(b []byte) (n int, err error) {
 	return c.Conn.Write(b)
 }
 func (c timeoutConn) Read(b []byte) (n int, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.rdtimeoutd > 0 {

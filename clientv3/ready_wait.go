@@ -5,6 +5,8 @@ import "context"
 func readyWait(rpcCtx, clientCtx context.Context, ready <-chan struct{}) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case <-ready:
 		return nil

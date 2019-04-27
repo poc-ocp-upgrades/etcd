@@ -12,9 +12,13 @@ import (
 func TestCtlV3EndpointHealth(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, endpointHealthTest, withQuorum())
 }
 func TestCtlV3EndpointStatus(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, endpointStatusTest, withQuorum())
@@ -22,9 +26,13 @@ func TestCtlV3EndpointStatus(t *testing.T) {
 func TestCtlV3EndpointHashKV(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, endpointHashKVTest, withQuorum())
 }
 func endpointHealthTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ctlV3EndpointHealth(cx); err != nil {
@@ -32,6 +40,8 @@ func endpointHealthTest(cx ctlCtx) {
 	}
 }
 func ctlV3EndpointHealth(cx ctlCtx) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "endpoint", "health")
@@ -44,11 +54,15 @@ func ctlV3EndpointHealth(cx ctlCtx) error {
 func endpointStatusTest(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := ctlV3EndpointStatus(cx); err != nil {
 		cx.t.Fatalf("endpointStatusTest ctlV3EndpointStatus error (%v)", err)
 	}
 }
 func ctlV3EndpointStatus(cx ctlCtx) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "endpoint", "status")
@@ -62,11 +76,15 @@ func ctlV3EndpointStatus(cx ctlCtx) error {
 func endpointHashKVTest(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := ctlV3EndpointHashKV(cx); err != nil {
 		cx.t.Fatalf("endpointHashKVTest ctlV3EndpointHashKV error (%v)", err)
 	}
 }
 func ctlV3EndpointHashKV(cx ctlCtx) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	eps := cx.epc.EndpointsV3()

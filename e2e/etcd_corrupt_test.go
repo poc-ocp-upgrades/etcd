@@ -16,6 +16,8 @@ import (
 func TestEtcdCorruptHash(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	oldenv := os.Getenv("EXPECT_DEBUG")
 	defer os.Setenv("EXPECT_DEBUG", oldenv)
 	os.Setenv("EXPECT_DEBUG", "1")
@@ -24,6 +26,8 @@ func TestEtcdCorruptHash(t *testing.T) {
 	testCtl(t, corruptTest, withQuorum(), withCfg(cfg), withInitialCorruptCheck(), withCorruptFunc(corruptHash))
 }
 func corruptTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := 0; i < 10; i++ {
@@ -59,6 +63,8 @@ func corruptTest(cx ctlCtx) {
 	waitReadyExpectProc(proc, []string{fmt.Sprintf("etcdmain: %016x found data inconsistency with peers", id0)})
 }
 func corruptHash(fpath string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	db, derr := bolt.Open(fpath, os.ModePerm, &bolt.Options{})

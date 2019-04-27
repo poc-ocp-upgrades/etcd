@@ -25,6 +25,8 @@ type leaseProxy struct {
 func NewLeaseProxy(c *clientv3.Client) (pb.LeaseServer, <-chan struct{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cctx, cancel := context.WithCancel(c.Ctx())
 	lp := &leaseProxy{leaseClient: pb.NewLeaseClient(c.ActiveConnection()), lessor: c.Lease, ctx: cctx, leader: newLeader(c.Ctx(), c.Watcher)}
 	ch := make(chan struct{})
@@ -46,6 +48,8 @@ func NewLeaseProxy(c *clientv3.Client) (pb.LeaseServer, <-chan struct{}) {
 func (lp *leaseProxy) LeaseGrant(ctx context.Context, cr *pb.LeaseGrantRequest) (*pb.LeaseGrantResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rp, err := lp.leaseClient.LeaseGrant(ctx, cr, grpc.FailFast(false))
 	if err != nil {
 		return nil, err
@@ -56,6 +60,8 @@ func (lp *leaseProxy) LeaseGrant(ctx context.Context, cr *pb.LeaseGrantRequest) 
 func (lp *leaseProxy) LeaseRevoke(ctx context.Context, rr *pb.LeaseRevokeRequest) (*pb.LeaseRevokeResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r, err := lp.lessor.Revoke(ctx, clientv3.LeaseID(rr.ID))
 	if err != nil {
 		return nil, err
@@ -64,6 +70,8 @@ func (lp *leaseProxy) LeaseRevoke(ctx context.Context, rr *pb.LeaseRevokeRequest
 	return (*pb.LeaseRevokeResponse)(r), nil
 }
 func (lp *leaseProxy) LeaseTimeToLive(ctx context.Context, rr *pb.LeaseTimeToLiveRequest) (*pb.LeaseTimeToLiveResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var (
@@ -84,6 +92,8 @@ func (lp *leaseProxy) LeaseTimeToLive(ctx context.Context, rr *pb.LeaseTimeToLiv
 func (lp *leaseProxy) LeaseLeases(ctx context.Context, rr *pb.LeaseLeasesRequest) (*pb.LeaseLeasesResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r, err := lp.lessor.Leases(ctx)
 	if err != nil {
 		return nil, err
@@ -96,6 +106,8 @@ func (lp *leaseProxy) LeaseLeases(ctx context.Context, rr *pb.LeaseLeasesRequest
 	return rp, err
 }
 func (lp *leaseProxy) LeaseKeepAlive(stream pb.Lease_LeaseKeepAliveServer) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lp.mu.Lock()
@@ -192,6 +204,8 @@ type leaseProxyStream struct {
 func (lps *leaseProxyStream) recvLoop() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		rr, err := lps.stream.Recv()
 		if err == io.EOF {
@@ -218,6 +232,8 @@ func (lps *leaseProxyStream) recvLoop() error {
 	}
 }
 func (lps *leaseProxyStream) keepAliveLoop(leaseID int64, neededResps *atomicCounter) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cctx, ccancel := context.WithCancel(lps.ctx)
@@ -274,6 +290,8 @@ func (lps *leaseProxyStream) keepAliveLoop(leaseID int64, neededResps *atomicCou
 func (lps *leaseProxyStream) replyToClient(r *pb.LeaseKeepAliveResponse, neededResps *atomicCounter) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	timer := time.After(500 * time.Millisecond)
 	for neededResps.get() > 0 {
 		select {
@@ -287,6 +305,8 @@ func (lps *leaseProxyStream) replyToClient(r *pb.LeaseKeepAliveResponse, neededR
 	}
 }
 func (lps *leaseProxyStream) sendLoop() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -306,6 +326,8 @@ func (lps *leaseProxyStream) sendLoop() error {
 func (lps *leaseProxyStream) close() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lps.cancel()
 	lps.wg.Wait()
 	close(lps.respc)
@@ -316,9 +338,13 @@ type atomicCounter struct{ counter int64 }
 func (ac *atomicCounter) add(delta int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	atomic.AddInt64(&ac.counter, delta)
 }
 func (ac *atomicCounter) get() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return atomic.LoadInt64(&ac.counter)

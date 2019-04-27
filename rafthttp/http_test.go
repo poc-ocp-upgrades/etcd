@@ -21,6 +21,8 @@ import (
 func TestServeRaftPrefix(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCases := []struct {
 		method		string
 		body		io.Reader
@@ -52,6 +54,8 @@ func TestServeRaftPrefix(t *testing.T) {
 	}
 }
 func TestServeRaftStreamPrefix(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -90,6 +94,8 @@ func TestServeRaftStreamPrefix(t *testing.T) {
 func TestServeRaftStreamPrefixBad(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	removedID := uint64(5)
 	tests := []struct {
 		method		string
@@ -120,6 +126,8 @@ func TestServeRaftStreamPrefixBad(t *testing.T) {
 func TestCloseNotifier(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := newCloseNotifier()
 	select {
 	case <-c.closeNotify():
@@ -139,6 +147,8 @@ type errReader struct{}
 func (er *errReader) Read(_ []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 0, errors.New("some error")
 }
 
@@ -147,9 +157,13 @@ type resWriterToError struct{ code int }
 func (e *resWriterToError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ""
 }
 func (e *resWriterToError) WriteTo(w http.ResponseWriter) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	w.WriteHeader(e.code)
@@ -158,6 +172,8 @@ func (e *resWriterToError) WriteTo(w http.ResponseWriter) {
 type fakePeerGetter struct{ peers map[types.ID]Peer }
 
 func (pg *fakePeerGetter) Get(id types.ID) Peer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return pg.peers[id]
@@ -174,10 +190,14 @@ type fakePeer struct {
 func newFakePeer() *fakePeer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeURL, _ := url.Parse("http://localhost")
 	return &fakePeer{connc: make(chan *outgoingConn, 1), peerURLs: types.URLs{*fakeURL}}
 }
 func (pr *fakePeer) send(m raftpb.Message) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if pr.paused {
@@ -188,6 +208,8 @@ func (pr *fakePeer) send(m raftpb.Message) {
 func (pr *fakePeer) sendSnap(m snap.Message) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if pr.paused {
 		return
 	}
@@ -196,9 +218,13 @@ func (pr *fakePeer) sendSnap(m snap.Message) {
 func (pr *fakePeer) update(urls types.URLs) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pr.peerURLs = urls
 }
 func (pr *fakePeer) attachOutgoingConn(conn *outgoingConn) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pr.connc <- conn
@@ -206,18 +232,26 @@ func (pr *fakePeer) attachOutgoingConn(conn *outgoingConn) {
 func (pr *fakePeer) activeSince() time.Time {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return time.Time{}
 }
 func (pr *fakePeer) stop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (pr *fakePeer) Pause() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pr.paused = true
 }
 func (pr *fakePeer) Resume() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pr.paused = false

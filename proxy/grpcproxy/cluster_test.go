@@ -15,6 +15,8 @@ import (
 func TestClusterProxyMemberList(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -55,6 +57,8 @@ type clusterproxyTestServer struct {
 func (cts *clusterproxyTestServer) close(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cts.server.Stop()
 	cts.l.Close()
 	cts.c.Close()
@@ -66,6 +70,8 @@ func (cts *clusterproxyTestServer) close(t *testing.T) {
 	}
 }
 func newClusterProxyServer(endpoints []string, t *testing.T) *clusterproxyTestServer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfg := clientv3.Config{Endpoints: endpoints, DialTimeout: 5 * time.Second}

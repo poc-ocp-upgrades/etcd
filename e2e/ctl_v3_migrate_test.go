@@ -13,6 +13,8 @@ import (
 func TestCtlV3Migrate(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	epc := setupEtcdctlTest(t, &configNoTLS, false)
 	defer func() {
@@ -65,6 +67,8 @@ func TestCtlV3Migrate(t *testing.T) {
 	}
 }
 func ctlV3Migrate(cx ctlCtx, dataDir, walDir string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "migrate", "--data-dir", dataDir, "--wal-dir", walDir)

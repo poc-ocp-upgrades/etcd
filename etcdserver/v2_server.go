@@ -28,9 +28,13 @@ type reqV2HandlerStore struct {
 func NewStoreRequestV2Handler(s store.Store, applier ApplierV2) RequestV2Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &reqV2HandlerStore{s, applier}
 }
 func (a *reqV2HandlerStore) Post(ctx context.Context, r *RequestV2) (Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return a.applier.Post(r), nil
@@ -38,9 +42,13 @@ func (a *reqV2HandlerStore) Post(ctx context.Context, r *RequestV2) (Response, e
 func (a *reqV2HandlerStore) Put(ctx context.Context, r *RequestV2) (Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return a.applier.Put(r), nil
 }
 func (a *reqV2HandlerStore) Delete(ctx context.Context, r *RequestV2) (Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return a.applier.Delete(r), nil
@@ -48,9 +56,13 @@ func (a *reqV2HandlerStore) Delete(ctx context.Context, r *RequestV2) (Response,
 func (a *reqV2HandlerStore) QGet(ctx context.Context, r *RequestV2) (Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return a.applier.QGet(r), nil
 }
 func (a *reqV2HandlerStore) Get(ctx context.Context, r *RequestV2) (Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if r.Wait {
@@ -63,10 +75,14 @@ func (a *reqV2HandlerStore) Get(ctx context.Context, r *RequestV2) (Response, er
 func (a *reqV2HandlerStore) Head(ctx context.Context, r *RequestV2) (Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ev, err := a.store.Get(r.Path, r.Recursive, r.Sorted)
 	return Response{Event: ev}, err
 }
 func (a *reqV2HandlerEtcdServer) Post(ctx context.Context, r *RequestV2) (Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return a.processRaftRequest(ctx, r)
@@ -74,9 +90,13 @@ func (a *reqV2HandlerEtcdServer) Post(ctx context.Context, r *RequestV2) (Respon
 func (a *reqV2HandlerEtcdServer) Put(ctx context.Context, r *RequestV2) (Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return a.processRaftRequest(ctx, r)
 }
 func (a *reqV2HandlerEtcdServer) Delete(ctx context.Context, r *RequestV2) (Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return a.processRaftRequest(ctx, r)
@@ -84,9 +104,13 @@ func (a *reqV2HandlerEtcdServer) Delete(ctx context.Context, r *RequestV2) (Resp
 func (a *reqV2HandlerEtcdServer) QGet(ctx context.Context, r *RequestV2) (Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return a.processRaftRequest(ctx, r)
 }
 func (a *reqV2HandlerEtcdServer) processRaftRequest(ctx context.Context, r *RequestV2) (Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	data, err := ((*pb.Request)(r)).Marshal()
@@ -113,6 +137,8 @@ func (a *reqV2HandlerEtcdServer) processRaftRequest(ctx context.Context, r *Requ
 func (s *EtcdServer) Do(ctx context.Context, r pb.Request) (Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.ID = s.reqIDGen.Next()
 	h := &reqV2HandlerEtcdServer{reqV2HandlerStore: reqV2HandlerStore{store: s.store, applier: s.applyV2}, s: s}
 	rp := &r
@@ -121,6 +147,8 @@ func (s *EtcdServer) Do(ctx context.Context, r pb.Request) (Response, error) {
 	return resp, err
 }
 func (r *RequestV2) Handle(ctx context.Context, v2api RequestV2Handler) (Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if r.Method == "GET" && r.Quorum {
@@ -143,6 +171,8 @@ func (r *RequestV2) Handle(ctx context.Context, v2api RequestV2Handler) (Respons
 	return Response{}, ErrUnknownMethod
 }
 func (r *RequestV2) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rpb := pb.Request(*r)

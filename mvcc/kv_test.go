@@ -50,14 +50,20 @@ var (
 func TestKVRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testKVRange(t, normalRangeFunc)
 }
 func TestKVTxnRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testKVRange(t, txnRangeFunc)
 }
 func testKVRange(t *testing.T, f rangeFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -85,14 +91,20 @@ func testKVRange(t *testing.T, f rangeFunc) {
 func TestKVRangeRev(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testKVRangeRev(t, normalRangeFunc)
 }
 func TestKVTxnRangeRev(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testKVRangeRev(t, txnRangeFunc)
 }
 func testKVRangeRev(t *testing.T, f rangeFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -120,14 +132,20 @@ func testKVRangeRev(t *testing.T, f rangeFunc) {
 func TestKVRangeBadRev(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testKVRangeBadRev(t, normalRangeFunc)
 }
 func TestKVTxnRangeBadRev(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testKVRangeBadRev(t, txnRangeFunc)
 }
 func testKVRangeBadRev(t *testing.T, f rangeFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -151,14 +169,20 @@ func testKVRangeBadRev(t *testing.T, f rangeFunc) {
 func TestKVRangeLimit(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testKVRangeLimit(t, normalRangeFunc)
 }
 func TestKVTxnRangeLimit(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testKVRangeLimit(t, txnRangeFunc)
 }
 func testKVRangeLimit(t *testing.T, f rangeFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -189,14 +213,20 @@ func testKVRangeLimit(t *testing.T, f rangeFunc) {
 func TestKVPutMultipleTimes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testKVPutMultipleTimes(t, normalPutFunc)
 }
 func TestKVTxnPutMultipleTimes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testKVPutMultipleTimes(t, txnPutFunc)
 }
 func testKVPutMultipleTimes(t *testing.T, f putFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -221,14 +251,20 @@ func testKVPutMultipleTimes(t *testing.T, f putFunc) {
 func TestKVDeleteRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testKVDeleteRange(t, normalDeleteRangeFunc)
 }
 func TestKVTxnDeleteRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testKVDeleteRange(t, txnDeleteRangeFunc)
 }
 func testKVDeleteRange(t *testing.T, f deleteRangeFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -252,14 +288,20 @@ func testKVDeleteRange(t *testing.T, f deleteRangeFunc) {
 func TestKVDeleteMultipleTimes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testKVDeleteMultipleTimes(t, normalDeleteRangeFunc)
 }
 func TestKVTxnDeleteMultipleTimes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testKVDeleteMultipleTimes(t, txnDeleteRangeFunc)
 }
 func testKVDeleteMultipleTimes(t *testing.T, f deleteRangeFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -278,6 +320,8 @@ func testKVDeleteMultipleTimes(t *testing.T, f deleteRangeFunc) {
 	}
 }
 func TestKVOperationInSequence(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -319,6 +363,8 @@ func TestKVOperationInSequence(t *testing.T) {
 func TestKVTxnBlockWriteOperations(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
 	s := NewStore(b, &lease.FakeLessor{}, nil)
 	tests := []func(){func() {
@@ -350,6 +396,8 @@ func TestKVTxnBlockWriteOperations(t *testing.T) {
 func TestKVTxnNonBlockRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
 	s := NewStore(b, &lease.FakeLessor{}, nil)
 	defer cleanup(s, b, tmpPath)
@@ -367,6 +415,8 @@ func TestKVTxnNonBlockRange(t *testing.T) {
 	}
 }
 func TestKVTxnOperationInSequence(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -410,6 +460,8 @@ func TestKVTxnOperationInSequence(t *testing.T) {
 func TestKVCompactReserveLastValue(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
 	s := NewStore(b, &lease.FakeLessor{}, nil)
 	defer cleanup(s, b, tmpPath)
@@ -438,6 +490,8 @@ func TestKVCompactReserveLastValue(t *testing.T) {
 func TestKVCompactBad(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
 	s := NewStore(b, &lease.FakeLessor{}, nil)
 	defer cleanup(s, b, tmpPath)
@@ -456,6 +510,8 @@ func TestKVCompactBad(t *testing.T) {
 	}
 }
 func TestKVHash(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	hashes := make([]uint32, 3)
@@ -478,6 +534,8 @@ func TestKVHash(t *testing.T) {
 	}
 }
 func TestKVRestore(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []func(kv KV){func(kv KV) {
@@ -524,6 +582,8 @@ func TestKVRestore(t *testing.T) {
 func readGaugeInt(g *prometheus.Gauge) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ch := make(chan prometheus.Metric, 1)
 	keysGauge.Collect(ch)
 	m := <-ch
@@ -532,6 +592,8 @@ func readGaugeInt(g *prometheus.Gauge) int {
 	return int(mm.GetGauge().GetValue())
 }
 func TestKVSnapshot(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -565,6 +627,8 @@ func TestKVSnapshot(t *testing.T) {
 	}
 }
 func TestWatchableKVWatch(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -631,11 +695,15 @@ func TestWatchableKVWatch(t *testing.T) {
 func cleanup(s KV, b backend.Backend, path string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.Close()
 	b.Close()
 	os.Remove(path)
 }
 func put3TestKVs(s KV) []mvccpb.KeyValue {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.Put([]byte("foo"), []byte("bar"), 1)

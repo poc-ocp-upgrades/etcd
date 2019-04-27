@@ -27,6 +27,8 @@ var _ = utilities.NewDoubleArray
 func request_KV_Range_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.KVClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.RangeRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -36,6 +38,8 @@ func request_KV_Range_0(ctx context.Context, marshaler runtime.Marshaler, client
 	return msg, metadata, err
 }
 func request_KV_Put_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.KVClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.PutRequest
@@ -49,6 +53,8 @@ func request_KV_Put_0(ctx context.Context, marshaler runtime.Marshaler, client e
 func request_KV_DeleteRange_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.KVClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.DeleteRangeRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -58,6 +64,8 @@ func request_KV_DeleteRange_0(ctx context.Context, marshaler runtime.Marshaler, 
 	return msg, metadata, err
 }
 func request_KV_Txn_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.KVClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.TxnRequest
@@ -71,6 +79,8 @@ func request_KV_Txn_0(ctx context.Context, marshaler runtime.Marshaler, client e
 func request_KV_Compact_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.KVClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.CompactionRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -80,6 +90,8 @@ func request_KV_Compact_0(ctx context.Context, marshaler runtime.Marshaler, clie
 	return msg, metadata, err
 }
 func request_Watch_Watch_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.WatchClient, req *http.Request, pathParams map[string]string) (etcdserverpb.Watch_WatchClient, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var metadata runtime.ServerMetadata
@@ -135,6 +147,8 @@ func request_Watch_Watch_0(ctx context.Context, marshaler runtime.Marshaler, cli
 func request_Lease_LeaseGrant_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.LeaseClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.LeaseGrantRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -146,6 +160,8 @@ func request_Lease_LeaseGrant_0(ctx context.Context, marshaler runtime.Marshaler
 func request_Lease_LeaseRevoke_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.LeaseClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.LeaseRevokeRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -155,6 +171,8 @@ func request_Lease_LeaseRevoke_0(ctx context.Context, marshaler runtime.Marshale
 	return msg, metadata, err
 }
 func request_Lease_LeaseKeepAlive_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.LeaseClient, req *http.Request, pathParams map[string]string) (etcdserverpb.Lease_LeaseKeepAliveClient, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var metadata runtime.ServerMetadata
@@ -210,6 +228,8 @@ func request_Lease_LeaseKeepAlive_0(ctx context.Context, marshaler runtime.Marsh
 func request_Lease_LeaseTimeToLive_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.LeaseClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.LeaseTimeToLiveRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -219,6 +239,8 @@ func request_Lease_LeaseTimeToLive_0(ctx context.Context, marshaler runtime.Mars
 	return msg, metadata, err
 }
 func request_Lease_LeaseLeases_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.LeaseClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.LeaseLeasesRequest
@@ -232,6 +254,8 @@ func request_Lease_LeaseLeases_0(ctx context.Context, marshaler runtime.Marshale
 func request_Cluster_MemberAdd_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.ClusterClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.MemberAddRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -241,6 +265,8 @@ func request_Cluster_MemberAdd_0(ctx context.Context, marshaler runtime.Marshale
 	return msg, metadata, err
 }
 func request_Cluster_MemberRemove_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.ClusterClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.MemberRemoveRequest
@@ -254,6 +280,8 @@ func request_Cluster_MemberRemove_0(ctx context.Context, marshaler runtime.Marsh
 func request_Cluster_MemberUpdate_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.ClusterClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.MemberUpdateRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -263,6 +291,8 @@ func request_Cluster_MemberUpdate_0(ctx context.Context, marshaler runtime.Marsh
 	return msg, metadata, err
 }
 func request_Cluster_MemberList_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.ClusterClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.MemberListRequest
@@ -276,6 +306,8 @@ func request_Cluster_MemberList_0(ctx context.Context, marshaler runtime.Marshal
 func request_Maintenance_Alarm_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.MaintenanceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AlarmRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -285,6 +317,8 @@ func request_Maintenance_Alarm_0(ctx context.Context, marshaler runtime.Marshale
 	return msg, metadata, err
 }
 func request_Maintenance_Status_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.MaintenanceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.StatusRequest
@@ -298,6 +332,8 @@ func request_Maintenance_Status_0(ctx context.Context, marshaler runtime.Marshal
 func request_Maintenance_Defragment_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.MaintenanceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.DefragmentRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -307,6 +343,8 @@ func request_Maintenance_Defragment_0(ctx context.Context, marshaler runtime.Mar
 	return msg, metadata, err
 }
 func request_Maintenance_Hash_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.MaintenanceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.HashRequest
@@ -320,6 +358,8 @@ func request_Maintenance_Hash_0(ctx context.Context, marshaler runtime.Marshaler
 func request_Maintenance_HashKV_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.MaintenanceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.HashKVRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -329,6 +369,8 @@ func request_Maintenance_HashKV_0(ctx context.Context, marshaler runtime.Marshal
 	return msg, metadata, err
 }
 func request_Maintenance_Snapshot_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.MaintenanceClient, req *http.Request, pathParams map[string]string) (etcdserverpb.Maintenance_SnapshotClient, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.SnapshotRequest
@@ -350,6 +392,8 @@ func request_Maintenance_Snapshot_0(ctx context.Context, marshaler runtime.Marsh
 func request_Maintenance_MoveLeader_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.MaintenanceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.MoveLeaderRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -359,6 +403,8 @@ func request_Maintenance_MoveLeader_0(ctx context.Context, marshaler runtime.Mar
 	return msg, metadata, err
 }
 func request_Auth_AuthEnable_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthEnableRequest
@@ -372,6 +418,8 @@ func request_Auth_AuthEnable_0(ctx context.Context, marshaler runtime.Marshaler,
 func request_Auth_AuthDisable_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthDisableRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -381,6 +429,8 @@ func request_Auth_AuthDisable_0(ctx context.Context, marshaler runtime.Marshaler
 	return msg, metadata, err
 }
 func request_Auth_Authenticate_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthenticateRequest
@@ -394,6 +444,8 @@ func request_Auth_Authenticate_0(ctx context.Context, marshaler runtime.Marshale
 func request_Auth_UserAdd_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthUserAddRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -403,6 +455,8 @@ func request_Auth_UserAdd_0(ctx context.Context, marshaler runtime.Marshaler, cl
 	return msg, metadata, err
 }
 func request_Auth_UserGet_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthUserGetRequest
@@ -416,6 +470,8 @@ func request_Auth_UserGet_0(ctx context.Context, marshaler runtime.Marshaler, cl
 func request_Auth_UserList_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthUserListRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -425,6 +481,8 @@ func request_Auth_UserList_0(ctx context.Context, marshaler runtime.Marshaler, c
 	return msg, metadata, err
 }
 func request_Auth_UserDelete_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthUserDeleteRequest
@@ -438,6 +496,8 @@ func request_Auth_UserDelete_0(ctx context.Context, marshaler runtime.Marshaler,
 func request_Auth_UserChangePassword_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthUserChangePasswordRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -447,6 +507,8 @@ func request_Auth_UserChangePassword_0(ctx context.Context, marshaler runtime.Ma
 	return msg, metadata, err
 }
 func request_Auth_UserGrantRole_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthUserGrantRoleRequest
@@ -460,6 +522,8 @@ func request_Auth_UserGrantRole_0(ctx context.Context, marshaler runtime.Marshal
 func request_Auth_UserRevokeRole_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthUserRevokeRoleRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -469,6 +533,8 @@ func request_Auth_UserRevokeRole_0(ctx context.Context, marshaler runtime.Marsha
 	return msg, metadata, err
 }
 func request_Auth_RoleAdd_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthRoleAddRequest
@@ -482,6 +548,8 @@ func request_Auth_RoleAdd_0(ctx context.Context, marshaler runtime.Marshaler, cl
 func request_Auth_RoleGet_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthRoleGetRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -491,6 +559,8 @@ func request_Auth_RoleGet_0(ctx context.Context, marshaler runtime.Marshaler, cl
 	return msg, metadata, err
 }
 func request_Auth_RoleList_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthRoleListRequest
@@ -504,6 +574,8 @@ func request_Auth_RoleList_0(ctx context.Context, marshaler runtime.Marshaler, c
 func request_Auth_RoleDelete_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthRoleDeleteRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -513,6 +585,8 @@ func request_Auth_RoleDelete_0(ctx context.Context, marshaler runtime.Marshaler,
 	return msg, metadata, err
 }
 func request_Auth_RoleGrantPermission_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthRoleGrantPermissionRequest
@@ -526,6 +600,8 @@ func request_Auth_RoleGrantPermission_0(ctx context.Context, marshaler runtime.M
 func request_Auth_RoleRevokePermission_0(ctx context.Context, marshaler runtime.Marshaler, client etcdserverpb.AuthClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq etcdserverpb.AuthRoleRevokePermissionRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -535,6 +611,8 @@ func request_Auth_RoleRevokePermission_0(ctx context.Context, marshaler runtime.
 	return msg, metadata, err
 }
 func RegisterKVHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	conn, err := grpc.Dial(endpoint, opts...)
@@ -560,9 +638,13 @@ func RegisterKVHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, e
 func RegisterKVHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return RegisterKVHandlerClient(ctx, mux, etcdserverpb.NewKVClient(conn))
 }
 func RegisterKVHandlerClient(ctx context.Context, mux *runtime.ServeMux, client etcdserverpb.KVClient) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mux.Handle("POST", pattern_KV_Range_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -716,6 +798,8 @@ var (
 func RegisterWatchHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	conn, err := grpc.Dial(endpoint, opts...)
 	if err != nil {
 		return err
@@ -739,9 +823,13 @@ func RegisterWatchHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux
 func RegisterWatchHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return RegisterWatchHandlerClient(ctx, mux, etcdserverpb.NewWatchClient(conn))
 }
 func RegisterWatchHandlerClient(ctx context.Context, mux *runtime.ServeMux, client etcdserverpb.WatchClient) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mux.Handle("POST", pattern_Watch_Watch_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -785,6 +873,8 @@ var (
 func RegisterLeaseHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	conn, err := grpc.Dial(endpoint, opts...)
 	if err != nil {
 		return err
@@ -808,9 +898,13 @@ func RegisterLeaseHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux
 func RegisterLeaseHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return RegisterLeaseHandlerClient(ctx, mux, etcdserverpb.NewLeaseClient(conn))
 }
 func RegisterLeaseHandlerClient(ctx context.Context, mux *runtime.ServeMux, client etcdserverpb.LeaseClient) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mux.Handle("POST", pattern_Lease_LeaseGrant_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -966,6 +1060,8 @@ var (
 func RegisterClusterHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	conn, err := grpc.Dial(endpoint, opts...)
 	if err != nil {
 		return err
@@ -989,9 +1085,13 @@ func RegisterClusterHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeM
 func RegisterClusterHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return RegisterClusterHandlerClient(ctx, mux, etcdserverpb.NewClusterClient(conn))
 }
 func RegisterClusterHandlerClient(ctx context.Context, mux *runtime.ServeMux, client etcdserverpb.ClusterClient) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mux.Handle("POST", pattern_Cluster_MemberAdd_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -1117,6 +1217,8 @@ var (
 func RegisterMaintenanceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	conn, err := grpc.Dial(endpoint, opts...)
 	if err != nil {
 		return err
@@ -1140,9 +1242,13 @@ func RegisterMaintenanceHandlerFromEndpoint(ctx context.Context, mux *runtime.Se
 func RegisterMaintenanceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return RegisterMaintenanceHandlerClient(ctx, mux, etcdserverpb.NewMaintenanceClient(conn))
 }
 func RegisterMaintenanceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client etcdserverpb.MaintenanceClient) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mux.Handle("POST", pattern_Maintenance_Alarm_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -1354,6 +1460,8 @@ var (
 func RegisterAuthHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	conn, err := grpc.Dial(endpoint, opts...)
 	if err != nil {
 		return err
@@ -1377,9 +1485,13 @@ func RegisterAuthHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux,
 func RegisterAuthHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return RegisterAuthHandlerClient(ctx, mux, etcdserverpb.NewAuthClient(conn))
 }
 func RegisterAuthHandlerClient(ctx context.Context, mux *runtime.ServeMux, client etcdserverpb.AuthClient) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mux.Handle("POST", pattern_Auth_AuthEnable_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -1841,7 +1953,16 @@ var (
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

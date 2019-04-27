@@ -9,6 +9,8 @@ import (
 func TestIndexGet(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ti := newTreeIndex()
 	ti.Put([]byte("foo"), revision{main: 2})
 	ti.Put([]byte("foo"), revision{main: 4})
@@ -39,6 +41,8 @@ func TestIndexGet(t *testing.T) {
 func TestIndexRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	allKeys := [][]byte{[]byte("foo"), []byte("foo1"), []byte("foo2")}
 	allRevs := []revision{{main: 1}, {main: 2}, {main: 3}}
 	ti := newTreeIndex()
@@ -64,6 +68,8 @@ func TestIndexRange(t *testing.T) {
 func TestIndexTombstone(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ti := newTreeIndex()
 	ti.Put([]byte("foo"), revision{main: 1})
 	err := ti.Tombstone([]byte("foo"), revision{main: 2})
@@ -80,6 +86,8 @@ func TestIndexTombstone(t *testing.T) {
 	}
 }
 func TestIndexRangeSince(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	allKeys := [][]byte{[]byte("foo"), []byte("foo1"), []byte("foo2"), []byte("foo2"), []byte("foo1"), []byte("foo")}
@@ -101,6 +109,8 @@ func TestIndexRangeSince(t *testing.T) {
 	}
 }
 func TestIndexCompactAndKeep(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	maxRev := int64(20)
@@ -169,6 +179,8 @@ func TestIndexCompactAndKeep(t *testing.T) {
 	}
 }
 func restore(ti *treeIndex, key []byte, created, modified revision, ver int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	keyi := &keyIndex{key: key}

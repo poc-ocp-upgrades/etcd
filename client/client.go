@@ -48,12 +48,16 @@ type Config struct {
 func (cfg *Config) transport() CancelableTransport {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if cfg.Transport == nil {
 		return DefaultTransport
 	}
 	return cfg.Transport
 }
 func (cfg *Config) checkRedirect() CheckRedirectFunc {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cfg.CheckRedirect == nil {
@@ -87,6 +91,8 @@ type Client interface {
 func New(cfg Config) (Client, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &httpClusterClient{clientFactory: newHTTPClientFactory(cfg.transport(), cfg.checkRedirect(), cfg.HeaderTimeoutPerRequest), rand: rand.New(rand.NewSource(int64(time.Now().Nanosecond()))), selectionMode: cfg.SelectionMode}
 	if cfg.Username != "" {
 		c.credentials = &credentials{username: cfg.Username, password: cfg.Password}
@@ -102,6 +108,8 @@ type httpClient interface {
 }
 
 func newHTTPClientFactory(tr CancelableTransport, cr CheckRedirectFunc, headerTimeout time.Duration) httpClientFactory {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(ep url.URL) httpClient {
@@ -128,6 +136,8 @@ type httpClusterClient struct {
 func (c *httpClusterClient) getLeaderEndpoint(ctx context.Context, eps []url.URL) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ceps := make([]url.URL, len(eps))
 	copy(ceps, eps)
 	clientCopy := &httpClusterClient{clientFactory: c.clientFactory, credentials: c.credentials, rand: c.rand, pinned: 0, endpoints: ceps}
@@ -142,6 +152,8 @@ func (c *httpClusterClient) getLeaderEndpoint(ctx context.Context, eps []url.URL
 	return leader.ClientURLs[0], nil
 }
 func (c *httpClusterClient) parseEndpoints(eps []string) ([]url.URL, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(eps) == 0 {
@@ -160,6 +172,8 @@ func (c *httpClusterClient) parseEndpoints(eps []string) ([]url.URL, error) {
 func (c *httpClusterClient) SetEndpoints(eps []string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	neps, err := c.parseEndpoints(eps)
 	if err != nil {
 		return err
@@ -171,6 +185,8 @@ func (c *httpClusterClient) SetEndpoints(eps []string) error {
 	return nil
 }
 func (c *httpClusterClient) Do(ctx context.Context, act httpAction) (*http.Response, []byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	action := act
@@ -236,6 +252,8 @@ func (c *httpClusterClient) Do(ctx context.Context, act httpAction) (*http.Respo
 func (c *httpClusterClient) Endpoints() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.RLock()
 	defer c.RUnlock()
 	eps := make([]string, len(c.endpoints))
@@ -245,6 +263,8 @@ func (c *httpClusterClient) Endpoints() []string {
 	return eps
 }
 func (c *httpClusterClient) Sync(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mAPI := NewMembersAPI(c)
@@ -293,6 +313,8 @@ func (c *httpClusterClient) Sync(ctx context.Context) error {
 func (c *httpClusterClient) AutoSync(ctx context.Context, interval time.Duration) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ticker := time.NewTicker(interval)
 	defer ticker.Stop()
 	for {
@@ -308,6 +330,8 @@ func (c *httpClusterClient) AutoSync(ctx context.Context, interval time.Duration
 	}
 }
 func (c *httpClusterClient) GetVersion(ctx context.Context) (*version.Versions, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	act := &getAction{Prefix: "/version"}
@@ -345,6 +369,8 @@ type simpleHTTPClient struct {
 }
 
 func (c *simpleHTTPClient) Do(ctx context.Context, act httpAction) (*http.Response, []byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req := act.HTTPRequest(c.endpoint)
@@ -427,6 +453,8 @@ type authedAction struct {
 func (a *authedAction) HTTPRequest(url url.URL) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := a.act.HTTPRequest(url)
 	r.SetBasicAuth(a.credentials.username, a.credentials.password)
 	return r
@@ -438,6 +466,8 @@ type redirectFollowingHTTPClient struct {
 }
 
 func (r *redirectFollowingHTTPClient) Do(ctx context.Context, act httpAction) (*http.Response, []byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	next := act
@@ -476,11 +506,15 @@ type redirectedHTTPAction struct {
 func (r *redirectedHTTPAction) HTTPRequest(ep url.URL) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	orig := r.action.HTTPRequest(ep)
 	orig.URL = &r.location
 	return orig
 }
 func shuffleEndpoints(r *rand.Rand, eps []url.URL) []url.URL {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := len(eps)
@@ -497,6 +531,8 @@ func shuffleEndpoints(r *rand.Rand, eps []url.URL) []url.URL {
 	return neps
 }
 func endpointsEqual(left, right []url.URL) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(left) != len(right) {

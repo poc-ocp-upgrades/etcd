@@ -14,6 +14,8 @@ const compactQPS = 50000
 func (clus *Cluster) Run() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer printReport()
 	if err := fileutil.TouchDirAll(clus.Tester.DataDir); err != nil {
 		clus.lg.Panic("failed to create test data directory", zap.String("dir", clus.Tester.DataDir), zap.Error(err))
@@ -56,6 +58,8 @@ func (clus *Cluster) Run() {
 	clus.lg.Info("functional-tester PASS", zap.Int("round", clus.rd), zap.Int("case", clus.cs), zap.Int("case-total", len(clus.cases)))
 }
 func (clus *Cluster) doRound() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if clus.Tester.CaseShuffle {
@@ -127,6 +131,8 @@ func (clus *Cluster) doRound() error {
 func (clus *Cluster) updateRevision() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	revs, _, err := clus.getRevisionHash()
 	for _, rev := range revs {
 		clus.currentRevision = rev
@@ -136,6 +142,8 @@ func (clus *Cluster) updateRevision() error {
 	return err
 }
 func (clus *Cluster) compact(rev int64, timeout time.Duration) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err = clus.compactKV(rev, timeout); err != nil {
@@ -153,11 +161,15 @@ func (clus *Cluster) compact(rev int64, timeout time.Duration) (err error) {
 func (clus *Cluster) failed() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus.lg.Info("functional-tester FAIL", zap.Int("round", clus.rd), zap.Int("case", clus.cs), zap.Int("case-total", len(clus.cases)))
 	clus.Send_SIGQUIT_ETCD_AND_REMOVE_DATA_AND_STOP_AGENT()
 	os.Exit(2)
 }
 func (clus *Cluster) cleanup() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if clus.Tester.ExitOnCaseFail {

@@ -11,6 +11,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(commitDurations)
 	prometheus.MustRegister(defragDurations)
 	prometheus.MustRegister(snapshotDurations)

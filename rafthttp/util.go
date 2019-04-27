@@ -22,9 +22,13 @@ var (
 func NewListener(u url.URL, tlsinfo *transport.TLSInfo) (net.Listener, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return transport.NewTimeoutListener(u.Host, u.Scheme, tlsinfo, ConnReadTimeout, ConnWriteTimeout)
 }
 func NewRoundTripper(tlsInfo transport.TLSInfo, dialTimeout time.Duration) (http.RoundTripper, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return transport.NewTimeoutTransport(tlsInfo, dialTimeout, 0, 0)
@@ -32,9 +36,13 @@ func NewRoundTripper(tlsInfo transport.TLSInfo, dialTimeout time.Duration) (http
 func newStreamRoundTripper(tlsInfo transport.TLSInfo, dialTimeout time.Duration) (http.RoundTripper, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return transport.NewTimeoutTransport(tlsInfo, dialTimeout, ConnReadTimeout, ConnWriteTimeout)
 }
 func createPostRequest(u url.URL, path string, body io.Reader, ct string, urls types.URLs, from, cid types.ID) *http.Request {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	uu := u
@@ -52,6 +60,8 @@ func createPostRequest(u url.URL, path string, body io.Reader, ct string, urls t
 	return req
 }
 func checkPostResponse(resp *http.Response, body []byte, req *http.Request, to types.ID) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch resp.StatusCode {
@@ -77,12 +87,16 @@ func checkPostResponse(resp *http.Response, body []byte, req *http.Request, to t
 func reportCriticalError(err error, errc chan<- error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case errc <- err:
 	default:
 	}
 }
 func compareMajorMinorVersion(a, b *semver.Version) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	na := &semver.Version{Major: a.Major, Minor: a.Minor}
@@ -99,6 +113,8 @@ func compareMajorMinorVersion(a, b *semver.Version) int {
 func serverVersion(h http.Header) *semver.Version {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	verStr := h.Get("X-Server-Version")
 	if verStr == "" {
 		verStr = "2.0.0"
@@ -108,6 +124,8 @@ func serverVersion(h http.Header) *semver.Version {
 func minClusterVersion(h http.Header) *semver.Version {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	verStr := h.Get("X-Min-Cluster-Version")
 	if verStr == "" {
 		verStr = "2.0.0"
@@ -115,6 +133,8 @@ func minClusterVersion(h http.Header) *semver.Version {
 	return semver.Must(semver.NewVersion(verStr))
 }
 func checkVersionCompability(name string, server, minCluster *semver.Version) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	localServer := semver.Must(semver.NewVersion(version.Version))
@@ -130,6 +150,8 @@ func checkVersionCompability(name string, server, minCluster *semver.Version) er
 func setPeerURLsHeader(req *http.Request, urls types.URLs) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if urls == nil {
 		return
 	}
@@ -140,6 +162,8 @@ func setPeerURLsHeader(req *http.Request, urls types.URLs) {
 	req.Header.Set("X-PeerURLs", strings.Join(peerURLs, ","))
 }
 func addRemoteFromRequest(tr Transporter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if from, err := types.IDFromString(r.Header.Get("X-Server-From")); err == nil {

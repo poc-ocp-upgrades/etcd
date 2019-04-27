@@ -8,6 +8,8 @@ import (
 func TestArgOrStdin(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		args	[]string
 		stdin	string

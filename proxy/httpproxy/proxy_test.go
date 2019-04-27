@@ -12,6 +12,8 @@ import (
 func TestReadonlyHandler(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fixture := func(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(http.StatusOK)
 	}
@@ -30,6 +32,8 @@ func TestReadonlyHandler(t *testing.T) {
 	}
 }
 func TestConfigHandlerGET(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error

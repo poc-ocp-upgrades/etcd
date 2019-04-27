@@ -64,6 +64,8 @@ type applierV3backend struct {
 func (s *EtcdServer) newApplierV3Backend() applierV3 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	base := &applierV3backend{s: s}
 	base.checkPut = func(rv mvcc.ReadView, req *pb.RequestOp) error {
 		return base.checkRequestPut(rv, req)
@@ -76,9 +78,13 @@ func (s *EtcdServer) newApplierV3Backend() applierV3 {
 func (s *EtcdServer) newApplierV3() applierV3 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newAuthApplierV3(s.AuthStore(), newQuotaApplierV3(s, s.newApplierV3Backend()), s.lessor)
 }
 func (a *applierV3backend) Apply(r *pb.InternalRaftRequest) *applyResult {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ar := &applyResult{}
@@ -142,6 +148,8 @@ func (a *applierV3backend) Apply(r *pb.InternalRaftRequest) *applyResult {
 func (a *applierV3backend) Put(txn mvcc.TxnWrite, p *pb.PutRequest) (resp *pb.PutResponse, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp = &pb.PutResponse{}
 	resp.Header = &pb.ResponseHeader{}
 	val, leaseID := p.Value, lease.LeaseID(p.Lease)
@@ -183,6 +191,8 @@ func (a *applierV3backend) Put(txn mvcc.TxnWrite, p *pb.PutRequest) (resp *pb.Pu
 func (a *applierV3backend) DeleteRange(txn mvcc.TxnWrite, dr *pb.DeleteRangeRequest) (*pb.DeleteRangeResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp := &pb.DeleteRangeResponse{}
 	resp.Header = &pb.ResponseHeader{}
 	end := mkGteRange(dr.RangeEnd)
@@ -206,6 +216,8 @@ func (a *applierV3backend) DeleteRange(txn mvcc.TxnWrite, dr *pb.DeleteRangeRequ
 	return resp, nil
 }
 func (a *applierV3backend) Range(txn mvcc.TxnRead, r *pb.RangeRequest) (*pb.RangeResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp := &pb.RangeResponse{}
@@ -293,6 +305,8 @@ func (a *applierV3backend) Range(txn mvcc.TxnRead, r *pb.RangeRequest) (*pb.Rang
 func (a *applierV3backend) Txn(rt *pb.TxnRequest) (*pb.TxnResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	isWrite := !isTxnReadonly(rt)
 	txn := mvcc.NewReadOnlyTxnWrite(a.s.KV().Read())
 	txnPath := compareToPath(txn, rt)
@@ -323,6 +337,8 @@ func (a *applierV3backend) Txn(rt *pb.TxnRequest) (*pb.TxnResponse, error) {
 func newTxnResp(rt *pb.TxnRequest, txnPath []bool) (txnResp *pb.TxnResponse, txnCount int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	reqs := rt.Success
 	if !txnPath[0] {
 		reqs = rt.Failure
@@ -350,6 +366,8 @@ func newTxnResp(rt *pb.TxnRequest, txnPath []bool) (txnResp *pb.TxnResponse, txn
 func compareToPath(rv mvcc.ReadView, rt *pb.TxnRequest) []bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	txnPath := make([]bool, 1)
 	ops := rt.Success
 	if txnPath[0] = applyCompares(rv, rt.Compare); !txnPath[0] {
@@ -367,6 +385,8 @@ func compareToPath(rv mvcc.ReadView, rt *pb.TxnRequest) []bool {
 func applyCompares(rv mvcc.ReadView, cmps []*pb.Compare) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, c := range cmps {
 		if !applyCompare(rv, c) {
 			return false
@@ -375,6 +395,8 @@ func applyCompares(rv mvcc.ReadView, cmps []*pb.Compare) bool {
 	return true
 }
 func applyCompare(rv mvcc.ReadView, c *pb.Compare) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rr, err := rv.Range(c.Key, mkGteRange(c.RangeEnd), mvcc.RangeOptions{})
@@ -395,6 +417,8 @@ func applyCompare(rv mvcc.ReadView, c *pb.Compare) bool {
 	return true
 }
 func compareKV(c *pb.Compare, ckv mvccpb.KeyValue) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var result int
@@ -442,6 +466,8 @@ func compareKV(c *pb.Compare, ckv mvccpb.KeyValue) bool {
 func (a *applierV3backend) applyTxn(txn mvcc.TxnWrite, rt *pb.TxnRequest, txnPath []bool, tresp *pb.TxnResponse) (txns int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	reqs := rt.Success
 	if !txnPath[0] {
 		reqs = rt.Failure
@@ -480,6 +506,8 @@ func (a *applierV3backend) applyTxn(txn mvcc.TxnWrite, rt *pb.TxnRequest, txnPat
 func (a *applierV3backend) Compaction(compaction *pb.CompactionRequest) (*pb.CompactionResponse, <-chan struct{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp := &pb.CompactionResponse{}
 	resp.Header = &pb.ResponseHeader{}
 	ch, err := a.s.KV().Compact(compaction.Revision)
@@ -491,6 +519,8 @@ func (a *applierV3backend) Compaction(compaction *pb.CompactionRequest) (*pb.Com
 	return resp, ch, err
 }
 func (a *applierV3backend) LeaseGrant(lc *pb.LeaseGrantRequest) (*pb.LeaseGrantResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l, err := a.s.lessor.Grant(lease.LeaseID(lc.ID), lc.TTL)
@@ -505,10 +535,14 @@ func (a *applierV3backend) LeaseGrant(lc *pb.LeaseGrantRequest) (*pb.LeaseGrantR
 func (a *applierV3backend) LeaseRevoke(lc *pb.LeaseRevokeRequest) (*pb.LeaseRevokeResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := a.s.lessor.Revoke(lease.LeaseID(lc.ID))
 	return &pb.LeaseRevokeResponse{Header: newHeader(a.s)}, err
 }
 func (a *applierV3backend) Alarm(ar *pb.AlarmRequest) (*pb.AlarmResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp := &pb.AlarmResponse{}
@@ -566,14 +600,20 @@ type applierV3Capped struct {
 func newApplierV3Capped(base applierV3) applierV3 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &applierV3Capped{applierV3: base}
 }
 func (a *applierV3Capped) Put(txn mvcc.TxnWrite, p *pb.PutRequest) (*pb.PutResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, ErrNoSpace
 }
 func (a *applierV3Capped) Txn(r *pb.TxnRequest) (*pb.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if a.q.Cost(r) > 0 {
@@ -584,9 +624,13 @@ func (a *applierV3Capped) Txn(r *pb.TxnRequest) (*pb.TxnResponse, error) {
 func (a *applierV3Capped) LeaseGrant(lc *pb.LeaseGrantRequest) (*pb.LeaseGrantResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, ErrNoSpace
 }
 func (a *applierV3backend) AuthEnable() (*pb.AuthEnableResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := a.s.AuthStore().AuthEnable()
@@ -598,10 +642,14 @@ func (a *applierV3backend) AuthEnable() (*pb.AuthEnableResponse, error) {
 func (a *applierV3backend) AuthDisable() (*pb.AuthDisableResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	a.s.AuthStore().AuthDisable()
 	return &pb.AuthDisableResponse{Header: newHeader(a.s)}, nil
 }
 func (a *applierV3backend) Authenticate(r *pb.InternalAuthenticateRequest) (*pb.AuthenticateResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx := context.WithValue(context.WithValue(a.s.ctx, auth.AuthenticateParamIndex{}, a.s.consistIndex.ConsistentIndex()), auth.AuthenticateParamSimpleTokenPrefix{}, r.SimpleToken)
@@ -614,6 +662,8 @@ func (a *applierV3backend) Authenticate(r *pb.InternalAuthenticateRequest) (*pb.
 func (a *applierV3backend) UserAdd(r *pb.AuthUserAddRequest) (*pb.AuthUserAddResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := a.s.AuthStore().UserAdd(r)
 	if resp != nil {
 		resp.Header = newHeader(a.s)
@@ -621,6 +671,8 @@ func (a *applierV3backend) UserAdd(r *pb.AuthUserAddRequest) (*pb.AuthUserAddRes
 	return resp, err
 }
 func (a *applierV3backend) UserDelete(r *pb.AuthUserDeleteRequest) (*pb.AuthUserDeleteResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := a.s.AuthStore().UserDelete(r)
@@ -632,6 +684,8 @@ func (a *applierV3backend) UserDelete(r *pb.AuthUserDeleteRequest) (*pb.AuthUser
 func (a *applierV3backend) UserChangePassword(r *pb.AuthUserChangePasswordRequest) (*pb.AuthUserChangePasswordResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := a.s.AuthStore().UserChangePassword(r)
 	if resp != nil {
 		resp.Header = newHeader(a.s)
@@ -639,6 +693,8 @@ func (a *applierV3backend) UserChangePassword(r *pb.AuthUserChangePasswordReques
 	return resp, err
 }
 func (a *applierV3backend) UserGrantRole(r *pb.AuthUserGrantRoleRequest) (*pb.AuthUserGrantRoleResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := a.s.AuthStore().UserGrantRole(r)
@@ -650,6 +706,8 @@ func (a *applierV3backend) UserGrantRole(r *pb.AuthUserGrantRoleRequest) (*pb.Au
 func (a *applierV3backend) UserGet(r *pb.AuthUserGetRequest) (*pb.AuthUserGetResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := a.s.AuthStore().UserGet(r)
 	if resp != nil {
 		resp.Header = newHeader(a.s)
@@ -657,6 +715,8 @@ func (a *applierV3backend) UserGet(r *pb.AuthUserGetRequest) (*pb.AuthUserGetRes
 	return resp, err
 }
 func (a *applierV3backend) UserRevokeRole(r *pb.AuthUserRevokeRoleRequest) (*pb.AuthUserRevokeRoleResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := a.s.AuthStore().UserRevokeRole(r)
@@ -668,6 +728,8 @@ func (a *applierV3backend) UserRevokeRole(r *pb.AuthUserRevokeRoleRequest) (*pb.
 func (a *applierV3backend) RoleAdd(r *pb.AuthRoleAddRequest) (*pb.AuthRoleAddResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := a.s.AuthStore().RoleAdd(r)
 	if resp != nil {
 		resp.Header = newHeader(a.s)
@@ -675,6 +737,8 @@ func (a *applierV3backend) RoleAdd(r *pb.AuthRoleAddRequest) (*pb.AuthRoleAddRes
 	return resp, err
 }
 func (a *applierV3backend) RoleGrantPermission(r *pb.AuthRoleGrantPermissionRequest) (*pb.AuthRoleGrantPermissionResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := a.s.AuthStore().RoleGrantPermission(r)
@@ -686,6 +750,8 @@ func (a *applierV3backend) RoleGrantPermission(r *pb.AuthRoleGrantPermissionRequ
 func (a *applierV3backend) RoleGet(r *pb.AuthRoleGetRequest) (*pb.AuthRoleGetResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := a.s.AuthStore().RoleGet(r)
 	if resp != nil {
 		resp.Header = newHeader(a.s)
@@ -693,6 +759,8 @@ func (a *applierV3backend) RoleGet(r *pb.AuthRoleGetRequest) (*pb.AuthRoleGetRes
 	return resp, err
 }
 func (a *applierV3backend) RoleRevokePermission(r *pb.AuthRoleRevokePermissionRequest) (*pb.AuthRoleRevokePermissionResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := a.s.AuthStore().RoleRevokePermission(r)
@@ -704,6 +772,8 @@ func (a *applierV3backend) RoleRevokePermission(r *pb.AuthRoleRevokePermissionRe
 func (a *applierV3backend) RoleDelete(r *pb.AuthRoleDeleteRequest) (*pb.AuthRoleDeleteResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := a.s.AuthStore().RoleDelete(r)
 	if resp != nil {
 		resp.Header = newHeader(a.s)
@@ -713,6 +783,8 @@ func (a *applierV3backend) RoleDelete(r *pb.AuthRoleDeleteRequest) (*pb.AuthRole
 func (a *applierV3backend) UserList(r *pb.AuthUserListRequest) (*pb.AuthUserListResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := a.s.AuthStore().UserList(r)
 	if resp != nil {
 		resp.Header = newHeader(a.s)
@@ -720,6 +792,8 @@ func (a *applierV3backend) UserList(r *pb.AuthUserListRequest) (*pb.AuthUserList
 	return resp, err
 }
 func (a *applierV3backend) RoleList(r *pb.AuthRoleListRequest) (*pb.AuthRoleListResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := a.s.AuthStore().RoleList(r)
@@ -737,9 +811,13 @@ type quotaApplierV3 struct {
 func newQuotaApplierV3(s *EtcdServer, app applierV3) applierV3 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &quotaApplierV3{app, NewBackendQuota(s)}
 }
 func (a *quotaApplierV3) Put(txn mvcc.TxnWrite, p *pb.PutRequest) (*pb.PutResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ok := a.q.Available(p)
@@ -752,6 +830,8 @@ func (a *quotaApplierV3) Put(txn mvcc.TxnWrite, p *pb.PutRequest) (*pb.PutRespon
 func (a *quotaApplierV3) Txn(rt *pb.TxnRequest) (*pb.TxnResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ok := a.q.Available(rt)
 	resp, err := a.applierV3.Txn(rt)
 	if err == nil && !ok {
@@ -760,6 +840,8 @@ func (a *quotaApplierV3) Txn(rt *pb.TxnRequest) (*pb.TxnResponse, error) {
 	return resp, err
 }
 func (a *quotaApplierV3) LeaseGrant(lc *pb.LeaseGrantRequest) (*pb.LeaseGrantResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ok := a.q.Available(lc)
@@ -775,11 +857,15 @@ type kvSort struct{ kvs []mvccpb.KeyValue }
 func (s *kvSort) Swap(i, j int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t := s.kvs[i]
 	s.kvs[i] = s.kvs[j]
 	s.kvs[j] = t
 }
 func (s *kvSort) Len() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return len(s.kvs)
@@ -790,12 +876,16 @@ type kvSortByKey struct{ *kvSort }
 func (s *kvSortByKey) Less(i, j int) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return bytes.Compare(s.kvs[i].Key, s.kvs[j].Key) < 0
 }
 
 type kvSortByVersion struct{ *kvSort }
 
 func (s *kvSortByVersion) Less(i, j int) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return (s.kvs[i].Version - s.kvs[j].Version) < 0
@@ -806,12 +896,16 @@ type kvSortByCreate struct{ *kvSort }
 func (s *kvSortByCreate) Less(i, j int) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return (s.kvs[i].CreateRevision - s.kvs[j].CreateRevision) < 0
 }
 
 type kvSortByMod struct{ *kvSort }
 
 func (s *kvSortByMod) Less(i, j int) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return (s.kvs[i].ModRevision - s.kvs[j].ModRevision) < 0
@@ -822,9 +916,13 @@ type kvSortByValue struct{ *kvSort }
 func (s *kvSortByValue) Less(i, j int) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return bytes.Compare(s.kvs[i].Value, s.kvs[j].Value) < 0
 }
 func checkRequests(rv mvcc.ReadView, rt *pb.TxnRequest, txnPath []bool, f checkReqFunc) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	txnCount := 0
@@ -851,6 +949,8 @@ func checkRequests(rv mvcc.ReadView, rt *pb.TxnRequest, txnPath []bool, f checkR
 func (a *applierV3backend) checkRequestPut(rv mvcc.ReadView, reqOp *pb.RequestOp) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tv, ok := reqOp.Request.(*pb.RequestOp_RequestPut)
 	if !ok || tv.RequestPut == nil {
 		return nil
@@ -875,6 +975,8 @@ func (a *applierV3backend) checkRequestPut(rv mvcc.ReadView, reqOp *pb.RequestOp
 func (a *applierV3backend) checkRequestRange(rv mvcc.ReadView, reqOp *pb.RequestOp) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tv, ok := reqOp.Request.(*pb.RequestOp_RequestRange)
 	if !ok || tv.RequestRange == nil {
 		return nil
@@ -893,6 +995,8 @@ func (a *applierV3backend) checkRequestRange(rv mvcc.ReadView, reqOp *pb.Request
 func compareInt64(a, b int64) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch {
 	case a < b:
 		return -1
@@ -905,6 +1009,8 @@ func compareInt64(a, b int64) int {
 func mkGteRange(rangeEnd []byte) []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(rangeEnd) == 1 && rangeEnd[0] == 0 {
 		return []byte{}
 	}
@@ -913,9 +1019,13 @@ func mkGteRange(rangeEnd []byte) []byte {
 func noSideEffect(r *pb.InternalRaftRequest) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.Range != nil || r.AuthUserGet != nil || r.AuthRoleGet != nil
 }
 func removeNeedlessRangeReqs(txn *pb.TxnRequest) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f := func(ops []*pb.RequestOp) []*pb.RequestOp {
@@ -935,6 +1045,8 @@ func removeNeedlessRangeReqs(txn *pb.TxnRequest) {
 func pruneKVs(rr *mvcc.RangeResult, isPrunable func(*mvccpb.KeyValue) bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	j := 0
 	for i := range rr.KVs {
 		rr.KVs[j] = rr.KVs[i]
@@ -947,12 +1059,23 @@ func pruneKVs(rr *mvcc.RangeResult, isPrunable func(*mvccpb.KeyValue) bool) {
 func newHeader(s *EtcdServer) *pb.ResponseHeader {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &pb.ResponseHeader{ClusterId: uint64(s.Cluster().ID()), MemberId: uint64(s.ID()), Revision: s.KV().Rev(), RaftTerm: s.Term()}
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

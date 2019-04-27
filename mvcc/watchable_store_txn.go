@@ -7,6 +7,8 @@ import (
 func (tw *watchableStoreTxnWrite) End() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	changes := tw.Changes()
 	if len(changes) == 0 {
 		tw.TxnWrite.End()
@@ -35,6 +37,8 @@ type watchableStoreTxnWrite struct {
 }
 
 func (s *watchableStore) Write() TxnWrite {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &watchableStoreTxnWrite{s.store.Write(), s}

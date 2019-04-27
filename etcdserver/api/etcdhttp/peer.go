@@ -16,9 +16,13 @@ const (
 func NewPeerHandler(s etcdserver.ServerPeer) http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newPeerHandler(s.Cluster(), s.RaftHandler(), s.LeaseHandler())
 }
 func newPeerHandler(cluster api.Cluster, raftHandler http.Handler, leaseHandler http.Handler) http.Handler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mh := &peerMembersHandler{cluster: cluster}
@@ -38,6 +42,8 @@ func newPeerHandler(cluster api.Cluster, raftHandler http.Handler, leaseHandler 
 type peerMembersHandler struct{ cluster api.Cluster }
 
 func (h *peerMembersHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !allowMethod(w, r, "GET") {

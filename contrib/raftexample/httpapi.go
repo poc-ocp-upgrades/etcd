@@ -16,6 +16,8 @@ type httpKVAPI struct {
 func (h *httpKVAPI) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := r.RequestURI
 	switch {
 	case r.Method == "PUT":
@@ -68,6 +70,8 @@ func (h *httpKVAPI) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 func serveHttpKVAPI(kv *kvstore, port int, confChangeC chan<- raftpb.ConfChange, errorC <-chan error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	srv := http.Server{Addr: ":" + strconv.Itoa(port), Handler: &httpKVAPI{store: kv, confChangeC: confChangeC}}

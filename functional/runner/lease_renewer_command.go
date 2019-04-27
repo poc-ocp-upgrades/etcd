@@ -19,11 +19,15 @@ var (
 func NewLeaseRenewerCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "lease-renewer", Short: "Performs lease renew operation", Run: runLeaseRenewerFunc}
 	cmd.Flags().Int64Var(&leaseTTL, "ttl", 5, "lease's ttl")
 	return cmd
 }
 func runLeaseRenewerFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) > 0 {

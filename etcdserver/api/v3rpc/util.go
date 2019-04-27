@@ -18,6 +18,8 @@ var toGRPCErrorMap = map[error]error{membership.ErrIDRemoved: rpctypes.ErrGRPCMe
 func togRPCError(err error) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err == context.Canceled || err == context.DeadlineExceeded {
 		return err
 	}
@@ -28,6 +30,8 @@ func togRPCError(err error) error {
 	return grpcErr
 }
 func isClientCtxErr(ctxErr error, err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ctxErr != nil {

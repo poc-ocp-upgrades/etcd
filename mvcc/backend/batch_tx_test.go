@@ -10,6 +10,8 @@ import (
 func TestBatchTxPut(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := NewTmpBackend(time.Hour, 10000)
 	defer cleanup(b, tmpPath)
 	tx := b.batchTx
@@ -27,6 +29,8 @@ func TestBatchTxPut(t *testing.T) {
 	}
 }
 func TestBatchTxRange(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := NewTmpBackend(time.Hour, 10000)
@@ -60,6 +64,8 @@ func TestBatchTxRange(t *testing.T) {
 func TestBatchTxDelete(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := NewTmpBackend(time.Hour, 10000)
 	defer cleanup(b, tmpPath)
 	tx := b.batchTx
@@ -77,6 +83,8 @@ func TestBatchTxDelete(t *testing.T) {
 	}
 }
 func TestBatchTxCommit(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := NewTmpBackend(time.Hour, 10000)
@@ -101,6 +109,8 @@ func TestBatchTxCommit(t *testing.T) {
 	})
 }
 func TestBatchTxBatchLimitCommit(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := NewTmpBackend(time.Hour, 1)

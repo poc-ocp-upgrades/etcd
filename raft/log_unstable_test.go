@@ -9,6 +9,8 @@ import (
 func TestUnstableMaybeFirstIndex(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		entries	[]pb.Entry
 		offset	uint64
@@ -30,6 +32,8 @@ func TestUnstableMaybeFirstIndex(t *testing.T) {
 func TestMaybeLastIndex(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		entries	[]pb.Entry
 		offset	uint64
@@ -49,6 +53,8 @@ func TestMaybeLastIndex(t *testing.T) {
 	}
 }
 func TestUnstableMaybeTerm(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -73,6 +79,8 @@ func TestUnstableMaybeTerm(t *testing.T) {
 func TestUnstableRestore(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u := unstable{entries: []pb.Entry{{Index: 5, Term: 1}}, offset: 5, snapshot: &pb.Snapshot{Metadata: pb.SnapshotMetadata{Index: 4, Term: 1}}, logger: raftLogger}
 	s := pb.Snapshot{Metadata: pb.SnapshotMetadata{Index: 6, Term: 2}}
 	u.restore(s)
@@ -87,6 +95,8 @@ func TestUnstableRestore(t *testing.T) {
 	}
 }
 func TestUnstableStableTo(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -109,6 +119,8 @@ func TestUnstableStableTo(t *testing.T) {
 	}
 }
 func TestUnstableTruncateAndAppend(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {

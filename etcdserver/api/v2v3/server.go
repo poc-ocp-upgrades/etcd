@@ -18,14 +18,20 @@ type fakeStats struct{}
 func (s *fakeStats) SelfStats() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (s *fakeStats) LeaderStats() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (s *fakeStats) StoreStats() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -40,9 +46,13 @@ type v2v3Server struct {
 func NewServer(c *clientv3.Client, pfx string) etcdserver.ServerPeer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &v2v3Server{c: c, store: newStore(c, pfx)}
 }
 func (s *v2v3Server) ClientCertAuthEnabled() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return false
@@ -50,14 +60,20 @@ func (s *v2v3Server) ClientCertAuthEnabled() bool {
 func (s *v2v3Server) LeaseHandler() http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	panic("STUB: lease handler")
 }
 func (s *v2v3Server) RaftHandler() http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	panic("STUB: raft handler")
 }
 func (s *v2v3Server) Leader() types.ID {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := context.WithTimeout(context.TODO(), 5*time.Second)
@@ -71,6 +87,8 @@ func (s *v2v3Server) Leader() types.ID {
 func (s *v2v3Server) AddMember(ctx context.Context, memb membership.Member) ([]*membership.Member, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.c.MemberAdd(ctx, memb.PeerURLs)
 	if err != nil {
 		return nil, err
@@ -78,6 +96,8 @@ func (s *v2v3Server) AddMember(ctx context.Context, memb membership.Member) ([]*
 	return v3MembersToMembership(resp.Members), nil
 }
 func (s *v2v3Server) RemoveMember(ctx context.Context, id uint64) ([]*membership.Member, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := s.c.MemberRemove(ctx, id)
@@ -89,6 +109,8 @@ func (s *v2v3Server) RemoveMember(ctx context.Context, id uint64) ([]*membership
 func (s *v2v3Server) UpdateMember(ctx context.Context, m membership.Member) ([]*membership.Member, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.c.MemberUpdate(ctx, uint64(m.ID), m.PeerURLs)
 	if err != nil {
 		return nil, err
@@ -96,6 +118,8 @@ func (s *v2v3Server) UpdateMember(ctx context.Context, m membership.Member) ([]*
 	return v3MembersToMembership(resp.Members), nil
 }
 func v3MembersToMembership(v3membs []*pb.Member) []*membership.Member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	membs := make([]*membership.Member, len(v3membs))
@@ -107,9 +131,13 @@ func v3MembersToMembership(v3membs []*pb.Member) []*membership.Member {
 func (s *v2v3Server) ClusterVersion() *semver.Version {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.Version()
 }
 func (s *v2v3Server) Cluster() api.Cluster {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s
@@ -117,9 +145,13 @@ func (s *v2v3Server) Cluster() api.Cluster {
 func (s *v2v3Server) Alarms() []*pb.AlarmMember {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (s *v2v3Server) Do(ctx context.Context, r pb.Request) (etcdserver.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	applier := etcdserver.NewApplierV2(s.store, nil)

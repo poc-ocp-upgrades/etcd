@@ -16,9 +16,13 @@ import (
 func NewClusterHealthCommand() cli.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cli.Command{Name: "cluster-health", Usage: "check the health of the etcd cluster", ArgsUsage: " ", Flags: []cli.Flag{cli.BoolFlag{Name: "forever, f", Usage: "forever check the health every 10 second until CTRL+C"}}, Action: handleClusterHealth}
 }
 func handleClusterHealth(c *cli.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	forever := c.Bool("forever")

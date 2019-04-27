@@ -14,6 +14,8 @@ var (
 func Exist(dirpath string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	names, err := fileutil.ReadDir(dirpath)
 	if err != nil {
 		return false
@@ -21,6 +23,8 @@ func Exist(dirpath string) bool {
 	return len(names) != 0
 }
 func searchIndex(names []string, index uint64) (int, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := len(names) - 1; i >= 0; i-- {
@@ -36,6 +40,8 @@ func searchIndex(names []string, index uint64) (int, bool) {
 	return -1, false
 }
 func isValidSeq(names []string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var lastSeq uint64
@@ -54,6 +60,8 @@ func isValidSeq(names []string) bool {
 func readWalNames(dirpath string) ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	names, err := fileutil.ReadDir(dirpath)
 	if err != nil {
 		return nil, err
@@ -65,6 +73,8 @@ func readWalNames(dirpath string) ([]string, error) {
 	return wnames, nil
 }
 func checkWalNames(names []string) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wnames := make([]string, 0)
@@ -82,6 +92,8 @@ func checkWalNames(names []string) []string {
 func parseWalName(str string) (seq, index uint64, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !strings.HasSuffix(str, ".wal") {
 		return 0, 0, badWalName
 	}
@@ -89,6 +101,8 @@ func parseWalName(str string) (seq, index uint64, err error) {
 	return seq, index, err
 }
 func walName(seq, index uint64) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf("%016x-%016x.wal", seq, index)

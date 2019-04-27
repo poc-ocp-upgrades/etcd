@@ -15,12 +15,16 @@ type kvProxy struct {
 func NewKvProxy(c *clientv3.Client) (pb.KVServer, <-chan struct{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	kv := &kvProxy{kv: c.KV, cache: cache.NewCache(cache.DefaultMaxEntries)}
 	donec := make(chan struct{})
 	close(donec)
 	return kv, donec
 }
 func (p *kvProxy) Range(ctx context.Context, r *pb.RangeRequest) (*pb.RangeResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if r.Serializable {
@@ -49,6 +53,8 @@ func (p *kvProxy) Range(ctx context.Context, r *pb.RangeRequest) (*pb.RangeRespo
 func (p *kvProxy) Put(ctx context.Context, r *pb.PutRequest) (*pb.PutResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.cache.Invalidate(r.Key, nil)
 	cacheKeys.Set(float64(p.cache.Size()))
 	resp, err := p.kv.Do(ctx, PutRequestToOp(r))
@@ -57,12 +63,16 @@ func (p *kvProxy) Put(ctx context.Context, r *pb.PutRequest) (*pb.PutResponse, e
 func (p *kvProxy) DeleteRange(ctx context.Context, r *pb.DeleteRangeRequest) (*pb.DeleteRangeResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.cache.Invalidate(r.Key, r.RangeEnd)
 	cacheKeys.Set(float64(p.cache.Size()))
 	resp, err := p.kv.Do(ctx, DelRequestToOp(r))
 	return (*pb.DeleteRangeResponse)(resp.Del()), err
 }
 func (p *kvProxy) txnToCache(reqs []*pb.RequestOp, resps []*pb.ResponseOp) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := range resps {
@@ -80,6 +90,8 @@ func (p *kvProxy) txnToCache(reqs []*pb.RequestOp, resps []*pb.ResponseOp) {
 	}
 }
 func (p *kvProxy) Txn(ctx context.Context, r *pb.TxnRequest) (*pb.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	op := TxnRequestToOp(r)
@@ -102,6 +114,8 @@ func (p *kvProxy) Txn(ctx context.Context, r *pb.TxnRequest) (*pb.TxnResponse, e
 func (p *kvProxy) Compact(ctx context.Context, r *pb.CompactionRequest) (*pb.CompactionResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var opts []clientv3.CompactOption
 	if r.Physical {
 		opts = append(opts, clientv3.WithCompactPhysical())
@@ -114,6 +128,8 @@ func (p *kvProxy) Compact(ctx context.Context, r *pb.CompactionRequest) (*pb.Com
 	return (*pb.CompactionResponse)(resp), err
 }
 func requestOpToOp(union *pb.RequestOp) clientv3.Op {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch tv := union.Request.(type) {
@@ -137,6 +153,8 @@ func requestOpToOp(union *pb.RequestOp) clientv3.Op {
 	panic("unknown request")
 }
 func RangeRequestToOp(r *pb.RangeRequest) clientv3.Op {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	opts := []clientv3.OpOption{}
@@ -164,6 +182,8 @@ func RangeRequestToOp(r *pb.RangeRequest) clientv3.Op {
 func PutRequestToOp(r *pb.PutRequest) clientv3.Op {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	opts := []clientv3.OpOption{}
 	opts = append(opts, clientv3.WithLease(clientv3.LeaseID(r.Lease)))
 	if r.IgnoreValue {
@@ -180,6 +200,8 @@ func PutRequestToOp(r *pb.PutRequest) clientv3.Op {
 func DelRequestToOp(r *pb.DeleteRangeRequest) clientv3.Op {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	opts := []clientv3.OpOption{}
 	if len(r.RangeEnd) != 0 {
 		opts = append(opts, clientv3.WithRange(string(r.RangeEnd)))
@@ -190,6 +212,8 @@ func DelRequestToOp(r *pb.DeleteRangeRequest) clientv3.Op {
 	return clientv3.OpDelete(string(r.Key), opts...)
 }
 func TxnRequestToOp(r *pb.TxnRequest) clientv3.Op {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmps := make([]clientv3.Cmp, len(r.Compare))

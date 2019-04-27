@@ -8,6 +8,8 @@ import (
 func NewTimeoutListener(addr string, scheme string, tlsinfo *TLSInfo, rdtimeoutd, wtimeoutd time.Duration) (net.Listener, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ln, err := newListener(addr, scheme)
 	if err != nil {
 		return nil, err
@@ -26,6 +28,8 @@ type rwTimeoutListener struct {
 }
 
 func (rwln *rwTimeoutListener) Accept() (net.Conn, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c, err := rwln.Listener.Accept()

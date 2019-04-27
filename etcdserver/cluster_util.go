@@ -16,6 +16,8 @@ import (
 func isMemberBootstrapped(cl *membership.RaftCluster, member string, rt http.RoundTripper, timeout time.Duration) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rcl, err := getClusterFromRemotePeers(getRemotePeerURLs(cl, member), timeout, false, rt)
 	if err != nil {
 		return false
@@ -33,9 +35,13 @@ func isMemberBootstrapped(cl *membership.RaftCluster, member string, rt http.Rou
 func GetClusterFromRemotePeers(urls []string, rt http.RoundTripper) (*membership.RaftCluster, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getClusterFromRemotePeers(urls, 10*time.Second, true, rt)
 }
 func getClusterFromRemotePeers(urls []string, timeout time.Duration, logerr bool, rt http.RoundTripper) (*membership.RaftCluster, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cc := &http.Client{Transport: rt, Timeout: timeout}
@@ -79,6 +85,8 @@ func getClusterFromRemotePeers(urls []string, timeout time.Duration, logerr bool
 func getRemotePeerURLs(cl *membership.RaftCluster, local string) []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	us := make([]string, 0)
 	for _, m := range cl.Members() {
 		if m.Name == local {
@@ -90,6 +98,8 @@ func getRemotePeerURLs(cl *membership.RaftCluster, local string) []string {
 	return us
 }
 func getVersions(cl *membership.RaftCluster, local types.ID, rt http.RoundTripper) map[string]*version.Versions {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	members := cl.Members()
@@ -114,6 +124,8 @@ func getVersions(cl *membership.RaftCluster, local types.ID, rt http.RoundTrippe
 	return vers
 }
 func decideClusterVersion(vers map[string]*version.Versions) *semver.Version {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var cv *semver.Version
@@ -142,6 +154,8 @@ func decideClusterVersion(vers map[string]*version.Versions) *semver.Version {
 func isCompatibleWithCluster(cl *membership.RaftCluster, local types.ID, rt http.RoundTripper) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vers := getVersions(cl, local, rt)
 	minV := semver.Must(semver.NewVersion(version.MinClusterVersion))
 	maxV := semver.Must(semver.NewVersion(version.Version))
@@ -149,6 +163,8 @@ func isCompatibleWithCluster(cl *membership.RaftCluster, local types.ID, rt http
 	return isCompatibleWithVers(vers, local, minV, maxV)
 }
 func isCompatibleWithVers(vers map[string]*version.Versions, local types.ID, minV, maxV *semver.Version) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var ok bool
@@ -177,6 +193,8 @@ func isCompatibleWithVers(vers map[string]*version.Versions, local types.ID, min
 	return ok
 }
 func getVersion(m *membership.Member, rt http.RoundTripper) (*version.Versions, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cc := &http.Client{Transport: rt}

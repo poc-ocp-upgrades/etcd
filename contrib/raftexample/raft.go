@@ -52,6 +52,8 @@ var defaultSnapCount uint64 = 10000
 func newRaftNode(id int, peers []string, join bool, getSnapshot func() ([]byte, error), proposeC <-chan string, confChangeC <-chan raftpb.ConfChange) (<-chan *string, <-chan error, <-chan *snap.Snapshotter) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	commitC := make(chan *string)
 	errorC := make(chan error)
 	rc := &raftNode{proposeC: proposeC, confChangeC: confChangeC, commitC: commitC, errorC: errorC, id: id, peers: peers, join: join, waldir: fmt.Sprintf("raftexample-%d", id), snapdir: fmt.Sprintf("raftexample-%d-snap", id), getSnapshot: getSnapshot, snapCount: defaultSnapCount, stopc: make(chan struct{}), httpstopc: make(chan struct{}), httpdonec: make(chan struct{}), snapshotterReady: make(chan *snap.Snapshotter, 1)}
@@ -59,6 +61,8 @@ func newRaftNode(id int, peers []string, join bool, getSnapshot func() ([]byte, 
 	return commitC, errorC, rc.snapshotterReady
 }
 func (rc *raftNode) saveSnap(snap raftpb.Snapshot) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	walSnap := walpb.Snapshot{Index: snap.Metadata.Index, Term: snap.Metadata.Term}
@@ -71,6 +75,8 @@ func (rc *raftNode) saveSnap(snap raftpb.Snapshot) error {
 	return rc.wal.ReleaseLockTo(snap.Metadata.Index)
 }
 func (rc *raftNode) entriesToApply(ents []raftpb.Entry) (nents []raftpb.Entry) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(ents) == 0 {
@@ -86,6 +92,8 @@ func (rc *raftNode) entriesToApply(ents []raftpb.Entry) (nents []raftpb.Entry) {
 	return nents
 }
 func (rc *raftNode) publishEntries(ents []raftpb.Entry) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := range ents {
@@ -131,6 +139,8 @@ func (rc *raftNode) publishEntries(ents []raftpb.Entry) bool {
 func (rc *raftNode) loadSnapshot() *raftpb.Snapshot {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	snapshot, err := rc.snapshotter.Load()
 	if err != nil && err != snap.ErrNoSnapshot {
 		log.Fatalf("raftexample: error loading snapshot (%v)", err)
@@ -138,6 +148,8 @@ func (rc *raftNode) loadSnapshot() *raftpb.Snapshot {
 	return snapshot
 }
 func (rc *raftNode) openWAL(snapshot *raftpb.Snapshot) *wal.WAL {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !wal.Exist(rc.waldir) {
@@ -164,6 +176,8 @@ func (rc *raftNode) openWAL(snapshot *raftpb.Snapshot) *wal.WAL {
 func (rc *raftNode) replayWAL() *wal.WAL {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	log.Printf("replaying WAL of member %d", rc.id)
 	snapshot := rc.loadSnapshot()
 	w := rc.openWAL(snapshot)
@@ -187,6 +201,8 @@ func (rc *raftNode) replayWAL() *wal.WAL {
 func (rc *raftNode) writeError(err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rc.stopHTTP()
 	close(rc.commitC)
 	rc.errorC <- err
@@ -194,6 +210,8 @@ func (rc *raftNode) writeError(err error) {
 	rc.node.Stop()
 }
 func (rc *raftNode) startRaft() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !fileutil.Exist(rc.snapdir) {
@@ -232,6 +250,8 @@ func (rc *raftNode) startRaft() {
 func (rc *raftNode) stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rc.stopHTTP()
 	close(rc.commitC)
 	close(rc.errorC)
@@ -240,11 +260,15 @@ func (rc *raftNode) stop() {
 func (rc *raftNode) stopHTTP() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rc.transport.Stop()
 	close(rc.httpstopc)
 	<-rc.httpdonec
 }
 func (rc *raftNode) publishSnapshot(snapshotToSave raftpb.Snapshot) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if raft.IsEmptySnap(snapshotToSave) {
@@ -264,6 +288,8 @@ func (rc *raftNode) publishSnapshot(snapshotToSave raftpb.Snapshot) {
 var snapshotCatchUpEntriesN uint64 = 10000
 
 func (rc *raftNode) maybeTriggerSnapshot() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if rc.appliedIndex-rc.snapshotIndex <= rc.snapCount {
@@ -292,6 +318,8 @@ func (rc *raftNode) maybeTriggerSnapshot() {
 	rc.snapshotIndex = rc.appliedIndex
 }
 func (rc *raftNode) serveChannels() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	snap, err := rc.raftStorage.Snapshot()
@@ -357,6 +385,8 @@ func (rc *raftNode) serveChannels() {
 func (rc *raftNode) serveRaft() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	url, err := url.Parse(rc.peers[rc.id-1])
 	if err != nil {
 		log.Fatalf("raftexample: Failed parsing URL (%v)", err)
@@ -376,9 +406,13 @@ func (rc *raftNode) serveRaft() {
 func (rc *raftNode) Process(ctx context.Context, m raftpb.Message) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return rc.node.Step(ctx, m)
 }
 func (rc *raftNode) IsIDRemoved(id uint64) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return false
@@ -386,8 +420,12 @@ func (rc *raftNode) IsIDRemoved(id uint64) bool {
 func (rc *raftNode) ReportUnreachable(id uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (rc *raftNode) ReportSnapshot(id uint64, status raft.SnapshotStatus) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }

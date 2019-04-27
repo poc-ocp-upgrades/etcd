@@ -10,6 +10,8 @@ import (
 func ExampleWatcher_watch() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
 	if err != nil {
 		log.Fatal(err)
@@ -23,6 +25,8 @@ func ExampleWatcher_watch() {
 	}
 }
 func ExampleWatcher_watchWithPrefix() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
@@ -40,6 +44,8 @@ func ExampleWatcher_watchWithPrefix() {
 func ExampleWatcher_watchWithRange() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})
 	if err != nil {
 		log.Fatal(err)
@@ -53,6 +59,8 @@ func ExampleWatcher_watchWithRange() {
 	}
 }
 func ExampleWatcher_watchWithProgressNotify() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialTimeout: dialTimeout})

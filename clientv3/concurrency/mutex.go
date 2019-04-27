@@ -19,9 +19,13 @@ type Mutex struct {
 func NewMutex(s *Session, pfx string) *Mutex {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Mutex{s, pfx + "/", "", -1, nil}
 }
 func (m *Mutex) Lock(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := m.s
@@ -55,6 +59,8 @@ func (m *Mutex) Lock(ctx context.Context) error {
 func (m *Mutex) Unlock(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client := m.s.Client()
 	if _, err := client.Delete(ctx, m.myKey); err != nil {
 		return err
@@ -66,14 +72,20 @@ func (m *Mutex) Unlock(ctx context.Context) error {
 func (m *Mutex) IsOwner() v3.Cmp {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return v3.Compare(v3.CreateRevision(m.myKey), "=", m.myRev)
 }
 func (m *Mutex) Key() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.myKey
 }
 func (m *Mutex) Header() *pb.ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return m.hdr
@@ -84,6 +96,8 @@ type lockerMutex struct{ *Mutex }
 func (lm *lockerMutex) Lock() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client := lm.s.Client()
 	if err := lm.Mutex.Lock(client.Ctx()); err != nil {
 		panic(err)
@@ -92,12 +106,16 @@ func (lm *lockerMutex) Lock() {
 func (lm *lockerMutex) Unlock() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client := lm.s.Client()
 	if err := lm.Mutex.Unlock(client.Ctx()); err != nil {
 		panic(err)
 	}
 }
 func NewLocker(s *Session, pfx string) sync.Locker {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &lockerMutex{NewMutex(s, pfx)}

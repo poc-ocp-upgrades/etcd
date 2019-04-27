@@ -7,6 +7,8 @@ import (
 func TestWatcher(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore()
 	wh := s.WatcherHub
 	w, err := wh.watch("/foo", true, false, 1, 1)

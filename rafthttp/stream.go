@@ -36,6 +36,8 @@ type streamType string
 func (t streamType) endpoint() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch t {
 	case streamTypeMsgAppV2:
 		return path.Join(RaftStreamPrefix, "msgapp")
@@ -47,6 +49,8 @@ func (t streamType) endpoint() string {
 	}
 }
 func (t streamType) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch t {
@@ -64,6 +68,8 @@ var (
 )
 
 func isLinkHeartbeatMessage(m *raftpb.Message) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return m.Type == raftpb.MsgHeartbeat && m.From == 0 && m.To == 0
@@ -92,11 +98,15 @@ type streamWriter struct {
 func startStreamWriter(id types.ID, status *peerStatus, fs *stats.FollowerStats, r Raft) *streamWriter {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	w := &streamWriter{peerID: id, status: status, fs: fs, r: r, msgc: make(chan raftpb.Message, streamBufSize), connc: make(chan *outgoingConn), stopc: make(chan struct{}), done: make(chan struct{})}
 	go w.run()
 	return w
 }
 func (cw *streamWriter) run() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var (
@@ -184,6 +194,8 @@ func (cw *streamWriter) run() {
 func (cw *streamWriter) writec() (chan<- raftpb.Message, bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cw.mu.Lock()
 	defer cw.mu.Unlock()
 	return cw.msgc, cw.working
@@ -191,11 +203,15 @@ func (cw *streamWriter) writec() (chan<- raftpb.Message, bool) {
 func (cw *streamWriter) close() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cw.mu.Lock()
 	defer cw.mu.Unlock()
 	return cw.closeUnlocked()
 }
 func (cw *streamWriter) closeUnlocked() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !cw.working {
@@ -214,6 +230,8 @@ func (cw *streamWriter) closeUnlocked() bool {
 func (cw *streamWriter) attach(conn *outgoingConn) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case cw.connc <- conn:
 		return true
@@ -222,6 +240,8 @@ func (cw *streamWriter) attach(conn *outgoingConn) bool {
 	}
 }
 func (cw *streamWriter) stop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	close(cw.stopc)
@@ -249,6 +269,8 @@ type streamReader struct {
 func (cr *streamReader) start() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cr.done = make(chan struct{})
 	if cr.errorc == nil {
 		cr.errorc = cr.tr.ErrorC
@@ -259,6 +281,8 @@ func (cr *streamReader) start() {
 	go cr.run()
 }
 func (cr *streamReader) run() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t := cr.typ
@@ -293,6 +317,8 @@ func (cr *streamReader) run() {
 	}
 }
 func (cr *streamReader) decodeLoop(rc io.ReadCloser, t streamType) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var dec decoder
@@ -352,6 +378,8 @@ func (cr *streamReader) decodeLoop(rc io.ReadCloser, t streamType) error {
 func (cr *streamReader) stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cr.mu.Lock()
 	cr.cancel()
 	cr.close()
@@ -359,6 +387,8 @@ func (cr *streamReader) stop() {
 	<-cr.done
 }
 func (cr *streamReader) dial(t streamType) (io.ReadCloser, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u := cr.picker.pick()
@@ -435,6 +465,8 @@ func (cr *streamReader) dial(t streamType) (io.ReadCloser, error) {
 func (cr *streamReader) close() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if cr.closer != nil {
 		if err := cr.closer.Close(); err != nil {
 			plog.Errorf("peer %s (reader) connection close error: %v", cr.peerID, err)
@@ -445,6 +477,8 @@ func (cr *streamReader) close() {
 func (cr *streamReader) pause() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cr.mu.Lock()
 	defer cr.mu.Unlock()
 	cr.paused = true
@@ -452,11 +486,15 @@ func (cr *streamReader) pause() {
 func (cr *streamReader) resume() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cr.mu.Lock()
 	defer cr.mu.Unlock()
 	cr.paused = false
 }
 func checkStreamSupport(v *semver.Version, t streamType) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nv := &semver.Version{Major: v.Major, Minor: v.Minor}

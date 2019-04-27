@@ -8,6 +8,8 @@ import (
 func TestMsgAppFlowControlFull(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := newTestRaft(1, []uint64{1, 2}, 5, 1, NewMemoryStorage())
 	r.becomeCandidate()
 	r.becomeLeader()
@@ -32,6 +34,8 @@ func TestMsgAppFlowControlFull(t *testing.T) {
 	}
 }
 func TestMsgAppFlowControlMoveForward(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := newTestRaft(1, []uint64{1, 2}, 5, 1, NewMemoryStorage())
@@ -63,6 +67,8 @@ func TestMsgAppFlowControlMoveForward(t *testing.T) {
 	}
 }
 func TestMsgAppFlowControlRecvHeartbeat(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := newTestRaft(1, []uint64{1, 2}, 5, 1, NewMemoryStorage())

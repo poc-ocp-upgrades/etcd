@@ -21,9 +21,13 @@ type peerStatus struct {
 func newPeerStatus(id types.ID) *peerStatus {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &peerStatus{id: id}
 }
 func (s *peerStatus) activate() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.mu.Lock()
@@ -35,6 +39,8 @@ func (s *peerStatus) activate() {
 	}
 }
 func (s *peerStatus) deactivate(failure failureType, reason string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.mu.Lock()
@@ -52,11 +58,15 @@ func (s *peerStatus) deactivate(failure failureType, reason string) {
 func (s *peerStatus) isActive() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	return s.active
 }
 func (s *peerStatus) activeSince() time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.mu.Lock()

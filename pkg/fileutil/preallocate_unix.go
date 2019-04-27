@@ -8,6 +8,8 @@ import (
 func preallocExtend(f *os.File, sizeInBytes int64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := syscall.Fallocate(int(f.Fd()), 0, 0, sizeInBytes)
 	if err != nil {
 		errno, ok := err.(syscall.Errno)
@@ -18,6 +20,8 @@ func preallocExtend(f *os.File, sizeInBytes int64) error {
 	return err
 }
 func preallocFixed(f *os.File, sizeInBytes int64) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := syscall.Fallocate(int(f.Fd()), 1, 0, sizeInBytes)

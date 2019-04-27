@@ -17,9 +17,13 @@ type watcherPrefix struct {
 func NewWatcher(w clientv3.Watcher, prefix string) clientv3.Watcher {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &watcherPrefix{Watcher: w, pfx: prefix, stopc: make(chan struct{})}
 }
 func (w *watcherPrefix) Watch(ctx context.Context, key string, opts ...clientv3.OpOption) clientv3.WatchChan {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	op := clientv3.OpGet(key, opts...)
@@ -55,6 +59,8 @@ func (w *watcherPrefix) Watch(ctx context.Context, key string, opts ...clientv3.
 	return pfxWch
 }
 func (w *watcherPrefix) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := w.Watcher.Close()

@@ -15,6 +15,8 @@ import (
 func TestRenewHTTP(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	be, tmpPath := backend.NewTmpBackend(time.Hour, 10000)
 	defer os.Remove(tmpPath)
 	defer be.Close()
@@ -35,6 +37,8 @@ func TestRenewHTTP(t *testing.T) {
 	}
 }
 func TestTimeToLiveHTTP(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	be, tmpPath := backend.NewTmpBackend(time.Hour, 10000)
@@ -62,6 +66,8 @@ func TestTimeToLiveHTTP(t *testing.T) {
 func TestRenewHTTPTimeout(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testApplyTimeout(t, func(l *lease.Lease, serverURL string) error {
 		_, err := RenewHTTP(context.TODO(), l.ID, serverURL+LeasePrefix, http.DefaultTransport)
 		return err
@@ -70,12 +76,16 @@ func TestRenewHTTPTimeout(t *testing.T) {
 func TestTimeToLiveHTTPTimeout(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testApplyTimeout(t, func(l *lease.Lease, serverURL string) error {
 		_, err := TimeToLiveHTTP(context.TODO(), l.ID, true, serverURL+LeaseInternalPrefix, http.DefaultTransport)
 		return err
 	})
 }
 func testApplyTimeout(t *testing.T, f func(*lease.Lease, string) error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	be, tmpPath := backend.NewTmpBackend(time.Hour, 10000)
@@ -100,11 +110,15 @@ func testApplyTimeout(t *testing.T, f func(*lease.Lease, string) error) {
 func waitReady() <-chan struct{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ch := make(chan struct{})
 	close(ch)
 	return ch
 }
 func waitNotReady() <-chan struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil

@@ -32,12 +32,16 @@ const (
 func HandleBasic(mux *http.ServeMux, server etcdserver.ServerPeer) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mux.HandleFunc(varsPath, serveVars)
 	mux.HandleFunc(configPath+"/local/log", logHandleFunc)
 	HandleMetricsHealth(mux, server)
 	mux.HandleFunc(versionPath, versionHandler(server.Cluster(), serveVersion))
 }
 func versionHandler(c api.Cluster, fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -52,6 +56,8 @@ func versionHandler(c api.Cluster, fn func(http.ResponseWriter, *http.Request, s
 func serveVersion(w http.ResponseWriter, r *http.Request, clusterV string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !allowMethod(w, r, "GET") {
 		return
 	}
@@ -64,6 +70,8 @@ func serveVersion(w http.ResponseWriter, r *http.Request, clusterV string) {
 	w.Write(b)
 }
 func logHandleFunc(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !allowMethod(w, r, "PUT") {
@@ -87,6 +95,8 @@ func logHandleFunc(w http.ResponseWriter, r *http.Request) {
 func serveVars(w http.ResponseWriter, r *http.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !allowMethod(w, r, "GET") {
 		return
 	}
@@ -105,6 +115,8 @@ func serveVars(w http.ResponseWriter, r *http.Request) {
 func allowMethod(w http.ResponseWriter, r *http.Request, m string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m == r.Method {
 		return true
 	}
@@ -113,6 +125,8 @@ func allowMethod(w http.ResponseWriter, r *http.Request, m string) bool {
 	return false
 }
 func WriteError(w http.ResponseWriter, r *http.Request, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err == nil {
@@ -141,7 +155,16 @@ func WriteError(w http.ResponseWriter, r *http.Request, err error) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

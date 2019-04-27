@@ -10,6 +10,8 @@ import (
 func TestRevision(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []revision{{}, {main: 1, sub: 0}, {main: 1, sub: 1}, {main: 2, sub: 0}, {main: math.MaxInt64, sub: math.MaxInt64}}
 	bs := make([][]byte, len(tests))
 	for i, tt := range tests {

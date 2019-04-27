@@ -11,10 +11,14 @@ import (
 func isValidURL(u string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := url.Parse(u)
 	return err == nil
 }
 func getPort(addr string) (port string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	urlAddr, err := url.Parse(addr)
@@ -28,6 +32,8 @@ func getPort(addr string) (port string, err error) {
 	return port, nil
 }
 func getSameValue(vals map[string]int64) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var rv int64
@@ -44,12 +50,16 @@ func getSameValue(vals map[string]int64) bool {
 func max(n1, n2 int64) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if n1 > n2 {
 		return n1
 	}
 	return n2
 }
 func errsToError(errs []error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(errs) == 0 {
@@ -62,6 +72,8 @@ func errsToError(errs []error) error {
 	return fmt.Errorf(strings.Join(stringArr, ", "))
 }
 func randBytes(size int) []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	data := make([]byte, size)

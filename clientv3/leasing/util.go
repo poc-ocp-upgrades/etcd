@@ -9,6 +9,8 @@ import (
 func compareInt64(a, b int64) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch {
 	case a < b:
 		return -1
@@ -19,6 +21,8 @@ func compareInt64(a, b int64) int {
 	}
 }
 func evalCmp(resp *v3.GetResponse, tcmp v3.Cmp) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var result int
@@ -58,6 +62,8 @@ func evalCmp(resp *v3.GetResponse, tcmp v3.Cmp) bool {
 func gatherOps(ops []v3.Op) (ret []v3.Op) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, op := range ops {
 		if !op.IsTxn() {
 			ret = append(ret, op)
@@ -69,6 +75,8 @@ func gatherOps(ops []v3.Op) (ret []v3.Op) {
 	return ret
 }
 func gatherResponseOps(resp []*v3pb.ResponseOp, ops []v3.Op) (ret []v3.Op) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i, op := range ops {
@@ -88,10 +96,14 @@ func gatherResponseOps(resp []*v3pb.ResponseOp, ops []v3.Op) (ret []v3.Op) {
 func copyHeader(hdr *v3pb.ResponseHeader) *v3pb.ResponseHeader {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	h := *hdr
 	return &h
 }
 func closeAll(chs []chan<- struct{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, ch := range chs {

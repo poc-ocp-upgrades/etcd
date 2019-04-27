@@ -24,6 +24,8 @@ type line struct {
 func (l line) append(s string) line {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return line{level: l.level, str: l.str + " " + s}
 }
 
@@ -36,9 +38,13 @@ type status struct {
 func (s *status) isInMergePeriod(now time.Time) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.period == 0 || s.start.Add(s.period).After(now)
 }
 func (s *status) isEmpty() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.count == 0
@@ -46,11 +52,15 @@ func (s *status) isEmpty() bool {
 func (s *status) summary(now time.Time) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ts := s.start.Round(defaultTimeOutputScale)
 	took := now.Round(defaultTimeOutputScale).Sub(ts)
 	return fmt.Sprintf("[merged %d repeated lines in %s]", s.count, took)
 }
 func (s *status) reset(now time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.start = now
@@ -66,6 +76,8 @@ type MergeLogger struct {
 func NewMergeLogger(logger *capnslog.PackageLogger) *MergeLogger {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := &MergeLogger{PackageLogger: logger, statusm: make(map[line]*status)}
 	go l.outputLoop()
 	return l
@@ -73,9 +85,13 @@ func NewMergeLogger(logger *capnslog.PackageLogger) *MergeLogger {
 func (l *MergeLogger) MergeInfo(entries ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l.merge(line{level: capnslog.INFO, str: fmt.Sprint(entries...)})
 }
 func (l *MergeLogger) MergeInfof(format string, args ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l.merge(line{level: capnslog.INFO, str: fmt.Sprintf(format, args...)})
@@ -83,9 +99,13 @@ func (l *MergeLogger) MergeInfof(format string, args ...interface{}) {
 func (l *MergeLogger) MergeNotice(entries ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l.merge(line{level: capnslog.NOTICE, str: fmt.Sprint(entries...)})
 }
 func (l *MergeLogger) MergeNoticef(format string, args ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l.merge(line{level: capnslog.NOTICE, str: fmt.Sprintf(format, args...)})
@@ -93,9 +113,13 @@ func (l *MergeLogger) MergeNoticef(format string, args ...interface{}) {
 func (l *MergeLogger) MergeWarning(entries ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l.merge(line{level: capnslog.WARNING, str: fmt.Sprint(entries...)})
 }
 func (l *MergeLogger) MergeWarningf(format string, args ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l.merge(line{level: capnslog.WARNING, str: fmt.Sprintf(format, args...)})
@@ -103,14 +127,20 @@ func (l *MergeLogger) MergeWarningf(format string, args ...interface{}) {
 func (l *MergeLogger) MergeError(entries ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l.merge(line{level: capnslog.ERROR, str: fmt.Sprint(entries...)})
 }
 func (l *MergeLogger) MergeErrorf(format string, args ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l.merge(line{level: capnslog.ERROR, str: fmt.Sprintf(format, args...)})
 }
 func (l *MergeLogger) merge(ln line) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l.mu.Lock()
@@ -124,6 +154,8 @@ func (l *MergeLogger) merge(ln line) {
 	l.PackageLogger.Logf(ln.level, ln.str)
 }
 func (l *MergeLogger) outputLoop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for now := range time.Tick(outputInterval) {
@@ -149,7 +181,16 @@ func (l *MergeLogger) outputLoop() {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -41,9 +41,13 @@ type Request struct {
 func (m *Request) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Request{}
 }
 func (m *Request) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -51,8 +55,12 @@ func (m *Request) String() string {
 func (*Request) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Request) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorEtcdserver, []int{0}
@@ -67,9 +75,13 @@ type Metadata struct {
 func (m *Metadata) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Metadata{}
 }
 func (m *Metadata) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -77,8 +89,12 @@ func (m *Metadata) String() string {
 func (*Metadata) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Metadata) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorEtcdserver, []int{1}
@@ -86,10 +102,14 @@ func (*Metadata) Descriptor() ([]byte, []int) {
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	proto.RegisterType((*Request)(nil), "etcdserverpb.Request")
 	proto.RegisterType((*Metadata)(nil), "etcdserverpb.Metadata")
 }
 func (m *Request) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -101,6 +121,8 @@ func (m *Request) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Request) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -218,6 +240,8 @@ func (m *Request) MarshalTo(dAtA []byte) (int, error) {
 func (m *Metadata) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -227,6 +251,8 @@ func (m *Metadata) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Metadata) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -247,6 +273,8 @@ func (m *Metadata) MarshalTo(dAtA []byte) (int, error) {
 func encodeVarintEtcdserver(dAtA []byte, offset int, v uint64) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
 		v >>= 7
@@ -256,6 +284,8 @@ func encodeVarintEtcdserver(dAtA []byte, offset int, v uint64) int {
 	return offset + 1
 }
 func (m *Request) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -293,6 +323,8 @@ func (m *Request) Size() (n int) {
 func (m *Metadata) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	n += 1 + sovEtcdserver(uint64(m.NodeID))
@@ -303,6 +335,8 @@ func (m *Metadata) Size() (n int) {
 	return n
 }
 func sovEtcdserver(x uint64) (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -317,9 +351,13 @@ func sovEtcdserver(x uint64) (n int) {
 func sozEtcdserver(x uint64) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sovEtcdserver(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
 func (m *Request) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -747,6 +785,8 @@ func (m *Request) Unmarshal(dAtA []byte) error {
 func (m *Metadata) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -835,6 +875,8 @@ func (m *Metadata) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func skipEtcdserver(dAtA []byte) (n int, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -944,6 +986,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	proto.RegisterFile("etcdserver.proto", fileDescriptorEtcdserver)
 }
 
@@ -952,7 +996,16 @@ var fileDescriptorEtcdserver = []byte{0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

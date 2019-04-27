@@ -14,14 +14,20 @@ type weightedReport struct {
 func NewWeightedReport(r Report, precision string) Report {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &weightedReport{baseReport: r, report: newReport(precision), results: make(chan Result, 16)}
 }
 func (wr *weightedReport) Results() chan<- Result {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return wr.results
 }
 func (wr *weightedReport) Run() <-chan string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	donec := make(chan string, 2)
@@ -44,6 +50,8 @@ func (wr *weightedReport) Run() <-chan string {
 func (wr *weightedReport) Stats() <-chan Stats {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	donec := make(chan Stats, 2)
 	go func() {
 		defer close(donec)
@@ -63,6 +71,8 @@ func (wr *weightedReport) Stats() <-chan Stats {
 func (wr *weightedReport) processResults() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer close(wr.report.results)
 	defer close(wr.baseReport.Results())
 	for res := range wr.results {
@@ -71,6 +81,8 @@ func (wr *weightedReport) processResults() {
 	}
 }
 func (wr *weightedReport) processResult(res Result) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if res.Err != nil {
@@ -86,6 +98,8 @@ func (wr *weightedReport) processResult(res Result) {
 	wr.report.results <- res
 }
 func (wr *weightedReport) reweighStat(s Stats) Stats {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	weightCoef := wr.weightTotal / float64(len(s.Lats))

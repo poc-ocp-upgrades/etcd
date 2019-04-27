@@ -35,6 +35,8 @@ import (
 func TestDoLocalAction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		req		pb.Request
 		wresp		Response
@@ -60,6 +62,8 @@ func TestDoLocalAction(t *testing.T) {
 func TestDoBadLocalAction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	storeErr := fmt.Errorf("bah")
 	tests := []struct {
 		req		pb.Request
@@ -82,6 +86,8 @@ func TestDoBadLocalAction(t *testing.T) {
 	}
 }
 func TestApplyRepeat(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := newNodeConfChangeCommitterStream()
@@ -121,6 +127,8 @@ func TestApplyRepeat(t *testing.T) {
 func TestApplyRequest(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		req		pb.Request
 		wresp		Response
@@ -143,6 +151,8 @@ func TestApplyRequest(t *testing.T) {
 func TestApplyRequestOnAdminMemberAttributes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cl := newTestCluster([]*membership.Member{{ID: 1}})
 	srv := &EtcdServer{store: mockstore.NewRecorder(), cluster: cl}
 	srv.applyV2 = &applierV2store{store: srv.store, cluster: srv.cluster}
@@ -154,6 +164,8 @@ func TestApplyRequestOnAdminMemberAttributes(t *testing.T) {
 	}
 }
 func TestApplyConfChangeError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cl := membership.NewCluster("")
@@ -183,6 +195,8 @@ func TestApplyConfChangeError(t *testing.T) {
 func TestApplyConfChangeShouldStop(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cl := membership.NewCluster("")
 	cl.SetStore(store.New())
 	for i := 1; i <= 3; i++ {
@@ -208,6 +222,8 @@ func TestApplyConfChangeShouldStop(t *testing.T) {
 	}
 }
 func TestApplyConfigChangeUpdatesConsistIndex(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cl := membership.NewCluster("")
@@ -237,6 +253,8 @@ func TestApplyConfigChangeUpdatesConsistIndex(t *testing.T) {
 func TestApplyMultiConfChangeShouldStop(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cl := membership.NewCluster("")
 	cl.SetStore(store.New())
 	for i := 1; i <= 5; i++ {
@@ -255,6 +273,8 @@ func TestApplyMultiConfChangeShouldStop(t *testing.T) {
 	}
 }
 func TestDoProposal(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []pb.Request{{Method: "POST", ID: 1}, {Method: "PUT", ID: 1}, {Method: "DELETE", ID: 1}, {Method: "GET", ID: 1, Quorum: true}}
@@ -282,6 +302,8 @@ func TestDoProposal(t *testing.T) {
 func TestDoProposalCancelled(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wt := mockwait.NewRecorder()
 	srv := &EtcdServer{Cfg: ServerConfig{TickMs: 1}, r: *newRaftNode(raftNodeConfig{Node: newNodeNop()}), w: wt, reqIDGen: idutil.NewGenerator(0, time.Time{})}
 	srv.applyV2 = &applierV2store{store: srv.store, cluster: srv.cluster}
@@ -299,6 +321,8 @@ func TestDoProposalCancelled(t *testing.T) {
 func TestDoProposalTimeout(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	srv := &EtcdServer{Cfg: ServerConfig{TickMs: 1}, r: *newRaftNode(raftNodeConfig{Node: newNodeNop()}), w: mockwait.NewNop(), reqIDGen: idutil.NewGenerator(0, time.Time{})}
 	srv.applyV2 = &applierV2store{store: srv.store, cluster: srv.cluster}
 	ctx, cancel := context.WithTimeout(context.Background(), 0)
@@ -311,6 +335,8 @@ func TestDoProposalTimeout(t *testing.T) {
 func TestDoProposalStopped(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	srv := &EtcdServer{Cfg: ServerConfig{TickMs: 1}, r: *newRaftNode(raftNodeConfig{Node: newNodeNop()}), w: mockwait.NewNop(), reqIDGen: idutil.NewGenerator(0, time.Time{})}
 	srv.applyV2 = &applierV2store{store: srv.store, cluster: srv.cluster}
 	srv.stopping = make(chan struct{})
@@ -321,6 +347,8 @@ func TestDoProposalStopped(t *testing.T) {
 	}
 }
 func TestSync(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := newNodeRecorder()
@@ -356,6 +384,8 @@ func TestSync(t *testing.T) {
 func TestSyncTimeout(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n := newProposalBlockerRecorder()
 	ctx, cancel := context.WithCancel(context.TODO())
 	srv := &EtcdServer{r: *newRaftNode(raftNodeConfig{Node: n}), reqIDGen: idutil.NewGenerator(0, time.Time{}), ctx: ctx, cancel: cancel}
@@ -376,6 +406,8 @@ func TestSyncTimeout(t *testing.T) {
 	}
 }
 func TestSyncTrigger(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := newReadyNode()
@@ -407,6 +439,8 @@ func TestSyncTrigger(t *testing.T) {
 	<-n.Chan()
 }
 func TestSnapshot(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	be, tmpPath := backend.NewDefaultTmpBackend()
@@ -454,6 +488,8 @@ func TestSnapshot(t *testing.T) {
 	<-ch
 }
 func TestSnapshotOrdering(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := newNopReadyNode()
@@ -506,6 +542,8 @@ func TestSnapshotOrdering(t *testing.T) {
 func TestTriggerSnap(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	be, tmpPath := backend.NewDefaultTmpBackend()
 	defer func() {
 		os.RemoveAll(tmpPath)
@@ -538,6 +576,8 @@ func TestTriggerSnap(t *testing.T) {
 	srv.Stop()
 }
 func TestConcurrentApplyAndSnapshotV3(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := newNopReadyNode()
@@ -605,6 +645,8 @@ func TestConcurrentApplyAndSnapshotV3(t *testing.T) {
 func TestAddMember(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n := newNodeConfChangeCommitterRecorder()
 	n.readyc <- raft.Ready{SoftState: &raft.SoftState{RaftState: raft.StateLeader}}
 	cl := newTestCluster(nil)
@@ -629,6 +671,8 @@ func TestAddMember(t *testing.T) {
 	}
 }
 func TestRemoveMember(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := newNodeConfChangeCommitterRecorder()
@@ -657,6 +701,8 @@ func TestRemoveMember(t *testing.T) {
 func TestUpdateMember(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n := newNodeConfChangeCommitterRecorder()
 	n.readyc <- raft.Ready{SoftState: &raft.SoftState{RaftState: raft.StateLeader}}
 	cl := newTestCluster(nil)
@@ -682,6 +728,8 @@ func TestUpdateMember(t *testing.T) {
 	}
 }
 func TestPublish(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := newNodeRecorder()
@@ -721,6 +769,8 @@ func TestPublish(t *testing.T) {
 func TestPublishStopped(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithCancel(context.TODO())
 	r := newRaftNode(raftNodeConfig{Node: newNodeNop(), transport: rafthttp.NewNopTransporter()})
 	srv := &EtcdServer{Cfg: ServerConfig{TickMs: 1}, r: *r, cluster: &membership.RaftCluster{}, w: mockwait.NewNop(), done: make(chan struct{}), stopping: make(chan struct{}), stop: make(chan struct{}), reqIDGen: idutil.NewGenerator(0, time.Time{}), SyncTicker: &time.Ticker{}, ctx: ctx, cancel: cancel}
@@ -728,6 +778,8 @@ func TestPublishStopped(t *testing.T) {
 	srv.publish(time.Hour)
 }
 func TestPublishRetry(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := context.WithCancel(context.TODO())
@@ -754,6 +806,8 @@ func TestPublishRetry(t *testing.T) {
 	<-ch
 }
 func TestUpdateVersion(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n := newNodeRecorder()
@@ -788,6 +842,8 @@ func TestUpdateVersion(t *testing.T) {
 func TestStopNotify(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := &EtcdServer{stop: make(chan struct{}), done: make(chan struct{})}
 	go func() {
 		<-s.stop
@@ -809,6 +865,8 @@ func TestStopNotify(t *testing.T) {
 func TestGetOtherPeerURLs(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		membs	[]*membership.Member
 		wurls	[]string
@@ -828,9 +886,13 @@ type nodeRecorder struct{ testutil.Recorder }
 func newNodeRecorder() *nodeRecorder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &nodeRecorder{&testutil.RecorderBuffered{}}
 }
 func newNodeRecorderStream() *nodeRecorder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &nodeRecorder{testutil.NewRecorderStream()}
@@ -838,14 +900,20 @@ func newNodeRecorderStream() *nodeRecorder {
 func newNodeNop() raft.Node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newNodeRecorder()
 }
 func (n *nodeRecorder) Tick() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n.Record(testutil.Action{Name: "Tick"})
 }
 func (n *nodeRecorder) Campaign(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n.Record(testutil.Action{Name: "Campaign"})
@@ -854,10 +922,14 @@ func (n *nodeRecorder) Campaign(ctx context.Context) error {
 func (n *nodeRecorder) Propose(ctx context.Context, data []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n.Record(testutil.Action{Name: "Propose", Params: []interface{}{data}})
 	return nil
 }
 func (n *nodeRecorder) ProposeConfChange(ctx context.Context, conf raftpb.ConfChange) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n.Record(testutil.Action{Name: "ProposeConfChange"})
@@ -866,10 +938,14 @@ func (n *nodeRecorder) ProposeConfChange(ctx context.Context, conf raftpb.ConfCh
 func (n *nodeRecorder) Step(ctx context.Context, msg raftpb.Message) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n.Record(testutil.Action{Name: "Step"})
 	return nil
 }
 func (n *nodeRecorder) Status() raft.Status {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return raft.Status{}
@@ -877,13 +953,19 @@ func (n *nodeRecorder) Status() raft.Status {
 func (n *nodeRecorder) Ready() <-chan raft.Ready {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (n *nodeRecorder) TransferLeadership(ctx context.Context, lead, transferee uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (n *nodeRecorder) ReadIndex(ctx context.Context, rctx []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -891,8 +973,12 @@ func (n *nodeRecorder) ReadIndex(ctx context.Context, rctx []byte) error {
 func (n *nodeRecorder) Advance() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (n *nodeRecorder) ApplyConfChange(conf raftpb.ConfChange) *raftpb.ConfState {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n.Record(testutil.Action{Name: "ApplyConfChange", Params: []interface{}{conf}})
@@ -901,17 +987,25 @@ func (n *nodeRecorder) ApplyConfChange(conf raftpb.ConfChange) *raftpb.ConfState
 func (n *nodeRecorder) Stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n.Record(testutil.Action{Name: "Stop"})
 }
 func (n *nodeRecorder) ReportUnreachable(id uint64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (n *nodeRecorder) ReportSnapshot(id uint64, status raft.SnapshotStatus) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (n *nodeRecorder) Compact(index uint64, nodes []uint64, d []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n.Record(testutil.Action{Name: "Compact"})
@@ -922,9 +1016,13 @@ type nodeProposalBlockerRecorder struct{ nodeRecorder }
 func newProposalBlockerRecorder() *nodeProposalBlockerRecorder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &nodeProposalBlockerRecorder{*newNodeRecorderStream()}
 }
 func (n *nodeProposalBlockerRecorder) Propose(ctx context.Context, data []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	<-ctx.Done()
@@ -940,14 +1038,20 @@ type readyNode struct {
 func newReadyNode() *readyNode {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &readyNode{nodeRecorder{testutil.NewRecorderStream()}, make(chan raft.Ready, 1)}
 }
 func newNopReadyNode() *readyNode {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &readyNode{*newNodeRecorder(), make(chan raft.Ready, 1)}
 }
 func (n *readyNode) Ready() <-chan raft.Ready {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return n.readyc
@@ -961,14 +1065,20 @@ type nodeConfChangeCommitterRecorder struct {
 func newNodeConfChangeCommitterRecorder() *nodeConfChangeCommitterRecorder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &nodeConfChangeCommitterRecorder{*newNopReadyNode(), 0}
 }
 func newNodeConfChangeCommitterStream() *nodeConfChangeCommitterRecorder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &nodeConfChangeCommitterRecorder{*newReadyNode(), 0}
 }
 func (n *nodeConfChangeCommitterRecorder) ProposeConfChange(ctx context.Context, conf raftpb.ConfChange) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	data, err := conf.Marshal()
@@ -983,9 +1093,13 @@ func (n *nodeConfChangeCommitterRecorder) ProposeConfChange(ctx context.Context,
 func (n *nodeConfChangeCommitterRecorder) Ready() <-chan raft.Ready {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return n.readyc
 }
 func (n *nodeConfChangeCommitterRecorder) ApplyConfChange(conf raftpb.ConfChange) *raftpb.ConfState {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n.Record(testutil.Action{Name: "ApplyConfChange:" + conf.Type.String()})
@@ -1000,9 +1114,13 @@ type nodeCommitter struct {
 func newNodeCommitter() raft.Node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &nodeCommitter{*newNopReadyNode(), 0}
 }
 func (n *nodeCommitter) Propose(ctx context.Context, data []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	n.index++
@@ -1011,6 +1129,8 @@ func (n *nodeCommitter) Propose(ctx context.Context, data []byte) error {
 	return nil
 }
 func newTestCluster(membs []*membership.Member) *membership.RaftCluster {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := membership.NewCluster("")

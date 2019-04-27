@@ -27,6 +27,8 @@ type memberCollection []Member
 func (c *memberCollection) UnmarshalJSON(data []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d := struct{ Members []Member }{}
 	if err := json.Unmarshal(data, &d); err != nil {
 		return err
@@ -44,6 +46,8 @@ type memberCreateOrUpdateRequest struct{ PeerURLs types.URLs }
 func (m *memberCreateOrUpdateRequest) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := struct {
 		PeerURLs []string `json:"peerURLs"`
 	}{PeerURLs: make([]string, len(m.PeerURLs))}
@@ -53,6 +57,8 @@ func (m *memberCreateOrUpdateRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(&s)
 }
 func NewMembersAPI(c Client) MembersAPI {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &httpMembersAPI{client: c}
@@ -70,6 +76,8 @@ type httpMembersAPI struct{ client httpClient }
 func (m *httpMembersAPI) List(ctx context.Context) ([]Member, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req := &membersAPIActionList{}
 	resp, body, err := m.client.Do(ctx, req)
 	if err != nil {
@@ -85,6 +93,8 @@ func (m *httpMembersAPI) List(ctx context.Context) ([]Member, error) {
 	return []Member(mCollection), nil
 }
 func (m *httpMembersAPI) Add(ctx context.Context, peerURL string) (*Member, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	urls, err := types.NewURLs([]string{peerURL})
@@ -115,6 +125,8 @@ func (m *httpMembersAPI) Add(ctx context.Context, peerURL string) (*Member, erro
 func (m *httpMembersAPI) Update(ctx context.Context, memberID string, peerURLs []string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	urls, err := types.NewURLs(peerURLs)
 	if err != nil {
 		return err
@@ -139,6 +151,8 @@ func (m *httpMembersAPI) Update(ctx context.Context, memberID string, peerURLs [
 func (m *httpMembersAPI) Remove(ctx context.Context, memberID string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req := &membersAPIActionRemove{memberID: memberID}
 	resp, _, err := m.client.Do(ctx, req)
 	if err != nil {
@@ -147,6 +161,8 @@ func (m *httpMembersAPI) Remove(ctx context.Context, memberID string) error {
 	return assertStatusCode(resp.StatusCode, http.StatusNoContent, http.StatusGone)
 }
 func (m *httpMembersAPI) Leader(ctx context.Context) (*Member, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req := &membersAPIActionLeader{}
@@ -169,6 +185,8 @@ type membersAPIActionList struct{}
 func (l *membersAPIActionList) HTTPRequest(ep url.URL) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u := v2MembersURL(ep)
 	req, _ := http.NewRequest("GET", u.String(), nil)
 	return req
@@ -177,6 +195,8 @@ func (l *membersAPIActionList) HTTPRequest(ep url.URL) *http.Request {
 type membersAPIActionRemove struct{ memberID string }
 
 func (d *membersAPIActionRemove) HTTPRequest(ep url.URL) *http.Request {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u := v2MembersURL(ep)
@@ -188,6 +208,8 @@ func (d *membersAPIActionRemove) HTTPRequest(ep url.URL) *http.Request {
 type membersAPIActionAdd struct{ peerURLs types.URLs }
 
 func (a *membersAPIActionAdd) HTTPRequest(ep url.URL) *http.Request {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u := v2MembersURL(ep)
@@ -206,6 +228,8 @@ type membersAPIActionUpdate struct {
 func (a *membersAPIActionUpdate) HTTPRequest(ep url.URL) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u := v2MembersURL(ep)
 	m := memberCreateOrUpdateRequest{PeerURLs: a.peerURLs}
 	u.Path = path.Join(u.Path, a.memberID)
@@ -215,6 +239,8 @@ func (a *membersAPIActionUpdate) HTTPRequest(ep url.URL) *http.Request {
 	return req
 }
 func assertStatusCode(got int, want ...int) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, w := range want {
@@ -230,12 +256,16 @@ type membersAPIActionLeader struct{}
 func (l *membersAPIActionLeader) HTTPRequest(ep url.URL) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u := v2MembersURL(ep)
 	u.Path = path.Join(u.Path, defaultLeaderSuffix)
 	req, _ := http.NewRequest("GET", u.String(), nil)
 	return req
 }
 func v2MembersURL(ep url.URL) *url.URL {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ep.Path = path.Join(ep.Path, defaultV2MembersPrefix)
@@ -248,6 +278,8 @@ type membersError struct {
 }
 
 func (e membersError) Error() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return e.Message

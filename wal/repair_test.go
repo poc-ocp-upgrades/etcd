@@ -15,6 +15,8 @@ type corruptFunc func(string, int64) error
 func TestRepairTruncate(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	corruptf := func(p string, offset int64) error {
 		f, err := openLast(p)
 		if err != nil {
@@ -26,6 +28,8 @@ func TestRepairTruncate(t *testing.T) {
 	testRepair(t, makeEnts(10), corruptf, 9)
 }
 func testRepair(t *testing.T, ents [][]raftpb.Entry, corrupt corruptFunc, expectedEnts int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p, err := ioutil.TempDir(os.TempDir(), "waltest")
@@ -101,12 +105,16 @@ func testRepair(t *testing.T, ents [][]raftpb.Entry, corrupt corruptFunc, expect
 func makeEnts(ents int) (ret [][]raftpb.Entry) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i := 1; i <= ents; i++ {
 		ret = append(ret, []raftpb.Entry{{Index: uint64(i)}})
 	}
 	return ret
 }
 func TestRepairWriteTearLast(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	corruptf := func(p string, offset int64) error {
@@ -129,6 +137,8 @@ func TestRepairWriteTearLast(t *testing.T) {
 	testRepair(t, makeEnts(50), corruptf, 40)
 }
 func TestRepairWriteTearMiddle(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	corruptf := func(p string, offset int64) error {

@@ -10,6 +10,8 @@ import (
 func BenchmarkBackendPut(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	backend, tmppath := NewTmpBackend(100*time.Millisecond, 10000)
 	defer backend.Close()
 	defer os.Remove(tmppath)

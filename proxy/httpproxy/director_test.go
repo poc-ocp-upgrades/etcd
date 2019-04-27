@@ -11,6 +11,8 @@ import (
 func TestNewDirectorScheme(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		urls	[]string
 		want	[]string
@@ -32,6 +34,8 @@ func TestNewDirectorScheme(t *testing.T) {
 	}
 }
 func TestDirectorEndpointsFiltering(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	d := director{ep: []*endpoint{{URL: url.URL{Scheme: "http", Host: "192.0.2.5:5050"}, Available: false}, {URL: url.URL{Scheme: "http", Host: "192.0.2.4:4000"}, Available: true}}}

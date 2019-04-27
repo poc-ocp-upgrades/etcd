@@ -40,6 +40,8 @@ type Manager interface {
 func NewV3(lg *zap.Logger) Manager {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if lg == nil {
 		lg = zap.NewExample()
 	}
@@ -57,6 +59,8 @@ type v3Manager struct {
 }
 
 func (s *v3Manager) Save(ctx context.Context, cfg clientv3.Config, dbPath string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(cfg.Endpoints) != 1 {
@@ -107,6 +111,8 @@ type Status struct {
 }
 
 func (s *v3Manager) Status(dbPath string) (ds Status, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if _, err = os.Stat(dbPath); err != nil {
@@ -161,6 +167,8 @@ type RestoreConfig struct {
 func (s *v3Manager) Restore(cfg RestoreConfig) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pURLs, err := types.NewURLs(cfg.PeerURLs)
 	if err != nil {
 		return err
@@ -207,6 +215,8 @@ func (s *v3Manager) Restore(cfg RestoreConfig) error {
 	return nil
 }
 func (s *v3Manager) saveDB() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f, ferr := os.OpenFile(s.dbPath, os.O_RDONLY, 0600)
@@ -281,6 +291,8 @@ func (s *v3Manager) saveDB() error {
 	return nil
 }
 func (s *v3Manager) saveWALAndSnap() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := fileutil.CreateDirAll(s.walDir); err != nil {

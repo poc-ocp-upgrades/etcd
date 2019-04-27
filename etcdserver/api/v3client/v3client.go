@@ -12,6 +12,8 @@ import (
 func New(s *etcdserver.EtcdServer) *clientv3.Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := clientv3.NewCtxClient(context.Background())
 	kvc := adapter.KvServerToKvClient(v3rpc.NewQuotaKVServer(s))
 	c.KV = clientv3.NewKVFromKVClient(kvc, c)
@@ -31,12 +33,16 @@ type blankContext struct{ context.Context }
 func (*blankContext) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "(blankCtx)"
 }
 
 type watchWrapper struct{ clientv3.Watcher }
 
 func (ww *watchWrapper) Watch(ctx context.Context, key string, opts ...clientv3.OpOption) clientv3.WatchChan {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ww.Watcher.Watch(&blankContext{ctx}, key, opts...)

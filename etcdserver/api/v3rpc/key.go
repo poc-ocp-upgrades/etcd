@@ -22,9 +22,13 @@ type kvServer struct {
 func NewKVServer(s *etcdserver.EtcdServer) pb.KVServer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &kvServer{hdr: newHeader(s), kv: s, maxTxnOps: s.Cfg.MaxTxnOps}
 }
 func (s *kvServer) Range(ctx context.Context, r *pb.RangeRequest) (*pb.RangeResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := checkRangeRequest(r); err != nil {
@@ -40,6 +44,8 @@ func (s *kvServer) Range(ctx context.Context, r *pb.RangeRequest) (*pb.RangeResp
 func (s *kvServer) Put(ctx context.Context, r *pb.PutRequest) (*pb.PutResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := checkPutRequest(r); err != nil {
 		return nil, err
 	}
@@ -53,6 +59,8 @@ func (s *kvServer) Put(ctx context.Context, r *pb.PutRequest) (*pb.PutResponse, 
 func (s *kvServer) DeleteRange(ctx context.Context, r *pb.DeleteRangeRequest) (*pb.DeleteRangeResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := checkDeleteRequest(r); err != nil {
 		return nil, err
 	}
@@ -64,6 +72,8 @@ func (s *kvServer) DeleteRange(ctx context.Context, r *pb.DeleteRangeRequest) (*
 	return resp, nil
 }
 func (s *kvServer) Txn(ctx context.Context, r *pb.TxnRequest) (*pb.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := checkTxnRequest(r, int(s.maxTxnOps)); err != nil {
@@ -85,6 +95,8 @@ func (s *kvServer) Txn(ctx context.Context, r *pb.TxnRequest) (*pb.TxnResponse, 
 func (s *kvServer) Compact(ctx context.Context, r *pb.CompactionRequest) (*pb.CompactionResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.kv.Compact(ctx, r)
 	if err != nil {
 		return nil, togRPCError(err)
@@ -95,12 +107,16 @@ func (s *kvServer) Compact(ctx context.Context, r *pb.CompactionRequest) (*pb.Co
 func checkRangeRequest(r *pb.RangeRequest) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(r.Key) == 0 {
 		return rpctypes.ErrGRPCEmptyKey
 	}
 	return nil
 }
 func checkPutRequest(r *pb.PutRequest) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(r.Key) == 0 {
@@ -117,12 +133,16 @@ func checkPutRequest(r *pb.PutRequest) error {
 func checkDeleteRequest(r *pb.DeleteRangeRequest) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(r.Key) == 0 {
 		return rpctypes.ErrGRPCEmptyKey
 	}
 	return nil
 }
 func checkTxnRequest(r *pb.TxnRequest, maxTxnOps int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	opc := len(r.Compare)
@@ -153,6 +173,8 @@ func checkTxnRequest(r *pb.TxnRequest, maxTxnOps int) error {
 	return nil
 }
 func checkIntervals(reqs []*pb.RequestOp) (map[string]struct{}, adt.IntervalTree, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var dels adt.IntervalTree
@@ -227,6 +249,8 @@ func checkIntervals(reqs []*pb.RequestOp) (map[string]struct{}, adt.IntervalTree
 	return puts, dels, nil
 }
 func checkRequestOp(u *pb.RequestOp, maxTxnOps int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch uv := u.Request.(type) {

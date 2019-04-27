@@ -10,6 +10,8 @@ import (
 func TestGetCipherSuites(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pkg, err := importer.For("source", nil).Import("crypto/tls")
 	if err != nil {
 		t.Fatal(err)

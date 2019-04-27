@@ -32,6 +32,8 @@ type UserRoles struct {
 func v2AuthURL(ep url.URL, action string, name string) *url.URL {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if name != "" {
 		ep.Path = path.Join(ep.Path, defaultV2AuthPrefix, action, name)
 		return &ep
@@ -40,6 +42,8 @@ func v2AuthURL(ep url.URL, action string, name string) *url.URL {
 	return &ep
 }
 func NewAuthAPI(c Client) AuthAPI {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &httpAuthAPI{client: c}
@@ -54,14 +58,20 @@ type httpAuthAPI struct{ client httpClient }
 func (s *httpAuthAPI) Enable(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.enableDisable(ctx, &authAPIAction{"PUT"})
 }
 func (s *httpAuthAPI) Disable(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.enableDisable(ctx, &authAPIAction{"DELETE"})
 }
 func (s *httpAuthAPI) enableDisable(ctx context.Context, req httpAction) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, body, err := s.client.Do(ctx, req)
@@ -84,6 +94,8 @@ type authAPIAction struct{ verb string }
 func (l *authAPIAction) HTTPRequest(ep url.URL) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u := v2AuthURL(ep, "enable", "")
 	req, _ := http.NewRequest(l.verb, u.String(), nil)
 	return req
@@ -97,9 +109,13 @@ type authError struct {
 func (e authError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.Message
 }
 func NewAuthUserAPI(c Client) AuthUserAPI {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &httpAuthUserAPI{client: c}
@@ -125,12 +141,16 @@ type authUserAPIList struct{}
 func (list *authUserAPIList) HTTPRequest(ep url.URL) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u := v2AuthURL(ep, "users", "")
 	req, _ := http.NewRequest("GET", u.String(), nil)
 	req.Header.Set("Content-Type", "application/json")
 	return req
 }
 func (l *authUserAPIAction) HTTPRequest(ep url.URL) *http.Request {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u := v2AuthURL(ep, "users", l.username)
@@ -148,6 +168,8 @@ func (l *authUserAPIAction) HTTPRequest(ep url.URL) *http.Request {
 	return req
 }
 func (u *httpAuthUserAPI) ListUsers(ctx context.Context) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, body, err := u.client.Do(ctx, &authUserAPIList{})
@@ -177,15 +199,21 @@ func (u *httpAuthUserAPI) ListUsers(ctx context.Context) ([]string, error) {
 func (u *httpAuthUserAPI) AddUser(ctx context.Context, username string, password string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	user := &User{User: username, Password: password}
 	return u.addRemoveUser(ctx, &authUserAPIAction{verb: "PUT", username: username, user: user})
 }
 func (u *httpAuthUserAPI) RemoveUser(ctx context.Context, username string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return u.addRemoveUser(ctx, &authUserAPIAction{verb: "DELETE", username: username})
 }
 func (u *httpAuthUserAPI) addRemoveUser(ctx context.Context, req *authUserAPIAction) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, body, err := u.client.Do(ctx, req)
@@ -205,9 +233,13 @@ func (u *httpAuthUserAPI) addRemoveUser(ctx context.Context, req *authUserAPIAct
 func (u *httpAuthUserAPI) GetUser(ctx context.Context, username string) (*User, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return u.modUser(ctx, &authUserAPIAction{verb: "GET", username: username})
 }
 func (u *httpAuthUserAPI) GrantUser(ctx context.Context, username string, roles []string) (*User, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	user := &User{User: username, Grant: roles}
@@ -216,16 +248,22 @@ func (u *httpAuthUserAPI) GrantUser(ctx context.Context, username string, roles 
 func (u *httpAuthUserAPI) RevokeUser(ctx context.Context, username string, roles []string) (*User, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	user := &User{User: username, Revoke: roles}
 	return u.modUser(ctx, &authUserAPIAction{verb: "PUT", username: username, user: user})
 }
 func (u *httpAuthUserAPI) ChangePassword(ctx context.Context, username string, password string) (*User, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	user := &User{User: username, Password: password}
 	return u.modUser(ctx, &authUserAPIAction{verb: "PUT", username: username, user: user})
 }
 func (u *httpAuthUserAPI) modUser(ctx context.Context, req *authUserAPIAction) (*User, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, body, err := u.client.Do(ctx, req)

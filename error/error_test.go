@@ -11,6 +11,8 @@ import (
 func TestErrorWriteTo(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for k := range errors {
 		err := NewError(k, "", 1)
 		rr := httptest.NewRecorder()

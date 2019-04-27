@@ -20,6 +20,8 @@ import (
 func TestKVPutError(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	var (
 		maxReqBytes	= 1.5 * 1024 * 1024
@@ -48,6 +50,8 @@ func TestKVPutError(t *testing.T) {
 	}
 }
 func TestKVPut(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -86,6 +90,8 @@ func TestKVPut(t *testing.T) {
 func TestKVPutWithIgnoreValue(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -112,6 +118,8 @@ func TestKVPutWithIgnoreValue(t *testing.T) {
 	}
 }
 func TestKVPutWithIgnoreLease(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -146,6 +154,8 @@ func TestKVPutWithIgnoreLease(t *testing.T) {
 func TestKVPutWithRequireLeader(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -167,6 +177,8 @@ func TestKVPutWithRequireLeader(t *testing.T) {
 	clus.TakeClient(2)
 }
 func TestKVRange(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -209,6 +221,8 @@ func TestKVRange(t *testing.T) {
 func TestKVGetErrConnClosed(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -234,6 +248,8 @@ func TestKVGetErrConnClosed(t *testing.T) {
 func TestKVNewAfterClose(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -257,6 +273,8 @@ func TestKVNewAfterClose(t *testing.T) {
 	}
 }
 func TestKVDeleteRange(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -296,6 +314,8 @@ func TestKVDeleteRange(t *testing.T) {
 func TestKVDelete(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -326,6 +346,8 @@ func TestKVDelete(t *testing.T) {
 func TestKVCompactError(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -350,6 +372,8 @@ func TestKVCompactError(t *testing.T) {
 	}
 }
 func TestKVCompact(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -387,6 +411,8 @@ func TestKVCompact(t *testing.T) {
 func TestKVGetRetry(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clusterSize := 3
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: clusterSize})
@@ -419,6 +445,8 @@ func TestKVGetRetry(t *testing.T) {
 	}
 }
 func TestKVPutFailGetRetry(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -454,6 +482,8 @@ func TestKVPutFailGetRetry(t *testing.T) {
 func TestKVGetCancel(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -473,6 +503,8 @@ func TestKVGetCancel(t *testing.T) {
 func TestKVGetStoppedServerAndClose(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -486,6 +518,8 @@ func TestKVGetStoppedServerAndClose(t *testing.T) {
 	}
 }
 func TestKVPutStoppedServerAndClose(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -506,6 +540,8 @@ func TestKVPutStoppedServerAndClose(t *testing.T) {
 	}
 }
 func TestKVPutAtMostOnce(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -539,6 +575,8 @@ func TestKVPutAtMostOnce(t *testing.T) {
 	}
 }
 func TestKVLargeRequests(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

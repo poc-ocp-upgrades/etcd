@@ -9,6 +9,8 @@ import (
 func TestWait(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	const eid = 1
 	wt := New()
 	ch := wt.Register(eid)
@@ -22,6 +24,8 @@ func TestWait(t *testing.T) {
 	}
 }
 func TestRegisterDupPanic(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	const eid = 1
@@ -47,6 +51,8 @@ func TestRegisterDupPanic(t *testing.T) {
 func TestTriggerDupSuppression(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	const eid = 1
 	wt := New()
 	ch := wt.Register(eid)
@@ -61,6 +67,8 @@ func TestTriggerDupSuppression(t *testing.T) {
 	}
 }
 func TestIsRegistered(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wt := New()

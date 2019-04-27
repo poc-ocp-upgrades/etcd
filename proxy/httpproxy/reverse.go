@@ -24,6 +24,8 @@ var (
 func removeSingleHopHeaders(hdrs *http.Header) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, h := range singleHopHeaders {
 		hdrs.Del(h)
 	}
@@ -35,6 +37,8 @@ type reverseProxy struct {
 }
 
 func (p *reverseProxy) ServeHTTP(rw http.ResponseWriter, clientreq *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reportIncomingRequest(clientreq)
@@ -132,6 +136,8 @@ func (p *reverseProxy) ServeHTTP(rw http.ResponseWriter, clientreq *http.Request
 func copyHeader(dst, src http.Header) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for k, vv := range src {
 		for _, v := range vv {
 			dst.Add(k, v)
@@ -141,10 +147,14 @@ func copyHeader(dst, src http.Header) {
 func redirectRequest(req *http.Request, loc url.URL) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req.URL.Scheme = loc.Scheme
 	req.URL.Host = loc.Host
 }
 func normalizeRequest(req *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req.Proto = "HTTP/1.1"
@@ -153,6 +163,8 @@ func normalizeRequest(req *http.Request) {
 	req.Close = false
 }
 func maybeSetForwardedFor(req *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clientIP, _, err := net.SplitHostPort(req.RemoteAddr)

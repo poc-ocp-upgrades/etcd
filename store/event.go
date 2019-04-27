@@ -22,10 +22,14 @@ type Event struct {
 func newEvent(action string, key string, modifiedIndex, createdIndex uint64) *Event {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n := &NodeExtern{Key: key, ModifiedIndex: modifiedIndex, CreatedIndex: createdIndex}
 	return &Event{Action: action, Node: n}
 }
 func (e *Event) IsCreated() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if e.Action == Create {
@@ -36,14 +40,20 @@ func (e *Event) IsCreated() bool {
 func (e *Event) Index() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.Node.ModifiedIndex
 }
 func (e *Event) Clone() *Event {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Event{Action: e.Action, EtcdIndex: e.EtcdIndex, Node: e.Node.Clone(), PrevNode: e.PrevNode.Clone()}
 }
 func (e *Event) SetRefresh() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	e.Refresh = true

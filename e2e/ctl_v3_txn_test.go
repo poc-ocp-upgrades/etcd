@@ -5,9 +5,13 @@ import "testing"
 func TestCtlV3TxnInteractiveSuccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, txnTestSuccess, withInteractive())
 }
 func TestCtlV3TxnInteractiveSuccessNoTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, txnTestSuccess, withInteractive(), withCfg(configNoTLS))
@@ -15,9 +19,13 @@ func TestCtlV3TxnInteractiveSuccessNoTLS(t *testing.T) {
 func TestCtlV3TxnInteractiveSuccessClientTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, txnTestSuccess, withInteractive(), withCfg(configClientTLS))
 }
 func TestCtlV3TxnInteractiveSuccessPeerTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, txnTestSuccess, withInteractive(), withCfg(configPeerTLS))
@@ -25,9 +33,13 @@ func TestCtlV3TxnInteractiveSuccessPeerTLS(t *testing.T) {
 func TestCtlV3TxnInteractiveFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, txnTestFail, withInteractive())
 }
 func txnTestSuccess(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ctlV3Put(cx, "key1", "value1", ""); err != nil {
@@ -44,6 +56,8 @@ func txnTestSuccess(cx ctlCtx) {
 	}
 }
 func txnTestFail(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ctlV3Put(cx, "key1", "value1", ""); err != nil {
@@ -65,6 +79,8 @@ type txnRequests struct {
 }
 
 func ctlV3Txn(cx ctlCtx, rqs txnRequests) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "txn")

@@ -30,9 +30,13 @@ var AlarmType_value = map[string]int32{"NONE": 0, "NOSPACE": 1, "CORRUPT": 2}
 func (x AlarmType) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(AlarmType_name, int32(x))
 }
 func (AlarmType) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{0}
@@ -52,9 +56,13 @@ var RangeRequest_SortOrder_value = map[string]int32{"NONE": 0, "ASCEND": 1, "DES
 func (x RangeRequest_SortOrder) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(RangeRequest_SortOrder_name, int32(x))
 }
 func (RangeRequest_SortOrder) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{1, 0}
@@ -76,9 +84,13 @@ var RangeRequest_SortTarget_value = map[string]int32{"KEY": 0, "VERSION": 1, "CR
 func (x RangeRequest_SortTarget) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(RangeRequest_SortTarget_name, int32(x))
 }
 func (RangeRequest_SortTarget) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{1, 1}
@@ -99,9 +111,13 @@ var Compare_CompareResult_value = map[string]int32{"EQUAL": 0, "GREATER": 1, "LE
 func (x Compare_CompareResult) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(Compare_CompareResult_name, int32(x))
 }
 func (Compare_CompareResult) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{9, 0}
@@ -123,9 +139,13 @@ var Compare_CompareTarget_value = map[string]int32{"VERSION": 0, "CREATE": 1, "M
 func (x Compare_CompareTarget) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(Compare_CompareTarget_name, int32(x))
 }
 func (Compare_CompareTarget) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{9, 1}
@@ -144,9 +164,13 @@ var WatchCreateRequest_FilterType_value = map[string]int32{"NOPUT": 0, "NODELETE
 func (x WatchCreateRequest_FilterType) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(WatchCreateRequest_FilterType_name, int32(x))
 }
 func (WatchCreateRequest_FilterType) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{21, 0}
@@ -166,9 +190,13 @@ var AlarmRequest_AlarmAction_value = map[string]int32{"GET": 0, "ACTIVATE": 1, "
 func (x AlarmRequest_AlarmAction) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return proto.EnumName(AlarmRequest_AlarmAction_name, int32(x))
 }
 func (AlarmRequest_AlarmAction) EnumDescriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{48, 0}
@@ -184,9 +212,13 @@ type ResponseHeader struct {
 func (m *ResponseHeader) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = ResponseHeader{}
 }
 func (m *ResponseHeader) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -194,13 +226,19 @@ func (m *ResponseHeader) String() string {
 func (*ResponseHeader) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*ResponseHeader) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{0}
 }
 func (m *ResponseHeader) GetClusterId() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -211,6 +249,8 @@ func (m *ResponseHeader) GetClusterId() uint64 {
 func (m *ResponseHeader) GetMemberId() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.MemberId
 	}
@@ -219,12 +259,16 @@ func (m *ResponseHeader) GetMemberId() uint64 {
 func (m *ResponseHeader) GetRevision() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Revision
 	}
 	return 0
 }
 func (m *ResponseHeader) GetRaftTerm() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -252,9 +296,13 @@ type RangeRequest struct {
 func (m *RangeRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = RangeRequest{}
 }
 func (m *RangeRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -262,13 +310,19 @@ func (m *RangeRequest) String() string {
 func (*RangeRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*RangeRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{1}
 }
 func (m *RangeRequest) GetKey() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -279,12 +333,16 @@ func (m *RangeRequest) GetKey() []byte {
 func (m *RangeRequest) GetRangeEnd() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.RangeEnd
 	}
 	return nil
 }
 func (m *RangeRequest) GetLimit() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -295,12 +353,16 @@ func (m *RangeRequest) GetLimit() int64 {
 func (m *RangeRequest) GetRevision() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Revision
 	}
 	return 0
 }
 func (m *RangeRequest) GetSortOrder() RangeRequest_SortOrder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -311,12 +373,16 @@ func (m *RangeRequest) GetSortOrder() RangeRequest_SortOrder {
 func (m *RangeRequest) GetSortTarget() RangeRequest_SortTarget {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.SortTarget
 	}
 	return RangeRequest_KEY
 }
 func (m *RangeRequest) GetSerializable() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -327,12 +393,16 @@ func (m *RangeRequest) GetSerializable() bool {
 func (m *RangeRequest) GetKeysOnly() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.KeysOnly
 	}
 	return false
 }
 func (m *RangeRequest) GetCountOnly() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -343,12 +413,16 @@ func (m *RangeRequest) GetCountOnly() bool {
 func (m *RangeRequest) GetMinModRevision() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.MinModRevision
 	}
 	return 0
 }
 func (m *RangeRequest) GetMaxModRevision() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -359,12 +433,16 @@ func (m *RangeRequest) GetMaxModRevision() int64 {
 func (m *RangeRequest) GetMinCreateRevision() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.MinCreateRevision
 	}
 	return 0
 }
 func (m *RangeRequest) GetMaxCreateRevision() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -383,9 +461,13 @@ type RangeResponse struct {
 func (m *RangeResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = RangeResponse{}
 }
 func (m *RangeResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -393,13 +475,19 @@ func (m *RangeResponse) String() string {
 func (*RangeResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*RangeResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{2}
 }
 func (m *RangeResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -410,6 +498,8 @@ func (m *RangeResponse) GetHeader() *ResponseHeader {
 func (m *RangeResponse) GetKvs() []*mvccpb.KeyValue {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Kvs
 	}
@@ -418,12 +508,16 @@ func (m *RangeResponse) GetKvs() []*mvccpb.KeyValue {
 func (m *RangeResponse) GetMore() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.More
 	}
 	return false
 }
 func (m *RangeResponse) GetCount() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -444,9 +538,13 @@ type PutRequest struct {
 func (m *PutRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = PutRequest{}
 }
 func (m *PutRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -454,13 +552,19 @@ func (m *PutRequest) String() string {
 func (*PutRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*PutRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{3}
 }
 func (m *PutRequest) GetKey() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -471,12 +575,16 @@ func (m *PutRequest) GetKey() []byte {
 func (m *PutRequest) GetValue() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Value
 	}
 	return nil
 }
 func (m *PutRequest) GetLease() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -487,6 +595,8 @@ func (m *PutRequest) GetLease() int64 {
 func (m *PutRequest) GetPrevKv() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.PrevKv
 	}
@@ -495,12 +605,16 @@ func (m *PutRequest) GetPrevKv() bool {
 func (m *PutRequest) GetIgnoreValue() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.IgnoreValue
 	}
 	return false
 }
 func (m *PutRequest) GetIgnoreLease() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -517,9 +631,13 @@ type PutResponse struct {
 func (m *PutResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = PutResponse{}
 }
 func (m *PutResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -527,13 +645,19 @@ func (m *PutResponse) String() string {
 func (*PutResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*PutResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{4}
 }
 func (m *PutResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -542,6 +666,8 @@ func (m *PutResponse) GetHeader() *ResponseHeader {
 	return nil
 }
 func (m *PutResponse) GetPrevKv() *mvccpb.KeyValue {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -559,9 +685,13 @@ type DeleteRangeRequest struct {
 func (m *DeleteRangeRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = DeleteRangeRequest{}
 }
 func (m *DeleteRangeRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -569,13 +699,19 @@ func (m *DeleteRangeRequest) String() string {
 func (*DeleteRangeRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*DeleteRangeRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{5}
 }
 func (m *DeleteRangeRequest) GetKey() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -586,12 +722,16 @@ func (m *DeleteRangeRequest) GetKey() []byte {
 func (m *DeleteRangeRequest) GetRangeEnd() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.RangeEnd
 	}
 	return nil
 }
 func (m *DeleteRangeRequest) GetPrevKv() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -609,9 +749,13 @@ type DeleteRangeResponse struct {
 func (m *DeleteRangeResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = DeleteRangeResponse{}
 }
 func (m *DeleteRangeResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -619,13 +763,19 @@ func (m *DeleteRangeResponse) String() string {
 func (*DeleteRangeResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*DeleteRangeResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{6}
 }
 func (m *DeleteRangeResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -636,12 +786,16 @@ func (m *DeleteRangeResponse) GetHeader() *ResponseHeader {
 func (m *DeleteRangeResponse) GetDeleted() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Deleted
 	}
 	return 0
 }
 func (m *DeleteRangeResponse) GetPrevKvs() []*mvccpb.KeyValue {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -657,9 +811,13 @@ type RequestOp struct {
 func (m *RequestOp) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = RequestOp{}
 }
 func (m *RequestOp) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -667,8 +825,12 @@ func (m *RequestOp) String() string {
 func (*RequestOp) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*RequestOp) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{7}
@@ -695,20 +857,30 @@ type RequestOp_RequestTxn struct {
 func (*RequestOp_RequestRange) isRequestOp_Request() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*RequestOp_RequestPut) isRequestOp_Request() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (*RequestOp_RequestDeleteRange) isRequestOp_Request() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*RequestOp_RequestTxn) isRequestOp_Request() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (m *RequestOp) GetRequest() isRequestOp_Request {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -719,12 +891,16 @@ func (m *RequestOp) GetRequest() isRequestOp_Request {
 func (m *RequestOp) GetRequestRange() *RangeRequest {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if x, ok := m.GetRequest().(*RequestOp_RequestRange); ok {
 		return x.RequestRange
 	}
 	return nil
 }
 func (m *RequestOp) GetRequestPut() *PutRequest {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if x, ok := m.GetRequest().(*RequestOp_RequestPut); ok {
@@ -735,12 +911,16 @@ func (m *RequestOp) GetRequestPut() *PutRequest {
 func (m *RequestOp) GetRequestDeleteRange() *DeleteRangeRequest {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if x, ok := m.GetRequest().(*RequestOp_RequestDeleteRange); ok {
 		return x.RequestDeleteRange
 	}
 	return nil
 }
 func (m *RequestOp) GetRequestTxn() *TxnRequest {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if x, ok := m.GetRequest().(*RequestOp_RequestTxn); ok {
@@ -751,9 +931,13 @@ func (m *RequestOp) GetRequestTxn() *TxnRequest {
 func (*RequestOp) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return _RequestOp_OneofMarshaler, _RequestOp_OneofUnmarshaler, _RequestOp_OneofSizer, []interface{}{(*RequestOp_RequestRange)(nil), (*RequestOp_RequestPut)(nil), (*RequestOp_RequestDeleteRange)(nil), (*RequestOp_RequestTxn)(nil)}
 }
 func _RequestOp_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := msg.(*RequestOp)
@@ -785,6 +969,8 @@ func _RequestOp_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
 	return nil
 }
 func _RequestOp_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := msg.(*RequestOp)
@@ -828,6 +1014,8 @@ func _RequestOp_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buff
 func _RequestOp_OneofSizer(msg proto.Message) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := msg.(*RequestOp)
 	switch x := m.Request.(type) {
 	case *RequestOp_RequestRange:
@@ -864,9 +1052,13 @@ type ResponseOp struct {
 func (m *ResponseOp) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = ResponseOp{}
 }
 func (m *ResponseOp) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -874,8 +1066,12 @@ func (m *ResponseOp) String() string {
 func (*ResponseOp) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*ResponseOp) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{8}
@@ -902,20 +1098,30 @@ type ResponseOp_ResponseTxn struct {
 func (*ResponseOp_ResponseRange) isResponseOp_Response() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*ResponseOp_ResponsePut) isResponseOp_Response() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (*ResponseOp_ResponseDeleteRange) isResponseOp_Response() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*ResponseOp_ResponseTxn) isResponseOp_Response() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (m *ResponseOp) GetResponse() isResponseOp_Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -926,12 +1132,16 @@ func (m *ResponseOp) GetResponse() isResponseOp_Response {
 func (m *ResponseOp) GetResponseRange() *RangeResponse {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if x, ok := m.GetResponse().(*ResponseOp_ResponseRange); ok {
 		return x.ResponseRange
 	}
 	return nil
 }
 func (m *ResponseOp) GetResponsePut() *PutResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if x, ok := m.GetResponse().(*ResponseOp_ResponsePut); ok {
@@ -942,12 +1152,16 @@ func (m *ResponseOp) GetResponsePut() *PutResponse {
 func (m *ResponseOp) GetResponseDeleteRange() *DeleteRangeResponse {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if x, ok := m.GetResponse().(*ResponseOp_ResponseDeleteRange); ok {
 		return x.ResponseDeleteRange
 	}
 	return nil
 }
 func (m *ResponseOp) GetResponseTxn() *TxnResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if x, ok := m.GetResponse().(*ResponseOp_ResponseTxn); ok {
@@ -958,9 +1172,13 @@ func (m *ResponseOp) GetResponseTxn() *TxnResponse {
 func (*ResponseOp) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return _ResponseOp_OneofMarshaler, _ResponseOp_OneofUnmarshaler, _ResponseOp_OneofSizer, []interface{}{(*ResponseOp_ResponseRange)(nil), (*ResponseOp_ResponsePut)(nil), (*ResponseOp_ResponseDeleteRange)(nil), (*ResponseOp_ResponseTxn)(nil)}
 }
 func _ResponseOp_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := msg.(*ResponseOp)
@@ -992,6 +1210,8 @@ func _ResponseOp_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
 	return nil
 }
 func _ResponseOp_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := msg.(*ResponseOp)
@@ -1035,6 +1255,8 @@ func _ResponseOp_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buf
 func _ResponseOp_OneofSizer(msg proto.Message) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := msg.(*ResponseOp)
 	switch x := m.Response.(type) {
 	case *ResponseOp_ResponseRange:
@@ -1075,9 +1297,13 @@ type Compare struct {
 func (m *Compare) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Compare{}
 }
 func (m *Compare) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1085,8 +1311,12 @@ func (m *Compare) String() string {
 func (*Compare) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Compare) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{9}
@@ -1116,24 +1346,36 @@ type Compare_Lease struct {
 func (*Compare_Version) isCompare_TargetUnion() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Compare_CreateRevision) isCompare_TargetUnion() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (*Compare_ModRevision) isCompare_TargetUnion() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Compare_Value) isCompare_TargetUnion() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (*Compare_Lease) isCompare_TargetUnion() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (m *Compare) GetTargetUnion() isCompare_TargetUnion {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1144,12 +1386,16 @@ func (m *Compare) GetTargetUnion() isCompare_TargetUnion {
 func (m *Compare) GetResult() Compare_CompareResult {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Result
 	}
 	return Compare_EQUAL
 }
 func (m *Compare) GetTarget() Compare_CompareTarget {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1160,12 +1406,16 @@ func (m *Compare) GetTarget() Compare_CompareTarget {
 func (m *Compare) GetKey() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Key
 	}
 	return nil
 }
 func (m *Compare) GetVersion() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if x, ok := m.GetTargetUnion().(*Compare_Version); ok {
@@ -1176,12 +1426,16 @@ func (m *Compare) GetVersion() int64 {
 func (m *Compare) GetCreateRevision() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if x, ok := m.GetTargetUnion().(*Compare_CreateRevision); ok {
 		return x.CreateRevision
 	}
 	return 0
 }
 func (m *Compare) GetModRevision() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if x, ok := m.GetTargetUnion().(*Compare_ModRevision); ok {
@@ -1192,12 +1446,16 @@ func (m *Compare) GetModRevision() int64 {
 func (m *Compare) GetValue() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if x, ok := m.GetTargetUnion().(*Compare_Value); ok {
 		return x.Value
 	}
 	return nil
 }
 func (m *Compare) GetLease() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if x, ok := m.GetTargetUnion().(*Compare_Lease); ok {
@@ -1208,6 +1466,8 @@ func (m *Compare) GetLease() int64 {
 func (m *Compare) GetRangeEnd() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.RangeEnd
 	}
@@ -1216,9 +1476,13 @@ func (m *Compare) GetRangeEnd() []byte {
 func (*Compare) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return _Compare_OneofMarshaler, _Compare_OneofUnmarshaler, _Compare_OneofSizer, []interface{}{(*Compare_Version)(nil), (*Compare_CreateRevision)(nil), (*Compare_ModRevision)(nil), (*Compare_Value)(nil), (*Compare_Lease)(nil)}
 }
 func _Compare_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := msg.(*Compare)
@@ -1245,6 +1509,8 @@ func _Compare_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
 	return nil
 }
 func _Compare_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := msg.(*Compare)
@@ -1291,6 +1557,8 @@ func _Compare_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer
 func _Compare_OneofSizer(msg proto.Message) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := msg.(*Compare)
 	switch x := m.TargetUnion.(type) {
 	case *Compare_Version:
@@ -1325,9 +1593,13 @@ type TxnRequest struct {
 func (m *TxnRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = TxnRequest{}
 }
 func (m *TxnRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1335,13 +1607,19 @@ func (m *TxnRequest) String() string {
 func (*TxnRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*TxnRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{10}
 }
 func (m *TxnRequest) GetCompare() []*Compare {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1352,12 +1630,16 @@ func (m *TxnRequest) GetCompare() []*Compare {
 func (m *TxnRequest) GetSuccess() []*RequestOp {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Success
 	}
 	return nil
 }
 func (m *TxnRequest) GetFailure() []*RequestOp {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1375,9 +1657,13 @@ type TxnResponse struct {
 func (m *TxnResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = TxnResponse{}
 }
 func (m *TxnResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1385,13 +1671,19 @@ func (m *TxnResponse) String() string {
 func (*TxnResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*TxnResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{11}
 }
 func (m *TxnResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1402,12 +1694,16 @@ func (m *TxnResponse) GetHeader() *ResponseHeader {
 func (m *TxnResponse) GetSucceeded() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Succeeded
 	}
 	return false
 }
 func (m *TxnResponse) GetResponses() []*ResponseOp {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1424,9 +1720,13 @@ type CompactionRequest struct {
 func (m *CompactionRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = CompactionRequest{}
 }
 func (m *CompactionRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1434,13 +1734,19 @@ func (m *CompactionRequest) String() string {
 func (*CompactionRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*CompactionRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{12}
 }
 func (m *CompactionRequest) GetRevision() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1449,6 +1755,8 @@ func (m *CompactionRequest) GetRevision() int64 {
 	return 0
 }
 func (m *CompactionRequest) GetPhysical() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1464,9 +1772,13 @@ type CompactionResponse struct {
 func (m *CompactionResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = CompactionResponse{}
 }
 func (m *CompactionResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1474,13 +1786,19 @@ func (m *CompactionResponse) String() string {
 func (*CompactionResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*CompactionResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{13}
 }
 func (m *CompactionResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1494,9 +1812,13 @@ type HashRequest struct{}
 func (m *HashRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = HashRequest{}
 }
 func (m *HashRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1504,8 +1826,12 @@ func (m *HashRequest) String() string {
 func (*HashRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*HashRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{14}
@@ -1518,9 +1844,13 @@ type HashKVRequest struct {
 func (m *HashKVRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = HashKVRequest{}
 }
 func (m *HashKVRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1528,13 +1858,19 @@ func (m *HashKVRequest) String() string {
 func (*HashKVRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*HashKVRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{15}
 }
 func (m *HashKVRequest) GetRevision() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1552,9 +1888,13 @@ type HashKVResponse struct {
 func (m *HashKVResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = HashKVResponse{}
 }
 func (m *HashKVResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1562,13 +1902,19 @@ func (m *HashKVResponse) String() string {
 func (*HashKVResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*HashKVResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{16}
 }
 func (m *HashKVResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1579,12 +1925,16 @@ func (m *HashKVResponse) GetHeader() *ResponseHeader {
 func (m *HashKVResponse) GetHash() uint32 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Hash
 	}
 	return 0
 }
 func (m *HashKVResponse) GetCompactRevision() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1601,9 +1951,13 @@ type HashResponse struct {
 func (m *HashResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = HashResponse{}
 }
 func (m *HashResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1611,13 +1965,19 @@ func (m *HashResponse) String() string {
 func (*HashResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*HashResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{17}
 }
 func (m *HashResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1626,6 +1986,8 @@ func (m *HashResponse) GetHeader() *ResponseHeader {
 	return nil
 }
 func (m *HashResponse) GetHash() uint32 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1639,9 +2001,13 @@ type SnapshotRequest struct{}
 func (m *SnapshotRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = SnapshotRequest{}
 }
 func (m *SnapshotRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1649,8 +2015,12 @@ func (m *SnapshotRequest) String() string {
 func (*SnapshotRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*SnapshotRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{18}
@@ -1665,9 +2035,13 @@ type SnapshotResponse struct {
 func (m *SnapshotResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = SnapshotResponse{}
 }
 func (m *SnapshotResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1675,13 +2049,19 @@ func (m *SnapshotResponse) String() string {
 func (*SnapshotResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*SnapshotResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{19}
 }
 func (m *SnapshotResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1692,12 +2072,16 @@ func (m *SnapshotResponse) GetHeader() *ResponseHeader {
 func (m *SnapshotResponse) GetRemainingBytes() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.RemainingBytes
 	}
 	return 0
 }
 func (m *SnapshotResponse) GetBlob() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1713,9 +2097,13 @@ type WatchRequest struct {
 func (m *WatchRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = WatchRequest{}
 }
 func (m *WatchRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1723,8 +2111,12 @@ func (m *WatchRequest) String() string {
 func (*WatchRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*WatchRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{20}
@@ -1745,12 +2137,18 @@ type WatchRequest_CancelRequest struct {
 func (*WatchRequest_CreateRequest) isWatchRequest_RequestUnion() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*WatchRequest_CancelRequest) isWatchRequest_RequestUnion() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (m *WatchRequest) GetRequestUnion() isWatchRequest_RequestUnion {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1761,12 +2159,16 @@ func (m *WatchRequest) GetRequestUnion() isWatchRequest_RequestUnion {
 func (m *WatchRequest) GetCreateRequest() *WatchCreateRequest {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if x, ok := m.GetRequestUnion().(*WatchRequest_CreateRequest); ok {
 		return x.CreateRequest
 	}
 	return nil
 }
 func (m *WatchRequest) GetCancelRequest() *WatchCancelRequest {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if x, ok := m.GetRequestUnion().(*WatchRequest_CancelRequest); ok {
@@ -1777,9 +2179,13 @@ func (m *WatchRequest) GetCancelRequest() *WatchCancelRequest {
 func (*WatchRequest) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return _WatchRequest_OneofMarshaler, _WatchRequest_OneofUnmarshaler, _WatchRequest_OneofSizer, []interface{}{(*WatchRequest_CreateRequest)(nil), (*WatchRequest_CancelRequest)(nil)}
 }
 func _WatchRequest_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := msg.(*WatchRequest)
@@ -1801,6 +2207,8 @@ func _WatchRequest_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
 	return nil
 }
 func _WatchRequest_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := msg.(*WatchRequest)
@@ -1826,6 +2234,8 @@ func _WatchRequest_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.B
 	}
 }
 func _WatchRequest_OneofSizer(msg proto.Message) (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := msg.(*WatchRequest)
@@ -1859,9 +2269,13 @@ type WatchCreateRequest struct {
 func (m *WatchCreateRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = WatchCreateRequest{}
 }
 func (m *WatchCreateRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1869,13 +2283,19 @@ func (m *WatchCreateRequest) String() string {
 func (*WatchCreateRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*WatchCreateRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{21}
 }
 func (m *WatchCreateRequest) GetKey() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1886,12 +2306,16 @@ func (m *WatchCreateRequest) GetKey() []byte {
 func (m *WatchCreateRequest) GetRangeEnd() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.RangeEnd
 	}
 	return nil
 }
 func (m *WatchCreateRequest) GetStartRevision() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1902,6 +2326,8 @@ func (m *WatchCreateRequest) GetStartRevision() int64 {
 func (m *WatchCreateRequest) GetProgressNotify() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.ProgressNotify
 	}
@@ -1910,12 +2336,16 @@ func (m *WatchCreateRequest) GetProgressNotify() bool {
 func (m *WatchCreateRequest) GetFilters() []WatchCreateRequest_FilterType {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Filters
 	}
 	return nil
 }
 func (m *WatchCreateRequest) GetPrevKv() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1931,9 +2361,13 @@ type WatchCancelRequest struct {
 func (m *WatchCancelRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = WatchCancelRequest{}
 }
 func (m *WatchCancelRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1941,13 +2375,19 @@ func (m *WatchCancelRequest) String() string {
 func (*WatchCancelRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*WatchCancelRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{22}
 }
 func (m *WatchCancelRequest) GetWatchId() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1969,9 +2409,13 @@ type WatchResponse struct {
 func (m *WatchResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = WatchResponse{}
 }
 func (m *WatchResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -1979,13 +2423,19 @@ func (m *WatchResponse) String() string {
 func (*WatchResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*WatchResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{23}
 }
 func (m *WatchResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -1996,12 +2446,16 @@ func (m *WatchResponse) GetHeader() *ResponseHeader {
 func (m *WatchResponse) GetWatchId() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.WatchId
 	}
 	return 0
 }
 func (m *WatchResponse) GetCreated() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2012,12 +2466,16 @@ func (m *WatchResponse) GetCreated() bool {
 func (m *WatchResponse) GetCanceled() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Canceled
 	}
 	return false
 }
 func (m *WatchResponse) GetCompactRevision() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2028,12 +2486,16 @@ func (m *WatchResponse) GetCompactRevision() int64 {
 func (m *WatchResponse) GetCancelReason() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.CancelReason
 	}
 	return ""
 }
 func (m *WatchResponse) GetEvents() []*mvccpb.Event {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2050,9 +2512,13 @@ type LeaseGrantRequest struct {
 func (m *LeaseGrantRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaseGrantRequest{}
 }
 func (m *LeaseGrantRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2060,13 +2526,19 @@ func (m *LeaseGrantRequest) String() string {
 func (*LeaseGrantRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaseGrantRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{24}
 }
 func (m *LeaseGrantRequest) GetTTL() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2075,6 +2547,8 @@ func (m *LeaseGrantRequest) GetTTL() int64 {
 	return 0
 }
 func (m *LeaseGrantRequest) GetID() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2093,9 +2567,13 @@ type LeaseGrantResponse struct {
 func (m *LeaseGrantResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaseGrantResponse{}
 }
 func (m *LeaseGrantResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2103,13 +2581,19 @@ func (m *LeaseGrantResponse) String() string {
 func (*LeaseGrantResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaseGrantResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{25}
 }
 func (m *LeaseGrantResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2120,6 +2604,8 @@ func (m *LeaseGrantResponse) GetHeader() *ResponseHeader {
 func (m *LeaseGrantResponse) GetID() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.ID
 	}
@@ -2128,12 +2614,16 @@ func (m *LeaseGrantResponse) GetID() int64 {
 func (m *LeaseGrantResponse) GetTTL() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.TTL
 	}
 	return 0
 }
 func (m *LeaseGrantResponse) GetError() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2149,9 +2639,13 @@ type LeaseRevokeRequest struct {
 func (m *LeaseRevokeRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaseRevokeRequest{}
 }
 func (m *LeaseRevokeRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2159,13 +2653,19 @@ func (m *LeaseRevokeRequest) String() string {
 func (*LeaseRevokeRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaseRevokeRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{26}
 }
 func (m *LeaseRevokeRequest) GetID() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2181,9 +2681,13 @@ type LeaseRevokeResponse struct {
 func (m *LeaseRevokeResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaseRevokeResponse{}
 }
 func (m *LeaseRevokeResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2191,13 +2695,19 @@ func (m *LeaseRevokeResponse) String() string {
 func (*LeaseRevokeResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaseRevokeResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{27}
 }
 func (m *LeaseRevokeResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2213,9 +2723,13 @@ type LeaseKeepAliveRequest struct {
 func (m *LeaseKeepAliveRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaseKeepAliveRequest{}
 }
 func (m *LeaseKeepAliveRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2223,13 +2737,19 @@ func (m *LeaseKeepAliveRequest) String() string {
 func (*LeaseKeepAliveRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaseKeepAliveRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{28}
 }
 func (m *LeaseKeepAliveRequest) GetID() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2247,9 +2767,13 @@ type LeaseKeepAliveResponse struct {
 func (m *LeaseKeepAliveResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaseKeepAliveResponse{}
 }
 func (m *LeaseKeepAliveResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2257,13 +2781,19 @@ func (m *LeaseKeepAliveResponse) String() string {
 func (*LeaseKeepAliveResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaseKeepAliveResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{29}
 }
 func (m *LeaseKeepAliveResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2274,12 +2804,16 @@ func (m *LeaseKeepAliveResponse) GetHeader() *ResponseHeader {
 func (m *LeaseKeepAliveResponse) GetID() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.ID
 	}
 	return 0
 }
 func (m *LeaseKeepAliveResponse) GetTTL() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2296,9 +2830,13 @@ type LeaseTimeToLiveRequest struct {
 func (m *LeaseTimeToLiveRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaseTimeToLiveRequest{}
 }
 func (m *LeaseTimeToLiveRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2306,13 +2844,19 @@ func (m *LeaseTimeToLiveRequest) String() string {
 func (*LeaseTimeToLiveRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaseTimeToLiveRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{30}
 }
 func (m *LeaseTimeToLiveRequest) GetID() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2321,6 +2865,8 @@ func (m *LeaseTimeToLiveRequest) GetID() int64 {
 	return 0
 }
 func (m *LeaseTimeToLiveRequest) GetKeys() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2340,9 +2886,13 @@ type LeaseTimeToLiveResponse struct {
 func (m *LeaseTimeToLiveResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaseTimeToLiveResponse{}
 }
 func (m *LeaseTimeToLiveResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2350,13 +2900,19 @@ func (m *LeaseTimeToLiveResponse) String() string {
 func (*LeaseTimeToLiveResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaseTimeToLiveResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{31}
 }
 func (m *LeaseTimeToLiveResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2367,12 +2923,16 @@ func (m *LeaseTimeToLiveResponse) GetHeader() *ResponseHeader {
 func (m *LeaseTimeToLiveResponse) GetID() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.ID
 	}
 	return 0
 }
 func (m *LeaseTimeToLiveResponse) GetTTL() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2383,12 +2943,16 @@ func (m *LeaseTimeToLiveResponse) GetTTL() int64 {
 func (m *LeaseTimeToLiveResponse) GetGrantedTTL() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.GrantedTTL
 	}
 	return 0
 }
 func (m *LeaseTimeToLiveResponse) GetKeys() [][]byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2402,9 +2966,13 @@ type LeaseLeasesRequest struct{}
 func (m *LeaseLeasesRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaseLeasesRequest{}
 }
 func (m *LeaseLeasesRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2412,8 +2980,12 @@ func (m *LeaseLeasesRequest) String() string {
 func (*LeaseLeasesRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaseLeasesRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{32}
@@ -2426,9 +2998,13 @@ type LeaseStatus struct {
 func (m *LeaseStatus) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaseStatus{}
 }
 func (m *LeaseStatus) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2436,13 +3012,19 @@ func (m *LeaseStatus) String() string {
 func (*LeaseStatus) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaseStatus) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{33}
 }
 func (m *LeaseStatus) GetID() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2459,9 +3041,13 @@ type LeaseLeasesResponse struct {
 func (m *LeaseLeasesResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = LeaseLeasesResponse{}
 }
 func (m *LeaseLeasesResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2469,13 +3055,19 @@ func (m *LeaseLeasesResponse) String() string {
 func (*LeaseLeasesResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*LeaseLeasesResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{34}
 }
 func (m *LeaseLeasesResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2484,6 +3076,8 @@ func (m *LeaseLeasesResponse) GetHeader() *ResponseHeader {
 	return nil
 }
 func (m *LeaseLeasesResponse) GetLeases() []*LeaseStatus {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2502,9 +3096,13 @@ type Member struct {
 func (m *Member) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = Member{}
 }
 func (m *Member) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2512,13 +3110,19 @@ func (m *Member) String() string {
 func (*Member) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*Member) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{35}
 }
 func (m *Member) GetID() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2529,6 +3133,8 @@ func (m *Member) GetID() uint64 {
 func (m *Member) GetName() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Name
 	}
@@ -2537,12 +3143,16 @@ func (m *Member) GetName() string {
 func (m *Member) GetPeerURLs() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.PeerURLs
 	}
 	return nil
 }
 func (m *Member) GetClientURLs() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2558,9 +3168,13 @@ type MemberAddRequest struct {
 func (m *MemberAddRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = MemberAddRequest{}
 }
 func (m *MemberAddRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2568,13 +3182,19 @@ func (m *MemberAddRequest) String() string {
 func (*MemberAddRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*MemberAddRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{36}
 }
 func (m *MemberAddRequest) GetPeerURLs() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2592,9 +3212,13 @@ type MemberAddResponse struct {
 func (m *MemberAddResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = MemberAddResponse{}
 }
 func (m *MemberAddResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2602,13 +3226,19 @@ func (m *MemberAddResponse) String() string {
 func (*MemberAddResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*MemberAddResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{37}
 }
 func (m *MemberAddResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2619,12 +3249,16 @@ func (m *MemberAddResponse) GetHeader() *ResponseHeader {
 func (m *MemberAddResponse) GetMember() *Member {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Member
 	}
 	return nil
 }
 func (m *MemberAddResponse) GetMembers() []*Member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2640,9 +3274,13 @@ type MemberRemoveRequest struct {
 func (m *MemberRemoveRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = MemberRemoveRequest{}
 }
 func (m *MemberRemoveRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2650,13 +3288,19 @@ func (m *MemberRemoveRequest) String() string {
 func (*MemberRemoveRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*MemberRemoveRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{38}
 }
 func (m *MemberRemoveRequest) GetID() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2673,9 +3317,13 @@ type MemberRemoveResponse struct {
 func (m *MemberRemoveResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = MemberRemoveResponse{}
 }
 func (m *MemberRemoveResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2683,13 +3331,19 @@ func (m *MemberRemoveResponse) String() string {
 func (*MemberRemoveResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*MemberRemoveResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{39}
 }
 func (m *MemberRemoveResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2698,6 +3352,8 @@ func (m *MemberRemoveResponse) GetHeader() *ResponseHeader {
 	return nil
 }
 func (m *MemberRemoveResponse) GetMembers() []*Member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2714,9 +3370,13 @@ type MemberUpdateRequest struct {
 func (m *MemberUpdateRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = MemberUpdateRequest{}
 }
 func (m *MemberUpdateRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2724,13 +3384,19 @@ func (m *MemberUpdateRequest) String() string {
 func (*MemberUpdateRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*MemberUpdateRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{40}
 }
 func (m *MemberUpdateRequest) GetID() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2739,6 +3405,8 @@ func (m *MemberUpdateRequest) GetID() uint64 {
 	return 0
 }
 func (m *MemberUpdateRequest) GetPeerURLs() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2755,9 +3423,13 @@ type MemberUpdateResponse struct {
 func (m *MemberUpdateResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = MemberUpdateResponse{}
 }
 func (m *MemberUpdateResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2765,13 +3437,19 @@ func (m *MemberUpdateResponse) String() string {
 func (*MemberUpdateResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*MemberUpdateResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{41}
 }
 func (m *MemberUpdateResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2780,6 +3458,8 @@ func (m *MemberUpdateResponse) GetHeader() *ResponseHeader {
 	return nil
 }
 func (m *MemberUpdateResponse) GetMembers() []*Member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2793,9 +3473,13 @@ type MemberListRequest struct{}
 func (m *MemberListRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = MemberListRequest{}
 }
 func (m *MemberListRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2803,8 +3487,12 @@ func (m *MemberListRequest) String() string {
 func (*MemberListRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*MemberListRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{42}
@@ -2818,9 +3506,13 @@ type MemberListResponse struct {
 func (m *MemberListResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = MemberListResponse{}
 }
 func (m *MemberListResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2828,13 +3520,19 @@ func (m *MemberListResponse) String() string {
 func (*MemberListResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*MemberListResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{43}
 }
 func (m *MemberListResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2843,6 +3541,8 @@ func (m *MemberListResponse) GetHeader() *ResponseHeader {
 	return nil
 }
 func (m *MemberListResponse) GetMembers() []*Member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2856,9 +3556,13 @@ type DefragmentRequest struct{}
 func (m *DefragmentRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = DefragmentRequest{}
 }
 func (m *DefragmentRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2866,8 +3570,12 @@ func (m *DefragmentRequest) String() string {
 func (*DefragmentRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*DefragmentRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{44}
@@ -2880,9 +3588,13 @@ type DefragmentResponse struct {
 func (m *DefragmentResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = DefragmentResponse{}
 }
 func (m *DefragmentResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2890,13 +3602,19 @@ func (m *DefragmentResponse) String() string {
 func (*DefragmentResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*DefragmentResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{45}
 }
 func (m *DefragmentResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2912,9 +3630,13 @@ type MoveLeaderRequest struct {
 func (m *MoveLeaderRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = MoveLeaderRequest{}
 }
 func (m *MoveLeaderRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2922,13 +3644,19 @@ func (m *MoveLeaderRequest) String() string {
 func (*MoveLeaderRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*MoveLeaderRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{46}
 }
 func (m *MoveLeaderRequest) GetTargetID() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2944,9 +3672,13 @@ type MoveLeaderResponse struct {
 func (m *MoveLeaderResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = MoveLeaderResponse{}
 }
 func (m *MoveLeaderResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2954,13 +3686,19 @@ func (m *MoveLeaderResponse) String() string {
 func (*MoveLeaderResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*MoveLeaderResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{47}
 }
 func (m *MoveLeaderResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -2978,9 +3716,13 @@ type AlarmRequest struct {
 func (m *AlarmRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AlarmRequest{}
 }
 func (m *AlarmRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -2988,13 +3730,19 @@ func (m *AlarmRequest) String() string {
 func (*AlarmRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AlarmRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{48}
 }
 func (m *AlarmRequest) GetAction() AlarmRequest_AlarmAction {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3005,12 +3753,16 @@ func (m *AlarmRequest) GetAction() AlarmRequest_AlarmAction {
 func (m *AlarmRequest) GetMemberID() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.MemberID
 	}
 	return 0
 }
 func (m *AlarmRequest) GetAlarm() AlarmType {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3027,9 +3779,13 @@ type AlarmMember struct {
 func (m *AlarmMember) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AlarmMember{}
 }
 func (m *AlarmMember) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3037,13 +3793,19 @@ func (m *AlarmMember) String() string {
 func (*AlarmMember) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AlarmMember) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{49}
 }
 func (m *AlarmMember) GetMemberID() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3052,6 +3814,8 @@ func (m *AlarmMember) GetMemberID() uint64 {
 	return 0
 }
 func (m *AlarmMember) GetAlarm() AlarmType {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3068,9 +3832,13 @@ type AlarmResponse struct {
 func (m *AlarmResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AlarmResponse{}
 }
 func (m *AlarmResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3078,13 +3846,19 @@ func (m *AlarmResponse) String() string {
 func (*AlarmResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AlarmResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{50}
 }
 func (m *AlarmResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3093,6 +3867,8 @@ func (m *AlarmResponse) GetHeader() *ResponseHeader {
 	return nil
 }
 func (m *AlarmResponse) GetAlarms() []*AlarmMember {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3106,9 +3882,13 @@ type StatusRequest struct{}
 func (m *StatusRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = StatusRequest{}
 }
 func (m *StatusRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3116,8 +3896,12 @@ func (m *StatusRequest) String() string {
 func (*StatusRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*StatusRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{51}
@@ -3135,9 +3919,13 @@ type StatusResponse struct {
 func (m *StatusResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = StatusResponse{}
 }
 func (m *StatusResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3145,13 +3933,19 @@ func (m *StatusResponse) String() string {
 func (*StatusResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*StatusResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{52}
 }
 func (m *StatusResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3162,12 +3956,16 @@ func (m *StatusResponse) GetHeader() *ResponseHeader {
 func (m *StatusResponse) GetVersion() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Version
 	}
 	return ""
 }
 func (m *StatusResponse) GetDbSize() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3178,6 +3976,8 @@ func (m *StatusResponse) GetDbSize() int64 {
 func (m *StatusResponse) GetLeader() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Leader
 	}
@@ -3186,12 +3986,16 @@ func (m *StatusResponse) GetLeader() uint64 {
 func (m *StatusResponse) GetRaftIndex() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.RaftIndex
 	}
 	return 0
 }
 func (m *StatusResponse) GetRaftTerm() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3205,9 +4009,13 @@ type AuthEnableRequest struct{}
 func (m *AuthEnableRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthEnableRequest{}
 }
 func (m *AuthEnableRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3215,8 +4023,12 @@ func (m *AuthEnableRequest) String() string {
 func (*AuthEnableRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthEnableRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{53}
@@ -3227,9 +4039,13 @@ type AuthDisableRequest struct{}
 func (m *AuthDisableRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthDisableRequest{}
 }
 func (m *AuthDisableRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3237,8 +4053,12 @@ func (m *AuthDisableRequest) String() string {
 func (*AuthDisableRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthDisableRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{54}
@@ -3252,9 +4072,13 @@ type AuthenticateRequest struct {
 func (m *AuthenticateRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthenticateRequest{}
 }
 func (m *AuthenticateRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3262,13 +4086,19 @@ func (m *AuthenticateRequest) String() string {
 func (*AuthenticateRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthenticateRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{55}
 }
 func (m *AuthenticateRequest) GetName() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3277,6 +4107,8 @@ func (m *AuthenticateRequest) GetName() string {
 	return ""
 }
 func (m *AuthenticateRequest) GetPassword() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3293,9 +4125,13 @@ type AuthUserAddRequest struct {
 func (m *AuthUserAddRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthUserAddRequest{}
 }
 func (m *AuthUserAddRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3303,13 +4139,19 @@ func (m *AuthUserAddRequest) String() string {
 func (*AuthUserAddRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthUserAddRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{56}
 }
 func (m *AuthUserAddRequest) GetName() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3318,6 +4160,8 @@ func (m *AuthUserAddRequest) GetName() string {
 	return ""
 }
 func (m *AuthUserAddRequest) GetPassword() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3333,9 +4177,13 @@ type AuthUserGetRequest struct {
 func (m *AuthUserGetRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthUserGetRequest{}
 }
 func (m *AuthUserGetRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3343,13 +4191,19 @@ func (m *AuthUserGetRequest) String() string {
 func (*AuthUserGetRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthUserGetRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{57}
 }
 func (m *AuthUserGetRequest) GetName() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3365,9 +4219,13 @@ type AuthUserDeleteRequest struct {
 func (m *AuthUserDeleteRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthUserDeleteRequest{}
 }
 func (m *AuthUserDeleteRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3375,13 +4233,19 @@ func (m *AuthUserDeleteRequest) String() string {
 func (*AuthUserDeleteRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthUserDeleteRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{58}
 }
 func (m *AuthUserDeleteRequest) GetName() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3398,9 +4262,13 @@ type AuthUserChangePasswordRequest struct {
 func (m *AuthUserChangePasswordRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthUserChangePasswordRequest{}
 }
 func (m *AuthUserChangePasswordRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3408,13 +4276,19 @@ func (m *AuthUserChangePasswordRequest) String() string {
 func (*AuthUserChangePasswordRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthUserChangePasswordRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{59}
 }
 func (m *AuthUserChangePasswordRequest) GetName() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3423,6 +4297,8 @@ func (m *AuthUserChangePasswordRequest) GetName() string {
 	return ""
 }
 func (m *AuthUserChangePasswordRequest) GetPassword() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3439,9 +4315,13 @@ type AuthUserGrantRoleRequest struct {
 func (m *AuthUserGrantRoleRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthUserGrantRoleRequest{}
 }
 func (m *AuthUserGrantRoleRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3449,13 +4329,19 @@ func (m *AuthUserGrantRoleRequest) String() string {
 func (*AuthUserGrantRoleRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthUserGrantRoleRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{60}
 }
 func (m *AuthUserGrantRoleRequest) GetUser() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3464,6 +4350,8 @@ func (m *AuthUserGrantRoleRequest) GetUser() string {
 	return ""
 }
 func (m *AuthUserGrantRoleRequest) GetRole() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3480,9 +4368,13 @@ type AuthUserRevokeRoleRequest struct {
 func (m *AuthUserRevokeRoleRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthUserRevokeRoleRequest{}
 }
 func (m *AuthUserRevokeRoleRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3490,13 +4382,19 @@ func (m *AuthUserRevokeRoleRequest) String() string {
 func (*AuthUserRevokeRoleRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthUserRevokeRoleRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{61}
 }
 func (m *AuthUserRevokeRoleRequest) GetName() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3505,6 +4403,8 @@ func (m *AuthUserRevokeRoleRequest) GetName() string {
 	return ""
 }
 func (m *AuthUserRevokeRoleRequest) GetRole() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3520,9 +4420,13 @@ type AuthRoleAddRequest struct {
 func (m *AuthRoleAddRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthRoleAddRequest{}
 }
 func (m *AuthRoleAddRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3530,13 +4434,19 @@ func (m *AuthRoleAddRequest) String() string {
 func (*AuthRoleAddRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthRoleAddRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{62}
 }
 func (m *AuthRoleAddRequest) GetName() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3552,9 +4462,13 @@ type AuthRoleGetRequest struct {
 func (m *AuthRoleGetRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthRoleGetRequest{}
 }
 func (m *AuthRoleGetRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3562,13 +4476,19 @@ func (m *AuthRoleGetRequest) String() string {
 func (*AuthRoleGetRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthRoleGetRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{63}
 }
 func (m *AuthRoleGetRequest) GetRole() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3582,9 +4502,13 @@ type AuthUserListRequest struct{}
 func (m *AuthUserListRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthUserListRequest{}
 }
 func (m *AuthUserListRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3592,8 +4516,12 @@ func (m *AuthUserListRequest) String() string {
 func (*AuthUserListRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthUserListRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{64}
@@ -3604,9 +4532,13 @@ type AuthRoleListRequest struct{}
 func (m *AuthRoleListRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthRoleListRequest{}
 }
 func (m *AuthRoleListRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3614,8 +4546,12 @@ func (m *AuthRoleListRequest) String() string {
 func (*AuthRoleListRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthRoleListRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{65}
@@ -3628,9 +4564,13 @@ type AuthRoleDeleteRequest struct {
 func (m *AuthRoleDeleteRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthRoleDeleteRequest{}
 }
 func (m *AuthRoleDeleteRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3638,13 +4578,19 @@ func (m *AuthRoleDeleteRequest) String() string {
 func (*AuthRoleDeleteRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthRoleDeleteRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{66}
 }
 func (m *AuthRoleDeleteRequest) GetRole() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3661,9 +4607,13 @@ type AuthRoleGrantPermissionRequest struct {
 func (m *AuthRoleGrantPermissionRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthRoleGrantPermissionRequest{}
 }
 func (m *AuthRoleGrantPermissionRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3671,13 +4621,19 @@ func (m *AuthRoleGrantPermissionRequest) String() string {
 func (*AuthRoleGrantPermissionRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthRoleGrantPermissionRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{67}
 }
 func (m *AuthRoleGrantPermissionRequest) GetName() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3686,6 +4642,8 @@ func (m *AuthRoleGrantPermissionRequest) GetName() string {
 	return ""
 }
 func (m *AuthRoleGrantPermissionRequest) GetPerm() *authpb.Permission {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3703,9 +4661,13 @@ type AuthRoleRevokePermissionRequest struct {
 func (m *AuthRoleRevokePermissionRequest) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthRoleRevokePermissionRequest{}
 }
 func (m *AuthRoleRevokePermissionRequest) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3713,13 +4675,19 @@ func (m *AuthRoleRevokePermissionRequest) String() string {
 func (*AuthRoleRevokePermissionRequest) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthRoleRevokePermissionRequest) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{68}
 }
 func (m *AuthRoleRevokePermissionRequest) GetRole() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3730,12 +4698,16 @@ func (m *AuthRoleRevokePermissionRequest) GetRole() string {
 func (m *AuthRoleRevokePermissionRequest) GetKey() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m != nil {
 		return m.Key
 	}
 	return ""
 }
 func (m *AuthRoleRevokePermissionRequest) GetRangeEnd() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3751,9 +4723,13 @@ type AuthEnableResponse struct {
 func (m *AuthEnableResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthEnableResponse{}
 }
 func (m *AuthEnableResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3761,13 +4737,19 @@ func (m *AuthEnableResponse) String() string {
 func (*AuthEnableResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthEnableResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{69}
 }
 func (m *AuthEnableResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3783,9 +4765,13 @@ type AuthDisableResponse struct {
 func (m *AuthDisableResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthDisableResponse{}
 }
 func (m *AuthDisableResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3793,13 +4779,19 @@ func (m *AuthDisableResponse) String() string {
 func (*AuthDisableResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthDisableResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{70}
 }
 func (m *AuthDisableResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3816,9 +4808,13 @@ type AuthenticateResponse struct {
 func (m *AuthenticateResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthenticateResponse{}
 }
 func (m *AuthenticateResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3826,13 +4822,19 @@ func (m *AuthenticateResponse) String() string {
 func (*AuthenticateResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthenticateResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{71}
 }
 func (m *AuthenticateResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3841,6 +4843,8 @@ func (m *AuthenticateResponse) GetHeader() *ResponseHeader {
 	return nil
 }
 func (m *AuthenticateResponse) GetToken() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3856,9 +4860,13 @@ type AuthUserAddResponse struct {
 func (m *AuthUserAddResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthUserAddResponse{}
 }
 func (m *AuthUserAddResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3866,13 +4874,19 @@ func (m *AuthUserAddResponse) String() string {
 func (*AuthUserAddResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthUserAddResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{72}
 }
 func (m *AuthUserAddResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3889,9 +4903,13 @@ type AuthUserGetResponse struct {
 func (m *AuthUserGetResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthUserGetResponse{}
 }
 func (m *AuthUserGetResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3899,13 +4917,19 @@ func (m *AuthUserGetResponse) String() string {
 func (*AuthUserGetResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthUserGetResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{73}
 }
 func (m *AuthUserGetResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3914,6 +4938,8 @@ func (m *AuthUserGetResponse) GetHeader() *ResponseHeader {
 	return nil
 }
 func (m *AuthUserGetResponse) GetRoles() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3929,9 +4955,13 @@ type AuthUserDeleteResponse struct {
 func (m *AuthUserDeleteResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthUserDeleteResponse{}
 }
 func (m *AuthUserDeleteResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3939,13 +4969,19 @@ func (m *AuthUserDeleteResponse) String() string {
 func (*AuthUserDeleteResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthUserDeleteResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{74}
 }
 func (m *AuthUserDeleteResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3961,9 +4997,13 @@ type AuthUserChangePasswordResponse struct {
 func (m *AuthUserChangePasswordResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthUserChangePasswordResponse{}
 }
 func (m *AuthUserChangePasswordResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -3971,13 +5011,19 @@ func (m *AuthUserChangePasswordResponse) String() string {
 func (*AuthUserChangePasswordResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthUserChangePasswordResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{75}
 }
 func (m *AuthUserChangePasswordResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -3993,9 +5039,13 @@ type AuthUserGrantRoleResponse struct {
 func (m *AuthUserGrantRoleResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthUserGrantRoleResponse{}
 }
 func (m *AuthUserGrantRoleResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -4003,13 +5053,19 @@ func (m *AuthUserGrantRoleResponse) String() string {
 func (*AuthUserGrantRoleResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthUserGrantRoleResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{76}
 }
 func (m *AuthUserGrantRoleResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -4025,9 +5081,13 @@ type AuthUserRevokeRoleResponse struct {
 func (m *AuthUserRevokeRoleResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthUserRevokeRoleResponse{}
 }
 func (m *AuthUserRevokeRoleResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -4035,13 +5095,19 @@ func (m *AuthUserRevokeRoleResponse) String() string {
 func (*AuthUserRevokeRoleResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthUserRevokeRoleResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{77}
 }
 func (m *AuthUserRevokeRoleResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -4057,9 +5123,13 @@ type AuthRoleAddResponse struct {
 func (m *AuthRoleAddResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthRoleAddResponse{}
 }
 func (m *AuthRoleAddResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -4067,13 +5137,19 @@ func (m *AuthRoleAddResponse) String() string {
 func (*AuthRoleAddResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthRoleAddResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{78}
 }
 func (m *AuthRoleAddResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -4090,9 +5166,13 @@ type AuthRoleGetResponse struct {
 func (m *AuthRoleGetResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthRoleGetResponse{}
 }
 func (m *AuthRoleGetResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -4100,13 +5180,19 @@ func (m *AuthRoleGetResponse) String() string {
 func (*AuthRoleGetResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthRoleGetResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{79}
 }
 func (m *AuthRoleGetResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -4115,6 +5201,8 @@ func (m *AuthRoleGetResponse) GetHeader() *ResponseHeader {
 	return nil
 }
 func (m *AuthRoleGetResponse) GetPerm() []*authpb.Permission {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -4131,9 +5219,13 @@ type AuthRoleListResponse struct {
 func (m *AuthRoleListResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthRoleListResponse{}
 }
 func (m *AuthRoleListResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -4141,13 +5233,19 @@ func (m *AuthRoleListResponse) String() string {
 func (*AuthRoleListResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthRoleListResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{80}
 }
 func (m *AuthRoleListResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -4156,6 +5254,8 @@ func (m *AuthRoleListResponse) GetHeader() *ResponseHeader {
 	return nil
 }
 func (m *AuthRoleListResponse) GetRoles() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -4172,9 +5272,13 @@ type AuthUserListResponse struct {
 func (m *AuthUserListResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthUserListResponse{}
 }
 func (m *AuthUserListResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -4182,13 +5286,19 @@ func (m *AuthUserListResponse) String() string {
 func (*AuthUserListResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthUserListResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{81}
 }
 func (m *AuthUserListResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -4197,6 +5307,8 @@ func (m *AuthUserListResponse) GetHeader() *ResponseHeader {
 	return nil
 }
 func (m *AuthUserListResponse) GetUsers() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -4212,9 +5324,13 @@ type AuthRoleDeleteResponse struct {
 func (m *AuthRoleDeleteResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthRoleDeleteResponse{}
 }
 func (m *AuthRoleDeleteResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -4222,13 +5338,19 @@ func (m *AuthRoleDeleteResponse) String() string {
 func (*AuthRoleDeleteResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthRoleDeleteResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{82}
 }
 func (m *AuthRoleDeleteResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -4244,9 +5366,13 @@ type AuthRoleGrantPermissionResponse struct {
 func (m *AuthRoleGrantPermissionResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthRoleGrantPermissionResponse{}
 }
 func (m *AuthRoleGrantPermissionResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -4254,13 +5380,19 @@ func (m *AuthRoleGrantPermissionResponse) String() string {
 func (*AuthRoleGrantPermissionResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthRoleGrantPermissionResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{83}
 }
 func (m *AuthRoleGrantPermissionResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -4276,9 +5408,13 @@ type AuthRoleRevokePermissionResponse struct {
 func (m *AuthRoleRevokePermissionResponse) Reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*m = AuthRoleRevokePermissionResponse{}
 }
 func (m *AuthRoleRevokePermissionResponse) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return proto.CompactTextString(m)
@@ -4286,13 +5422,19 @@ func (m *AuthRoleRevokePermissionResponse) String() string {
 func (*AuthRoleRevokePermissionResponse) ProtoMessage() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (*AuthRoleRevokePermissionResponse) Descriptor() ([]byte, []int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fileDescriptorRpc, []int{84}
 }
 func (m *AuthRoleRevokePermissionResponse) GetHeader() *ResponseHeader {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m != nil {
@@ -4301,6 +5443,8 @@ func (m *AuthRoleRevokePermissionResponse) GetHeader() *ResponseHeader {
 	return nil
 }
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	proto.RegisterType((*ResponseHeader)(nil), "etcdserverpb.ResponseHeader")
@@ -4414,9 +5558,13 @@ type kVClient struct{ cc *grpc.ClientConn }
 func NewKVClient(cc *grpc.ClientConn) KVClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &kVClient{cc}
 }
 func (c *kVClient) Range(ctx context.Context, in *RangeRequest, opts ...grpc.CallOption) (*RangeResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(RangeResponse)
@@ -4429,6 +5577,8 @@ func (c *kVClient) Range(ctx context.Context, in *RangeRequest, opts ...grpc.Cal
 func (c *kVClient) Put(ctx context.Context, in *PutRequest, opts ...grpc.CallOption) (*PutResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(PutResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.KV/Put", in, out, c.cc, opts...)
 	if err != nil {
@@ -4437,6 +5587,8 @@ func (c *kVClient) Put(ctx context.Context, in *PutRequest, opts ...grpc.CallOpt
 	return out, nil
 }
 func (c *kVClient) DeleteRange(ctx context.Context, in *DeleteRangeRequest, opts ...grpc.CallOption) (*DeleteRangeResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(DeleteRangeResponse)
@@ -4449,6 +5601,8 @@ func (c *kVClient) DeleteRange(ctx context.Context, in *DeleteRangeRequest, opts
 func (c *kVClient) Txn(ctx context.Context, in *TxnRequest, opts ...grpc.CallOption) (*TxnResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(TxnResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.KV/Txn", in, out, c.cc, opts...)
 	if err != nil {
@@ -4457,6 +5611,8 @@ func (c *kVClient) Txn(ctx context.Context, in *TxnRequest, opts ...grpc.CallOpt
 	return out, nil
 }
 func (c *kVClient) Compact(ctx context.Context, in *CompactionRequest, opts ...grpc.CallOption) (*CompactionResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(CompactionResponse)
@@ -4478,9 +5634,13 @@ type KVServer interface {
 func RegisterKVServer(s *grpc.Server, srv KVServer) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.RegisterService(&_KV_serviceDesc, srv)
 }
 func _KV_Range_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(RangeRequest)
@@ -4499,6 +5659,8 @@ func _KV_Range_Handler(srv interface{}, ctx context.Context, dec func(interface{
 func _KV_Put_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(PutRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -4513,6 +5675,8 @@ func _KV_Put_Handler(srv interface{}, ctx context.Context, dec func(interface{})
 	return interceptor(ctx, in, info, handler)
 }
 func _KV_DeleteRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(DeleteRangeRequest)
@@ -4531,6 +5695,8 @@ func _KV_DeleteRange_Handler(srv interface{}, ctx context.Context, dec func(inte
 func _KV_Txn_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(TxnRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -4545,6 +5711,8 @@ func _KV_Txn_Handler(srv interface{}, ctx context.Context, dec func(interface{})
 	return interceptor(ctx, in, info, handler)
 }
 func _KV_Compact_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(CompactionRequest)
@@ -4571,9 +5739,13 @@ type watchClient struct{ cc *grpc.ClientConn }
 func NewWatchClient(cc *grpc.ClientConn) WatchClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &watchClient{cc}
 }
 func (c *watchClient) Watch(ctx context.Context, opts ...grpc.CallOption) (Watch_WatchClient, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	stream, err := grpc.NewClientStream(ctx, &_Watch_serviceDesc.Streams[0], c.cc, "/etcdserverpb.Watch/Watch", opts...)
@@ -4594,9 +5766,13 @@ type watchWatchClient struct{ grpc.ClientStream }
 func (x *watchWatchClient) Send(m *WatchRequest) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return x.ClientStream.SendMsg(m)
 }
 func (x *watchWatchClient) Recv() (*WatchResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := new(WatchResponse)
@@ -4611,9 +5787,13 @@ type WatchServer interface{ Watch(Watch_WatchServer) error }
 func RegisterWatchServer(s *grpc.Server, srv WatchServer) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.RegisterService(&_Watch_serviceDesc, srv)
 }
 func _Watch_Watch_Handler(srv interface{}, stream grpc.ServerStream) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return srv.(WatchServer).Watch(&watchWatchServer{stream})
@@ -4629,9 +5809,13 @@ type watchWatchServer struct{ grpc.ServerStream }
 func (x *watchWatchServer) Send(m *WatchResponse) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return x.ServerStream.SendMsg(m)
 }
 func (x *watchWatchServer) Recv() (*WatchRequest, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := new(WatchRequest)
@@ -4655,9 +5839,13 @@ type leaseClient struct{ cc *grpc.ClientConn }
 func NewLeaseClient(cc *grpc.ClientConn) LeaseClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &leaseClient{cc}
 }
 func (c *leaseClient) LeaseGrant(ctx context.Context, in *LeaseGrantRequest, opts ...grpc.CallOption) (*LeaseGrantResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(LeaseGrantResponse)
@@ -4670,6 +5858,8 @@ func (c *leaseClient) LeaseGrant(ctx context.Context, in *LeaseGrantRequest, opt
 func (c *leaseClient) LeaseRevoke(ctx context.Context, in *LeaseRevokeRequest, opts ...grpc.CallOption) (*LeaseRevokeResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(LeaseRevokeResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Lease/LeaseRevoke", in, out, c.cc, opts...)
 	if err != nil {
@@ -4678,6 +5868,8 @@ func (c *leaseClient) LeaseRevoke(ctx context.Context, in *LeaseRevokeRequest, o
 	return out, nil
 }
 func (c *leaseClient) LeaseKeepAlive(ctx context.Context, opts ...grpc.CallOption) (Lease_LeaseKeepAliveClient, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	stream, err := grpc.NewClientStream(ctx, &_Lease_serviceDesc.Streams[0], c.cc, "/etcdserverpb.Lease/LeaseKeepAlive", opts...)
@@ -4698,9 +5890,13 @@ type leaseLeaseKeepAliveClient struct{ grpc.ClientStream }
 func (x *leaseLeaseKeepAliveClient) Send(m *LeaseKeepAliveRequest) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return x.ClientStream.SendMsg(m)
 }
 func (x *leaseLeaseKeepAliveClient) Recv() (*LeaseKeepAliveResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := new(LeaseKeepAliveResponse)
@@ -4712,6 +5908,8 @@ func (x *leaseLeaseKeepAliveClient) Recv() (*LeaseKeepAliveResponse, error) {
 func (c *leaseClient) LeaseTimeToLive(ctx context.Context, in *LeaseTimeToLiveRequest, opts ...grpc.CallOption) (*LeaseTimeToLiveResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(LeaseTimeToLiveResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Lease/LeaseTimeToLive", in, out, c.cc, opts...)
 	if err != nil {
@@ -4720,6 +5918,8 @@ func (c *leaseClient) LeaseTimeToLive(ctx context.Context, in *LeaseTimeToLiveRe
 	return out, nil
 }
 func (c *leaseClient) LeaseLeases(ctx context.Context, in *LeaseLeasesRequest, opts ...grpc.CallOption) (*LeaseLeasesResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(LeaseLeasesResponse)
@@ -4741,9 +5941,13 @@ type LeaseServer interface {
 func RegisterLeaseServer(s *grpc.Server, srv LeaseServer) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.RegisterService(&_Lease_serviceDesc, srv)
 }
 func _Lease_LeaseGrant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(LeaseGrantRequest)
@@ -4762,6 +5966,8 @@ func _Lease_LeaseGrant_Handler(srv interface{}, ctx context.Context, dec func(in
 func _Lease_LeaseRevoke_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(LeaseRevokeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -4778,6 +5984,8 @@ func _Lease_LeaseRevoke_Handler(srv interface{}, ctx context.Context, dec func(i
 func _Lease_LeaseKeepAlive_Handler(srv interface{}, stream grpc.ServerStream) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return srv.(LeaseServer).LeaseKeepAlive(&leaseLeaseKeepAliveServer{stream})
 }
 
@@ -4791,9 +5999,13 @@ type leaseLeaseKeepAliveServer struct{ grpc.ServerStream }
 func (x *leaseLeaseKeepAliveServer) Send(m *LeaseKeepAliveResponse) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return x.ServerStream.SendMsg(m)
 }
 func (x *leaseLeaseKeepAliveServer) Recv() (*LeaseKeepAliveRequest, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := new(LeaseKeepAliveRequest)
@@ -4803,6 +6015,8 @@ func (x *leaseLeaseKeepAliveServer) Recv() (*LeaseKeepAliveRequest, error) {
 	return m, nil
 }
 func _Lease_LeaseTimeToLive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(LeaseTimeToLiveRequest)
@@ -4819,6 +6033,8 @@ func _Lease_LeaseTimeToLive_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 func _Lease_LeaseLeases_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(LeaseLeasesRequest)
@@ -4848,9 +6064,13 @@ type clusterClient struct{ cc *grpc.ClientConn }
 func NewClusterClient(cc *grpc.ClientConn) ClusterClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &clusterClient{cc}
 }
 func (c *clusterClient) MemberAdd(ctx context.Context, in *MemberAddRequest, opts ...grpc.CallOption) (*MemberAddResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(MemberAddResponse)
@@ -4863,6 +6083,8 @@ func (c *clusterClient) MemberAdd(ctx context.Context, in *MemberAddRequest, opt
 func (c *clusterClient) MemberRemove(ctx context.Context, in *MemberRemoveRequest, opts ...grpc.CallOption) (*MemberRemoveResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(MemberRemoveResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Cluster/MemberRemove", in, out, c.cc, opts...)
 	if err != nil {
@@ -4873,6 +6095,8 @@ func (c *clusterClient) MemberRemove(ctx context.Context, in *MemberRemoveReques
 func (c *clusterClient) MemberUpdate(ctx context.Context, in *MemberUpdateRequest, opts ...grpc.CallOption) (*MemberUpdateResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(MemberUpdateResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Cluster/MemberUpdate", in, out, c.cc, opts...)
 	if err != nil {
@@ -4881,6 +6105,8 @@ func (c *clusterClient) MemberUpdate(ctx context.Context, in *MemberUpdateReques
 	return out, nil
 }
 func (c *clusterClient) MemberList(ctx context.Context, in *MemberListRequest, opts ...grpc.CallOption) (*MemberListResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(MemberListResponse)
@@ -4901,9 +6127,13 @@ type ClusterServer interface {
 func RegisterClusterServer(s *grpc.Server, srv ClusterServer) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.RegisterService(&_Cluster_serviceDesc, srv)
 }
 func _Cluster_MemberAdd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(MemberAddRequest)
@@ -4922,6 +6152,8 @@ func _Cluster_MemberAdd_Handler(srv interface{}, ctx context.Context, dec func(i
 func _Cluster_MemberRemove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(MemberRemoveRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -4938,6 +6170,8 @@ func _Cluster_MemberRemove_Handler(srv interface{}, ctx context.Context, dec fun
 func _Cluster_MemberUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(MemberUpdateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -4952,6 +6186,8 @@ func _Cluster_MemberUpdate_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 func _Cluster_MemberList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(MemberListRequest)
@@ -4984,9 +6220,13 @@ type maintenanceClient struct{ cc *grpc.ClientConn }
 func NewMaintenanceClient(cc *grpc.ClientConn) MaintenanceClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &maintenanceClient{cc}
 }
 func (c *maintenanceClient) Alarm(ctx context.Context, in *AlarmRequest, opts ...grpc.CallOption) (*AlarmResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(AlarmResponse)
@@ -4999,6 +6239,8 @@ func (c *maintenanceClient) Alarm(ctx context.Context, in *AlarmRequest, opts ..
 func (c *maintenanceClient) Status(ctx context.Context, in *StatusRequest, opts ...grpc.CallOption) (*StatusResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(StatusResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Maintenance/Status", in, out, c.cc, opts...)
 	if err != nil {
@@ -5007,6 +6249,8 @@ func (c *maintenanceClient) Status(ctx context.Context, in *StatusRequest, opts 
 	return out, nil
 }
 func (c *maintenanceClient) Defragment(ctx context.Context, in *DefragmentRequest, opts ...grpc.CallOption) (*DefragmentResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(DefragmentResponse)
@@ -5019,6 +6263,8 @@ func (c *maintenanceClient) Defragment(ctx context.Context, in *DefragmentReques
 func (c *maintenanceClient) Hash(ctx context.Context, in *HashRequest, opts ...grpc.CallOption) (*HashResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(HashResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Maintenance/Hash", in, out, c.cc, opts...)
 	if err != nil {
@@ -5029,6 +6275,8 @@ func (c *maintenanceClient) Hash(ctx context.Context, in *HashRequest, opts ...g
 func (c *maintenanceClient) HashKV(ctx context.Context, in *HashKVRequest, opts ...grpc.CallOption) (*HashKVResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(HashKVResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Maintenance/HashKV", in, out, c.cc, opts...)
 	if err != nil {
@@ -5037,6 +6285,8 @@ func (c *maintenanceClient) HashKV(ctx context.Context, in *HashKVRequest, opts 
 	return out, nil
 }
 func (c *maintenanceClient) Snapshot(ctx context.Context, in *SnapshotRequest, opts ...grpc.CallOption) (Maintenance_SnapshotClient, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	stream, err := grpc.NewClientStream(ctx, &_Maintenance_serviceDesc.Streams[0], c.cc, "/etcdserverpb.Maintenance/Snapshot", opts...)
@@ -5062,6 +6312,8 @@ type maintenanceSnapshotClient struct{ grpc.ClientStream }
 func (x *maintenanceSnapshotClient) Recv() (*SnapshotResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := new(SnapshotResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -5069,6 +6321,8 @@ func (x *maintenanceSnapshotClient) Recv() (*SnapshotResponse, error) {
 	return m, nil
 }
 func (c *maintenanceClient) MoveLeader(ctx context.Context, in *MoveLeaderRequest, opts ...grpc.CallOption) (*MoveLeaderResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(MoveLeaderResponse)
@@ -5092,9 +6346,13 @@ type MaintenanceServer interface {
 func RegisterMaintenanceServer(s *grpc.Server, srv MaintenanceServer) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.RegisterService(&_Maintenance_serviceDesc, srv)
 }
 func _Maintenance_Alarm_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(AlarmRequest)
@@ -5113,6 +6371,8 @@ func _Maintenance_Alarm_Handler(srv interface{}, ctx context.Context, dec func(i
 func _Maintenance_Status_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(StatusRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -5127,6 +6387,8 @@ func _Maintenance_Status_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 func _Maintenance_Defragment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(DefragmentRequest)
@@ -5145,6 +6407,8 @@ func _Maintenance_Defragment_Handler(srv interface{}, ctx context.Context, dec f
 func _Maintenance_Hash_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(HashRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -5159,6 +6423,8 @@ func _Maintenance_Hash_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 func _Maintenance_HashKV_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(HashKVRequest)
@@ -5177,6 +6443,8 @@ func _Maintenance_HashKV_Handler(srv interface{}, ctx context.Context, dec func(
 func _Maintenance_Snapshot_Handler(srv interface{}, stream grpc.ServerStream) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := new(SnapshotRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
@@ -5193,9 +6461,13 @@ type maintenanceSnapshotServer struct{ grpc.ServerStream }
 func (x *maintenanceSnapshotServer) Send(m *SnapshotResponse) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return x.ServerStream.SendMsg(m)
 }
 func _Maintenance_MoveLeader_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(MoveLeaderRequest)
@@ -5237,9 +6509,13 @@ type authClient struct{ cc *grpc.ClientConn }
 func NewAuthClient(cc *grpc.ClientConn) AuthClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &authClient{cc}
 }
 func (c *authClient) AuthEnable(ctx context.Context, in *AuthEnableRequest, opts ...grpc.CallOption) (*AuthEnableResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(AuthEnableResponse)
@@ -5252,6 +6528,8 @@ func (c *authClient) AuthEnable(ctx context.Context, in *AuthEnableRequest, opts
 func (c *authClient) AuthDisable(ctx context.Context, in *AuthDisableRequest, opts ...grpc.CallOption) (*AuthDisableResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(AuthDisableResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Auth/AuthDisable", in, out, c.cc, opts...)
 	if err != nil {
@@ -5260,6 +6538,8 @@ func (c *authClient) AuthDisable(ctx context.Context, in *AuthDisableRequest, op
 	return out, nil
 }
 func (c *authClient) Authenticate(ctx context.Context, in *AuthenticateRequest, opts ...grpc.CallOption) (*AuthenticateResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(AuthenticateResponse)
@@ -5272,6 +6552,8 @@ func (c *authClient) Authenticate(ctx context.Context, in *AuthenticateRequest, 
 func (c *authClient) UserAdd(ctx context.Context, in *AuthUserAddRequest, opts ...grpc.CallOption) (*AuthUserAddResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(AuthUserAddResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Auth/UserAdd", in, out, c.cc, opts...)
 	if err != nil {
@@ -5280,6 +6562,8 @@ func (c *authClient) UserAdd(ctx context.Context, in *AuthUserAddRequest, opts .
 	return out, nil
 }
 func (c *authClient) UserGet(ctx context.Context, in *AuthUserGetRequest, opts ...grpc.CallOption) (*AuthUserGetResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(AuthUserGetResponse)
@@ -5292,6 +6576,8 @@ func (c *authClient) UserGet(ctx context.Context, in *AuthUserGetRequest, opts .
 func (c *authClient) UserList(ctx context.Context, in *AuthUserListRequest, opts ...grpc.CallOption) (*AuthUserListResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(AuthUserListResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Auth/UserList", in, out, c.cc, opts...)
 	if err != nil {
@@ -5300,6 +6586,8 @@ func (c *authClient) UserList(ctx context.Context, in *AuthUserListRequest, opts
 	return out, nil
 }
 func (c *authClient) UserDelete(ctx context.Context, in *AuthUserDeleteRequest, opts ...grpc.CallOption) (*AuthUserDeleteResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(AuthUserDeleteResponse)
@@ -5312,6 +6600,8 @@ func (c *authClient) UserDelete(ctx context.Context, in *AuthUserDeleteRequest, 
 func (c *authClient) UserChangePassword(ctx context.Context, in *AuthUserChangePasswordRequest, opts ...grpc.CallOption) (*AuthUserChangePasswordResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(AuthUserChangePasswordResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Auth/UserChangePassword", in, out, c.cc, opts...)
 	if err != nil {
@@ -5320,6 +6610,8 @@ func (c *authClient) UserChangePassword(ctx context.Context, in *AuthUserChangeP
 	return out, nil
 }
 func (c *authClient) UserGrantRole(ctx context.Context, in *AuthUserGrantRoleRequest, opts ...grpc.CallOption) (*AuthUserGrantRoleResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(AuthUserGrantRoleResponse)
@@ -5332,6 +6624,8 @@ func (c *authClient) UserGrantRole(ctx context.Context, in *AuthUserGrantRoleReq
 func (c *authClient) UserRevokeRole(ctx context.Context, in *AuthUserRevokeRoleRequest, opts ...grpc.CallOption) (*AuthUserRevokeRoleResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(AuthUserRevokeRoleResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Auth/UserRevokeRole", in, out, c.cc, opts...)
 	if err != nil {
@@ -5340,6 +6634,8 @@ func (c *authClient) UserRevokeRole(ctx context.Context, in *AuthUserRevokeRoleR
 	return out, nil
 }
 func (c *authClient) RoleAdd(ctx context.Context, in *AuthRoleAddRequest, opts ...grpc.CallOption) (*AuthRoleAddResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(AuthRoleAddResponse)
@@ -5352,6 +6648,8 @@ func (c *authClient) RoleAdd(ctx context.Context, in *AuthRoleAddRequest, opts .
 func (c *authClient) RoleGet(ctx context.Context, in *AuthRoleGetRequest, opts ...grpc.CallOption) (*AuthRoleGetResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(AuthRoleGetResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Auth/RoleGet", in, out, c.cc, opts...)
 	if err != nil {
@@ -5360,6 +6658,8 @@ func (c *authClient) RoleGet(ctx context.Context, in *AuthRoleGetRequest, opts .
 	return out, nil
 }
 func (c *authClient) RoleList(ctx context.Context, in *AuthRoleListRequest, opts ...grpc.CallOption) (*AuthRoleListResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(AuthRoleListResponse)
@@ -5372,6 +6672,8 @@ func (c *authClient) RoleList(ctx context.Context, in *AuthRoleListRequest, opts
 func (c *authClient) RoleDelete(ctx context.Context, in *AuthRoleDeleteRequest, opts ...grpc.CallOption) (*AuthRoleDeleteResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(AuthRoleDeleteResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Auth/RoleDelete", in, out, c.cc, opts...)
 	if err != nil {
@@ -5382,6 +6684,8 @@ func (c *authClient) RoleDelete(ctx context.Context, in *AuthRoleDeleteRequest, 
 func (c *authClient) RoleGrantPermission(ctx context.Context, in *AuthRoleGrantPermissionRequest, opts ...grpc.CallOption) (*AuthRoleGrantPermissionResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	out := new(AuthRoleGrantPermissionResponse)
 	err := grpc.Invoke(ctx, "/etcdserverpb.Auth/RoleGrantPermission", in, out, c.cc, opts...)
 	if err != nil {
@@ -5390,6 +6694,8 @@ func (c *authClient) RoleGrantPermission(ctx context.Context, in *AuthRoleGrantP
 	return out, nil
 }
 func (c *authClient) RoleRevokePermission(ctx context.Context, in *AuthRoleRevokePermissionRequest, opts ...grpc.CallOption) (*AuthRoleRevokePermissionResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := new(AuthRoleRevokePermissionResponse)
@@ -5422,9 +6728,13 @@ type AuthServer interface {
 func RegisterAuthServer(s *grpc.Server, srv AuthServer) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.RegisterService(&_Auth_serviceDesc, srv)
 }
 func _Auth_AuthEnable_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(AuthEnableRequest)
@@ -5443,6 +6753,8 @@ func _Auth_AuthEnable_Handler(srv interface{}, ctx context.Context, dec func(int
 func _Auth_AuthDisable_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(AuthDisableRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -5457,6 +6769,8 @@ func _Auth_AuthDisable_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 func _Auth_Authenticate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(AuthenticateRequest)
@@ -5475,6 +6789,8 @@ func _Auth_Authenticate_Handler(srv interface{}, ctx context.Context, dec func(i
 func _Auth_UserAdd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(AuthUserAddRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -5489,6 +6805,8 @@ func _Auth_UserAdd_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 func _Auth_UserGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(AuthUserGetRequest)
@@ -5507,6 +6825,8 @@ func _Auth_UserGet_Handler(srv interface{}, ctx context.Context, dec func(interf
 func _Auth_UserList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(AuthUserListRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -5521,6 +6841,8 @@ func _Auth_UserList_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 func _Auth_UserDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(AuthUserDeleteRequest)
@@ -5539,6 +6861,8 @@ func _Auth_UserDelete_Handler(srv interface{}, ctx context.Context, dec func(int
 func _Auth_UserChangePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(AuthUserChangePasswordRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -5553,6 +6877,8 @@ func _Auth_UserChangePassword_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 func _Auth_UserGrantRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(AuthUserGrantRoleRequest)
@@ -5571,6 +6897,8 @@ func _Auth_UserGrantRole_Handler(srv interface{}, ctx context.Context, dec func(
 func _Auth_UserRevokeRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(AuthUserRevokeRoleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -5585,6 +6913,8 @@ func _Auth_UserRevokeRole_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 func _Auth_RoleAdd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(AuthRoleAddRequest)
@@ -5603,6 +6933,8 @@ func _Auth_RoleAdd_Handler(srv interface{}, ctx context.Context, dec func(interf
 func _Auth_RoleGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(AuthRoleGetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -5617,6 +6949,8 @@ func _Auth_RoleGet_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 func _Auth_RoleList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(AuthRoleListRequest)
@@ -5635,6 +6969,8 @@ func _Auth_RoleList_Handler(srv interface{}, ctx context.Context, dec func(inter
 func _Auth_RoleDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(AuthRoleDeleteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -5651,6 +6987,8 @@ func _Auth_RoleDelete_Handler(srv interface{}, ctx context.Context, dec func(int
 func _Auth_RoleGrantPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	in := new(AuthRoleGrantPermissionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -5665,6 +7003,8 @@ func _Auth_RoleGrantPermission_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 func _Auth_RoleRevokePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	in := new(AuthRoleRevokePermissionRequest)
@@ -5686,6 +7026,8 @@ var _Auth_serviceDesc = grpc.ServiceDesc{ServiceName: "etcdserverpb.Auth", Handl
 func (m *ResponseHeader) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -5695,6 +7037,8 @@ func (m *ResponseHeader) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *ResponseHeader) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -5726,6 +7070,8 @@ func (m *ResponseHeader) MarshalTo(dAtA []byte) (int, error) {
 func (m *RangeRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -5735,6 +7081,8 @@ func (m *RangeRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *RangeRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -5828,6 +7176,8 @@ func (m *RangeRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *RangeResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -5837,6 +7187,8 @@ func (m *RangeResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *RangeResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -5885,6 +7237,8 @@ func (m *RangeResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *PutRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -5894,6 +7248,8 @@ func (m *PutRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *PutRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -5952,6 +7308,8 @@ func (m *PutRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *PutResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -5961,6 +7319,8 @@ func (m *PutResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *PutResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -5992,6 +7352,8 @@ func (m *PutResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *DeleteRangeRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6001,6 +7363,8 @@ func (m *DeleteRangeRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *DeleteRangeRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6034,6 +7398,8 @@ func (m *DeleteRangeRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *DeleteRangeResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6043,6 +7409,8 @@ func (m *DeleteRangeResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *DeleteRangeResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6081,6 +7449,8 @@ func (m *DeleteRangeResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *RequestOp) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6090,6 +7460,8 @@ func (m *RequestOp) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *RequestOp) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6108,6 +7480,8 @@ func (m *RequestOp) MarshalTo(dAtA []byte) (int, error) {
 func (m *RequestOp_RequestRange) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i := 0
 	if m.RequestRange != nil {
 		dAtA[i] = 0xa
@@ -6122,6 +7496,8 @@ func (m *RequestOp_RequestRange) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *RequestOp_RequestPut) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	i := 0
@@ -6140,6 +7516,8 @@ func (m *RequestOp_RequestPut) MarshalTo(dAtA []byte) (int, error) {
 func (m *RequestOp_RequestDeleteRange) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i := 0
 	if m.RequestDeleteRange != nil {
 		dAtA[i] = 0x1a
@@ -6154,6 +7532,8 @@ func (m *RequestOp_RequestDeleteRange) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *RequestOp_RequestTxn) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	i := 0
@@ -6172,6 +7552,8 @@ func (m *RequestOp_RequestTxn) MarshalTo(dAtA []byte) (int, error) {
 func (m *ResponseOp) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6181,6 +7563,8 @@ func (m *ResponseOp) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *ResponseOp) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6199,6 +7583,8 @@ func (m *ResponseOp) MarshalTo(dAtA []byte) (int, error) {
 func (m *ResponseOp_ResponseRange) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i := 0
 	if m.ResponseRange != nil {
 		dAtA[i] = 0xa
@@ -6213,6 +7599,8 @@ func (m *ResponseOp_ResponseRange) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *ResponseOp_ResponsePut) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	i := 0
@@ -6231,6 +7619,8 @@ func (m *ResponseOp_ResponsePut) MarshalTo(dAtA []byte) (int, error) {
 func (m *ResponseOp_ResponseDeleteRange) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i := 0
 	if m.ResponseDeleteRange != nil {
 		dAtA[i] = 0x1a
@@ -6245,6 +7635,8 @@ func (m *ResponseOp_ResponseDeleteRange) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *ResponseOp_ResponseTxn) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	i := 0
@@ -6263,6 +7655,8 @@ func (m *ResponseOp_ResponseTxn) MarshalTo(dAtA []byte) (int, error) {
 func (m *Compare) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6272,6 +7666,8 @@ func (m *Compare) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Compare) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6314,6 +7710,8 @@ func (m *Compare) MarshalTo(dAtA []byte) (int, error) {
 func (m *Compare_Version) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i := 0
 	dAtA[i] = 0x20
 	i++
@@ -6321,6 +7719,8 @@ func (m *Compare_Version) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *Compare_CreateRevision) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	i := 0
@@ -6332,6 +7732,8 @@ func (m *Compare_CreateRevision) MarshalTo(dAtA []byte) (int, error) {
 func (m *Compare_ModRevision) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i := 0
 	dAtA[i] = 0x30
 	i++
@@ -6339,6 +7741,8 @@ func (m *Compare_ModRevision) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *Compare_Value) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	i := 0
@@ -6353,6 +7757,8 @@ func (m *Compare_Value) MarshalTo(dAtA []byte) (int, error) {
 func (m *Compare_Lease) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i := 0
 	dAtA[i] = 0x40
 	i++
@@ -6360,6 +7766,8 @@ func (m *Compare_Lease) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *TxnRequest) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -6371,6 +7779,8 @@ func (m *TxnRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *TxnRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6418,6 +7828,8 @@ func (m *TxnRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *TxnResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6427,6 +7839,8 @@ func (m *TxnResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *TxnResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6470,6 +7884,8 @@ func (m *TxnResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *CompactionRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6479,6 +7895,8 @@ func (m *CompactionRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *CompactionRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6505,6 +7923,8 @@ func (m *CompactionRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *CompactionResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6514,6 +7934,8 @@ func (m *CompactionResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *CompactionResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6535,6 +7957,8 @@ func (m *CompactionResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *HashRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6546,6 +7970,8 @@ func (m *HashRequest) Marshal() (dAtA []byte, err error) {
 func (m *HashRequest) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var i int
 	_ = i
 	var l int
@@ -6553,6 +7979,8 @@ func (m *HashRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *HashKVRequest) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -6564,6 +7992,8 @@ func (m *HashKVRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *HashKVRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6580,6 +8010,8 @@ func (m *HashKVRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *HashKVResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6589,6 +8021,8 @@ func (m *HashKVResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *HashKVResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6620,6 +8054,8 @@ func (m *HashKVResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *HashResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6629,6 +8065,8 @@ func (m *HashResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *HashResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6655,6 +8093,8 @@ func (m *HashResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *SnapshotRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6666,6 +8106,8 @@ func (m *SnapshotRequest) Marshal() (dAtA []byte, err error) {
 func (m *SnapshotRequest) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var i int
 	_ = i
 	var l int
@@ -6673,6 +8115,8 @@ func (m *SnapshotRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *SnapshotResponse) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -6684,6 +8128,8 @@ func (m *SnapshotResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *SnapshotResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6716,6 +8162,8 @@ func (m *SnapshotResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *WatchRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6725,6 +8173,8 @@ func (m *WatchRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *WatchRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6743,6 +8193,8 @@ func (m *WatchRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *WatchRequest_CreateRequest) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i := 0
 	if m.CreateRequest != nil {
 		dAtA[i] = 0xa
@@ -6757,6 +8209,8 @@ func (m *WatchRequest_CreateRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *WatchRequest_CancelRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	i := 0
@@ -6775,6 +8229,8 @@ func (m *WatchRequest_CancelRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *WatchCreateRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6784,6 +8240,8 @@ func (m *WatchCreateRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *WatchCreateRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6849,6 +8307,8 @@ func (m *WatchCreateRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *WatchCancelRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6858,6 +8318,8 @@ func (m *WatchCancelRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *WatchCancelRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6874,6 +8336,8 @@ func (m *WatchCancelRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *WatchResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6883,6 +8347,8 @@ func (m *WatchResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *WatchResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6952,6 +8418,8 @@ func (m *WatchResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaseGrantRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6961,6 +8429,8 @@ func (m *LeaseGrantRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaseGrantRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -6982,6 +8452,8 @@ func (m *LeaseGrantRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaseGrantResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -6991,6 +8463,8 @@ func (m *LeaseGrantResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaseGrantResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7028,6 +8502,8 @@ func (m *LeaseGrantResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaseRevokeRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7037,6 +8513,8 @@ func (m *LeaseRevokeRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaseRevokeRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7053,6 +8531,8 @@ func (m *LeaseRevokeRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaseRevokeResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7062,6 +8542,8 @@ func (m *LeaseRevokeResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaseRevokeResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7083,6 +8565,8 @@ func (m *LeaseRevokeResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaseKeepAliveRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7092,6 +8576,8 @@ func (m *LeaseKeepAliveRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaseKeepAliveRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7108,6 +8594,8 @@ func (m *LeaseKeepAliveRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaseKeepAliveResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7117,6 +8605,8 @@ func (m *LeaseKeepAliveResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaseKeepAliveResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7148,6 +8638,8 @@ func (m *LeaseKeepAliveResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaseTimeToLiveRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7157,6 +8649,8 @@ func (m *LeaseTimeToLiveRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaseTimeToLiveRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7183,6 +8677,8 @@ func (m *LeaseTimeToLiveRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaseTimeToLiveResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7192,6 +8688,8 @@ func (m *LeaseTimeToLiveResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaseTimeToLiveResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7236,6 +8734,8 @@ func (m *LeaseTimeToLiveResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaseLeasesRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7247,6 +8747,8 @@ func (m *LeaseLeasesRequest) Marshal() (dAtA []byte, err error) {
 func (m *LeaseLeasesRequest) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var i int
 	_ = i
 	var l int
@@ -7254,6 +8756,8 @@ func (m *LeaseLeasesRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *LeaseStatus) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -7265,6 +8769,8 @@ func (m *LeaseStatus) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaseStatus) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7281,6 +8787,8 @@ func (m *LeaseStatus) MarshalTo(dAtA []byte) (int, error) {
 func (m *LeaseLeasesResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7290,6 +8798,8 @@ func (m *LeaseLeasesResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *LeaseLeasesResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7323,6 +8833,8 @@ func (m *LeaseLeasesResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *Member) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7332,6 +8844,8 @@ func (m *Member) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *Member) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7384,6 +8898,8 @@ func (m *Member) MarshalTo(dAtA []byte) (int, error) {
 func (m *MemberAddRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7393,6 +8909,8 @@ func (m *MemberAddRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *MemberAddRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7419,6 +8937,8 @@ func (m *MemberAddRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *MemberAddResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7428,6 +8948,8 @@ func (m *MemberAddResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *MemberAddResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7471,6 +8993,8 @@ func (m *MemberAddResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *MemberRemoveRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7480,6 +9004,8 @@ func (m *MemberRemoveRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *MemberRemoveRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7496,6 +9022,8 @@ func (m *MemberRemoveRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *MemberRemoveResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7505,6 +9033,8 @@ func (m *MemberRemoveResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *MemberRemoveResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7538,6 +9068,8 @@ func (m *MemberRemoveResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *MemberUpdateRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7547,6 +9079,8 @@ func (m *MemberUpdateRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *MemberUpdateRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7578,6 +9112,8 @@ func (m *MemberUpdateRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *MemberUpdateResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7587,6 +9123,8 @@ func (m *MemberUpdateResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *MemberUpdateResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7620,6 +9158,8 @@ func (m *MemberUpdateResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *MemberListRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7631,6 +9171,8 @@ func (m *MemberListRequest) Marshal() (dAtA []byte, err error) {
 func (m *MemberListRequest) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var i int
 	_ = i
 	var l int
@@ -7638,6 +9180,8 @@ func (m *MemberListRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *MemberListResponse) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -7649,6 +9193,8 @@ func (m *MemberListResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *MemberListResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7682,6 +9228,8 @@ func (m *MemberListResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *DefragmentRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7693,6 +9241,8 @@ func (m *DefragmentRequest) Marshal() (dAtA []byte, err error) {
 func (m *DefragmentRequest) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var i int
 	_ = i
 	var l int
@@ -7700,6 +9250,8 @@ func (m *DefragmentRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *DefragmentResponse) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -7711,6 +9263,8 @@ func (m *DefragmentResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *DefragmentResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7732,6 +9286,8 @@ func (m *DefragmentResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *MoveLeaderRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7741,6 +9297,8 @@ func (m *MoveLeaderRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *MoveLeaderRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7757,6 +9315,8 @@ func (m *MoveLeaderRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *MoveLeaderResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7766,6 +9326,8 @@ func (m *MoveLeaderResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *MoveLeaderResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7787,6 +9349,8 @@ func (m *MoveLeaderResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AlarmRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7796,6 +9360,8 @@ func (m *AlarmRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AlarmRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7822,6 +9388,8 @@ func (m *AlarmRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *AlarmMember) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7831,6 +9399,8 @@ func (m *AlarmMember) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AlarmMember) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7852,6 +9422,8 @@ func (m *AlarmMember) MarshalTo(dAtA []byte) (int, error) {
 func (m *AlarmResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7861,6 +9433,8 @@ func (m *AlarmResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AlarmResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7894,6 +9468,8 @@ func (m *AlarmResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *StatusRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7905,6 +9481,8 @@ func (m *StatusRequest) Marshal() (dAtA []byte, err error) {
 func (m *StatusRequest) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var i int
 	_ = i
 	var l int
@@ -7912,6 +9490,8 @@ func (m *StatusRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *StatusResponse) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -7923,6 +9503,8 @@ func (m *StatusResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *StatusResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -7970,6 +9552,8 @@ func (m *StatusResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthEnableRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -7981,6 +9565,8 @@ func (m *AuthEnableRequest) Marshal() (dAtA []byte, err error) {
 func (m *AuthEnableRequest) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var i int
 	_ = i
 	var l int
@@ -7988,6 +9574,8 @@ func (m *AuthEnableRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *AuthDisableRequest) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -8001,6 +9589,8 @@ func (m *AuthDisableRequest) Marshal() (dAtA []byte, err error) {
 func (m *AuthDisableRequest) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var i int
 	_ = i
 	var l int
@@ -8008,6 +9598,8 @@ func (m *AuthDisableRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *AuthenticateRequest) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -8019,6 +9611,8 @@ func (m *AuthenticateRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthenticateRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8042,6 +9636,8 @@ func (m *AuthenticateRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthUserAddRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8051,6 +9647,8 @@ func (m *AuthUserAddRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthUserAddRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8074,6 +9672,8 @@ func (m *AuthUserAddRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthUserGetRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8083,6 +9683,8 @@ func (m *AuthUserGetRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthUserGetRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8100,6 +9702,8 @@ func (m *AuthUserGetRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthUserDeleteRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8109,6 +9713,8 @@ func (m *AuthUserDeleteRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthUserDeleteRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8126,6 +9732,8 @@ func (m *AuthUserDeleteRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthUserChangePasswordRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8135,6 +9743,8 @@ func (m *AuthUserChangePasswordRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthUserChangePasswordRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8158,6 +9768,8 @@ func (m *AuthUserChangePasswordRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthUserGrantRoleRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8167,6 +9779,8 @@ func (m *AuthUserGrantRoleRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthUserGrantRoleRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8190,6 +9804,8 @@ func (m *AuthUserGrantRoleRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthUserRevokeRoleRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8199,6 +9815,8 @@ func (m *AuthUserRevokeRoleRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthUserRevokeRoleRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8222,6 +9840,8 @@ func (m *AuthUserRevokeRoleRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthRoleAddRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8231,6 +9851,8 @@ func (m *AuthRoleAddRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthRoleAddRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8248,6 +9870,8 @@ func (m *AuthRoleAddRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthRoleGetRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8257,6 +9881,8 @@ func (m *AuthRoleGetRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthRoleGetRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8274,6 +9900,8 @@ func (m *AuthRoleGetRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthUserListRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8285,6 +9913,8 @@ func (m *AuthUserListRequest) Marshal() (dAtA []byte, err error) {
 func (m *AuthUserListRequest) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var i int
 	_ = i
 	var l int
@@ -8292,6 +9922,8 @@ func (m *AuthUserListRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *AuthRoleListRequest) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -8305,6 +9937,8 @@ func (m *AuthRoleListRequest) Marshal() (dAtA []byte, err error) {
 func (m *AuthRoleListRequest) MarshalTo(dAtA []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var i int
 	_ = i
 	var l int
@@ -8312,6 +9946,8 @@ func (m *AuthRoleListRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 func (m *AuthRoleDeleteRequest) Marshal() (dAtA []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	size := m.Size()
@@ -8323,6 +9959,8 @@ func (m *AuthRoleDeleteRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthRoleDeleteRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8340,6 +9978,8 @@ func (m *AuthRoleDeleteRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthRoleGrantPermissionRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8349,6 +9989,8 @@ func (m *AuthRoleGrantPermissionRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthRoleGrantPermissionRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8376,6 +10018,8 @@ func (m *AuthRoleGrantPermissionRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthRoleRevokePermissionRequest) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8385,6 +10029,8 @@ func (m *AuthRoleRevokePermissionRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthRoleRevokePermissionRequest) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8414,6 +10060,8 @@ func (m *AuthRoleRevokePermissionRequest) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthEnableResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8423,6 +10071,8 @@ func (m *AuthEnableResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthEnableResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8444,6 +10094,8 @@ func (m *AuthEnableResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthDisableResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8453,6 +10105,8 @@ func (m *AuthDisableResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthDisableResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8474,6 +10128,8 @@ func (m *AuthDisableResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthenticateResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8483,6 +10139,8 @@ func (m *AuthenticateResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthenticateResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8510,6 +10168,8 @@ func (m *AuthenticateResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthUserAddResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8519,6 +10179,8 @@ func (m *AuthUserAddResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthUserAddResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8540,6 +10202,8 @@ func (m *AuthUserAddResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthUserGetResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8549,6 +10213,8 @@ func (m *AuthUserGetResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthUserGetResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8585,6 +10251,8 @@ func (m *AuthUserGetResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthUserDeleteResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8594,6 +10262,8 @@ func (m *AuthUserDeleteResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthUserDeleteResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8615,6 +10285,8 @@ func (m *AuthUserDeleteResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthUserChangePasswordResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8624,6 +10296,8 @@ func (m *AuthUserChangePasswordResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthUserChangePasswordResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8645,6 +10319,8 @@ func (m *AuthUserChangePasswordResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthUserGrantRoleResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8654,6 +10330,8 @@ func (m *AuthUserGrantRoleResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthUserGrantRoleResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8675,6 +10353,8 @@ func (m *AuthUserGrantRoleResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthUserRevokeRoleResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8684,6 +10364,8 @@ func (m *AuthUserRevokeRoleResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthUserRevokeRoleResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8705,6 +10387,8 @@ func (m *AuthUserRevokeRoleResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthRoleAddResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8714,6 +10398,8 @@ func (m *AuthRoleAddResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthRoleAddResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8735,6 +10421,8 @@ func (m *AuthRoleAddResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthRoleGetResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8744,6 +10432,8 @@ func (m *AuthRoleGetResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthRoleGetResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8777,6 +10467,8 @@ func (m *AuthRoleGetResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthRoleListResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8786,6 +10478,8 @@ func (m *AuthRoleListResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthRoleListResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8822,6 +10516,8 @@ func (m *AuthRoleListResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthUserListResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8831,6 +10527,8 @@ func (m *AuthUserListResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthUserListResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8867,6 +10565,8 @@ func (m *AuthUserListResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthRoleDeleteResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8876,6 +10576,8 @@ func (m *AuthRoleDeleteResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthRoleDeleteResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8897,6 +10599,8 @@ func (m *AuthRoleDeleteResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthRoleGrantPermissionResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8906,6 +10610,8 @@ func (m *AuthRoleGrantPermissionResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthRoleGrantPermissionResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8927,6 +10633,8 @@ func (m *AuthRoleGrantPermissionResponse) MarshalTo(dAtA []byte) (int, error) {
 func (m *AuthRoleRevokePermissionResponse) Marshal() (dAtA []byte, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -8936,6 +10644,8 @@ func (m *AuthRoleRevokePermissionResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 func (m *AuthRoleRevokePermissionResponse) MarshalTo(dAtA []byte) (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var i int
@@ -8957,6 +10667,8 @@ func (m *AuthRoleRevokePermissionResponse) MarshalTo(dAtA []byte) (int, error) {
 func encodeVarintRpc(dAtA []byte, offset int, v uint64) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
 		v >>= 7
@@ -8966,6 +10678,8 @@ func encodeVarintRpc(dAtA []byte, offset int, v uint64) int {
 	return offset + 1
 }
 func (m *ResponseHeader) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -8985,6 +10699,8 @@ func (m *ResponseHeader) Size() (n int) {
 	return n
 }
 func (m *RangeRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9035,6 +10751,8 @@ func (m *RangeRequest) Size() (n int) {
 func (m *RangeResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -9056,6 +10774,8 @@ func (m *RangeResponse) Size() (n int) {
 	return n
 }
 func (m *PutRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9085,6 +10805,8 @@ func (m *PutRequest) Size() (n int) {
 func (m *PutResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -9098,6 +10820,8 @@ func (m *PutResponse) Size() (n int) {
 	return n
 }
 func (m *DeleteRangeRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9116,6 +10840,8 @@ func (m *DeleteRangeRequest) Size() (n int) {
 	return n
 }
 func (m *DeleteRangeResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9138,6 +10864,8 @@ func (m *DeleteRangeResponse) Size() (n int) {
 func (m *RequestOp) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Request != nil {
@@ -9146,6 +10874,8 @@ func (m *RequestOp) Size() (n int) {
 	return n
 }
 func (m *RequestOp_RequestRange) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9159,6 +10889,8 @@ func (m *RequestOp_RequestRange) Size() (n int) {
 func (m *RequestOp_RequestPut) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.RequestPut != nil {
@@ -9168,6 +10900,8 @@ func (m *RequestOp_RequestPut) Size() (n int) {
 	return n
 }
 func (m *RequestOp_RequestDeleteRange) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9181,6 +10915,8 @@ func (m *RequestOp_RequestDeleteRange) Size() (n int) {
 func (m *RequestOp_RequestTxn) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.RequestTxn != nil {
@@ -9192,6 +10928,8 @@ func (m *RequestOp_RequestTxn) Size() (n int) {
 func (m *ResponseOp) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Response != nil {
@@ -9200,6 +10938,8 @@ func (m *ResponseOp) Size() (n int) {
 	return n
 }
 func (m *ResponseOp_ResponseRange) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9213,6 +10953,8 @@ func (m *ResponseOp_ResponseRange) Size() (n int) {
 func (m *ResponseOp_ResponsePut) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.ResponsePut != nil {
@@ -9222,6 +10964,8 @@ func (m *ResponseOp_ResponsePut) Size() (n int) {
 	return n
 }
 func (m *ResponseOp_ResponseDeleteRange) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9235,6 +10979,8 @@ func (m *ResponseOp_ResponseDeleteRange) Size() (n int) {
 func (m *ResponseOp_ResponseTxn) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.ResponseTxn != nil {
@@ -9244,6 +10990,8 @@ func (m *ResponseOp_ResponseTxn) Size() (n int) {
 	return n
 }
 func (m *Compare) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9270,12 +11018,16 @@ func (m *Compare) Size() (n int) {
 func (m *Compare_Version) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	n += 1 + sovRpc(uint64(m.Version))
 	return n
 }
 func (m *Compare_CreateRevision) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9286,12 +11038,16 @@ func (m *Compare_CreateRevision) Size() (n int) {
 func (m *Compare_ModRevision) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	n += 1 + sovRpc(uint64(m.ModRevision))
 	return n
 }
 func (m *Compare_Value) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9305,12 +11061,16 @@ func (m *Compare_Value) Size() (n int) {
 func (m *Compare_Lease) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	n += 1 + sovRpc(uint64(m.Lease))
 	return n
 }
 func (m *TxnRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9338,6 +11098,8 @@ func (m *TxnRequest) Size() (n int) {
 func (m *TxnResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -9358,6 +11120,8 @@ func (m *TxnResponse) Size() (n int) {
 func (m *CompactionRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Revision != 0 {
@@ -9371,6 +11135,8 @@ func (m *CompactionRequest) Size() (n int) {
 func (m *CompactionResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -9382,11 +11148,15 @@ func (m *CompactionResponse) Size() (n int) {
 func (m *HashRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	return n
 }
 func (m *HashKVRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9397,6 +11167,8 @@ func (m *HashKVRequest) Size() (n int) {
 	return n
 }
 func (m *HashKVResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9416,6 +11188,8 @@ func (m *HashKVResponse) Size() (n int) {
 func (m *HashResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -9430,11 +11204,15 @@ func (m *HashResponse) Size() (n int) {
 func (m *SnapshotRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	return n
 }
 func (m *SnapshotResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9455,6 +11233,8 @@ func (m *SnapshotResponse) Size() (n int) {
 func (m *WatchRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.RequestUnion != nil {
@@ -9463,6 +11243,8 @@ func (m *WatchRequest) Size() (n int) {
 	return n
 }
 func (m *WatchRequest_CreateRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9476,6 +11258,8 @@ func (m *WatchRequest_CreateRequest) Size() (n int) {
 func (m *WatchRequest_CancelRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.CancelRequest != nil {
@@ -9485,6 +11269,8 @@ func (m *WatchRequest_CancelRequest) Size() (n int) {
 	return n
 }
 func (m *WatchCreateRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9518,6 +11304,8 @@ func (m *WatchCreateRequest) Size() (n int) {
 func (m *WatchCancelRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.WatchId != 0 {
@@ -9526,6 +11314,8 @@ func (m *WatchCancelRequest) Size() (n int) {
 	return n
 }
 func (m *WatchResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9561,6 +11351,8 @@ func (m *WatchResponse) Size() (n int) {
 func (m *LeaseGrantRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.TTL != 0 {
@@ -9572,6 +11364,8 @@ func (m *LeaseGrantRequest) Size() (n int) {
 	return n
 }
 func (m *LeaseGrantResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9595,6 +11389,8 @@ func (m *LeaseGrantResponse) Size() (n int) {
 func (m *LeaseRevokeRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.ID != 0 {
@@ -9603,6 +11399,8 @@ func (m *LeaseRevokeRequest) Size() (n int) {
 	return n
 }
 func (m *LeaseRevokeResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9616,6 +11414,8 @@ func (m *LeaseRevokeResponse) Size() (n int) {
 func (m *LeaseKeepAliveRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.ID != 0 {
@@ -9624,6 +11424,8 @@ func (m *LeaseKeepAliveRequest) Size() (n int) {
 	return n
 }
 func (m *LeaseKeepAliveResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9643,6 +11445,8 @@ func (m *LeaseKeepAliveResponse) Size() (n int) {
 func (m *LeaseTimeToLiveRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.ID != 0 {
@@ -9654,6 +11458,8 @@ func (m *LeaseTimeToLiveRequest) Size() (n int) {
 	return n
 }
 func (m *LeaseTimeToLiveResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9682,11 +11488,15 @@ func (m *LeaseTimeToLiveResponse) Size() (n int) {
 func (m *LeaseLeasesRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	return n
 }
 func (m *LeaseStatus) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9697,6 +11507,8 @@ func (m *LeaseStatus) Size() (n int) {
 	return n
 }
 func (m *LeaseLeasesResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9714,6 +11526,8 @@ func (m *LeaseLeasesResponse) Size() (n int) {
 	return n
 }
 func (m *Member) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9742,6 +11556,8 @@ func (m *Member) Size() (n int) {
 func (m *MemberAddRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if len(m.PeerURLs) > 0 {
@@ -9753,6 +11569,8 @@ func (m *MemberAddRequest) Size() (n int) {
 	return n
 }
 func (m *MemberAddResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9776,6 +11594,8 @@ func (m *MemberAddResponse) Size() (n int) {
 func (m *MemberRemoveRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.ID != 0 {
@@ -9784,6 +11604,8 @@ func (m *MemberRemoveRequest) Size() (n int) {
 	return n
 }
 func (m *MemberRemoveResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9803,6 +11625,8 @@ func (m *MemberRemoveResponse) Size() (n int) {
 func (m *MemberUpdateRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.ID != 0 {
@@ -9817,6 +11641,8 @@ func (m *MemberUpdateRequest) Size() (n int) {
 	return n
 }
 func (m *MemberUpdateResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9836,11 +11662,15 @@ func (m *MemberUpdateResponse) Size() (n int) {
 func (m *MemberListRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	return n
 }
 func (m *MemberListResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9860,11 +11690,15 @@ func (m *MemberListResponse) Size() (n int) {
 func (m *DefragmentRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	return n
 }
 func (m *DefragmentResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9878,6 +11712,8 @@ func (m *DefragmentResponse) Size() (n int) {
 func (m *MoveLeaderRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.TargetID != 0 {
@@ -9886,6 +11722,8 @@ func (m *MoveLeaderRequest) Size() (n int) {
 	return n
 }
 func (m *MoveLeaderResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9897,6 +11735,8 @@ func (m *MoveLeaderResponse) Size() (n int) {
 	return n
 }
 func (m *AlarmRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9915,6 +11755,8 @@ func (m *AlarmRequest) Size() (n int) {
 func (m *AlarmMember) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.MemberID != 0 {
@@ -9926,6 +11768,8 @@ func (m *AlarmMember) Size() (n int) {
 	return n
 }
 func (m *AlarmResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9945,11 +11789,15 @@ func (m *AlarmResponse) Size() (n int) {
 func (m *StatusRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	return n
 }
 func (m *StatusResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -9979,6 +11827,8 @@ func (m *StatusResponse) Size() (n int) {
 func (m *AuthEnableRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	return n
@@ -9986,11 +11836,15 @@ func (m *AuthEnableRequest) Size() (n int) {
 func (m *AuthDisableRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	return n
 }
 func (m *AuthenticateRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -10008,6 +11862,8 @@ func (m *AuthenticateRequest) Size() (n int) {
 func (m *AuthUserAddRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	l = len(m.Name)
@@ -10023,6 +11879,8 @@ func (m *AuthUserAddRequest) Size() (n int) {
 func (m *AuthUserGetRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	l = len(m.Name)
@@ -10034,6 +11892,8 @@ func (m *AuthUserGetRequest) Size() (n int) {
 func (m *AuthUserDeleteRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	l = len(m.Name)
@@ -10043,6 +11903,8 @@ func (m *AuthUserDeleteRequest) Size() (n int) {
 	return n
 }
 func (m *AuthUserChangePasswordRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -10060,6 +11922,8 @@ func (m *AuthUserChangePasswordRequest) Size() (n int) {
 func (m *AuthUserGrantRoleRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	l = len(m.User)
@@ -10073,6 +11937,8 @@ func (m *AuthUserGrantRoleRequest) Size() (n int) {
 	return n
 }
 func (m *AuthUserRevokeRoleRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -10090,6 +11956,8 @@ func (m *AuthUserRevokeRoleRequest) Size() (n int) {
 func (m *AuthRoleAddRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	l = len(m.Name)
@@ -10099,6 +11967,8 @@ func (m *AuthRoleAddRequest) Size() (n int) {
 	return n
 }
 func (m *AuthRoleGetRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -10112,6 +11982,8 @@ func (m *AuthRoleGetRequest) Size() (n int) {
 func (m *AuthUserListRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	return n
@@ -10119,11 +11991,15 @@ func (m *AuthUserListRequest) Size() (n int) {
 func (m *AuthRoleListRequest) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	return n
 }
 func (m *AuthRoleDeleteRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -10135,6 +12011,8 @@ func (m *AuthRoleDeleteRequest) Size() (n int) {
 	return n
 }
 func (m *AuthRoleGrantPermissionRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -10150,6 +12028,8 @@ func (m *AuthRoleGrantPermissionRequest) Size() (n int) {
 	return n
 }
 func (m *AuthRoleRevokePermissionRequest) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -10171,6 +12051,8 @@ func (m *AuthRoleRevokePermissionRequest) Size() (n int) {
 func (m *AuthEnableResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -10182,6 +12064,8 @@ func (m *AuthEnableResponse) Size() (n int) {
 func (m *AuthDisableResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -10191,6 +12075,8 @@ func (m *AuthDisableResponse) Size() (n int) {
 	return n
 }
 func (m *AuthenticateResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -10208,6 +12094,8 @@ func (m *AuthenticateResponse) Size() (n int) {
 func (m *AuthUserAddResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -10217,6 +12105,8 @@ func (m *AuthUserAddResponse) Size() (n int) {
 	return n
 }
 func (m *AuthUserGetResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -10236,6 +12126,8 @@ func (m *AuthUserGetResponse) Size() (n int) {
 func (m *AuthUserDeleteResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -10245,6 +12137,8 @@ func (m *AuthUserDeleteResponse) Size() (n int) {
 	return n
 }
 func (m *AuthUserChangePasswordResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -10258,6 +12152,8 @@ func (m *AuthUserChangePasswordResponse) Size() (n int) {
 func (m *AuthUserGrantRoleResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -10267,6 +12163,8 @@ func (m *AuthUserGrantRoleResponse) Size() (n int) {
 	return n
 }
 func (m *AuthUserRevokeRoleResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -10280,6 +12178,8 @@ func (m *AuthUserRevokeRoleResponse) Size() (n int) {
 func (m *AuthRoleAddResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -10289,6 +12189,8 @@ func (m *AuthRoleAddResponse) Size() (n int) {
 	return n
 }
 func (m *AuthRoleGetResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -10308,6 +12210,8 @@ func (m *AuthRoleGetResponse) Size() (n int) {
 func (m *AuthRoleListResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -10323,6 +12227,8 @@ func (m *AuthRoleListResponse) Size() (n int) {
 	return n
 }
 func (m *AuthUserListResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -10342,6 +12248,8 @@ func (m *AuthUserListResponse) Size() (n int) {
 func (m *AuthRoleDeleteResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -10351,6 +12259,8 @@ func (m *AuthRoleDeleteResponse) Size() (n int) {
 	return n
 }
 func (m *AuthRoleGrantPermissionResponse) Size() (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var l int
@@ -10364,6 +12274,8 @@ func (m *AuthRoleGrantPermissionResponse) Size() (n int) {
 func (m *AuthRoleRevokePermissionResponse) Size() (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var l int
 	_ = l
 	if m.Header != nil {
@@ -10373,6 +12285,8 @@ func (m *AuthRoleRevokePermissionResponse) Size() (n int) {
 	return n
 }
 func sovRpc(x uint64) (n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -10387,9 +12301,13 @@ func sovRpc(x uint64) (n int) {
 func sozRpc(x uint64) (n int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sovRpc(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
 func (m *ResponseHeader) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -10517,6 +12435,8 @@ func (m *ResponseHeader) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *RangeRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -10844,6 +12764,8 @@ func (m *RangeRequest) Unmarshal(dAtA []byte) error {
 func (m *RangeResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -10996,6 +12918,8 @@ func (m *RangeResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *PutRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -11190,6 +13114,8 @@ func (m *PutRequest) Unmarshal(dAtA []byte) error {
 func (m *PutResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -11305,6 +13231,8 @@ func (m *PutResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *DeleteRangeRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -11440,6 +13368,8 @@ func (m *DeleteRangeRequest) Unmarshal(dAtA []byte) error {
 func (m *DeleteRangeResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -11572,6 +13502,8 @@ func (m *DeleteRangeResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *RequestOp) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -11753,6 +13685,8 @@ func (m *RequestOp) Unmarshal(dAtA []byte) error {
 func (m *ResponseOp) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -11930,6 +13864,8 @@ func (m *ResponseOp) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *Compare) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -12193,6 +14129,8 @@ func (m *Compare) Unmarshal(dAtA []byte) error {
 func (m *TxnRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -12337,6 +14275,8 @@ func (m *TxnRequest) Unmarshal(dAtA []byte) error {
 func (m *TxnResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -12472,6 +14412,8 @@ func (m *TxnResponse) Unmarshal(dAtA []byte) error {
 func (m *CompactionRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -12562,6 +14504,8 @@ func (m *CompactionRequest) Unmarshal(dAtA []byte) error {
 func (m *CompactionResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -12646,6 +14590,8 @@ func (m *CompactionResponse) Unmarshal(dAtA []byte) error {
 func (m *HashRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -12695,6 +14641,8 @@ func (m *HashRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *HashKVRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -12765,6 +14713,8 @@ func (m *HashKVRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *HashKVResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -12889,6 +14839,8 @@ func (m *HashKVResponse) Unmarshal(dAtA []byte) error {
 func (m *HashResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -12992,6 +14944,8 @@ func (m *HashResponse) Unmarshal(dAtA []byte) error {
 func (m *SnapshotRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -13041,6 +14995,8 @@ func (m *SnapshotRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *SnapshotResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -13177,6 +15133,8 @@ func (m *SnapshotResponse) Unmarshal(dAtA []byte) error {
 func (m *WatchRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -13290,6 +15248,8 @@ func (m *WatchRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *WatchCreateRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -13526,6 +15486,8 @@ func (m *WatchCreateRequest) Unmarshal(dAtA []byte) error {
 func (m *WatchCancelRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -13594,6 +15556,8 @@ func (m *WatchCancelRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *WatchResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -13818,6 +15782,8 @@ func (m *WatchResponse) Unmarshal(dAtA []byte) error {
 func (m *LeaseGrantRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -13905,6 +15871,8 @@ func (m *LeaseGrantRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *LeaseGrantResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -14058,6 +16026,8 @@ func (m *LeaseGrantResponse) Unmarshal(dAtA []byte) error {
 func (m *LeaseRevokeRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -14126,6 +16096,8 @@ func (m *LeaseRevokeRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *LeaseRevokeResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -14212,6 +16184,8 @@ func (m *LeaseRevokeResponse) Unmarshal(dAtA []byte) error {
 func (m *LeaseKeepAliveRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -14280,6 +16254,8 @@ func (m *LeaseKeepAliveRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *LeaseKeepAliveResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -14404,6 +16380,8 @@ func (m *LeaseKeepAliveResponse) Unmarshal(dAtA []byte) error {
 func (m *LeaseTimeToLiveRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -14492,6 +16470,8 @@ func (m *LeaseTimeToLiveRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *LeaseTimeToLiveResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -14664,6 +16644,8 @@ func (m *LeaseTimeToLiveResponse) Unmarshal(dAtA []byte) error {
 func (m *LeaseLeasesRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -14713,6 +16695,8 @@ func (m *LeaseLeasesRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *LeaseStatus) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -14783,6 +16767,8 @@ func (m *LeaseStatus) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *LeaseLeasesResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -14898,6 +16884,8 @@ func (m *LeaseLeasesResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *Member) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -15057,6 +17045,8 @@ func (m *Member) Unmarshal(dAtA []byte) error {
 func (m *MemberAddRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -15135,6 +17125,8 @@ func (m *MemberAddRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *MemberAddResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -15285,6 +17277,8 @@ func (m *MemberAddResponse) Unmarshal(dAtA []byte) error {
 func (m *MemberRemoveRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -15353,6 +17347,8 @@ func (m *MemberRemoveRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *MemberRemoveResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -15470,6 +17466,8 @@ func (m *MemberRemoveResponse) Unmarshal(dAtA []byte) error {
 func (m *MemberUpdateRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -15567,6 +17565,8 @@ func (m *MemberUpdateRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *MemberUpdateResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -15684,6 +17684,8 @@ func (m *MemberUpdateResponse) Unmarshal(dAtA []byte) error {
 func (m *MemberListRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -15733,6 +17735,8 @@ func (m *MemberListRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *MemberListResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -15850,6 +17854,8 @@ func (m *MemberListResponse) Unmarshal(dAtA []byte) error {
 func (m *DefragmentRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -15899,6 +17905,8 @@ func (m *DefragmentRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *DefragmentResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -15985,6 +17993,8 @@ func (m *DefragmentResponse) Unmarshal(dAtA []byte) error {
 func (m *MoveLeaderRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -16053,6 +18063,8 @@ func (m *MoveLeaderRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *MoveLeaderResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -16137,6 +18149,8 @@ func (m *MoveLeaderResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AlarmRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -16247,6 +18261,8 @@ func (m *AlarmRequest) Unmarshal(dAtA []byte) error {
 func (m *AlarmMember) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -16334,6 +18350,8 @@ func (m *AlarmMember) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AlarmResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -16451,6 +18469,8 @@ func (m *AlarmResponse) Unmarshal(dAtA []byte) error {
 func (m *StatusRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -16500,6 +18520,8 @@ func (m *StatusRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *StatusResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -16691,6 +18713,8 @@ func (m *StatusResponse) Unmarshal(dAtA []byte) error {
 func (m *AuthEnableRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -16742,6 +18766,8 @@ func (m *AuthEnableRequest) Unmarshal(dAtA []byte) error {
 func (m *AuthDisableRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -16791,6 +18817,8 @@ func (m *AuthDisableRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AuthenticateRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -16902,6 +18930,8 @@ func (m *AuthenticateRequest) Unmarshal(dAtA []byte) error {
 func (m *AuthUserAddRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -17011,6 +19041,8 @@ func (m *AuthUserAddRequest) Unmarshal(dAtA []byte) error {
 func (m *AuthUserGetRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -17091,6 +19123,8 @@ func (m *AuthUserGetRequest) Unmarshal(dAtA []byte) error {
 func (m *AuthUserDeleteRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -17169,6 +19203,8 @@ func (m *AuthUserDeleteRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AuthUserChangePasswordRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -17280,6 +19316,8 @@ func (m *AuthUserChangePasswordRequest) Unmarshal(dAtA []byte) error {
 func (m *AuthUserGrantRoleRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -17387,6 +19425,8 @@ func (m *AuthUserGrantRoleRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AuthUserRevokeRoleRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -17498,6 +19538,8 @@ func (m *AuthUserRevokeRoleRequest) Unmarshal(dAtA []byte) error {
 func (m *AuthRoleAddRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -17576,6 +19618,8 @@ func (m *AuthRoleAddRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AuthRoleGetRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -17658,6 +19702,8 @@ func (m *AuthRoleGetRequest) Unmarshal(dAtA []byte) error {
 func (m *AuthUserListRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -17709,6 +19755,8 @@ func (m *AuthUserListRequest) Unmarshal(dAtA []byte) error {
 func (m *AuthRoleListRequest) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -17758,6 +19806,8 @@ func (m *AuthRoleListRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AuthRoleDeleteRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -17838,6 +19888,8 @@ func (m *AuthRoleDeleteRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AuthRoleGrantPermissionRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -17951,6 +20003,8 @@ func (m *AuthRoleGrantPermissionRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AuthRoleRevokePermissionRequest) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -18091,6 +20145,8 @@ func (m *AuthRoleRevokePermissionRequest) Unmarshal(dAtA []byte) error {
 func (m *AuthEnableResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -18175,6 +20231,8 @@ func (m *AuthEnableResponse) Unmarshal(dAtA []byte) error {
 func (m *AuthDisableResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -18257,6 +20315,8 @@ func (m *AuthDisableResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AuthenticateResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -18372,6 +20432,8 @@ func (m *AuthenticateResponse) Unmarshal(dAtA []byte) error {
 func (m *AuthUserAddResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -18454,6 +20516,8 @@ func (m *AuthUserAddResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AuthUserGetResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -18569,6 +20633,8 @@ func (m *AuthUserGetResponse) Unmarshal(dAtA []byte) error {
 func (m *AuthUserDeleteResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -18651,6 +20717,8 @@ func (m *AuthUserDeleteResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AuthUserChangePasswordResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -18737,6 +20805,8 @@ func (m *AuthUserChangePasswordResponse) Unmarshal(dAtA []byte) error {
 func (m *AuthUserGrantRoleResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -18819,6 +20889,8 @@ func (m *AuthUserGrantRoleResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AuthUserRevokeRoleResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -18905,6 +20977,8 @@ func (m *AuthUserRevokeRoleResponse) Unmarshal(dAtA []byte) error {
 func (m *AuthRoleAddResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -18987,6 +21061,8 @@ func (m *AuthRoleAddResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AuthRoleGetResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -19104,6 +21180,8 @@ func (m *AuthRoleGetResponse) Unmarshal(dAtA []byte) error {
 func (m *AuthRoleListResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -19215,6 +21293,8 @@ func (m *AuthRoleListResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AuthUserListResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -19330,6 +21410,8 @@ func (m *AuthUserListResponse) Unmarshal(dAtA []byte) error {
 func (m *AuthRoleDeleteResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -19412,6 +21494,8 @@ func (m *AuthRoleDeleteResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *AuthRoleGrantPermissionResponse) Unmarshal(dAtA []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -19498,6 +21582,8 @@ func (m *AuthRoleGrantPermissionResponse) Unmarshal(dAtA []byte) error {
 func (m *AuthRoleRevokePermissionResponse) Unmarshal(dAtA []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -19580,6 +21666,8 @@ func (m *AuthRoleRevokePermissionResponse) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func skipRpc(dAtA []byte) (n int, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := len(dAtA)
@@ -19687,6 +21775,8 @@ var (
 )
 
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	proto.RegisterFile("rpc.proto", fileDescriptorRpc)

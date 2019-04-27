@@ -9,6 +9,8 @@ import (
 func getMergedPerms(tx backend.BatchTx, userName string) *unifiedRangePermissions {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	user := getUser(tx, userName)
 	if user == nil {
 		plog.Errorf("invalid user name %s", userName)
@@ -48,6 +50,8 @@ func getMergedPerms(tx backend.BatchTx, userName string) *unifiedRangePermission
 func checkKeyInterval(cachedPerms *unifiedRangePermissions, key, rangeEnd []byte, permtyp authpb.Permission_Type) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(rangeEnd) == 1 && rangeEnd[0] == 0 {
 		rangeEnd = nil
 	}
@@ -65,6 +69,8 @@ func checkKeyInterval(cachedPerms *unifiedRangePermissions, key, rangeEnd []byte
 func checkKeyPoint(cachedPerms *unifiedRangePermissions, key []byte, permtyp authpb.Permission_Type) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pt := adt.NewBytesAffinePoint(key)
 	switch permtyp {
 	case authpb.READ:
@@ -77,6 +83,8 @@ func checkKeyPoint(cachedPerms *unifiedRangePermissions, key []byte, permtyp aut
 	return false
 }
 func (as *authStore) isRangeOpPermitted(tx backend.BatchTx, userName string, key, rangeEnd []byte, permtyp authpb.Permission_Type) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, ok := as.rangePermCache[userName]
@@ -96,9 +104,13 @@ func (as *authStore) isRangeOpPermitted(tx backend.BatchTx, userName string, key
 func (as *authStore) clearCachedPerm() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	as.rangePermCache = make(map[string]*unifiedRangePermissions)
 }
 func (as *authStore) invalidateCachedPerm(userName string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	delete(as.rangePermCache, userName)

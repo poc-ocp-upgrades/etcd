@@ -12,6 +12,8 @@ var (
 func TestSendingSnapshotSetPendingSnapshot(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	storage := NewMemoryStorage()
 	sm := newTestRaft(1, []uint64{1}, 10, 1, storage)
 	sm.restore(testingSnap)
@@ -24,6 +26,8 @@ func TestSendingSnapshotSetPendingSnapshot(t *testing.T) {
 	}
 }
 func TestPendingSnapshotPauseReplication(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	storage := NewMemoryStorage()
@@ -39,6 +43,8 @@ func TestPendingSnapshotPauseReplication(t *testing.T) {
 	}
 }
 func TestSnapshotFailure(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	storage := NewMemoryStorage()
@@ -62,6 +68,8 @@ func TestSnapshotFailure(t *testing.T) {
 func TestSnapshotSucceed(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	storage := NewMemoryStorage()
 	sm := newTestRaft(1, []uint64{1, 2}, 10, 1, storage)
 	sm.restore(testingSnap)
@@ -81,6 +89,8 @@ func TestSnapshotSucceed(t *testing.T) {
 	}
 }
 func TestSnapshotAbort(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	storage := NewMemoryStorage()

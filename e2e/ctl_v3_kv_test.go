@@ -9,9 +9,13 @@ import (
 func TestCtlV3Put(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, putTest)
 }
 func TestCtlV3PutNoTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, putTest, withCfg(configNoTLS))
@@ -19,9 +23,13 @@ func TestCtlV3PutNoTLS(t *testing.T) {
 func TestCtlV3PutClientTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, putTest, withCfg(configClientTLS))
 }
 func TestCtlV3PutClientAutoTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, putTest, withCfg(configClientAutoTLS))
@@ -29,9 +37,13 @@ func TestCtlV3PutClientAutoTLS(t *testing.T) {
 func TestCtlV3PutPeerTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, putTest, withCfg(configPeerTLS))
 }
 func TestCtlV3PutTimeout(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, putTest, withDialTimeout(0))
@@ -39,9 +51,13 @@ func TestCtlV3PutTimeout(t *testing.T) {
 func TestCtlV3PutClientTLSFlagByEnv(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, putTest, withCfg(configClientTLS), withFlagByEnv())
 }
 func TestCtlV3PutIgnoreValue(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, putTestIgnoreValue)
@@ -49,9 +65,13 @@ func TestCtlV3PutIgnoreValue(t *testing.T) {
 func TestCtlV3PutIgnoreLease(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, putTestIgnoreLease)
 }
 func TestCtlV3Get(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, getTest)
@@ -59,9 +79,13 @@ func TestCtlV3Get(t *testing.T) {
 func TestCtlV3GetNoTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, getTest, withCfg(configNoTLS))
 }
 func TestCtlV3GetClientTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, getTest, withCfg(configClientTLS))
@@ -69,9 +93,13 @@ func TestCtlV3GetClientTLS(t *testing.T) {
 func TestCtlV3GetClientAutoTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, getTest, withCfg(configClientAutoTLS))
 }
 func TestCtlV3GetPeerTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, getTest, withCfg(configPeerTLS))
@@ -79,9 +107,13 @@ func TestCtlV3GetPeerTLS(t *testing.T) {
 func TestCtlV3GetTimeout(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, getTest, withDialTimeout(0))
 }
 func TestCtlV3GetQuorum(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, getTest, withQuorum())
@@ -89,9 +121,13 @@ func TestCtlV3GetQuorum(t *testing.T) {
 func TestCtlV3GetFormat(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, getFormatTest)
 }
 func TestCtlV3GetRev(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, getRevTest)
@@ -99,9 +135,13 @@ func TestCtlV3GetRev(t *testing.T) {
 func TestCtlV3GetKeysOnly(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, getKeysOnlyTest)
 }
 func TestCtlV3Del(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, delTest)
@@ -109,9 +149,13 @@ func TestCtlV3Del(t *testing.T) {
 func TestCtlV3DelNoTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, delTest, withCfg(configNoTLS))
 }
 func TestCtlV3DelClientTLS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, delTest, withCfg(configClientTLS))
@@ -119,9 +163,13 @@ func TestCtlV3DelClientTLS(t *testing.T) {
 func TestCtlV3DelPeerTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, delTest, withCfg(configPeerTLS))
 }
 func TestCtlV3DelTimeout(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, delTest, withDialTimeout(0))
@@ -129,10 +177,14 @@ func TestCtlV3DelTimeout(t *testing.T) {
 func TestCtlV3GetRevokedCRL(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := etcdProcessClusterConfig{clusterSize: 1, initialToken: "new", clientTLS: clientTLS, isClientCRL: true, clientCertAuthEnabled: true}
 	testCtl(t, testGetRevokedCRL, withCfg(cfg))
 }
 func testGetRevokedCRL(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ctlV3Put(cx, "k", "v", ""); err == nil || !strings.Contains(err.Error(), "Error:") {
@@ -144,6 +196,8 @@ func testGetRevokedCRL(cx ctlCtx) {
 	}
 }
 func putTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	key, value := "foo", "bar"
@@ -161,6 +215,8 @@ func putTest(cx ctlCtx) {
 func putTestIgnoreValue(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := ctlV3Put(cx, "foo", "bar", ""); err != nil {
 		cx.t.Fatal(err)
 	}
@@ -175,6 +231,8 @@ func putTestIgnoreValue(cx ctlCtx) {
 	}
 }
 func putTestIgnoreLease(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	leaseID, err := ctlV3LeaseGrant(cx, 10)
@@ -203,6 +261,8 @@ func putTestIgnoreLease(cx ctlCtx) {
 func getTest(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var (
 		kvs	= []kv{{"key1", "val1"}, {"key2", "val2"}, {"key3", "val3"}}
 		revkvs	= []kv{{"key3", "val3"}, {"key2", "val2"}, {"key1", "val1"}}
@@ -225,6 +285,8 @@ func getTest(cx ctlCtx) {
 	}
 }
 func getFormatTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ctlV3Put(cx, "abc", "123", ""); err != nil {
@@ -250,6 +312,8 @@ func getFormatTest(cx ctlCtx) {
 func getRevTest(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var (
 		kvs = []kv{{"key", "val1"}, {"key", "val2"}, {"key", "val3"}}
 	)
@@ -271,6 +335,8 @@ func getRevTest(cx ctlCtx) {
 func getKeysOnlyTest(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := ctlV3Put(cx, "key", "val", ""); err != nil {
 		cx.t.Fatal(err)
 	}
@@ -283,6 +349,8 @@ func getKeysOnlyTest(cx ctlCtx) {
 	}
 }
 func delTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -304,6 +372,8 @@ func delTest(cx ctlCtx) {
 	}
 }
 func ctlV3Put(cx ctlCtx, key, value, leaseID string, flags ...string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	skipValue := false
@@ -334,6 +404,8 @@ type kv struct{ key, val string }
 func ctlV3Get(cx ctlCtx, args []string, kvs ...kv) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "get")
 	cmdArgs = append(cmdArgs, args...)
 	if !cx.quorum {
@@ -346,6 +418,8 @@ func ctlV3Get(cx ctlCtx, args []string, kvs ...kv) error {
 	return spawnWithExpects(cmdArgs, lines...)
 }
 func ctlV3Del(cx ctlCtx, args []string, num int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "del")

@@ -15,15 +15,21 @@ type Queue struct {
 func NewQueue(client *v3.Client, keyPrefix string) *Queue {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Queue{client, context.TODO(), keyPrefix}
 }
 func (q *Queue) Enqueue(val string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, err := newUniqueKV(q.client, q.keyPrefix, val)
 	return err
 }
 func (q *Queue) Dequeue() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := q.client.Get(q.ctx, q.keyPrefix, v3.WithFirstRev()...)

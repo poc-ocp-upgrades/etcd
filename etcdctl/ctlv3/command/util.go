@@ -12,6 +12,8 @@ import (
 func printKV(isHex bool, valueOnly bool, kv *pb.KeyValue) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	k, v := string(kv.Key), string(kv.Value)
 	if isHex {
 		k = addHexPrefix(hex.EncodeToString(kv.Key))
@@ -25,6 +27,8 @@ func printKV(isHex bool, valueOnly bool, kv *pb.KeyValue) {
 func addHexPrefix(s string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ns := make([]byte, len(s)*2)
 	for i := 0; i < len(s); i += 2 {
 		ns[i*2] = '\\'
@@ -35,6 +39,8 @@ func addHexPrefix(s string) string {
 	return string(ns)
 }
 func argify(s string) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := regexp.MustCompile(`"(?:[^"\\]|\\.)*"|'[^']*'|[^'"\s]\S*[^'"\s]?`)
@@ -54,6 +60,8 @@ func argify(s string) []string {
 	return args
 }
 func commandCtx(cmd *cobra.Command) (context.Context, context.CancelFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	timeOut, err := cmd.Flags().GetDuration("command-timeout")

@@ -20,6 +20,8 @@ var minExpireTime time.Time
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	minExpireTime, _ = time.Parse(time.RFC3339, "2000-01-01T00:00:00Z")
 }
 
@@ -61,11 +63,15 @@ type store struct {
 func New(namespaces ...string) Store {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newStore(namespaces...)
 	s.clock = clockwork.NewRealClock()
 	return s
 }
 func newStore(namespaces ...string) *store {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := new(store)
@@ -83,9 +89,13 @@ func newStore(namespaces ...string) *store {
 func (s *store) Version() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.CurrentVersion
 }
 func (s *store) Index() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.worldLock.RLock()
@@ -93,6 +103,8 @@ func (s *store) Index() uint64 {
 	return s.CurrentIndex
 }
 func (s *store) Get(nodePath string, recursive, sorted bool) (*Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err *etcdErr.Error
@@ -127,6 +139,8 @@ func (s *store) Get(nodePath string, recursive, sorted bool) (*Event, error) {
 func (s *store) Create(nodePath string, dir bool, value string, unique bool, expireOpts TTLOptionSet) (*Event, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err *etcdErr.Error
 	s.worldLock.Lock()
 	defer s.worldLock.Unlock()
@@ -148,6 +162,8 @@ func (s *store) Create(nodePath string, dir bool, value string, unique bool, exp
 	return e, nil
 }
 func (s *store) Set(nodePath string, dir bool, value string, expireOpts TTLOptionSet) (*Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err *etcdErr.Error
@@ -196,6 +212,8 @@ func (s *store) Set(nodePath string, dir bool, value string, expireOpts TTLOptio
 func getCompareFailCause(n *node, which int, prevValue string, prevIndex uint64) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch which {
 	case CompareIndexNotMatch:
 		return fmt.Sprintf("[%v != %v]", prevIndex, n.ModifiedIndex)
@@ -206,6 +224,8 @@ func getCompareFailCause(n *node, which int, prevValue string, prevIndex uint64)
 	}
 }
 func (s *store) CompareAndSwap(nodePath string, prevValue string, prevIndex uint64, value string, expireOpts TTLOptionSet) (*Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err *etcdErr.Error
@@ -261,6 +281,8 @@ func (s *store) CompareAndSwap(nodePath string, prevValue string, prevIndex uint
 func (s *store) Delete(nodePath string, dir, recursive bool) (*Event, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err *etcdErr.Error
 	s.worldLock.Lock()
 	defer s.worldLock.Unlock()
@@ -306,6 +328,8 @@ func (s *store) Delete(nodePath string, dir, recursive bool) (*Event, error) {
 func (s *store) CompareAndDelete(nodePath string, prevValue string, prevIndex uint64) (*Event, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err *etcdErr.Error
 	s.worldLock.Lock()
 	defer s.worldLock.Unlock()
@@ -347,6 +371,8 @@ func (s *store) CompareAndDelete(nodePath string, prevValue string, prevIndex ui
 func (s *store) Watch(key string, recursive, stream bool, sinceIndex uint64) (Watcher, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.worldLock.RLock()
 	defer s.worldLock.RUnlock()
 	key = path.Clean(path.Join("/", key))
@@ -360,6 +386,8 @@ func (s *store) Watch(key string, recursive, stream bool, sinceIndex uint64) (Wa
 	return w, nil
 }
 func (s *store) walk(nodePath string, walkFunc func(prev *node, component string) (*node, *etcdErr.Error)) (*node, *etcdErr.Error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	components := strings.Split(nodePath, "/")
@@ -377,6 +405,8 @@ func (s *store) walk(nodePath string, walkFunc func(prev *node, component string
 	return curr, nil
 }
 func (s *store) Update(nodePath string, newValue string, expireOpts TTLOptionSet) (*Event, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err *etcdErr.Error
@@ -431,6 +461,8 @@ func (s *store) Update(nodePath string, newValue string, expireOpts TTLOptionSet
 func (s *store) internalCreate(nodePath string, dir bool, value string, unique, replace bool, expireTime time.Time, action string) (*Event, *etcdErr.Error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	currIndex, nextIndex := s.CurrentIndex, s.CurrentIndex+1
 	if unique {
 		nodePath += "/" + fmt.Sprintf("%020s", strconv.FormatUint(nextIndex, 10))
@@ -483,6 +515,8 @@ func (s *store) internalCreate(nodePath string, dir bool, value string, unique, 
 func (s *store) internalGet(nodePath string) (*node, *etcdErr.Error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nodePath = path.Clean(path.Join("/", nodePath))
 	walkFunc := func(parent *node, name string) (*node, *etcdErr.Error) {
 		if !parent.IsDir() {
@@ -502,6 +536,8 @@ func (s *store) internalGet(nodePath string) (*node, *etcdErr.Error) {
 	return f, nil
 }
 func (s *store) DeleteExpiredKeys(cutoff time.Time) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.worldLock.Lock()
@@ -531,6 +567,8 @@ func (s *store) DeleteExpiredKeys(cutoff time.Time) {
 func (s *store) checkDir(parent *node, dirName string) (*node, *etcdErr.Error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	node, ok := parent.Children[dirName]
 	if ok {
 		if node.IsDir() {
@@ -545,6 +583,8 @@ func (s *store) checkDir(parent *node, dirName string) (*node, *etcdErr.Error) {
 func (s *store) Save() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, err := json.Marshal(s.Clone())
 	if err != nil {
 		return nil, err
@@ -554,6 +594,8 @@ func (s *store) Save() ([]byte, error) {
 func (s *store) SaveNoCopy() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, err := json.Marshal(s)
 	if err != nil {
 		return nil, err
@@ -561,6 +603,8 @@ func (s *store) SaveNoCopy() ([]byte, error) {
 	return b, nil
 }
 func (s *store) Clone() Store {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.worldLock.Lock()
@@ -576,6 +620,8 @@ func (s *store) Clone() Store {
 func (s *store) Recovery(state []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.worldLock.Lock()
 	defer s.worldLock.Unlock()
 	err := json.Unmarshal(state, s)
@@ -589,10 +635,14 @@ func (s *store) Recovery(state []byte) error {
 func (s *store) JsonStats() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.Stats.Watchers = uint64(s.WatcherHub.count)
 	return s.Stats.toJson()
 }
 func (s *store) HasTTLKeys() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.worldLock.RLock()

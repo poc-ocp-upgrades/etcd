@@ -12,6 +12,8 @@ var memberPeerURLs string
 func NewMemberCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mc := &cobra.Command{Use: "member <subcommand>", Short: "Membership related commands"}
 	mc.AddCommand(NewMemberAddCommand())
 	mc.AddCommand(NewMemberRemoveCommand())
@@ -22,6 +24,8 @@ func NewMemberCommand() *cobra.Command {
 func NewMemberAddCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cc := &cobra.Command{Use: "add <memberName> [options]", Short: "Adds a member into the cluster", Run: memberAddCommandFunc}
 	cc.Flags().StringVar(&memberPeerURLs, "peer-urls", "", "comma separated peer URLs for the new member.")
 	return cc
@@ -29,10 +33,14 @@ func NewMemberAddCommand() *cobra.Command {
 func NewMemberRemoveCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cc := &cobra.Command{Use: "remove <memberID>", Short: "Removes a member from the cluster", Run: memberRemoveCommandFunc}
 	return cc
 }
 func NewMemberUpdateCommand() *cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cc := &cobra.Command{Use: "update <memberID> [options]", Short: "Updates a member in the cluster", Run: memberUpdateCommandFunc}
@@ -42,12 +50,16 @@ func NewMemberUpdateCommand() *cobra.Command {
 func NewMemberListCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cc := &cobra.Command{Use: "list", Short: "Lists all members in the cluster", Long: `When --write-out is set to simple, this command prints out comma-separated member lists for each endpoint.
 The items in the lists are ID, Status, Name, Peer Addrs, Client Addrs.
 `, Run: memberListCommandFunc}
 	return cc
 }
 func memberAddCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {
@@ -105,6 +117,8 @@ func memberAddCommandFunc(cmd *cobra.Command, args []string) {
 func memberRemoveCommandFunc(cmd *cobra.Command, args []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(args) != 1 {
 		ExitWithError(ExitBadArgs, fmt.Errorf("member ID is not provided"))
 	}
@@ -121,6 +135,8 @@ func memberRemoveCommandFunc(cmd *cobra.Command, args []string) {
 	display.MemberRemove(id, *resp)
 }
 func memberUpdateCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {
@@ -143,6 +159,8 @@ func memberUpdateCommandFunc(cmd *cobra.Command, args []string) {
 	display.MemberUpdate(id, *resp)
 }
 func memberListCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := commandCtx(cmd)

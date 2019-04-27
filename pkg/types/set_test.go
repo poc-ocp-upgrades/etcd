@@ -9,14 +9,20 @@ import (
 func TestUnsafeSet(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	driveSetTests(t, NewUnsafeSet())
 }
 func TestThreadsafeSet(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	driveSetTests(t, NewThreadsafeSet())
 }
 func equal(a, b []string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	as := sort.StringSlice(a)
@@ -26,6 +32,8 @@ func equal(a, b []string) bool {
 	return reflect.DeepEqual(as, bs)
 }
 func driveSetTests(t *testing.T, s Set) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	eValues := []string{}
@@ -111,6 +119,8 @@ func driveSetTests(t *testing.T, s Set) {
 	}
 }
 func TestUnsafeSetContainsAll(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vals := []string{"foo", "bar", "baz"}

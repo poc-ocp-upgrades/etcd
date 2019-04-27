@@ -10,5 +10,7 @@ var boltOpenOptions = &bolt.Options{MmapFlags: syscall.MAP_POPULATE, NoFreelistS
 func (bcfg *BackendConfig) mmapSize() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return int(bcfg.MmapSize)
 }

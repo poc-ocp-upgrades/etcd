@@ -14,6 +14,8 @@ type URLs []url.URL
 func NewURLs(strs []string) (URLs, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	all := make([]url.URL, len(strs))
 	if len(all) == 0 {
 		return nil, errors.New("no valid URLs given")
@@ -42,6 +44,8 @@ func NewURLs(strs []string) (URLs, error) {
 func MustNewURLs(strs []string) URLs {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	urls, err := NewURLs(strs)
 	if err != nil {
 		panic(err)
@@ -51,9 +55,13 @@ func MustNewURLs(strs []string) URLs {
 func (us URLs) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return strings.Join(us.StringSlice(), ",")
 }
 func (us *URLs) Sort() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sort.Sort(us)
@@ -61,9 +69,13 @@ func (us *URLs) Sort() {
 func (us URLs) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(us)
 }
 func (us URLs) Less(i, j int) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return us[i].String() < us[j].String()
@@ -71,9 +83,13 @@ func (us URLs) Less(i, j int) bool {
 func (us URLs) Swap(i, j int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	us[i], us[j] = us[j], us[i]
 }
 func (us URLs) StringSlice() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	out := make([]string, len(us))

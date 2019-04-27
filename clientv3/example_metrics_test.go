@@ -17,6 +17,8 @@ import (
 func ExampleClient_metrics() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli, err := clientv3.New(clientv3.Config{Endpoints: endpoints, DialOptions: []grpc.DialOption{grpc.WithUnaryInterceptor(grpcprom.UnaryClientInterceptor), grpc.WithStreamInterceptor(grpcprom.StreamClientInterceptor)}})
 	if err != nil {
 		log.Fatal(err)

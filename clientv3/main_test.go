@@ -16,9 +16,13 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	auth.BcryptCost = bcrypt.MinCost
 }
 func TestMain(m *testing.M) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	useCluster, hasRunArg := false, false

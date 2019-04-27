@@ -11,9 +11,13 @@ import (
 func TestFollowerUpdateTermFromMessage(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testUpdateTermFromMessage(t, StateFollower)
 }
 func TestCandidateUpdateTermFromMessage(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testUpdateTermFromMessage(t, StateCandidate)
@@ -21,9 +25,13 @@ func TestCandidateUpdateTermFromMessage(t *testing.T) {
 func TestLeaderUpdateTermFromMessage(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testUpdateTermFromMessage(t, StateLeader)
 }
 func testUpdateTermFromMessage(t *testing.T, state StateType) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := newTestRaft(1, []uint64{1, 2, 3}, 10, 1, NewMemoryStorage())
@@ -47,6 +55,8 @@ func testUpdateTermFromMessage(t *testing.T, state StateType) {
 func TestRejectStaleTermMessage(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	called := false
 	fakeStep := func(r *raft, m pb.Message) {
 		called = true
@@ -62,12 +72,16 @@ func TestRejectStaleTermMessage(t *testing.T) {
 func TestStartAsFollower(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := newTestRaft(1, []uint64{1, 2, 3}, 10, 1, NewMemoryStorage())
 	if r.state != StateFollower {
 		t.Errorf("state = %s, want %s", r.state, StateFollower)
 	}
 }
 func TestLeaderBcastBeat(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	hi := 1
@@ -90,14 +104,20 @@ func TestLeaderBcastBeat(t *testing.T) {
 func TestFollowerStartElection(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testNonleaderStartElection(t, StateFollower)
 }
 func TestCandidateStartNewElection(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testNonleaderStartElection(t, StateCandidate)
 }
 func testNonleaderStartElection(t *testing.T, state StateType) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	et := 10
@@ -130,6 +150,8 @@ func testNonleaderStartElection(t *testing.T, state StateType) {
 func TestLeaderElectionInOneRoundRPC(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		size	int
 		votes	map[uint64]bool
@@ -152,6 +174,8 @@ func TestLeaderElectionInOneRoundRPC(t *testing.T) {
 func TestFollowerVote(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		vote	uint64
 		nvote	uint64
@@ -169,6 +193,8 @@ func TestFollowerVote(t *testing.T) {
 	}
 }
 func TestCandidateFallback(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []pb.Message{{From: 2, To: 1, Term: 1, Type: pb.MsgApp}, {From: 2, To: 1, Term: 2, Type: pb.MsgApp}}
@@ -190,6 +216,8 @@ func TestCandidateFallback(t *testing.T) {
 func TestFollowerElectionTimeoutRandomized(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	SetLogger(discardLogger)
 	defer SetLogger(defaultLogger)
 	testNonleaderElectionTimeoutRandomized(t, StateFollower)
@@ -197,11 +225,15 @@ func TestFollowerElectionTimeoutRandomized(t *testing.T) {
 func TestCandidateElectionTimeoutRandomized(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	SetLogger(discardLogger)
 	defer SetLogger(defaultLogger)
 	testNonleaderElectionTimeoutRandomized(t, StateCandidate)
 }
 func testNonleaderElectionTimeoutRandomized(t *testing.T, state StateType) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	et := 10
@@ -230,6 +262,8 @@ func testNonleaderElectionTimeoutRandomized(t *testing.T, state StateType) {
 func TestFollowersElectioinTimeoutNonconflict(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	SetLogger(discardLogger)
 	defer SetLogger(defaultLogger)
 	testNonleadersElectionTimeoutNonconflict(t, StateFollower)
@@ -237,11 +271,15 @@ func TestFollowersElectioinTimeoutNonconflict(t *testing.T) {
 func TestCandidatesElectionTimeoutNonconflict(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	SetLogger(discardLogger)
 	defer SetLogger(defaultLogger)
 	testNonleadersElectionTimeoutNonconflict(t, StateCandidate)
 }
 func testNonleadersElectionTimeoutNonconflict(t *testing.T, state StateType) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	et := 10
@@ -281,6 +319,8 @@ func testNonleadersElectionTimeoutNonconflict(t *testing.T, state StateType) {
 func TestLeaderStartReplication(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := NewMemoryStorage()
 	r := newTestRaft(1, []uint64{1, 2, 3}, 10, 1, s)
 	r.becomeCandidate()
@@ -307,6 +347,8 @@ func TestLeaderStartReplication(t *testing.T) {
 	}
 }
 func TestLeaderCommitEntry(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := NewMemoryStorage()
@@ -343,6 +385,8 @@ func TestLeaderCommitEntry(t *testing.T) {
 func TestLeaderAcknowledgeCommit(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		size		int
 		acceptors	map[uint64]bool
@@ -369,6 +413,8 @@ func TestLeaderAcknowledgeCommit(t *testing.T) {
 func TestLeaderCommitPrecedingEntries(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := [][]pb.Entry{{}, {{Term: 2, Index: 1}}, {{Term: 1, Index: 1}, {Term: 2, Index: 2}}, {{Term: 1, Index: 1}}}
 	for i, tt := range tests {
 		storage := NewMemoryStorage()
@@ -391,6 +437,8 @@ func TestLeaderCommitPrecedingEntries(t *testing.T) {
 func TestFollowerCommitEntry(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		ents	[]pb.Entry
 		commit	uint64
@@ -409,6 +457,8 @@ func TestFollowerCommitEntry(t *testing.T) {
 	}
 }
 func TestFollowerCheckMsgApp(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ents := []pb.Entry{{Term: 1, Index: 1}, {Term: 2, Index: 2}}
@@ -436,6 +486,8 @@ func TestFollowerCheckMsgApp(t *testing.T) {
 func TestFollowerAppendEntries(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		index, term	uint64
 		ents		[]pb.Entry
@@ -457,6 +509,8 @@ func TestFollowerAppendEntries(t *testing.T) {
 	}
 }
 func TestLeaderSyncFollowerLog(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ents := []pb.Entry{{}, {Term: 1, Index: 1}, {Term: 1, Index: 2}, {Term: 1, Index: 3}, {Term: 4, Index: 4}, {Term: 4, Index: 5}, {Term: 5, Index: 6}, {Term: 5, Index: 7}, {Term: 6, Index: 8}, {Term: 6, Index: 9}, {Term: 6, Index: 10}}
@@ -481,6 +535,8 @@ func TestLeaderSyncFollowerLog(t *testing.T) {
 	}
 }
 func TestVoteRequest(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -522,6 +578,8 @@ func TestVoteRequest(t *testing.T) {
 func TestVoter(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		ents	[]pb.Entry
 		logterm	uint64
@@ -547,6 +605,8 @@ func TestVoter(t *testing.T) {
 	}
 }
 func TestLeaderOnlyCommitsLogFromCurrentTerm(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ents := []pb.Entry{{Term: 1, Index: 1}, {Term: 2, Index: 2}}
@@ -575,9 +635,13 @@ type messageSlice []pb.Message
 func (s messageSlice) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(s)
 }
 func (s messageSlice) Less(i, j int) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprint(s[i]) < fmt.Sprint(s[j])
@@ -585,9 +649,13 @@ func (s messageSlice) Less(i, j int) bool {
 func (s messageSlice) Swap(i, j int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s[i], s[j] = s[j], s[i]
 }
 func commitNoopEntry(r *raft, s *MemoryStorage) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if r.state != StateLeader {
@@ -607,6 +675,8 @@ func commitNoopEntry(r *raft, s *MemoryStorage) {
 	r.raftLog.stableTo(r.raftLog.lastIndex(), r.raftLog.lastTerm())
 }
 func acceptAndReply(m pb.Message) pb.Message {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m.Type != pb.MsgApp {

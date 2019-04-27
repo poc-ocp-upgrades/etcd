@@ -17,6 +17,8 @@ var epHashKVRev int64
 func NewEndpointCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ec := &cobra.Command{Use: "endpoint <subcommand>", Short: "Endpoint related commands"}
 	ec.PersistentFlags().BoolVar(&epClusterEndpoints, "cluster", false, "use all endpoints from the cluster member list")
 	ec.AddCommand(newEpHealthCommand())
@@ -27,10 +29,14 @@ func NewEndpointCommand() *cobra.Command {
 func newEpHealthCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "health", Short: "Checks the healthiness of endpoints specified in `--endpoints` flag", Run: epHealthCommandFunc}
 	return cmd
 }
 func newEpStatusCommand() *cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &cobra.Command{Use: "status", Short: "Prints out the status of endpoints specified in `--endpoints` flag", Long: `When --write-out is set to simple, this command prints out comma-separated status lists for each endpoint.
@@ -40,11 +46,15 @@ The items in the lists are endpoint, ID, version, db size, is leader, raft term,
 func newEpHashKVCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	hc := &cobra.Command{Use: "hashkv", Short: "Prints the KV history hash for each endpoint in --endpoints", Run: epHashKVCommandFunc}
 	hc.PersistentFlags().Int64Var(&epHashKVRev, "rev", 0, "maximum revision to hash (default: all revisions)")
 	return hc
 }
 func epHealthCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	flags.SetPflagsFromEnv("ETCDCTL", cmd.InheritedFlags())
@@ -106,6 +116,8 @@ type epStatus struct {
 func epStatusCommandFunc(cmd *cobra.Command, args []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := mustClientFromCmd(cmd)
 	statusList := []epStatus{}
 	var err error
@@ -134,6 +146,8 @@ type epHashKV struct {
 func epHashKVCommandFunc(cmd *cobra.Command, args []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := mustClientFromCmd(cmd)
 	hashList := []epHashKV{}
 	var err error
@@ -154,6 +168,8 @@ func epHashKVCommandFunc(cmd *cobra.Command, args []string) {
 	}
 }
 func endpointsFromCluster(cmd *cobra.Command) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !epClusterEndpoints {

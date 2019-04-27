@@ -25,9 +25,13 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rootCmd.AddCommand(newGatewayCommand())
 }
 func newGatewayCommand() *cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lpc := &cobra.Command{Use: "gateway <subcommand>", Short: "gateway related command"}
@@ -35,6 +39,8 @@ func newGatewayCommand() *cobra.Command {
 	return lpc
 }
 func newGatewayStartCommand() *cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := cobra.Command{Use: "start", Short: "start the gateway", Run: startGateway}
@@ -49,6 +55,8 @@ func newGatewayStartCommand() *cobra.Command {
 func stripSchema(eps []string) []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var endpoints []string
 	for _, ep := range eps {
 		if u, err := url.Parse(ep); err == nil && u.Host != "" {
@@ -59,6 +67,8 @@ func stripSchema(eps []string) []string {
 	return endpoints
 }
 func startGateway(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	srvs := discoverEndpoints(gatewayDNSCluster, gatewayCA, gatewayInsecureDiscovery)

@@ -14,6 +14,8 @@ import (
 func TestMembersAPIActionList(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ep := url.URL{Scheme: "http", Host: "example.com"}
 	act := &membersAPIActionList{}
 	wantURL := &url.URL{Scheme: "http", Host: "example.com", Path: "/v2/members"}
@@ -24,6 +26,8 @@ func TestMembersAPIActionList(t *testing.T) {
 	}
 }
 func TestMembersAPIActionAdd(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ep := url.URL{Scheme: "http", Host: "example.com"}
@@ -40,6 +44,8 @@ func TestMembersAPIActionAdd(t *testing.T) {
 func TestMembersAPIActionUpdate(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ep := url.URL{Scheme: "http", Host: "example.com"}
 	act := &membersAPIActionUpdate{memberID: "0xabcd", peerURLs: types.URLs([]url.URL{{Scheme: "https", Host: "127.0.0.1:8081"}, {Scheme: "http", Host: "127.0.0.1:8080"}})}
 	wantURL := &url.URL{Scheme: "http", Host: "example.com", Path: "/v2/members/0xabcd"}
@@ -54,6 +60,8 @@ func TestMembersAPIActionUpdate(t *testing.T) {
 func TestMembersAPIActionRemove(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ep := url.URL{Scheme: "http", Host: "example.com"}
 	act := &membersAPIActionRemove{memberID: "XXX"}
 	wantURL := &url.URL{Scheme: "http", Host: "example.com", Path: "/v2/members/XXX"}
@@ -64,6 +72,8 @@ func TestMembersAPIActionRemove(t *testing.T) {
 	}
 }
 func TestMembersAPIActionLeader(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ep := url.URL{Scheme: "http", Host: "example.com"}
@@ -78,6 +88,8 @@ func TestMembersAPIActionLeader(t *testing.T) {
 func TestAssertStatusCode(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := assertStatusCode(404, 400); err == nil {
 		t.Errorf("assertStatusCode failed to detect conflict in 400 vs 404")
 	}
@@ -88,6 +100,8 @@ func TestAssertStatusCode(t *testing.T) {
 func TestV2MembersURL(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	got := v2MembersURL(url.URL{Scheme: "http", Host: "foo.example.com:4002", Path: "/pants"})
 	want := &url.URL{Scheme: "http", Host: "foo.example.com:4002", Path: "/pants/v2/members"}
 	if !reflect.DeepEqual(want, got) {
@@ -95,6 +109,8 @@ func TestV2MembersURL(t *testing.T) {
 	}
 }
 func TestMemberUnmarshal(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -117,12 +133,16 @@ func TestMemberUnmarshal(t *testing.T) {
 func TestMemberCollectionUnmarshalFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mc := &memberCollection{}
 	if err := mc.UnmarshalJSON([]byte(`{`)); err == nil {
 		t.Errorf("got nil error")
 	}
 }
 func TestMemberCollectionUnmarshal(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -144,6 +164,8 @@ func TestMemberCollectionUnmarshal(t *testing.T) {
 func TestMemberCreateRequestMarshal(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req := memberCreateOrUpdateRequest{PeerURLs: types.URLs([]url.URL{{Scheme: "http", Host: "127.0.0.1:8081"}, {Scheme: "https", Host: "127.0.0.1:8080"}})}
 	want := []byte(`{"peerURLs":["http://127.0.0.1:8081","https://127.0.0.1:8080"]}`)
 	got, err := json.Marshal(&req)
@@ -155,6 +177,8 @@ func TestMemberCreateRequestMarshal(t *testing.T) {
 	}
 }
 func TestHTTPMembersAPIAddSuccess(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wantAction := &membersAPIActionAdd{peerURLs: types.URLs([]url.URL{{Scheme: "http", Host: "127.0.0.1:7002"}})}
@@ -169,6 +193,8 @@ func TestHTTPMembersAPIAddSuccess(t *testing.T) {
 	}
 }
 func TestHTTPMembersAPIAddError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	okPeer := "http://example.com:2379"
@@ -194,6 +220,8 @@ func TestHTTPMembersAPIAddError(t *testing.T) {
 func TestHTTPMembersAPIRemoveSuccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wantAction := &membersAPIActionRemove{memberID: "94088180e21eb87b"}
 	mAPI := &httpMembersAPI{client: &actionAssertingHTTPClient{t: t, act: wantAction, resp: http.Response{StatusCode: http.StatusNoContent}}}
 	if err := mAPI.Remove(context.Background(), "94088180e21eb87b"); err != nil {
@@ -201,6 +229,8 @@ func TestHTTPMembersAPIRemoveSuccess(t *testing.T) {
 	}
 }
 func TestHTTPMembersAPIRemoveFail(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []httpClient{&staticHTTPClient{err: errors.New("fail!")}, &staticHTTPClient{resp: http.Response{StatusCode: http.StatusInternalServerError}}}
@@ -212,6 +242,8 @@ func TestHTTPMembersAPIRemoveFail(t *testing.T) {
 	}
 }
 func TestHTTPMembersAPIListSuccess(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wantAction := &membersAPIActionList{}
@@ -226,6 +258,8 @@ func TestHTTPMembersAPIListSuccess(t *testing.T) {
 	}
 }
 func TestHTTPMembersAPIListError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []httpClient{&staticHTTPClient{err: errors.New("fail!")}, &staticHTTPClient{resp: http.Response{StatusCode: http.StatusTeapot}}, &staticHTTPClient{resp: http.Response{StatusCode: http.StatusOK}, body: []byte(`[{"id":"XX`)}}
@@ -243,6 +277,8 @@ func TestHTTPMembersAPIListError(t *testing.T) {
 func TestHTTPMembersAPILeaderSuccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wantAction := &membersAPIActionLeader{}
 	mAPI := &httpMembersAPI{client: &actionAssertingHTTPClient{t: t, act: wantAction, resp: http.Response{StatusCode: http.StatusOK}, body: []byte(`{"id":"94088180e21eb87b","name":"node2","peerURLs":["http://127.0.0.1:7002"],"clientURLs":["http://127.0.0.1:4002"]}`)}}
 	wantResponseMember := &Member{ID: "94088180e21eb87b", Name: "node2", PeerURLs: []string{"http://127.0.0.1:7002"}, ClientURLs: []string{"http://127.0.0.1:4002"}}
@@ -255,6 +291,8 @@ func TestHTTPMembersAPILeaderSuccess(t *testing.T) {
 	}
 }
 func TestHTTPMembersAPILeaderError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []httpClient{&staticHTTPClient{err: errors.New("fail!")}, &staticHTTPClient{resp: http.Response{StatusCode: http.StatusTeapot}}, &staticHTTPClient{resp: http.Response{StatusCode: http.StatusOK}, body: []byte(`[{"id":"XX`)}}

@@ -13,6 +13,8 @@ import (
 func TestDialCancel(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	ln, err := net.Listen("unix", "dialcancel:12345")
 	if err != nil {
@@ -51,6 +53,8 @@ func TestDialCancel(t *testing.T) {
 func TestDialTimeout(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	testCfgs := []Config{{Endpoints: []string{"http://254.0.0.1:12345"}, DialTimeout: 2 * time.Second}, {Endpoints: []string{"http://254.0.0.1:12345"}, DialTimeout: time.Second, Username: "abc", Password: "def"}}
 	for i, cfg := range testCfgs {
@@ -81,6 +85,8 @@ func TestDialTimeout(t *testing.T) {
 func TestDialNoTimeout(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := Config{Endpoints: []string{"127.0.0.1:12345"}}
 	c, err := New(cfg)
 	if c == nil || err != nil {
@@ -89,6 +95,8 @@ func TestDialNoTimeout(t *testing.T) {
 	c.Close()
 }
 func TestIsHaltErr(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !isHaltErr(nil, fmt.Errorf("etcdserver: some etcdserver error")) {

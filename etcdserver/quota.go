@@ -17,14 +17,20 @@ type passthroughQuota struct{}
 func (*passthroughQuota) Available(interface{}) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return true
 }
 func (*passthroughQuota) Cost(interface{}) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 0
 }
 func (*passthroughQuota) Remaining() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return 1
@@ -41,6 +47,8 @@ const (
 )
 
 func NewBackendQuota(s *EtcdServer) Quota {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	quotaBackendBytes.Set(float64(s.Cfg.QuotaBackendBytes))
@@ -60,9 +68,13 @@ func NewBackendQuota(s *EtcdServer) Quota {
 func (b *backendQuota) Available(v interface{}) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return b.s.Backend().Size()+int64(b.Cost(v)) < b.maxBackendBytes
 }
 func (b *backendQuota) Cost(v interface{}) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch r := v.(type) {
@@ -79,9 +91,13 @@ func (b *backendQuota) Cost(v interface{}) int {
 func costPut(r *pb.PutRequest) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return kvOverhead + len(r.Key) + len(r.Value)
 }
 func costTxnReq(u *pb.RequestOp) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := u.GetRequestPut()
@@ -91,6 +107,8 @@ func costTxnReq(u *pb.RequestOp) int {
 	return costPut(r)
 }
 func costTxn(r *pb.TxnRequest) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sizeSuccess := 0
@@ -107,6 +125,8 @@ func costTxn(r *pb.TxnRequest) int {
 	return sizeSuccess
 }
 func (b *backendQuota) Remaining() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return b.maxBackendBytes - b.s.Backend().Size()

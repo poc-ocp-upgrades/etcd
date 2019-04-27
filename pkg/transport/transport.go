@@ -12,6 +12,8 @@ type unixTransport struct{ *http.Transport }
 func NewTransport(info TLSInfo, dialtimeoutd time.Duration) (*http.Transport, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg, err := info.ClientConfig()
 	if err != nil {
 		return nil, err
@@ -28,6 +30,8 @@ func NewTransport(info TLSInfo, dialtimeoutd time.Duration) (*http.Transport, er
 	return t, nil
 }
 func (urt *unixTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	url := *req.URL

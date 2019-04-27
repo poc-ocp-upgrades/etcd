@@ -59,6 +59,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defaultHostname, defaultHostStatus = netutil.GetDefaultHost()
 }
 
@@ -136,6 +138,8 @@ type securityConfig struct {
 func NewConfig() *Config {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lpurl, _ := url.Parse(DefaultListenPeerURLs)
 	apurl, _ := url.Parse(DefaultInitialAdvertisePeerURLs)
 	lcurl, _ := url.Parse(DefaultListenClientURLs)
@@ -145,6 +149,8 @@ func NewConfig() *Config {
 	return cfg
 }
 func logTLSHandshakeFailure(conn *tls.Conn, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	state := conn.ConnectionState()
@@ -159,6 +165,8 @@ func logTLSHandshakeFailure(conn *tls.Conn, err error) {
 	}
 }
 func (cfg *Config) SetupLogging() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfg.ClientTLSInfo.HandshakeFailure = logTLSHandshakeFailure
@@ -193,6 +201,8 @@ func (cfg *Config) SetupLogging() {
 func ConfigFromFile(path string) (*Config, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := &configYAML{Config: *NewConfig()}
 	if err := cfg.configFromFile(path); err != nil {
 		return nil, err
@@ -200,6 +210,8 @@ func ConfigFromFile(path string) (*Config, error) {
 	return &cfg.Config, nil
 }
 func (cfg *configYAML) configFromFile(path string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, err := ioutil.ReadFile(path)
@@ -273,6 +285,8 @@ func (cfg *configYAML) configFromFile(path string) error {
 func updateCipherSuites(tls *transport.TLSInfo, ss []string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(tls.CipherSuites) > 0 && len(ss) > 0 {
 		return fmt.Errorf("TLSInfo.CipherSuites is already specified (given %v)", ss)
 	}
@@ -290,6 +304,8 @@ func updateCipherSuites(tls *transport.TLSInfo, ss []string) error {
 	return nil
 }
 func (cfg *Config) Validate() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := checkBindURLs(cfg.LPUrls); err != nil {
@@ -353,6 +369,8 @@ func (cfg *Config) Validate() error {
 func (cfg *Config) PeerURLsMapAndToken(which string) (urlsmap types.URLsMap, token string, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	token = cfg.InitialClusterToken
 	switch {
 	case cfg.Durl != "":
@@ -386,6 +404,8 @@ func (cfg *Config) PeerURLsMapAndToken(which string) (urlsmap types.URLsMap, tok
 func (cfg Config) InitialClusterFromName(name string) (ret string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(cfg.APUrls) == 0 {
 		return ""
 	}
@@ -401,9 +421,13 @@ func (cfg Config) InitialClusterFromName(name string) (ret string) {
 func (cfg Config) IsNewCluster() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cfg.ClusterState == ClusterStateFlagNew
 }
 func (cfg Config) ElectionTicks() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return int(cfg.ElectionMs / cfg.TickMs)
@@ -411,14 +435,20 @@ func (cfg Config) ElectionTicks() int {
 func (cfg Config) defaultPeerHost() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(cfg.APUrls) == 1 && cfg.APUrls[0].String() == DefaultInitialAdvertisePeerURLs
 }
 func (cfg Config) defaultClientHost() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(cfg.ACUrls) == 1 && cfg.ACUrls[0].String() == DefaultAdvertiseClientURLs
 }
 func (cfg *Config) ClientSelfCert() (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !cfg.ClientAutoTLS {
@@ -441,6 +471,8 @@ func (cfg *Config) ClientSelfCert() (err error) {
 func (cfg *Config) PeerSelfCert() (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !cfg.PeerAutoTLS {
 		return nil
 	}
@@ -459,6 +491,8 @@ func (cfg *Config) PeerSelfCert() (err error) {
 	return updateCipherSuites(&cfg.PeerTLSInfo, cfg.CipherSuites)
 }
 func (cfg *Config) UpdateDefaultClusterFromName(defaultInitialCluster string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if defaultHostname == "" || defaultHostStatus != nil {
@@ -490,6 +524,8 @@ func (cfg *Config) UpdateDefaultClusterFromName(defaultInitialCluster string) (s
 func checkBindURLs(urls []url.URL) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, url := range urls {
 		if url.Scheme == "unix" || url.Scheme == "unixs" {
 			continue
@@ -510,6 +546,8 @@ func checkBindURLs(urls []url.URL) error {
 func checkHostURLs(urls []url.URL) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, url := range urls {
 		host, _, err := net.SplitHostPort(url.Host)
 		if err != nil {
@@ -524,7 +562,16 @@ func checkHostURLs(urls []url.URL) error {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

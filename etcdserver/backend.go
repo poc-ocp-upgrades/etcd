@@ -14,6 +14,8 @@ import (
 func newBackend(cfg ServerConfig) backend.Backend {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bcfg := backend.DefaultBackendConfig()
 	bcfg.Path = cfg.backendPath()
 	if cfg.QuotaBackendBytes > 0 && cfg.QuotaBackendBytes != DefaultQuotaBytes {
@@ -22,6 +24,8 @@ func newBackend(cfg ServerConfig) backend.Backend {
 	return backend.New(bcfg)
 }
 func openSnapshotBackend(cfg ServerConfig, ss *snap.Snapshotter, snapshot raftpb.Snapshot) (backend.Backend, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	snapPath, err := ss.DBFilePath(snapshot.Metadata.Index)
@@ -34,6 +38,8 @@ func openSnapshotBackend(cfg ServerConfig, ss *snap.Snapshotter, snapshot raftpb
 	return openBackend(cfg), nil
 }
 func openBackend(cfg ServerConfig) backend.Backend {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fn := cfg.backendPath()
@@ -51,6 +57,8 @@ func openBackend(cfg ServerConfig) backend.Backend {
 	return <-beOpened
 }
 func recoverSnapshotBackend(cfg ServerConfig, oldbe backend.Backend, snapshot raftpb.Snapshot) (backend.Backend, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var cIndex consistentIndex

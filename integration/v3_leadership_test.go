@@ -12,14 +12,20 @@ import (
 func TestMoveLeader(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testMoveLeader(t, true)
 }
 func TestMoveLeaderService(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testMoveLeader(t, false)
 }
 func testMoveLeader(t *testing.T, auto bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -69,6 +75,8 @@ func testMoveLeader(t *testing.T, auto bool) {
 	}
 }
 func TestMoveLeaderError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

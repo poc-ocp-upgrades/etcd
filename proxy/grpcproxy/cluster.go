@@ -28,6 +28,8 @@ type clusterProxy struct {
 func NewClusterProxy(c *clientv3.Client, advaddr string, prefix string) (pb.ClusterServer, <-chan struct{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cp := &clusterProxy{clus: c.Cluster, ctx: c.Ctx(), gr: &naming.GRPCResolver{Client: c}, advaddr: advaddr, prefix: prefix, umap: make(map[string]gnaming.Update)}
 	donec := make(chan struct{})
 	if advaddr != "" && prefix != "" {
@@ -43,6 +45,8 @@ func NewClusterProxy(c *clientv3.Client, advaddr string, prefix string) (pb.Clus
 func (cp *clusterProxy) resolve(prefix string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rm := rate.NewLimiter(rate.Limit(resolveRetryRate), resolveRetryRate)
 	for rm.Wait(cp.ctx) == nil {
 		wa, err := cp.gr.Resolve(prefix)
@@ -54,6 +58,8 @@ func (cp *clusterProxy) resolve(prefix string) {
 	}
 }
 func (cp *clusterProxy) monitor(wa gnaming.Watcher) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for cp.ctx.Err() == nil {
@@ -79,6 +85,8 @@ func (cp *clusterProxy) monitor(wa gnaming.Watcher) {
 func (cp *clusterProxy) MemberAdd(ctx context.Context, r *pb.MemberAddRequest) (*pb.MemberAddResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mresp, err := cp.clus.MemberAdd(ctx, r.PeerURLs)
 	if err != nil {
 		return nil, err
@@ -87,6 +95,8 @@ func (cp *clusterProxy) MemberAdd(ctx context.Context, r *pb.MemberAddRequest) (
 	return &resp, err
 }
 func (cp *clusterProxy) MemberRemove(ctx context.Context, r *pb.MemberRemoveRequest) (*pb.MemberRemoveResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mresp, err := cp.clus.MemberRemove(ctx, r.ID)
@@ -99,6 +109,8 @@ func (cp *clusterProxy) MemberRemove(ctx context.Context, r *pb.MemberRemoveRequ
 func (cp *clusterProxy) MemberUpdate(ctx context.Context, r *pb.MemberUpdateRequest) (*pb.MemberUpdateResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mresp, err := cp.clus.MemberUpdate(ctx, r.ID, r.PeerURLs)
 	if err != nil {
 		return nil, err
@@ -107,6 +119,8 @@ func (cp *clusterProxy) MemberUpdate(ctx context.Context, r *pb.MemberUpdateRequ
 	return &resp, err
 }
 func (cp *clusterProxy) membersFromUpdates() ([]*pb.Member, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cp.umu.RLock()
@@ -122,6 +136,8 @@ func (cp *clusterProxy) membersFromUpdates() ([]*pb.Member, error) {
 	return mbs, nil
 }
 func (cp *clusterProxy) MemberList(ctx context.Context, r *pb.MemberListRequest) (*pb.MemberListResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cp.advaddr != "" {

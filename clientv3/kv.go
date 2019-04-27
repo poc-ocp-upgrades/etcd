@@ -31,9 +31,13 @@ type OpResponse struct {
 func (op OpResponse) Put() *PutResponse {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return op.put
 }
 func (op OpResponse) Get() *GetResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return op.get
@@ -41,9 +45,13 @@ func (op OpResponse) Get() *GetResponse {
 func (op OpResponse) Del() *DeleteResponse {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return op.del
 }
 func (op OpResponse) Txn() *TxnResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return op.txn
@@ -51,9 +59,13 @@ func (op OpResponse) Txn() *TxnResponse {
 func (resp *PutResponse) OpResponse() OpResponse {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return OpResponse{put: resp}
 }
 func (resp *GetResponse) OpResponse() OpResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return OpResponse{get: resp}
@@ -61,9 +73,13 @@ func (resp *GetResponse) OpResponse() OpResponse {
 func (resp *DeleteResponse) OpResponse() OpResponse {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return OpResponse{del: resp}
 }
 func (resp *TxnResponse) OpResponse() OpResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return OpResponse{txn: resp}
@@ -77,6 +93,8 @@ type kv struct {
 func NewKV(c *Client) KV {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	api := &kv{remote: RetryKVClient(c)}
 	if c != nil {
 		api.callOpts = c.callOpts
@@ -84,6 +102,8 @@ func NewKV(c *Client) KV {
 	return api
 }
 func NewKVFromKVClient(remote pb.KVClient, c *Client) KV {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	api := &kv{remote: remote}
@@ -95,10 +115,14 @@ func NewKVFromKVClient(remote pb.KVClient, c *Client) KV {
 func (kv *kv) Put(ctx context.Context, key, val string, opts ...OpOption) (*PutResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r, err := kv.Do(ctx, OpPut(key, val, opts...))
 	return r.put, toErr(ctx, err)
 }
 func (kv *kv) Get(ctx context.Context, key string, opts ...OpOption) (*GetResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r, err := kv.Do(ctx, OpGet(key, opts...))
@@ -107,10 +131,14 @@ func (kv *kv) Get(ctx context.Context, key string, opts ...OpOption) (*GetRespon
 func (kv *kv) Delete(ctx context.Context, key string, opts ...OpOption) (*DeleteResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r, err := kv.Do(ctx, OpDelete(key, opts...))
 	return r.del, toErr(ctx, err)
 }
 func (kv *kv) Compact(ctx context.Context, rev int64, opts ...CompactOption) (*CompactResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := kv.remote.Compact(ctx, OpCompact(rev, opts...).toRequest(), kv.callOpts...)
@@ -122,9 +150,13 @@ func (kv *kv) Compact(ctx context.Context, rev int64, opts ...CompactOption) (*C
 func (kv *kv) Txn(ctx context.Context) Txn {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &txn{kv: kv, ctx: ctx, callOpts: kv.callOpts}
 }
 func (kv *kv) Do(ctx context.Context, op Op) (OpResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error

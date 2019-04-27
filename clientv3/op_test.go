@@ -9,6 +9,8 @@ import (
 func TestOpWithSort(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	opReq := OpGet("foo", WithSort(SortByKey, SortAscend), WithLimit(10)).toRequestOp().Request
 	q, ok := opReq.(*pb.RequestOp_RequestRange)
 	if !ok {

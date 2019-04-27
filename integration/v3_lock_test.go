@@ -16,6 +16,8 @@ import (
 func TestMutexSingleNode(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
 	var clients []*clientv3.Client
@@ -25,6 +27,8 @@ func TestMutexSingleNode(t *testing.T) {
 func TestMutexMultiNode(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
 	var clients []*clientv3.Client
@@ -32,6 +36,8 @@ func TestMutexMultiNode(t *testing.T) {
 	closeClients(t, clients)
 }
 func testMutex(t *testing.T, waiters int, chooseClient func() *clientv3.Client) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lockedC := make(chan *concurrency.Mutex)
@@ -68,6 +74,8 @@ func testMutex(t *testing.T, waiters int, chooseClient func() *clientv3.Client) 
 func TestMutexSessionRelock(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
 	session, err := concurrency.NewSession(clus.RandClient())
@@ -84,6 +92,8 @@ func TestMutexSessionRelock(t *testing.T) {
 	}
 }
 func TestMutexWaitsOnCurrentHolder(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -178,6 +188,8 @@ func TestMutexWaitsOnCurrentHolder(t *testing.T) {
 func BenchmarkMutex4Waiters(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(nil, &ClusterConfig{Size: 3})
 	defer clus.Terminate(nil)
 	for i := 0; i < b.N; i++ {
@@ -189,6 +201,8 @@ func BenchmarkMutex4Waiters(b *testing.B) {
 func TestRWMutexSingleNode(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
 	testRWMutex(t, 5, func() *clientv3.Client {
@@ -198,6 +212,8 @@ func TestRWMutexSingleNode(t *testing.T) {
 func TestRWMutexMultiNode(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
 	testRWMutex(t, 5, func() *clientv3.Client {
@@ -205,6 +221,8 @@ func TestRWMutexMultiNode(t *testing.T) {
 	})
 }
 func testRWMutex(t *testing.T, waiters int, chooseClient func() *clientv3.Client) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rlockedC := make(chan *recipe.RWMutex, 1)
@@ -258,6 +276,8 @@ func testRWMutex(t *testing.T, waiters int, chooseClient func() *clientv3.Client
 func makeClients(t *testing.T, clients *[]*clientv3.Client, choose func() *member) func() *clientv3.Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var mu sync.Mutex
 	*clients = nil
 	return func() *clientv3.Client {
@@ -274,6 +294,8 @@ func makeClients(t *testing.T, clients *[]*clientv3.Client, choose func() *membe
 func makeSingleNodeClients(t *testing.T, clus *cluster, clients *[]*clientv3.Client) func() *clientv3.Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return makeClients(t, clients, func() *member {
 		return clus.Members[0]
 	})
@@ -281,11 +303,15 @@ func makeSingleNodeClients(t *testing.T, clus *cluster, clients *[]*clientv3.Cli
 func makeMultiNodeClients(t *testing.T, clus *cluster, clients *[]*clientv3.Client) func() *clientv3.Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return makeClients(t, clients, func() *member {
 		return clus.Members[rand.Intn(len(clus.Members))]
 	})
 }
 func closeClients(t *testing.T, clients []*clientv3.Client) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, cli := range clients {

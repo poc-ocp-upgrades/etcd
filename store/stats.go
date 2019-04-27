@@ -45,10 +45,14 @@ type Stats struct {
 func newStats() *Stats {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := new(Stats)
 	return s
 }
 func (s *Stats) clone() *Stats {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &Stats{GetSuccess: s.GetSuccess, GetFail: s.GetFail, SetSuccess: s.SetSuccess, SetFail: s.SetFail, DeleteSuccess: s.DeleteSuccess, DeleteFail: s.DeleteFail, UpdateSuccess: s.UpdateSuccess, UpdateFail: s.UpdateFail, CreateSuccess: s.CreateSuccess, CreateFail: s.CreateFail, CompareAndSwapSuccess: s.CompareAndSwapSuccess, CompareAndSwapFail: s.CompareAndSwapFail, CompareAndDeleteSuccess: s.CompareAndDeleteSuccess, CompareAndDeleteFail: s.CompareAndDeleteFail, ExpireCount: s.ExpireCount, Watchers: s.Watchers}
@@ -56,10 +60,14 @@ func (s *Stats) clone() *Stats {
 func (s *Stats) toJson() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, _ := json.Marshal(s)
 	return b
 }
 func (s *Stats) Inc(field int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch field {

@@ -15,6 +15,8 @@ import (
 func BenchmarkSendingMsgApp(b *testing.B) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tr := &Transport{ID: types.ID(1), ClusterID: types.ID(1), Raft: &fakeRaft{}, ServerStats: newServerStats(), LeaderStats: stats.NewLeaderStats("1")}
 	tr.Start()
 	srv := httptest.NewServer(tr.Handler())
@@ -52,6 +54,8 @@ type countRaft struct {
 func (r *countRaft) Process(ctx context.Context, m raftpb.Message) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	r.cnt++
@@ -60,17 +64,25 @@ func (r *countRaft) Process(ctx context.Context, m raftpb.Message) error {
 func (r *countRaft) IsIDRemoved(id uint64) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return false
 }
 func (r *countRaft) ReportUnreachable(id uint64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (r *countRaft) ReportSnapshot(id uint64, status raft.SnapshotStatus) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (r *countRaft) count() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r.mu.Lock()

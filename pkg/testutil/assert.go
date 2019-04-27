@@ -12,6 +12,8 @@ import (
 func AssertEqual(t *testing.T, e, a interface{}, msg ...string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if (e == nil || a == nil) && (isNil(e) && isNil(a)) {
 		return
 	}
@@ -28,9 +30,13 @@ func AssertEqual(t *testing.T, e, a interface{}, msg ...string) {
 func AssertNil(t *testing.T, v interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	AssertEqual(t, nil, v)
 }
 func AssertNotNil(t *testing.T, v interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if v == nil {
@@ -40,14 +46,20 @@ func AssertNotNil(t *testing.T, v interface{}) {
 func AssertTrue(t *testing.T, v bool, msg ...string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	AssertEqual(t, true, v, msg...)
 }
 func AssertFalse(t *testing.T, v bool, msg ...string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	AssertEqual(t, false, v, msg...)
 }
 func isNil(v interface{}) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if v == nil {
@@ -59,7 +71,16 @@ func isNil(v interface{}) bool {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

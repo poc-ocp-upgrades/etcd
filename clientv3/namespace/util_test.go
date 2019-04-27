@@ -8,6 +8,8 @@ import (
 func TestPrefixInterval(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		pfx	string
 		key	[]byte

@@ -29,12 +29,16 @@ type caseByFunc struct {
 func (c *caseByFunc) Desc() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.desc != "" {
 		return c.desc
 	}
 	return c.rpcpbCase.String()
 }
 func (c *caseByFunc) TestCase() rpcpb.Case {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return c.rpcpbCase
@@ -47,6 +51,8 @@ type caseFollower struct {
 }
 
 func (c *caseFollower) updateIndex(clus *Cluster) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lead, err := clus.GetLeader()
@@ -71,6 +77,8 @@ func (c *caseFollower) updateIndex(clus *Cluster) error {
 func (c *caseFollower) Inject(clus *Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := c.updateIndex(clus); err != nil {
 		return err
 	}
@@ -79,9 +87,13 @@ func (c *caseFollower) Inject(clus *Cluster) error {
 func (c *caseFollower) Recover(clus *Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.recoverMember(clus, c.last)
 }
 func (c *caseFollower) Desc() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.desc != "" {
@@ -90,6 +102,8 @@ func (c *caseFollower) Desc() string {
 	return c.rpcpbCase.String()
 }
 func (c *caseFollower) TestCase() rpcpb.Case {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return c.rpcpbCase
@@ -104,6 +118,8 @@ type caseLeader struct {
 func (c *caseLeader) updateIndex(clus *Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lead, err := clus.GetLeader()
 	if err != nil {
 		return err
@@ -115,6 +131,8 @@ func (c *caseLeader) updateIndex(clus *Cluster) error {
 func (c *caseLeader) Inject(clus *Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := c.updateIndex(clus); err != nil {
 		return err
 	}
@@ -123,9 +141,13 @@ func (c *caseLeader) Inject(clus *Cluster) error {
 func (c *caseLeader) Recover(clus *Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.recoverMember(clus, c.last)
 }
 func (c *caseLeader) TestCase() rpcpb.Case {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return c.rpcpbCase
@@ -139,6 +161,8 @@ type caseQuorum struct {
 func (c *caseQuorum) Inject(clus *Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.injected = pickQuorum(len(clus.Members))
 	for idx := range c.injected {
 		if err := c.injectMember(clus, idx); err != nil {
@@ -148,6 +172,8 @@ func (c *caseQuorum) Inject(clus *Cluster) error {
 	return nil
 }
 func (c *caseQuorum) Recover(clus *Cluster) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for idx := range c.injected {
@@ -160,6 +186,8 @@ func (c *caseQuorum) Recover(clus *Cluster) error {
 func (c *caseQuorum) Desc() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.desc != "" {
 		return c.desc
 	}
@@ -168,9 +196,13 @@ func (c *caseQuorum) Desc() string {
 func (c *caseQuorum) TestCase() rpcpb.Case {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.rpcpbCase
 }
 func pickQuorum(size int) (picked map[int]struct{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	picked = make(map[int]struct{})
@@ -188,6 +220,8 @@ type caseAll caseByFunc
 func (c *caseAll) Inject(clus *Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i := range clus.Members {
 		if err := c.injectMember(clus, i); err != nil {
 			return err
@@ -196,6 +230,8 @@ func (c *caseAll) Inject(clus *Cluster) error {
 	return nil
 }
 func (c *caseAll) Recover(clus *Cluster) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := range clus.Members {
@@ -208,12 +244,16 @@ func (c *caseAll) Recover(clus *Cluster) error {
 func (c *caseAll) Desc() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.desc != "" {
 		return c.desc
 	}
 	return c.rpcpbCase.String()
 }
 func (c *caseAll) TestCase() rpcpb.Case {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return c.rpcpbCase
@@ -228,6 +268,8 @@ type caseUntilSnapshot struct {
 var slowCases = map[rpcpb.Case]bool{rpcpb.Case_RANDOM_DELAY_PEER_PORT_TX_RX_ONE_FOLLOWER: true, rpcpb.Case_DELAY_PEER_PORT_TX_RX_ONE_FOLLOWER_UNTIL_TRIGGER_SNAPSHOT: true, rpcpb.Case_RANDOM_DELAY_PEER_PORT_TX_RX_ONE_FOLLOWER_UNTIL_TRIGGER_SNAPSHOT: true, rpcpb.Case_RANDOM_DELAY_PEER_PORT_TX_RX_LEADER: true, rpcpb.Case_DELAY_PEER_PORT_TX_RX_LEADER_UNTIL_TRIGGER_SNAPSHOT: true, rpcpb.Case_RANDOM_DELAY_PEER_PORT_TX_RX_LEADER_UNTIL_TRIGGER_SNAPSHOT: true, rpcpb.Case_RANDOM_DELAY_PEER_PORT_TX_RX_QUORUM: true, rpcpb.Case_RANDOM_DELAY_PEER_PORT_TX_RX_ALL: true}
 
 func (c *caseUntilSnapshot) Inject(clus *Cluster) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := c.Case.Inject(clus); err != nil {
@@ -267,6 +309,8 @@ func (c *caseUntilSnapshot) Inject(clus *Cluster) error {
 func (c *caseUntilSnapshot) Desc() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.desc != "" {
 		return c.desc
 	}
@@ -278,12 +322,23 @@ func (c *caseUntilSnapshot) Desc() string {
 func (c *caseUntilSnapshot) TestCase() rpcpb.Case {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.rpcpbCase
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

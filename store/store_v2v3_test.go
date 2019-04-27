@@ -14,6 +14,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	capnslog.SetGlobalLogLevel(capnslog.CRITICAL)
 	clientv3.SetLogger(grpclog.NewLoggerV2(ioutil.Discard, ioutil.Discard, ioutil.Discard))
 }
@@ -27,9 +29,13 @@ type v2v3TestStore struct {
 func (s *v2v3TestStore) Close() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.clus.Terminate(s.t)
 }
 func newTestStore(t *testing.T, ns ...string) StoreCloser {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})

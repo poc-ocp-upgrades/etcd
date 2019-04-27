@@ -11,6 +11,8 @@ var ranSample = false
 func TestMain(m *testing.M) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m.Run()
 	isLeaked := CheckLeakedGoroutine()
 	if ranSample && !isLeaked {
@@ -20,6 +22,8 @@ func TestMain(m *testing.M) {
 	os.Exit(0)
 }
 func TestSample(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer AfterTest(t)

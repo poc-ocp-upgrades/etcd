@@ -23,9 +23,13 @@ var testTLSInfo = transport.TLSInfo{KeyFile: "./fixtures/server.key.insecure", C
 func TestServer_Unix_Insecure(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testServer(t, "unix", false, false)
 }
 func TestServer_TCP_Insecure(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testServer(t, "tcp", false, false)
@@ -33,9 +37,13 @@ func TestServer_TCP_Insecure(t *testing.T) {
 func TestServer_Unix_Secure(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testServer(t, "unix", true, false)
 }
 func TestServer_TCP_Secure(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testServer(t, "tcp", true, false)
@@ -43,9 +51,13 @@ func TestServer_TCP_Secure(t *testing.T) {
 func TestServer_Unix_Insecure_DelayTx(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testServer(t, "unix", false, true)
 }
 func TestServer_TCP_Insecure_DelayTx(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testServer(t, "tcp", false, true)
@@ -53,14 +65,20 @@ func TestServer_TCP_Insecure_DelayTx(t *testing.T) {
 func TestServer_Unix_Secure_DelayTx(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testServer(t, "unix", true, true)
 }
 func TestServer_TCP_Secure_DelayTx(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testServer(t, "tcp", true, true)
 }
 func testServer(t *testing.T, scheme string, secure bool, delayTx bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	srcAddr, dstAddr := newUnixAddr(), newUnixAddr()
@@ -160,14 +178,20 @@ func testServer(t *testing.T, scheme string, secure bool, delayTx bool) {
 func TestServer_Unix_Insecure_DelayAccept(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testServerDelayAccept(t, false)
 }
 func TestServer_Unix_Secure_DelayAccept(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testServerDelayAccept(t, true)
 }
 func testServerDelayAccept(t *testing.T, secure bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	srcAddr, dstAddr := newUnixAddr(), newUnixAddr()
@@ -218,6 +242,8 @@ func testServerDelayAccept(t *testing.T, secure bool) {
 func TestServer_PauseTx(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	scheme := "unix"
 	srcAddr, dstAddr := newUnixAddr(), newUnixAddr()
 	defer func() {
@@ -252,6 +278,8 @@ func TestServer_PauseTx(t *testing.T) {
 	}
 }
 func TestServer_BlackholeTx(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scheme := "unix"
@@ -292,6 +320,8 @@ func TestServer_BlackholeTx(t *testing.T) {
 func TestServer_CorruptTx(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	scheme := "unix"
 	srcAddr, dstAddr := newUnixAddr(), newUnixAddr()
 	defer func() {
@@ -321,6 +351,8 @@ func TestServer_CorruptTx(t *testing.T) {
 func TestServer_Shutdown(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	scheme := "unix"
 	srcAddr, dstAddr := newUnixAddr(), newUnixAddr()
 	defer func() {
@@ -342,6 +374,8 @@ func TestServer_Shutdown(t *testing.T) {
 	}
 }
 func TestServer_ShutdownListener(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scheme := "unix"
@@ -368,9 +402,13 @@ func TestServer_ShutdownListener(t *testing.T) {
 func TestServerHTTP_Insecure_DelayTx(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testServerHTTP(t, false, true)
 }
 func TestServerHTTP_Secure_DelayTx(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testServerHTTP(t, true, true)
@@ -378,14 +416,20 @@ func TestServerHTTP_Secure_DelayTx(t *testing.T) {
 func TestServerHTTP_Insecure_DelayRx(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testServerHTTP(t, false, false)
 }
 func TestServerHTTP_Secure_DelayRx(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testServerHTTP(t, true, false)
 }
 func testServerHTTP(t *testing.T, secure, delayTx bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scheme := "tcp"
@@ -499,6 +543,8 @@ func testServerHTTP(t *testing.T, secure, delayTx bool) {
 func newUnixAddr() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	now := time.Now().UnixNano()
 	rand.Seed(now)
 	addr := fmt.Sprintf("%X%X.unix-conn", now, rand.Intn(35000))
@@ -506,6 +552,8 @@ func newUnixAddr() string {
 	return addr
 }
 func listen(t *testing.T, scheme, addr string, tlsInfo transport.TLSInfo) (ln net.Listener) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -520,6 +568,8 @@ func listen(t *testing.T, scheme, addr string, tlsInfo transport.TLSInfo) (ln ne
 	return ln
 }
 func send(t *testing.T, data []byte, scheme, addr string, tlsInfo transport.TLSInfo) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var out net.Conn
@@ -544,6 +594,8 @@ func send(t *testing.T, data []byte, scheme, addr string, tlsInfo transport.TLSI
 	}
 }
 func receive(t *testing.T, ln net.Listener) (data []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	buf := bytes.NewBuffer(make([]byte, 0, 1024))

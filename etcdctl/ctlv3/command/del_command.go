@@ -15,6 +15,8 @@ var (
 func NewDelCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "del [options] <key> [range_end]", Short: "Removes the specified key or range of keys [key, range_end)", Run: delCommandFunc}
 	cmd.Flags().BoolVar(&delPrefix, "prefix", false, "delete keys with matching prefix")
 	cmd.Flags().BoolVar(&delPrevKV, "prev-kv", false, "return deleted key-value pairs")
@@ -22,6 +24,8 @@ func NewDelCommand() *cobra.Command {
 	return cmd
 }
 func delCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	key, opts := getDelOp(cmd, args)
@@ -34,6 +38,8 @@ func delCommandFunc(cmd *cobra.Command, args []string) {
 	display.Del(*resp)
 }
 func getDelOp(cmd *cobra.Command, args []string) (string, []clientv3.OpOption) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) == 0 || len(args) > 2 {

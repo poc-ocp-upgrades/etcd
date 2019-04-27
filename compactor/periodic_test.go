@@ -12,6 +12,8 @@ import (
 func TestPeriodicHourly(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	retentionHours := 2
 	retentionDuration := time.Duration(retentionHours) * time.Hour
 	fc := clockwork.NewFakeClock()
@@ -51,6 +53,8 @@ func TestPeriodicHourly(t *testing.T) {
 func TestPeriodicMinutes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	retentionMinutes := 5
 	retentionDuration := time.Duration(retentionMinutes) * time.Minute
 	fc := clockwork.NewFakeClock()
@@ -88,6 +92,8 @@ func TestPeriodicMinutes(t *testing.T) {
 	}
 }
 func TestPeriodicPause(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fc := clockwork.NewFakeClock()

@@ -10,10 +10,14 @@ import (
 func NewMoveLeaderCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "move-leader <transferee-member-id>", Short: "Transfers leadership to another etcd cluster member.", Run: transferLeadershipCommandFunc}
 	return cmd
 }
 func transferLeadershipCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {

@@ -14,6 +14,8 @@ import (
 func TestSTMConflict(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
 	etcdc := clus.RandClient()
@@ -72,6 +74,8 @@ func TestSTMConflict(t *testing.T) {
 func TestSTMPutNewKey(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
 	etcdc := clus.RandClient()
@@ -92,6 +96,8 @@ func TestSTMPutNewKey(t *testing.T) {
 	}
 }
 func TestSTMAbort(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
@@ -118,6 +124,8 @@ func TestSTMAbort(t *testing.T) {
 	}
 }
 func TestSTMSerialize(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
@@ -172,6 +180,8 @@ func TestSTMSerialize(t *testing.T) {
 func TestSTMApplyOnConcurrentDeletion(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
 	etcdc := clus.RandClient()
@@ -213,6 +223,8 @@ func TestSTMApplyOnConcurrentDeletion(t *testing.T) {
 	}
 }
 func TestSTMSerializableSnapshotPut(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})

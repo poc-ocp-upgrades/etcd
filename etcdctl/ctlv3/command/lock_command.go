@@ -18,11 +18,15 @@ var lockTTL = 10
 func NewLockCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &cobra.Command{Use: "lock <lockname> [exec-command arg1 arg2 ...]", Short: "Acquires a named lock", Run: lockCommandFunc}
 	c.Flags().IntVarP(&lockTTL, "ttl", "", lockTTL, "timeout for session")
 	return c
 }
 func lockCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) == 0 {
@@ -34,6 +38,8 @@ func lockCommandFunc(cmd *cobra.Command, args []string) {
 	}
 }
 func lockUntilSignal(c *clientv3.Client, lockname string, cmdArgs []string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s, err := concurrency.NewSession(c, concurrency.WithTTL(lockTTL))
@@ -80,6 +86,8 @@ func lockUntilSignal(c *clientv3.Client, lockname string, cmdArgs []string) erro
 	return errors.New("session expired")
 }
 func environLockResponse(m *concurrency.Mutex) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return []string{"ETCD_LOCK_KEY=" + m.Key(), fmt.Sprintf("ETCD_LOCK_REV=%d", m.Header().Revision)}

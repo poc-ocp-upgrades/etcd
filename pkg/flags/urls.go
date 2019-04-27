@@ -10,6 +10,8 @@ type URLsValue types.URLs
 func (us *URLsValue) Set(s string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	strs := strings.Split(s, ",")
 	nus, err := types.NewURLs(strs)
 	if err != nil {
@@ -21,6 +23,8 @@ func (us *URLsValue) Set(s string) error {
 func (us *URLsValue) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	all := make([]string, len(*us))
 	for i, u := range *us {
 		all[i] = u.String()
@@ -28,6 +32,8 @@ func (us *URLsValue) String() string {
 	return strings.Join(all, ",")
 }
 func NewURLsValue(init string) *URLsValue {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	v := &URLsValue{}

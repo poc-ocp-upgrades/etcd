@@ -13,9 +13,13 @@ type watchRanges struct {
 func newWatchRanges(wp *watchProxy) *watchRanges {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &watchRanges{wp: wp, bcasts: make(map[watchRange]*watchBroadcasts)}
 }
 func (wrs *watchRanges) add(w *watcher) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wrs.mu.Lock()
@@ -31,6 +35,8 @@ func (wrs *watchRanges) add(w *watcher) {
 func (wrs *watchRanges) delete(w *watcher) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wrs.mu.Lock()
 	defer wrs.mu.Unlock()
 	wbs, ok := wrs.bcasts[w.wr]
@@ -43,6 +49,8 @@ func (wrs *watchRanges) delete(w *watcher) {
 	}
 }
 func (wrs *watchRanges) stop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wrs.mu.Lock()

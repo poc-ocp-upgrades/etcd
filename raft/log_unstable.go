@@ -12,12 +12,16 @@ type unstable struct {
 func (u *unstable) maybeFirstIndex() (uint64, bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if u.snapshot != nil {
 		return u.snapshot.Metadata.Index + 1, true
 	}
 	return 0, false
 }
 func (u *unstable) maybeLastIndex() (uint64, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if l := len(u.entries); l != 0 {
@@ -29,6 +33,8 @@ func (u *unstable) maybeLastIndex() (uint64, bool) {
 	return 0, false
 }
 func (u *unstable) maybeTerm(i uint64) (uint64, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if i < u.offset {
@@ -52,6 +58,8 @@ func (u *unstable) maybeTerm(i uint64) (uint64, bool) {
 func (u *unstable) stableTo(i, t uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gt, ok := u.maybeTerm(i)
 	if !ok {
 		return
@@ -63,6 +71,8 @@ func (u *unstable) stableTo(i, t uint64) {
 	}
 }
 func (u *unstable) shrinkEntriesArray() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	const lenMultiple = 2
@@ -77,6 +87,8 @@ func (u *unstable) shrinkEntriesArray() {
 func (u *unstable) stableSnapTo(i uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if u.snapshot != nil && u.snapshot.Metadata.Index == i {
 		u.snapshot = nil
 	}
@@ -84,11 +96,15 @@ func (u *unstable) stableSnapTo(i uint64) {
 func (u *unstable) restore(s pb.Snapshot) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u.offset = s.Metadata.Index + 1
 	u.entries = nil
 	u.snapshot = &s
 }
 func (u *unstable) truncateAndAppend(ents []pb.Entry) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	after := ents[0].Index
@@ -108,10 +124,14 @@ func (u *unstable) truncateAndAppend(ents []pb.Entry) {
 func (u *unstable) slice(lo uint64, hi uint64) []pb.Entry {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u.mustCheckOutOfBounds(lo, hi)
 	return u.entries[lo-u.offset : hi-u.offset]
 }
 func (u *unstable) mustCheckOutOfBounds(lo, hi uint64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if lo > hi {

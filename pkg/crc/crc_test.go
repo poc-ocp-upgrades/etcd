@@ -9,6 +9,8 @@ import (
 func TestHash32(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	stdhash := crc32.New(crc32.IEEETable)
 	if _, err := stdhash.Write([]byte("test data")); err != nil {
 		t.Fatalf("unexpected write error: %v", err)

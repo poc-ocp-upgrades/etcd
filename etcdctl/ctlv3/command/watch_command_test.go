@@ -8,6 +8,8 @@ import (
 func Test_parseWatchArgs(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tt := []struct {
 		osArgs			[]string
 		commandArgs		[]string

@@ -11,6 +11,8 @@ import (
 func TestLogger(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	buf := new(bytes.Buffer)
 	l := NewLogger(grpclog.NewLoggerV2WithVerbosity(buf, buf, buf, 10))
 	l.Infof("hello world!")

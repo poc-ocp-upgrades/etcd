@@ -39,6 +39,8 @@ var (
 func startEtcdOrProxyV2() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	grpc.EnableTracing = false
 	cfg := newConfig()
 	defaultInitialCluster := cfg.ec.InitialCluster
@@ -143,6 +145,8 @@ func startEtcdOrProxyV2() {
 func startEtcd(cfg *embed.Config) (<-chan struct{}, <-chan error, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	e, err := embed.StartEtcd(cfg)
 	if err != nil {
 		return nil, nil, err
@@ -155,6 +159,8 @@ func startEtcd(cfg *embed.Config) (<-chan struct{}, <-chan error, error) {
 	return e.Server.StopNotify(), e.Err(), nil
 }
 func startProxy(cfg *config) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	plog.Notice("proxy: this proxy supports v2 API only!")
@@ -290,6 +296,8 @@ func startProxy(cfg *config) error {
 func identifyDataDirOrDie(dir string) dirType {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	names, err := fileutil.ReadDir(dir)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -320,6 +328,8 @@ func identifyDataDirOrDie(dir string) dirType {
 	return dirEmpty
 }
 func checkSupportArch() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if runtime.GOARCH == "amd64" || runtime.GOARCH == "ppc64le" {

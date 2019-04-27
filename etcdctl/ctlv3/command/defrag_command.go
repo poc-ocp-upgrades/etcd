@@ -16,11 +16,15 @@ var (
 func NewDefragCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "defrag", Short: "Defragments the storage of the etcd members with given endpoints", Run: defragCommandFunc}
 	cmd.Flags().StringVar(&defragDataDir, "data-dir", "", "Optional. If present, defragments a data directory not in use by etcd.")
 	return cmd
 }
 func defragCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(defragDataDir) > 0 {
@@ -49,6 +53,8 @@ func defragCommandFunc(cmd *cobra.Command, args []string) {
 	}
 }
 func defragData(dataDir string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var be backend.Backend

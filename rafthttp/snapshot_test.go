@@ -20,9 +20,13 @@ type strReaderCloser struct{ *strings.Reader }
 func (s strReaderCloser) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func TestSnapshotSend(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -43,6 +47,8 @@ func TestSnapshotSend(t *testing.T) {
 	}
 }
 func testSnapshotSend(t *testing.T, sm *snap.Message) (bool, []os.FileInfo) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	d, err := ioutil.TempDir(os.TempDir(), "snapdir")
@@ -79,9 +85,13 @@ type errReadCloser struct{ err error }
 func (s *errReadCloser) Read(p []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 0, s.err
 }
 func (s *errReadCloser) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.err
@@ -93,6 +103,8 @@ type syncHandler struct {
 }
 
 func (sh *syncHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sh.h.ServeHTTP(w, r)

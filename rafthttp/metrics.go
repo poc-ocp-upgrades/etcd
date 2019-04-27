@@ -19,6 +19,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(sentBytes)
 	prometheus.MustRegister(receivedBytes)
 	prometheus.MustRegister(sentFailures)

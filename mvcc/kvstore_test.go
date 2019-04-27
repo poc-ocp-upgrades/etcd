@@ -21,6 +21,8 @@ import (
 func TestStoreRev(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
 	s := NewStore(b, &lease.FakeLessor{}, nil)
 	defer s.Close()
@@ -33,6 +35,8 @@ func TestStoreRev(t *testing.T) {
 	}
 }
 func TestStorePut(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	kv := mvccpb.KeyValue{Key: []byte("foo"), Value: []byte("bar"), CreateRevision: 1, ModRevision: 2, Version: 1}
@@ -83,6 +87,8 @@ func TestStorePut(t *testing.T) {
 func TestStoreRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := newTestKeyBytes(revision{2, 0}, false)
 	kv := mvccpb.KeyValue{Key: []byte("foo"), Value: []byte("bar"), CreateRevision: 1, ModRevision: 2, Version: 1}
 	kvb, err := kv.Marshal()
@@ -131,6 +137,8 @@ func TestStoreRange(t *testing.T) {
 func TestStoreDeleteRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := newTestKeyBytes(revision{2, 0}, false)
 	kv := mvccpb.KeyValue{Key: []byte("foo"), Value: []byte("bar"), CreateRevision: 1, ModRevision: 2, Version: 1}
 	kvb, err := kv.Marshal()
@@ -177,6 +185,8 @@ func TestStoreDeleteRange(t *testing.T) {
 func TestStoreCompact(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := newFakeStore()
 	defer s.Close()
 	b := s.b.(*fakeBackend)
@@ -203,6 +213,8 @@ func TestStoreCompact(t *testing.T) {
 	}
 }
 func TestStoreRestore(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := newFakeStore()
@@ -243,6 +255,8 @@ func TestStoreRestore(t *testing.T) {
 	}
 }
 func TestRestoreDelete(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	oldChunk := restoreChunkKeys
@@ -293,6 +307,8 @@ func TestRestoreDelete(t *testing.T) {
 func TestRestoreContinueUnfinishedCompaction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
 	s0 := NewStore(b, &lease.FakeLessor{}, nil)
 	defer os.Remove(tmpPath)
@@ -333,6 +349,8 @@ type hashKVResult struct {
 }
 
 func TestHashKVWhenCompacting(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -396,6 +414,8 @@ func TestHashKVWhenCompacting(t *testing.T) {
 func TestHashKVZeroRevision(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
 	s := NewStore(b, &lease.FakeLessor{}, nil)
 	defer os.Remove(tmpPath)
@@ -422,6 +442,8 @@ func TestHashKVZeroRevision(t *testing.T) {
 func TestTxnPut(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bytesN := 30
 	sliceN := 100
 	keys := createBytesSlice(bytesN, sliceN)
@@ -439,6 +461,8 @@ func TestTxnPut(t *testing.T) {
 	}
 }
 func TestTxnBlockBackendForceCommit(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, tmpPath := backend.NewDefaultTmpBackend()
@@ -465,11 +489,15 @@ func TestTxnBlockBackendForceCommit(t *testing.T) {
 func newTestRevBytes(rev revision) []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bytes := newRevBytes()
 	revToBytes(rev, bytes)
 	return bytes
 }
 func newTestKeyBytes(rev revision, tombstone bool) []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bytes := newRevBytes()
@@ -480,6 +508,8 @@ func newTestKeyBytes(rev revision, tombstone bool) []byte {
 	return bytes
 }
 func newFakeStore() *store {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b := &fakeBackend{&fakeBatchTx{Recorder: &testutil.RecorderBuffered{}, rangeRespc: make(chan rangeResp, 5)}}
@@ -501,16 +531,24 @@ type fakeBatchTx struct {
 func (b *fakeBatchTx) Lock() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (b *fakeBatchTx) Unlock() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (b *fakeBatchTx) UnsafeCreateBucket(name []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (b *fakeBatchTx) UnsafePut(bucketName []byte, key []byte, value []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b.Recorder.Record(testutil.Action{Name: "put", Params: []interface{}{bucketName, key, value}})
@@ -518,9 +556,13 @@ func (b *fakeBatchTx) UnsafePut(bucketName []byte, key []byte, value []byte) {
 func (b *fakeBatchTx) UnsafeSeqPut(bucketName []byte, key []byte, value []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.Recorder.Record(testutil.Action{Name: "seqput", Params: []interface{}{bucketName, key, value}})
 }
 func (b *fakeBatchTx) UnsafeRange(bucketName []byte, key, endKey []byte, limit int64) (keys [][]byte, vals [][]byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b.Recorder.Record(testutil.Action{Name: "range", Params: []interface{}{bucketName, key, endKey, limit}})
@@ -530,9 +572,13 @@ func (b *fakeBatchTx) UnsafeRange(bucketName []byte, key, endKey []byte, limit i
 func (b *fakeBatchTx) UnsafeDelete(bucketName []byte, key []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.Recorder.Record(testutil.Action{Name: "delete", Params: []interface{}{bucketName, key}})
 }
 func (b *fakeBatchTx) UnsafeForEach(bucketName []byte, visitor func(k, v []byte) error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -540,8 +586,12 @@ func (b *fakeBatchTx) UnsafeForEach(bucketName []byte, visitor func(k, v []byte)
 func (b *fakeBatchTx) Commit() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (b *fakeBatchTx) CommitAndStop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
@@ -551,9 +601,13 @@ type fakeBackend struct{ tx *fakeBatchTx }
 func (b *fakeBackend) BatchTx() backend.BatchTx {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return b.tx
 }
 func (b *fakeBackend) ReadTx() backend.ReadTx {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return b.tx
@@ -561,9 +615,13 @@ func (b *fakeBackend) ReadTx() backend.ReadTx {
 func (b *fakeBackend) Hash(ignores map[backend.IgnoreKey]struct{}) (uint32, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 0, nil
 }
 func (b *fakeBackend) Size() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return 0
@@ -571,9 +629,13 @@ func (b *fakeBackend) Size() int64 {
 func (b *fakeBackend) SizeInUse() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 0
 }
 func (b *fakeBackend) Snapshot() backend.Snapshot {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -581,13 +643,19 @@ func (b *fakeBackend) Snapshot() backend.Snapshot {
 func (b *fakeBackend) ForceCommit() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (b *fakeBackend) Defrag() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
 }
 func (b *fakeBackend) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -615,10 +683,14 @@ type fakeIndex struct {
 func (i *fakeIndex) Revisions(key, end []byte, atRev int64) []revision {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, rev := i.Range(key, end, atRev)
 	return rev
 }
 func (i *fakeIndex) Get(key []byte, atRev int64) (rev, created revision, ver int64, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	i.Recorder.Record(testutil.Action{Name: "get", Params: []interface{}{key, atRev}})
@@ -628,6 +700,8 @@ func (i *fakeIndex) Get(key []byte, atRev int64) (rev, created revision, ver int
 func (i *fakeIndex) Range(key, end []byte, atRev int64) ([][]byte, []revision) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i.Recorder.Record(testutil.Action{Name: "range", Params: []interface{}{key, end, atRev}})
 	r := <-i.indexRangeRespc
 	return r.keys, r.revs
@@ -635,15 +709,21 @@ func (i *fakeIndex) Range(key, end []byte, atRev int64) ([][]byte, []revision) {
 func (i *fakeIndex) Put(key []byte, rev revision) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i.Recorder.Record(testutil.Action{Name: "put", Params: []interface{}{key, rev}})
 }
 func (i *fakeIndex) Tombstone(key []byte, rev revision) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	i.Recorder.Record(testutil.Action{Name: "tombstone", Params: []interface{}{key, rev}})
 	return nil
 }
 func (i *fakeIndex) RangeSince(key, end []byte, rev int64) []revision {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	i.Recorder.Record(testutil.Action{Name: "rangeEvents", Params: []interface{}{key, end, rev}})
@@ -653,10 +733,14 @@ func (i *fakeIndex) RangeSince(key, end []byte, rev int64) []revision {
 func (i *fakeIndex) Compact(rev int64) map[revision]struct{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i.Recorder.Record(testutil.Action{Name: "compact", Params: []interface{}{rev}})
 	return <-i.indexCompactRespc
 }
 func (i *fakeIndex) Keep(rev int64) map[revision]struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	i.Recorder.Record(testutil.Action{Name: "keep", Params: []interface{}{rev}})
@@ -665,9 +749,13 @@ func (i *fakeIndex) Keep(rev int64) map[revision]struct{} {
 func (i *fakeIndex) Equal(b index) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return false
 }
 func (i *fakeIndex) Insert(ki *keyIndex) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	i.Recorder.Record(testutil.Action{Name: "insert", Params: []interface{}{ki}})
@@ -675,10 +763,14 @@ func (i *fakeIndex) Insert(ki *keyIndex) {
 func (i *fakeIndex) KeyIndex(ki *keyIndex) *keyIndex {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i.Recorder.Record(testutil.Action{Name: "keyIndex", Params: []interface{}{ki}})
 	return nil
 }
 func createBytesSlice(bytesN, sliceN int) [][]byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rs := [][]byte{}

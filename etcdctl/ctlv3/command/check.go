@@ -32,11 +32,15 @@ var checkPerfCfgMap = map[string]checkPerfCfg{"s": {limit: 150, clients: 50, dur
 func NewCheckCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cc := &cobra.Command{Use: "check <subcommand>", Short: "commands for checking properties of the etcd cluster"}
 	cc.AddCommand(NewCheckPerfCommand())
 	return cc
 }
 func NewCheckPerfCommand() *cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := &cobra.Command{Use: "perf [options]", Short: "Check the performance of the etcd cluster", Run: newCheckPerfCommand}
@@ -45,6 +49,8 @@ func NewCheckPerfCommand() *cobra.Command {
 	return cmd
 }
 func newCheckPerfCommand(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var checkPerfAlias = map[string]string{"s": "s", "small": "s", "m": "m", "medium": "m", "l": "l", "large": "l", "xl": "xl", "xLarge": "xl"}

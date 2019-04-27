@@ -9,6 +9,8 @@ import (
 func getAuthTokenFromClient(ctx context.Context) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	md, ok := metadata.FromIncomingContext(ctx)
 	if ok {
 		ts, ok := md["token"]
@@ -19,6 +21,8 @@ func getAuthTokenFromClient(ctx context.Context) string {
 	return ""
 }
 func withClientAuthToken(ctx context.Context, ctxWithToken context.Context) context.Context {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	token := getAuthTokenFromClient(ctxWithToken)
@@ -33,14 +37,20 @@ type proxyTokenCredential struct{ token string }
 func (cred *proxyTokenCredential) RequireTransportSecurity() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return false
 }
 func (cred *proxyTokenCredential) GetRequestMetadata(ctx context.Context, s ...string) (map[string]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return map[string]string{"token": cred.token}, nil
 }
 func AuthUnaryClientInterceptor(ctx context.Context, method string, req, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	token := getAuthTokenFromClient(ctx)
@@ -51,6 +61,8 @@ func AuthUnaryClientInterceptor(ctx context.Context, method string, req, reply i
 	return invoker(ctx, method, req, reply, cc, opts...)
 }
 func AuthStreamClientInterceptor(ctx context.Context, desc *grpc.StreamDesc, cc *grpc.ClientConn, method string, streamer grpc.Streamer, opts ...grpc.CallOption) (grpc.ClientStream, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tokenif := ctx.Value("token")

@@ -23,12 +23,16 @@ type kv struct {
 func newKVStore(snapshotter *snap.Snapshotter, proposeC chan<- string, commitC <-chan *string, errorC <-chan error) *kvstore {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := &kvstore{proposeC: proposeC, kvStore: make(map[string]string), snapshotter: snapshotter}
 	s.readCommits(commitC, errorC)
 	go s.readCommits(commitC, errorC)
 	return s
 }
 func (s *kvstore) Lookup(key string) (string, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.mu.RLock()
@@ -39,6 +43,8 @@ func (s *kvstore) Lookup(key string) (string, bool) {
 func (s *kvstore) Propose(k string, v string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var buf bytes.Buffer
 	if err := gob.NewEncoder(&buf).Encode(kv{k, v}); err != nil {
 		log.Fatal(err)
@@ -46,6 +52,8 @@ func (s *kvstore) Propose(k string, v string) {
 	s.proposeC <- buf.String()
 }
 func (s *kvstore) readCommits(commitC <-chan *string, errorC <-chan error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for data := range commitC {
@@ -79,11 +87,15 @@ func (s *kvstore) readCommits(commitC <-chan *string, errorC <-chan error) {
 func (s *kvstore) getSnapshot() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	return json.Marshal(s.kvStore)
 }
 func (s *kvstore) recoverFromSnapshot(snapshot []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var store map[string]string

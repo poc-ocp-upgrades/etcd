@@ -12,6 +12,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(saveDurations)
 	prometheus.MustRegister(marshallingDurations)
 	prometheus.MustRegister(snapDBSaveSec)

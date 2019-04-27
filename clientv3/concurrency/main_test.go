@@ -14,6 +14,8 @@ var endpoints []string
 func TestMain(m *testing.M) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := integration.ClusterConfig{Size: 1}
 	clus := integration.NewClusterV3(nil, &cfg)
 	endpoints = []string{clus.Client(0).Endpoints()[0]}

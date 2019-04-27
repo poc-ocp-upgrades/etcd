@@ -56,6 +56,8 @@ type WAL struct {
 func Create(dirpath string, metadata []byte) (*WAL, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if Exist(dirpath) {
 		return nil, os.ErrExist
 	}
@@ -112,6 +114,8 @@ func Create(dirpath string, metadata []byte) (*WAL, error) {
 func (w *WAL) renameWal(tmpdirpath string) (*WAL, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := os.RemoveAll(w.dir); err != nil {
 		return nil, err
 	}
@@ -127,6 +131,8 @@ func (w *WAL) renameWal(tmpdirpath string) (*WAL, error) {
 	return w, err
 }
 func (w *WAL) renameWalUnlock(tmpdirpath string) (*WAL, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	plog.Infof("releasing file lock to rename %q to %q", tmpdirpath, w.dir)
@@ -147,6 +153,8 @@ func (w *WAL) renameWalUnlock(tmpdirpath string) (*WAL, error) {
 func Open(dirpath string, snap walpb.Snapshot) (*WAL, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	w, err := openAtIndex(dirpath, snap, true)
 	if err != nil {
 		return nil, err
@@ -159,9 +167,13 @@ func Open(dirpath string, snap walpb.Snapshot) (*WAL, error) {
 func OpenForRead(dirpath string, snap walpb.Snapshot) (*WAL, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return openAtIndex(dirpath, snap, false)
 }
 func openAtIndex(dirpath string, snap walpb.Snapshot, write bool) (*WAL, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	names, err := readWalNames(dirpath)
@@ -211,6 +223,8 @@ func openAtIndex(dirpath string, snap walpb.Snapshot, write bool) (*WAL, error) 
 	return w, nil
 }
 func (w *WAL) ReadAll() (metadata []byte, state raftpb.HardState, ents []raftpb.Entry, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	w.mu.Lock()
@@ -296,6 +310,8 @@ func (w *WAL) ReadAll() (metadata []byte, state raftpb.HardState, ents []raftpb.
 func (w *WAL) cut() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	off, serr := w.tail().Seek(0, io.SeekCurrent)
 	if serr != nil {
 		return serr
@@ -358,6 +374,8 @@ func (w *WAL) cut() error {
 func (w *WAL) sync() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if w.encoder != nil {
 		if err := w.encoder.flush(); err != nil {
 			return err
@@ -373,6 +391,8 @@ func (w *WAL) sync() error {
 	return err
 }
 func (w *WAL) ReleaseLockTo(index uint64) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	w.mu.Lock()
@@ -411,6 +431,8 @@ func (w *WAL) ReleaseLockTo(index uint64) error {
 func (w *WAL) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	if w.fp != nil {
@@ -435,6 +457,8 @@ func (w *WAL) Close() error {
 func (w *WAL) saveEntry(e *raftpb.Entry) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b := pbutil.MustMarshal(e)
 	rec := &walpb.Record{Type: entryType, Data: b}
 	if err := w.encoder.encode(rec); err != nil {
@@ -446,6 +470,8 @@ func (w *WAL) saveEntry(e *raftpb.Entry) error {
 func (w *WAL) saveState(s *raftpb.HardState) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if raft.IsEmptyHardState(*s) {
 		return nil
 	}
@@ -455,6 +481,8 @@ func (w *WAL) saveState(s *raftpb.HardState) error {
 	return w.encoder.encode(rec)
 }
 func (w *WAL) Save(st raftpb.HardState, ents []raftpb.Entry) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	w.mu.Lock()
@@ -486,6 +514,8 @@ func (w *WAL) Save(st raftpb.HardState, ents []raftpb.Entry) error {
 func (w *WAL) SaveSnapshot(e walpb.Snapshot) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b := pbutil.MustMarshal(&e)
 	w.mu.Lock()
 	defer w.mu.Unlock()
@@ -501,9 +531,13 @@ func (w *WAL) SaveSnapshot(e walpb.Snapshot) error {
 func (w *WAL) saveCrc(prevCrc uint32) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return w.encoder.encode(&walpb.Record{Type: crcType, Crc: prevCrc})
 }
 func (w *WAL) tail() *fileutil.LockedFile {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(w.locks) > 0 {
@@ -512,6 +546,8 @@ func (w *WAL) tail() *fileutil.LockedFile {
 	return nil
 }
 func (w *WAL) seq() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t := w.tail()
@@ -525,6 +561,8 @@ func (w *WAL) seq() uint64 {
 	return seq
 }
 func closeAll(rcs ...io.ReadCloser) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, f := range rcs {

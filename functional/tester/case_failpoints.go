@@ -19,6 +19,8 @@ var fpStats failpointStats
 func failpointFailures(clus *Cluster) (ret []Case, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var fps []string
 	fps, err = failpointPaths(clus.Members[0].FailpointHTTPAddr)
 	if err != nil {
@@ -44,6 +46,8 @@ func failpointFailures(clus *Cluster) (ret []Case, err error) {
 func failpointPaths(endpoint string) ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := http.Get(endpoint)
 	if err != nil {
 		return nil, err
@@ -63,6 +67,8 @@ func failpointPaths(endpoint string) ([]string, error) {
 func casesFromFailpoint(fp string, failpointCommands []string) (fs []Case) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	recov := makeRecoverFailpoint(fp)
 	for _, fcmd := range failpointCommands {
 		inject := makeInjectFailpoint(fp, fcmd)
@@ -73,11 +79,15 @@ func casesFromFailpoint(fp string, failpointCommands []string) (fs []Case) {
 func makeInjectFailpoint(fp, val string) injectMemberFunc {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(clus *Cluster, idx int) (err error) {
 		return putFailpoint(clus.Members[idx].FailpointHTTPAddr, fp, val)
 	}
 }
 func makeRecoverFailpoint(fp string) recoverMemberFunc {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(clus *Cluster, idx int) error {
@@ -93,6 +103,8 @@ func makeRecoverFailpoint(fp string) recoverMemberFunc {
 func putFailpoint(ep, fp, val string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req, _ := http.NewRequest(http.MethodPut, ep+"/"+fp, strings.NewReader(val))
 	c := http.Client{}
 	resp, err := c.Do(req)
@@ -106,6 +118,8 @@ func putFailpoint(ep, fp, val string) error {
 	return nil
 }
 func delFailpoint(ep, fp string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, _ := http.NewRequest(http.MethodDelete, ep+"/"+fp, strings.NewReader(""))

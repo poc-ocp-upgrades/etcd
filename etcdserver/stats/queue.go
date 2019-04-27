@@ -25,14 +25,20 @@ type statsQueue struct {
 func (q *statsQueue) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return q.size
 }
 func (q *statsQueue) ReqSize() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return q.totalReqSize
 }
 func (q *statsQueue) frontAndBack() (*RequestStats, *RequestStats) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	q.rwl.RLock()
@@ -43,6 +49,8 @@ func (q *statsQueue) frontAndBack() (*RequestStats, *RequestStats) {
 	return nil, nil
 }
 func (q *statsQueue) Insert(p *RequestStats) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	q.rwl.Lock()
@@ -60,6 +68,8 @@ func (q *statsQueue) Insert(p *RequestStats) {
 func (q *statsQueue) Rate() (float64, float64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	front, back := q.frontAndBack()
 	if front == nil || back == nil {
 		return 0, 0
@@ -74,6 +84,8 @@ func (q *statsQueue) Rate() (float64, float64) {
 	return pr, br
 }
 func (q *statsQueue) Clear() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	q.rwl.Lock()

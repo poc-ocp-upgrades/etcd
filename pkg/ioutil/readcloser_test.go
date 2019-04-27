@@ -11,9 +11,13 @@ type readerNilCloser struct{ io.Reader }
 func (rc *readerNilCloser) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func TestExactReadCloserExpectEOF(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	buf := bytes.NewBuffer(make([]byte, 10))
@@ -23,6 +27,8 @@ func TestExactReadCloserExpectEOF(t *testing.T) {
 	}
 }
 func TestExactReadCloserShort(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	buf := bytes.NewBuffer(make([]byte, 5))

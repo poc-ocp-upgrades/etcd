@@ -14,6 +14,8 @@ var (
 func LimitListener(l net.Listener, n int) net.Listener {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &limitListener{l, make(chan struct{}, n)}
 }
 
@@ -25,14 +27,20 @@ type limitListener struct {
 func (l *limitListener) acquire() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l.sem <- struct{}{}
 }
 func (l *limitListener) release() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	<-l.sem
 }
 func (l *limitListener) Accept() (net.Conn, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l.acquire()
@@ -53,11 +61,15 @@ type limitListenerConn struct {
 func (l *limitListenerConn) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := l.Conn.Close()
 	l.releaseOnce.Do(l.release)
 	return err
 }
 func (l *limitListenerConn) SetKeepAlive(doKeepAlive bool) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tcpc, ok := l.Conn.(*net.TCPConn)
@@ -67,6 +79,8 @@ func (l *limitListenerConn) SetKeepAlive(doKeepAlive bool) error {
 	return tcpc.SetKeepAlive(doKeepAlive)
 }
 func (l *limitListenerConn) SetKeepAlivePeriod(d time.Duration) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tcpc, ok := l.Conn.(*net.TCPConn)

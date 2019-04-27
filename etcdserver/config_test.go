@@ -9,6 +9,8 @@ import (
 func mustNewURLs(t *testing.T, urls []string) []url.URL {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(urls) == 0 {
 		return nil
 	}
@@ -21,12 +23,16 @@ func mustNewURLs(t *testing.T, urls []string) []url.URL {
 func TestConfigVerifyBootstrapWithoutClusterAndDiscoveryURLFail(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &ServerConfig{Name: "node1", DiscoveryURL: "", InitialPeerURLsMap: types.URLsMap{}}
 	if err := c.VerifyBootstrap(); err == nil {
 		t.Errorf("err = nil, want not nil")
 	}
 }
 func TestConfigVerifyExistingWithDiscoveryURLFail(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster, err := types.NewURLsMap("node1=http://127.0.0.1:2380")
@@ -39,6 +45,8 @@ func TestConfigVerifyExistingWithDiscoveryURLFail(t *testing.T) {
 	}
 }
 func TestConfigVerifyLocalMember(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -70,6 +78,8 @@ func TestConfigVerifyLocalMember(t *testing.T) {
 func TestSnapDir(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := map[string]string{"/": "/member/snap", "/var/lib/etc": "/var/lib/etc/member/snap"}
 	for dd, w := range tests {
 		cfg := ServerConfig{DataDir: dd}
@@ -81,6 +91,8 @@ func TestSnapDir(t *testing.T) {
 func TestWALDir(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := map[string]string{"/": "/member/wal", "/var/lib/etc": "/var/lib/etc/member/wal"}
 	for dd, w := range tests {
 		cfg := ServerConfig{DataDir: dd}
@@ -90,6 +102,8 @@ func TestWALDir(t *testing.T) {
 	}
 }
 func TestShouldDiscover(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := map[string]bool{"": false, "foo": true, "http://discovery.etcd.io/asdf": true}

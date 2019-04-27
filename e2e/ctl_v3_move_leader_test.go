@@ -16,14 +16,20 @@ import (
 func TestCtlV3MoveLeaderSecure(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV3MoveLeader(t, configTLS)
 }
 func TestCtlV3MoveLeaderInsecure(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtlV3MoveLeader(t, configNoTLS)
 }
 func testCtlV3MoveLeader(t *testing.T, cfg etcdProcessClusterConfig) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

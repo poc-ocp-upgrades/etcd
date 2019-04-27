@@ -8,6 +8,8 @@ import (
 func TestNewGenerator(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	g := NewGenerator(0x12, time.Unix(0, 0).Add(0x3456*time.Millisecond))
 	id := g.Next()
 	wid := uint64(0x12000000345601)
@@ -16,6 +18,8 @@ func TestNewGenerator(t *testing.T) {
 	}
 }
 func TestNewGeneratorUnique(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	g := NewGenerator(0, time.Time{})
@@ -30,6 +34,8 @@ func TestNewGeneratorUnique(t *testing.T) {
 	}
 }
 func TestNext(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	g := NewGenerator(0x12, time.Unix(0, 0).Add(0x3456*time.Millisecond))

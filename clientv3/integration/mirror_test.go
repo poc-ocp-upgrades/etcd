@@ -16,6 +16,8 @@ import (
 func TestMirrorSync(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -51,6 +53,8 @@ func TestMirrorSync(t *testing.T) {
 	}
 }
 func TestMirrorSyncBase(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := integration.NewClusterV3(nil, &integration.ClusterConfig{Size: 1})

@@ -16,6 +16,8 @@ import (
 func TestEmbedEtcd(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		cfg		embed.Config
 		werr		string
@@ -76,14 +78,20 @@ func TestEmbedEtcd(t *testing.T) {
 func TestEmbedEtcdGracefulStopSecure(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testEmbedEtcdGracefulStop(t, true)
 }
 func TestEmbedEtcdGracefulStopInsecure(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testEmbedEtcdGracefulStop(t, false)
 }
 func testEmbedEtcdGracefulStop(t *testing.T, secure bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfg := embed.NewConfig()
@@ -130,6 +138,8 @@ func testEmbedEtcdGracefulStop(t *testing.T, secure bool) {
 func newEmbedURLs(secure bool, n int) (urls []url.URL) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	scheme := "unix"
 	if secure {
 		scheme = "unixs"
@@ -141,6 +151,8 @@ func newEmbedURLs(secure bool, n int) (urls []url.URL) {
 	return urls
 }
 func setupEmbedCfg(cfg *embed.Config, curls []url.URL, purls []url.URL) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfg.ClusterState = "new"

@@ -15,9 +15,13 @@ type urlPicker struct {
 func newURLPicker(urls types.URLs) *urlPicker {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &urlPicker{urls: urls}
 }
 func (p *urlPicker) update(urls types.URLs) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.mu.Lock()
@@ -28,11 +32,15 @@ func (p *urlPicker) update(urls types.URLs) {
 func (p *urlPicker) pick() url.URL {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.mu.Lock()
 	defer p.mu.Unlock()
 	return p.urls[p.picked]
 }
 func (p *urlPicker) unreachable(u url.URL) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.mu.Lock()

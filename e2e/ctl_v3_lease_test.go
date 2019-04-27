@@ -11,9 +11,13 @@ import (
 func TestCtlV3LeaseGrantTimeToLive(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, leaseTestGrantTimeToLive)
 }
 func TestCtlV3LeaseGrantLeases(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, leaseTestGrantLeasesList)
@@ -21,9 +25,13 @@ func TestCtlV3LeaseGrantLeases(t *testing.T) {
 func TestCtlV3LeaseTestTimeToLiveExpired(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, leaseTestTimeToLiveExpired)
 }
 func TestCtlV3LeaseKeepAlive(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, leaseTestKeepAlive)
@@ -31,14 +39,20 @@ func TestCtlV3LeaseKeepAlive(t *testing.T) {
 func TestCtlV3LeaseKeepAliveOnce(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, leaseTestKeepAliveOnce)
 }
 func TestCtlV3LeaseRevoke(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, leaseTestRevoke)
 }
 func leaseTestGrantTimeToLive(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	id, err := ctlV3LeaseGrant(cx, 10)
@@ -67,6 +81,8 @@ func leaseTestGrantTimeToLive(cx ctlCtx) {
 func leaseTestGrantLeasesList(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	id, err := ctlV3LeaseGrant(cx, 10)
 	if err != nil {
 		cx.t.Fatal(err)
@@ -87,12 +103,16 @@ func leaseTestGrantLeasesList(cx ctlCtx) {
 func leaseTestTimeToLiveExpired(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := leaseTestTimeToLiveExpire(cx, 3)
 	if err != nil {
 		cx.t.Fatal(err)
 	}
 }
 func leaseTestTimeToLiveExpire(cx ctlCtx, ttl int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	leaseID, err := ctlV3LeaseGrant(cx, ttl)
@@ -116,6 +136,8 @@ func leaseTestTimeToLiveExpire(cx ctlCtx, ttl int) error {
 func leaseTestKeepAlive(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	leaseID, err := ctlV3LeaseGrant(cx, 10)
 	if err != nil {
 		cx.t.Fatalf("leaseTestKeepAlive: ctlV3LeaseGrant error (%v)", err)
@@ -131,6 +153,8 @@ func leaseTestKeepAlive(cx ctlCtx) {
 	}
 }
 func leaseTestKeepAliveOnce(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	leaseID, err := ctlV3LeaseGrant(cx, 10)
@@ -150,6 +174,8 @@ func leaseTestKeepAliveOnce(cx ctlCtx) {
 func leaseTestRevoke(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	leaseID, err := ctlV3LeaseGrant(cx, 10)
 	if err != nil {
 		cx.t.Fatalf("leaseTestRevoke: ctlV3LeaseGrant error (%v)", err)
@@ -165,6 +191,8 @@ func leaseTestRevoke(cx ctlCtx) {
 	}
 }
 func ctlV3LeaseGrant(cx ctlCtx, ttl int) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "lease", "grant", strconv.Itoa(ttl))
@@ -188,6 +216,8 @@ func ctlV3LeaseGrant(cx ctlCtx, ttl int) (string, error) {
 func ctlV3LeaseKeepAlive(cx ctlCtx, leaseID string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "lease", "keep-alive", leaseID)
 	proc, err := spawnCmd(cmdArgs)
 	if err != nil {
@@ -201,6 +231,8 @@ func ctlV3LeaseKeepAlive(cx ctlCtx, leaseID string) error {
 func ctlV3LeaseKeepAliveOnce(cx ctlCtx, leaseID string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "lease", "keep-alive", "--once", leaseID)
 	proc, err := spawnCmd(cmdArgs)
 	if err != nil {
@@ -212,6 +244,8 @@ func ctlV3LeaseKeepAliveOnce(cx ctlCtx, leaseID string) error {
 	return proc.Stop()
 }
 func ctlV3LeaseRevoke(cx ctlCtx, leaseID string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "lease", "revoke", leaseID)

@@ -21,6 +21,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	getlk := syscall.Flock_t{Type: syscall.F_RDLCK}
 	if err := syscall.FcntlFlock(0, F_OFD_GETLK, &getlk); err == nil {
 		linuxTryLockFile = ofdTryLockFile
@@ -30,9 +32,13 @@ func init() {
 func TryLockFile(path string, flag int, perm os.FileMode) (*LockedFile, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return linuxTryLockFile(path, flag, perm)
 }
 func ofdTryLockFile(path string, flag int, perm os.FileMode) (*LockedFile, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f, err := os.OpenFile(path, flag, perm)
@@ -52,9 +58,13 @@ func ofdTryLockFile(path string, flag int, perm os.FileMode) (*LockedFile, error
 func LockFile(path string, flag int, perm os.FileMode) (*LockedFile, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return linuxLockFile(path, flag, perm)
 }
 func ofdLockFile(path string, flag int, perm os.FileMode) (*LockedFile, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f, err := os.OpenFile(path, flag, perm)

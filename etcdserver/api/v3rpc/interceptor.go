@@ -28,6 +28,8 @@ type streamsMap struct {
 func newUnaryInterceptor(s *etcdserver.EtcdServer) grpc.UnaryServerInterceptor {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 		if !api.IsCapabilityEnabled(api.V3rpcCapability) {
 			return nil, rpctypes.ErrGRPCNotCapable
@@ -46,6 +48,8 @@ func newUnaryInterceptor(s *etcdserver.EtcdServer) grpc.UnaryServerInterceptor {
 func newLogUnaryInterceptor(s *etcdserver.EtcdServer) grpc.UnaryServerInterceptor {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 		startTime := time.Now()
 		resp, err := handler(ctx, req)
@@ -54,6 +58,8 @@ func newLogUnaryInterceptor(s *etcdserver.EtcdServer) grpc.UnaryServerIntercepto
 	}
 }
 func logUnaryRequestStats(ctx context.Context, lg *zap.Logger, info *grpc.UnaryServerInfo, startTime time.Time, req interface{}, resp interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	duration := time.Since(startTime)
@@ -133,6 +139,8 @@ func logUnaryRequestStats(ctx context.Context, lg *zap.Logger, info *grpc.UnaryS
 func logGenericRequestStats(lg *zap.Logger, startTime time.Time, duration time.Duration, remote string, responseType string, reqCount int64, reqSize int, respCount int64, respSize int, reqContent string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if lg == nil {
 		plog.Debugf("start time = %v, "+"time spent = %v, "+"remote = %s, "+"response type = %s, "+"request count = %d, "+"request size = %d, "+"response count = %d, "+"response size = %d, "+"request content = %s", startTime, duration, remote, responseType, reqCount, reqSize, respCount, respSize, reqContent)
 	} else {
@@ -140,6 +148,8 @@ func logGenericRequestStats(lg *zap.Logger, startTime time.Time, duration time.D
 	}
 }
 func newStreamInterceptor(s *etcdserver.EtcdServer) grpc.StreamServerInterceptor {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	smap := monitorLeader(s)
@@ -179,9 +189,13 @@ type serverStreamWithCtx struct {
 func (ssc serverStreamWithCtx) Context() context.Context {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ssc.ctx
 }
 func monitorLeader(s *etcdserver.EtcdServer) *streamsMap {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	smap := &streamsMap{streams: make(map[grpc.ServerStream]struct{})}

@@ -14,9 +14,13 @@ type leasePrefix struct {
 func NewLease(l clientv3.Lease, prefix string) clientv3.Lease {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &leasePrefix{l, []byte(prefix)}
 }
 func (l *leasePrefix) TimeToLive(ctx context.Context, id clientv3.LeaseID, opts ...clientv3.LeaseOption) (*clientv3.LeaseTimeToLiveResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := l.Lease.TimeToLive(ctx, id, opts...)

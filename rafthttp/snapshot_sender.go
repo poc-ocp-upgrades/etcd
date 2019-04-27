@@ -32,14 +32,20 @@ type snapshotSender struct {
 func newSnapshotSender(tr *Transport, picker *urlPicker, to types.ID, status *peerStatus) *snapshotSender {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &snapshotSender{from: tr.ID, to: to, cid: tr.ClusterID, tr: tr, picker: picker, status: status, r: tr.Raft, errorc: tr.ErrorC, stopc: make(chan struct{})}
 }
 func (s *snapshotSender) stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	close(s.stopc)
 }
 func (s *snapshotSender) send(merged snap.Message) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	start := time.Now()
@@ -75,6 +81,8 @@ func (s *snapshotSender) send(merged snap.Message) {
 func (s *snapshotSender) post(req *http.Request) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithCancel(context.Background())
 	req = req.WithContext(ctx)
 	defer cancel()
@@ -107,6 +115,8 @@ func (s *snapshotSender) post(req *http.Request) (err error) {
 	}
 }
 func createSnapBody(merged snap.Message) io.ReadCloser {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	buf := new(bytes.Buffer)

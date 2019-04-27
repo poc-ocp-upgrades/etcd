@@ -9,6 +9,8 @@ import (
 func NewAuthCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ac := &cobra.Command{Use: "auth <enable or disable>", Short: "Enable or disable authentication"}
 	ac.AddCommand(newAuthEnableCommand())
 	ac.AddCommand(newAuthDisableCommand())
@@ -17,9 +19,13 @@ func NewAuthCommand() *cobra.Command {
 func newAuthEnableCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &cobra.Command{Use: "enable", Short: "Enables authentication", Run: authEnableCommandFunc}
 }
 func authEnableCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 0 {
@@ -50,9 +56,13 @@ func authEnableCommandFunc(cmd *cobra.Command, args []string) {
 func newAuthDisableCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &cobra.Command{Use: "disable", Short: "Disables authentication", Run: authDisableCommandFunc}
 }
 func authDisableCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 0 {

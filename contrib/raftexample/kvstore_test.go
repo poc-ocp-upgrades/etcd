@@ -8,6 +8,8 @@ import (
 func Test_kvstore_snapshot(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tm := map[string]string{"foo": "bar"}
 	s := &kvstore{kvStore: tm}
 	v, _ := s.Lookup("foo")

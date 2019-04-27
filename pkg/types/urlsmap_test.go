@@ -9,6 +9,8 @@ import (
 func TestParseInitialCluster(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c, err := NewURLsMap("mem1=http://10.0.0.1:2379,mem1=http://128.193.4.20:2379,mem2=http://10.0.0.2:2379,default=http://127.0.0.1:2379")
 	if err != nil {
 		t.Fatalf("unexpected parse error: %v", err)
@@ -21,6 +23,8 @@ func TestParseInitialCluster(t *testing.T) {
 func TestParseInitialClusterBad(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []string{"%^", "mem1=,mem2=http://128.193.4.20:2379,mem3=http://10.0.0.2:2379", "mem1,mem2=http://128.193.4.20:2379,mem3=http://10.0.0.2:2379", "default=http://localhost/"}
 	for i, tt := range tests {
 		if _, err := NewURLsMap(tt); err == nil {
@@ -31,6 +35,8 @@ func TestParseInitialClusterBad(t *testing.T) {
 func TestNameURLPairsString(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cls := URLsMap(map[string]URLs{"abc": testutil.MustNewURLs(t, []string{"http://1.1.1.1:1111", "http://0.0.0.0:0000"}), "def": testutil.MustNewURLs(t, []string{"http://2.2.2.2:2222"}), "ghi": testutil.MustNewURLs(t, []string{"http://3.3.3.3:1234", "http://127.0.0.1:2380"}), "four": testutil.MustNewURLs(t, []string{}), "five": testutil.MustNewURLs(t, nil)})
 	w := "abc=http://0.0.0.0:0000,abc=http://1.1.1.1:1111,def=http://2.2.2.2:2222,ghi=http://127.0.0.1:2380,ghi=http://3.3.3.3:1234"
 	if g := cls.String(); g != w {
@@ -38,6 +44,8 @@ func TestNameURLPairsString(t *testing.T) {
 	}
 }
 func TestParse(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -54,6 +62,8 @@ func TestParse(t *testing.T) {
 func TestNewURLsMapIPV6(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c, err := NewURLsMap("mem1=http://[2001:db8::1]:2380,mem1=http://[fe80::6e40:8ff:feb1:58e4%25en0]:2380,mem2=http://[fe80::92e2:baff:fe7c:3224%25ext0]:2380")
 	if err != nil {
 		t.Fatalf("unexpected parse error: %v", err)
@@ -64,6 +74,8 @@ func TestNewURLsMapIPV6(t *testing.T) {
 	}
 }
 func TestNewURLsMapFromStringMapEmpty(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mss := make(map[string]string)
@@ -81,6 +93,8 @@ func TestNewURLsMapFromStringMapEmpty(t *testing.T) {
 	}
 }
 func TestNewURLsMapFromStringMapNormal(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mss := make(map[string]string)

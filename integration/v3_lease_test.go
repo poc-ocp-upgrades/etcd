@@ -15,6 +15,8 @@ import (
 func TestV3LeasePrmote(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
 	lresp, err := toGRPC(clus.RandClient()).Lease.LeaseGrant(context.TODO(), &pb.LeaseGrantRequest{TTL: 3})
@@ -59,6 +61,8 @@ func TestV3LeasePrmote(t *testing.T) {
 func TestV3LeaseRevoke(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	testLeaseRemoveLeasedKey(t, func(clus *ClusterV3, leaseID int64) error {
 		lc := toGRPC(clus.RandClient()).Lease
@@ -67,6 +71,8 @@ func TestV3LeaseRevoke(t *testing.T) {
 	})
 }
 func TestV3LeaseGrantByID(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -92,6 +98,8 @@ func TestV3LeaseGrantByID(t *testing.T) {
 	}
 }
 func TestV3LeaseExpire(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -137,6 +145,8 @@ func TestV3LeaseExpire(t *testing.T) {
 func TestV3LeaseKeepAlive(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	testLeaseRemoveLeasedKey(t, func(clus *ClusterV3, leaseID int64) error {
 		lc := toGRPC(clus.RandClient()).Lease
@@ -168,6 +178,8 @@ func TestV3LeaseKeepAlive(t *testing.T) {
 func TestV3LeaseExists(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -185,6 +197,8 @@ func TestV3LeaseExists(t *testing.T) {
 	}
 }
 func TestV3LeaseLeases(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -216,14 +230,20 @@ func TestV3LeaseLeases(t *testing.T) {
 func TestV3LeaseRenewStress(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testLeaseStress(t, stressLeaseRenew)
 }
 func TestV3LeaseTimeToLiveStress(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testLeaseStress(t, stressLeaseTimeToLive)
 }
 func testLeaseStress(t *testing.T, stresser func(context.Context, pb.LeaseClient) error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -246,6 +266,8 @@ func testLeaseStress(t *testing.T, stresser func(context.Context, pb.LeaseClient
 	}
 }
 func stressLeaseRenew(tctx context.Context, lc pb.LeaseClient) (reterr error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer func() {
@@ -279,6 +301,8 @@ func stressLeaseRenew(tctx context.Context, lc pb.LeaseClient) (reterr error) {
 func stressLeaseTimeToLive(tctx context.Context, lc pb.LeaseClient) (reterr error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer func() {
 		if tctx.Err() != nil {
 			reterr = nil
@@ -299,6 +323,8 @@ func stressLeaseTimeToLive(tctx context.Context, lc pb.LeaseClient) (reterr erro
 func TestV3PutOnNonExistLease(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -312,6 +338,8 @@ func TestV3PutOnNonExistLease(t *testing.T) {
 	}
 }
 func TestV3GetNonExistLease(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -343,6 +371,8 @@ func TestV3GetNonExistLease(t *testing.T) {
 	}
 }
 func TestV3LeaseSwitch(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -396,6 +426,8 @@ func TestV3LeaseSwitch(t *testing.T) {
 func TestV3LeaseFailover(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
 	toIsolate := clus.waitLeader(t, clus.Members)
@@ -440,6 +472,8 @@ func TestV3LeaseFailover(t *testing.T) {
 func TestV3LeaseRequireLeader(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
@@ -475,6 +509,8 @@ func TestV3LeaseRequireLeader(t *testing.T) {
 const fiveMinTTL int64 = 300
 
 func TestV3LeaseRecoverAndRevoke(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
@@ -517,6 +553,8 @@ func TestV3LeaseRecoverAndRevoke(t *testing.T) {
 func TestV3LeaseRevokeAndRecover(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
 	kvc := toGRPC(clus.Client(0)).KV
@@ -554,6 +592,8 @@ func TestV3LeaseRevokeAndRecover(t *testing.T) {
 	}
 }
 func TestV3LeaseRecoverKeyWithDetachedLease(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
@@ -598,6 +638,8 @@ func TestV3LeaseRecoverKeyWithDetachedLease(t *testing.T) {
 	}
 }
 func TestV3LeaseRecoverKeyWithMutipleLease(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
@@ -660,6 +702,8 @@ func TestV3LeaseRecoverKeyWithMutipleLease(t *testing.T) {
 func acquireLeaseAndKey(clus *ClusterV3, key string) (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lresp, err := toGRPC(clus.RandClient()).Lease.LeaseGrant(context.TODO(), &pb.LeaseGrantRequest{TTL: 1})
 	if err != nil {
 		return 0, err
@@ -674,6 +718,8 @@ func acquireLeaseAndKey(clus *ClusterV3, key string) (int64, error) {
 	return lresp.ID, nil
 }
 func testLeaseRemoveLeasedKey(t *testing.T, act func(*ClusterV3, int64) error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
@@ -695,6 +741,8 @@ func testLeaseRemoveLeasedKey(t *testing.T, act func(*ClusterV3, int64) error) {
 	}
 }
 func leaseExist(t *testing.T, clus *ClusterV3, leaseID int64) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	l := toGRPC(clus.RandClient()).Lease

@@ -9,9 +9,13 @@ import (
 func TestCtlV3MakeMirror(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, makeMirrorTest)
 }
 func TestCtlV3MakeMirrorModifyDestPrefix(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCtl(t, makeMirrorModifyDestPrefixTest)
@@ -19,9 +23,13 @@ func TestCtlV3MakeMirrorModifyDestPrefix(t *testing.T) {
 func TestCtlV3MakeMirrorNoDestPrefix(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, makeMirrorNoDestPrefixTest)
 }
 func makeMirrorTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var (
@@ -33,6 +41,8 @@ func makeMirrorTest(cx ctlCtx) {
 	testMirrorCommand(cx, flags, kvs, kvs2, prefix, prefix)
 }
 func makeMirrorModifyDestPrefixTest(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var (
@@ -47,6 +57,8 @@ func makeMirrorModifyDestPrefixTest(cx ctlCtx) {
 func makeMirrorNoDestPrefixTest(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var (
 		flags		= []string{"--prefix", "o_", "--no-dest-prefix"}
 		kvs		= []kv{{"o_key1", "val1"}, {"o_key2", "val2"}, {"o_key3", "val3"}}
@@ -57,6 +69,8 @@ func makeMirrorNoDestPrefixTest(cx ctlCtx) {
 	testMirrorCommand(cx, flags, kvs, kvs2, srcprefix, destprefix)
 }
 func testMirrorCommand(cx ctlCtx, flags []string, sourcekvs []kv, destkvs []kvExec, srcprefix, destprefix string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mirrorcfg := configAutoTLS

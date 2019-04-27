@@ -45,10 +45,14 @@ type maintenanceServer struct {
 func NewMaintenanceServer(s *etcdserver.EtcdServer) pb.MaintenanceServer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	srv := &maintenanceServer{rg: s, kg: s, bg: s, a: s, lt: s, hdr: newHeader(s)}
 	return &authMaintenanceServer{srv, s}
 }
 func (ms *maintenanceServer) Defragment(ctx context.Context, sr *pb.DefragmentRequest) (*pb.DefragmentResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	plog.Noticef("starting to defragment the storage backend...")
@@ -61,6 +65,8 @@ func (ms *maintenanceServer) Defragment(ctx context.Context, sr *pb.DefragmentRe
 	return &pb.DefragmentResponse{}, nil
 }
 func (ms *maintenanceServer) Snapshot(sr *pb.SnapshotRequest, srv pb.Maintenance_SnapshotServer) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	snap := ms.bg.Backend().Snapshot()
@@ -99,6 +105,8 @@ func (ms *maintenanceServer) Snapshot(sr *pb.SnapshotRequest, srv pb.Maintenance
 func (ms *maintenanceServer) Hash(ctx context.Context, r *pb.HashRequest) (*pb.HashResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	h, rev, err := ms.kg.KV().Hash()
 	if err != nil {
 		return nil, togRPCError(err)
@@ -108,6 +116,8 @@ func (ms *maintenanceServer) Hash(ctx context.Context, r *pb.HashRequest) (*pb.H
 	return resp, nil
 }
 func (ms *maintenanceServer) HashKV(ctx context.Context, r *pb.HashKVRequest) (*pb.HashKVResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h, rev, compactRev, err := ms.kg.KV().HashByRev(r.Revision)
@@ -121,9 +131,13 @@ func (ms *maintenanceServer) HashKV(ctx context.Context, r *pb.HashKVRequest) (*
 func (ms *maintenanceServer) Alarm(ctx context.Context, ar *pb.AlarmRequest) (*pb.AlarmResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ms.a.Alarm(ctx, ar)
 }
 func (ms *maintenanceServer) Status(ctx context.Context, ar *pb.StatusRequest) (*pb.StatusResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp := &pb.StatusResponse{Header: &pb.ResponseHeader{Revision: ms.hdr.rev()}, Version: version.Version, DbSize: ms.bg.Backend().Size(), Leader: uint64(ms.rg.Leader()), RaftIndex: ms.rg.Index(), RaftTerm: ms.rg.Term()}
@@ -131,6 +145,8 @@ func (ms *maintenanceServer) Status(ctx context.Context, ar *pb.StatusRequest) (
 	return resp, nil
 }
 func (ms *maintenanceServer) MoveLeader(ctx context.Context, tr *pb.MoveLeaderRequest) (*pb.MoveLeaderResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ms.rg.ID() != ms.rg.Leader() {
@@ -150,6 +166,8 @@ type authMaintenanceServer struct {
 func (ams *authMaintenanceServer) isAuthenticated(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	authInfo, err := ams.ag.AuthInfoFromCtx(ctx)
 	if err != nil {
 		return err
@@ -157,6 +175,8 @@ func (ams *authMaintenanceServer) isAuthenticated(ctx context.Context) error {
 	return ams.ag.AuthStore().IsAdminPermitted(authInfo)
 }
 func (ams *authMaintenanceServer) Defragment(ctx context.Context, sr *pb.DefragmentRequest) (*pb.DefragmentResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ams.isAuthenticated(ctx); err != nil {
@@ -167,12 +187,16 @@ func (ams *authMaintenanceServer) Defragment(ctx context.Context, sr *pb.Defragm
 func (ams *authMaintenanceServer) Snapshot(sr *pb.SnapshotRequest, srv pb.Maintenance_SnapshotServer) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := ams.isAuthenticated(srv.Context()); err != nil {
 		return err
 	}
 	return ams.maintenanceServer.Snapshot(sr, srv)
 }
 func (ams *authMaintenanceServer) Hash(ctx context.Context, r *pb.HashRequest) (*pb.HashResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ams.isAuthenticated(ctx); err != nil {
@@ -183,6 +207,8 @@ func (ams *authMaintenanceServer) Hash(ctx context.Context, r *pb.HashRequest) (
 func (ams *authMaintenanceServer) HashKV(ctx context.Context, r *pb.HashKVRequest) (*pb.HashKVResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := ams.isAuthenticated(ctx); err != nil {
 		return nil, err
 	}
@@ -191,9 +217,13 @@ func (ams *authMaintenanceServer) HashKV(ctx context.Context, r *pb.HashKVReques
 func (ams *authMaintenanceServer) Status(ctx context.Context, ar *pb.StatusRequest) (*pb.StatusResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ams.maintenanceServer.Status(ctx, ar)
 }
 func (ams *authMaintenanceServer) MoveLeader(ctx context.Context, tr *pb.MoveLeaderRequest) (*pb.MoveLeaderResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ams.maintenanceServer.MoveLeader(ctx, tr)

@@ -14,6 +14,8 @@ import (
 func TestV3MaintenanceDefragmentInflightRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -34,6 +36,8 @@ func TestV3MaintenanceDefragmentInflightRange(t *testing.T) {
 	<-donec
 }
 func TestV3KVInflightRangeRequests(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

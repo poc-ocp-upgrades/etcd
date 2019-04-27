@@ -9,9 +9,13 @@ import (
 func NewVersionCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &cobra.Command{Use: "version", Short: "Prints the version of etcdctl", Run: versionCommandFunc}
 }
 func versionCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fmt.Println("etcdctl version:", version.Version)

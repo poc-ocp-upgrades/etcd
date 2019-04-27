@@ -28,6 +28,8 @@ type cluster struct {
 func NewCluster(c *Client) Cluster {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	api := &cluster{remote: RetryClusterClient(c)}
 	if c != nil {
 		api.callOpts = c.callOpts
@@ -37,6 +39,8 @@ func NewCluster(c *Client) Cluster {
 func NewClusterFromClusterClient(remote pb.ClusterClient, c *Client) Cluster {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	api := &cluster{remote: remote}
 	if c != nil {
 		api.callOpts = c.callOpts
@@ -44,6 +48,8 @@ func NewClusterFromClusterClient(remote pb.ClusterClient, c *Client) Cluster {
 	return api
 }
 func (c *cluster) MemberAdd(ctx context.Context, peerAddrs []string) (*MemberAddResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if _, err := types.NewURLs(peerAddrs); err != nil {
@@ -59,6 +65,8 @@ func (c *cluster) MemberAdd(ctx context.Context, peerAddrs []string) (*MemberAdd
 func (c *cluster) MemberRemove(ctx context.Context, id uint64) (*MemberRemoveResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := &pb.MemberRemoveRequest{ID: id}
 	resp, err := c.remote.MemberRemove(ctx, r, c.callOpts...)
 	if err != nil {
@@ -67,6 +75,8 @@ func (c *cluster) MemberRemove(ctx context.Context, id uint64) (*MemberRemoveRes
 	return (*MemberRemoveResponse)(resp), nil
 }
 func (c *cluster) MemberUpdate(ctx context.Context, id uint64, peerAddrs []string) (*MemberUpdateResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if _, err := types.NewURLs(peerAddrs); err != nil {
@@ -80,6 +90,8 @@ func (c *cluster) MemberUpdate(ctx context.Context, id uint64, peerAddrs []strin
 	return nil, toErr(ctx, err)
 }
 func (c *cluster) MemberList(ctx context.Context) (*MemberListResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := c.remote.MemberList(ctx, &pb.MemberListRequest{}, c.callOpts...)

@@ -17,6 +17,8 @@ import (
 func TestV3StorageQuotaApply(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testutil.AfterTest(t)
 	quotasize := int64(16 * os.Getpagesize())
 	clus := NewClusterV3(t, &ClusterConfig{Size: 2})
@@ -75,6 +77,8 @@ func TestV3StorageQuotaApply(t *testing.T) {
 func TestV3AlarmDeactivate(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus := NewClusterV3(t, &ClusterConfig{Size: 3})
 	defer clus.Terminate(t)
 	kvc := toGRPC(clus.RandClient()).KV
@@ -103,9 +107,13 @@ type fakeConsistentIndex struct{ rev uint64 }
 func (f *fakeConsistentIndex) ConsistentIndex() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return f.rev
 }
 func TestV3CorruptAlarm(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

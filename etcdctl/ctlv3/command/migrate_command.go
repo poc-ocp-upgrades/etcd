@@ -39,6 +39,8 @@ var (
 func NewMigrateCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mc := &cobra.Command{Use: "migrate", Short: "Migrates keys in a v2 store to a mvcc store", Run: migrateCommandFunc}
 	mc.Flags().BoolVar(&migrateExcludeTTLKey, "no-ttl", false, "Do not convert TTL keys")
 	mc.Flags().StringVar(&migrateDatadir, "data-dir", "", "Path to the data directory")
@@ -47,6 +49,8 @@ func NewMigrateCommand() *cobra.Command {
 	return mc
 }
 func migrateCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var (
@@ -79,6 +83,8 @@ func migrateCommandFunc(cmd *cobra.Command, args []string) {
 func prepareBackend() backend.Backend {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var be backend.Backend
 	bch := make(chan struct{})
 	dbpath := filepath.Join(migrateDatadir, "member", "snap", "db")
@@ -100,6 +106,8 @@ func prepareBackend() backend.Backend {
 	return be
 }
 func rebuildStoreV2() (store.Store, uint64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var index uint64
@@ -165,6 +173,8 @@ func rebuildStoreV2() (store.Store, uint64) {
 func applyConf(cc raftpb.ConfChange, cl *membership.RaftCluster) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := cl.ValidateConfigurationChange(cc); err != nil {
 		return
 	}
@@ -188,6 +198,8 @@ func applyConf(cc raftpb.ConfChange, cl *membership.RaftCluster) {
 func applyRequest(req *pb.Request, applyV2 etcdserver.ApplierV2) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := (*etcdserver.RequestV2)(req)
 	r.TTLOptions()
 	switch r.Method {
@@ -208,6 +220,8 @@ func applyRequest(req *pb.Request, applyV2 etcdserver.ApplierV2) {
 func writeStore(w io.Writer, st store.Store) uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	all, err := st.Get("/1", true, true)
 	if err != nil {
 		if eerr, ok := err.(*etcdErr.Error); ok && eerr.ErrorCode == etcdErr.EcodeKeyNotFound {
@@ -219,6 +233,8 @@ func writeStore(w io.Writer, st store.Store) uint64 {
 	return writeKeys(w, all.Node)
 }
 func writeKeys(w io.Writer, n *store.NodeExtern) uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	maxIndex := n.ModifiedIndex
@@ -248,6 +264,8 @@ func writeKeys(w io.Writer, n *store.NodeExtern) uint64 {
 func readKeys(r io.Reader, be backend.Backend) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		length64, err := readInt64(r)
 		if err != nil {
@@ -271,11 +289,15 @@ func readKeys(r io.Reader, be backend.Backend) error {
 func readInt64(r io.Reader) (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var n int64
 	err := binary.Read(r, binary.LittleEndian, &n)
 	return n, err
 }
 func startTransformer() (io.WriteCloser, io.ReadCloser, chan error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := exec.Command(migrateTransformer)
@@ -298,6 +320,8 @@ func startTransformer() (io.WriteCloser, io.ReadCloser, chan error) {
 	return writer, reader, errc
 }
 func defaultTransformer() (io.WriteCloser, io.ReadCloser, chan error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sr, sw := io.Pipe()
@@ -340,6 +364,8 @@ func defaultTransformer() (io.WriteCloser, io.ReadCloser, chan error) {
 	return sw, dr, errc
 }
 func transform(n *client.Node) *mvccpb.KeyValue {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	const unKnownVersion = 1

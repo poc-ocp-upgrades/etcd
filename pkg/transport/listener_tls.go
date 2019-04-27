@@ -24,12 +24,16 @@ type tlsCheckFunc func(context.Context, *tls.Conn) error
 func NewTLSListener(l net.Listener, tlsinfo *TLSInfo) (net.Listener, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	check := func(context.Context, *tls.Conn) error {
 		return nil
 	}
 	return newTLSListener(l, tlsinfo, check)
 }
 func newTLSListener(l net.Listener, tlsinfo *TLSInfo, check tlsCheckFunc) (net.Listener, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if tlsinfo == nil || tlsinfo.Empty() {
@@ -65,6 +69,8 @@ func newTLSListener(l net.Listener, tlsinfo *TLSInfo, check tlsCheckFunc) (net.L
 func (l *tlsListener) Accept() (net.Conn, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case conn := <-l.connc:
 		return conn, nil
@@ -75,6 +81,8 @@ func (l *tlsListener) Accept() (net.Conn, error) {
 func checkSAN(ctx context.Context, tlsConn *tls.Conn) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	st := tlsConn.ConnectionState()
 	if certs := st.PeerCertificates; len(certs) > 0 {
 		addr := tlsConn.RemoteAddr().String()
@@ -83,6 +91,8 @@ func checkSAN(ctx context.Context, tlsConn *tls.Conn) error {
 	return nil
 }
 func (l *tlsListener) acceptLoop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var wg sync.WaitGroup
@@ -140,6 +150,8 @@ func (l *tlsListener) acceptLoop() {
 func checkCRL(crlPath string, cert []*x509.Certificate) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	crlBytes, err := ioutil.ReadFile(crlPath)
 	if err != nil {
 		return err
@@ -161,6 +173,8 @@ func checkCRL(crlPath string, cert []*x509.Certificate) error {
 	return nil
 }
 func checkCertSAN(ctx context.Context, cert *x509.Certificate, remoteAddr string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(cert.IPAddresses) == 0 && len(cert.DNSNames) == 0 {
@@ -193,6 +207,8 @@ func checkCertSAN(ctx context.Context, cert *x509.Certificate, remoteAddr string
 	return nil
 }
 func isHostInDNS(ctx context.Context, host string, dnsNames []string) (ok bool, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wildcards, names := []string{}, []string{}
@@ -235,6 +251,8 @@ func isHostInDNS(ctx context.Context, host string, dnsNames []string) (ok bool, 
 	return false, err
 }
 func (l *tlsListener) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := l.Listener.Close()

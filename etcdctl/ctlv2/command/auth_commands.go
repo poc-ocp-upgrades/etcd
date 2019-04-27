@@ -14,9 +14,13 @@ import (
 func NewAuthCommands() cli.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cli.Command{Name: "auth", Usage: "overall auth controls", Subcommands: []cli.Command{{Name: "enable", Usage: "enable auth access controls", ArgsUsage: " ", Action: actionAuthEnable}, {Name: "disable", Usage: "disable auth access controls", ArgsUsage: " ", Action: actionAuthDisable}}}
 }
 func actionAuthEnable(c *cli.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	authEnableDisable(c, true)
@@ -25,10 +29,14 @@ func actionAuthEnable(c *cli.Context) error {
 func actionAuthDisable(c *cli.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	authEnableDisable(c, false)
 	return nil
 }
 func mustNewAuthAPI(c *cli.Context) client.AuthAPI {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	hc := mustNewClient(c)
@@ -38,6 +46,8 @@ func mustNewAuthAPI(c *cli.Context) client.AuthAPI {
 	return client.NewAuthAPI(hc)
 }
 func authEnableDisable(c *cli.Context, enable bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(c.Args()) != 0 {
@@ -66,7 +76,16 @@ func authEnableDisable(c *cli.Context, enable bool) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -15,6 +15,8 @@ var testFormatter EntryFormatter = func(data []byte) string {
 func TestDescribeEntry(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	entry := pb.Entry{Term: 1, Index: 2, Type: pb.EntryNormal, Data: []byte("hello\x00world")}
 	defaultFormatted := DescribeEntry(entry, nil)
 	if defaultFormatted != "1/2 EntryNormal \"hello\\x00world\"" {
@@ -26,6 +28,8 @@ func TestDescribeEntry(t *testing.T) {
 	}
 }
 func TestLimitSize(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ents := []pb.Entry{{Index: 4, Term: 4}, {Index: 5, Term: 5}, {Index: 6, Term: 6}}
@@ -40,6 +44,8 @@ func TestLimitSize(t *testing.T) {
 	}
 }
 func TestIsLocalMsg(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {

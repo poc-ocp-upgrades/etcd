@@ -9,6 +9,8 @@ import (
 func TestNewURLs(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		strs	[]string
 		wurls	URLs
@@ -21,6 +23,8 @@ func TestNewURLs(t *testing.T) {
 	}
 }
 func TestURLsString(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -37,6 +41,8 @@ func TestURLsString(t *testing.T) {
 func TestURLsSort(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	g := testutil.MustNewURLs(t, []string{"http://127.0.0.4:2379", "http://127.0.0.2:2379", "http://127.0.0.1:2379", "http://127.0.0.3:2379"})
 	w := testutil.MustNewURLs(t, []string{"http://127.0.0.1:2379", "http://127.0.0.2:2379", "http://127.0.0.3:2379", "http://127.0.0.4:2379"})
 	gurls := URLs(g)
@@ -46,6 +52,8 @@ func TestURLsSort(t *testing.T) {
 	}
 }
 func TestURLsStringSlice(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -60,6 +68,8 @@ func TestURLsStringSlice(t *testing.T) {
 	}
 }
 func TestNewURLsFail(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := [][]string{{}, {"://127.0.0.1:2379"}, {"mailto://127.0.0.1:2379"}, {"http://127.0.0.1"}, {"http://127.0.0.1:2379/path"}}

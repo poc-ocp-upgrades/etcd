@@ -22,6 +22,8 @@ type ApplierV2 interface {
 func NewApplierV2(s store.Store, c *membership.RaftCluster) ApplierV2 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &applierV2store{store: s, cluster: c}
 }
 
@@ -31,6 +33,8 @@ type applierV2store struct {
 }
 
 func (a *applierV2store) Delete(r *RequestV2) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch {
@@ -43,9 +47,13 @@ func (a *applierV2store) Delete(r *RequestV2) Response {
 func (a *applierV2store) Post(r *RequestV2) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return toResponse(a.store.Create(r.Path, r.Dir, r.Val, true, r.TTLOptions()))
 }
 func (a *applierV2store) Put(r *RequestV2) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ttlOptions := r.TTLOptions()
@@ -85,15 +93,21 @@ func (a *applierV2store) Put(r *RequestV2) Response {
 func (a *applierV2store) QGet(r *RequestV2) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return toResponse(a.store.Get(r.Path, r.Recursive, r.Sorted))
 }
 func (a *applierV2store) Sync(r *RequestV2) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	a.store.DeleteExpiredKeys(time.Unix(0, r.Time))
 	return Response{}
 }
 func (s *EtcdServer) applyV2Request(r *RequestV2) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer warnOfExpensiveRequest(time.Now(), r, nil, nil)
@@ -115,6 +129,8 @@ func (s *EtcdServer) applyV2Request(r *RequestV2) Response {
 func (r *RequestV2) TTLOptions() store.TTLOptionSet {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	refresh, _ := pbutil.GetBool(r.Refresh)
 	ttlOptions := store.TTLOptionSet{Refresh: refresh}
 	if r.Expiration != 0 {
@@ -123,6 +139,8 @@ func (r *RequestV2) TTLOptions() store.TTLOptionSet {
 	return ttlOptions
 }
 func toResponse(ev *store.Event, err error) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return Response{Event: ev, Err: err}

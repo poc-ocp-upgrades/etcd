@@ -26,6 +26,8 @@ type SoftState struct {
 func (a *SoftState) equal(b *SoftState) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return a.Lead == b.Lead && a.RaftState == b.RaftState
 }
 
@@ -43,9 +45,13 @@ type Ready struct {
 func isHardStateEqual(a, b pb.HardState) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return a.Term == b.Term && a.Vote == b.Vote && a.Commit == b.Commit
 }
 func IsEmptyHardState(st pb.HardState) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return isHardStateEqual(st, emptyState)
@@ -53,9 +59,13 @@ func IsEmptyHardState(st pb.HardState) bool {
 func IsEmptySnap(sp pb.Snapshot) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sp.Metadata.Index == 0
 }
 func (rd Ready) containsUpdates() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return rd.SoftState != nil || !IsEmptyHardState(rd.HardState) || !IsEmptySnap(rd.Snapshot) || len(rd.Entries) > 0 || len(rd.CommittedEntries) > 0 || len(rd.Messages) > 0 || len(rd.ReadStates) != 0
@@ -85,6 +95,8 @@ type Peer struct {
 func StartNode(c *Config, peers []Peer) Node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := newRaft(c)
 	r.becomeFollower(1, None)
 	for _, peer := range peers {
@@ -106,6 +118,8 @@ func StartNode(c *Config, peers []Peer) Node {
 	return &n
 }
 func RestartNode(c *Config) Node {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := newRaft(c)
@@ -132,9 +146,13 @@ type node struct {
 func newNode() node {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return node{propc: make(chan pb.Message), recvc: make(chan pb.Message), confc: make(chan pb.ConfChange), confstatec: make(chan pb.ConfState), readyc: make(chan Ready), advancec: make(chan struct{}), tickc: make(chan struct{}, 128), done: make(chan struct{}), stop: make(chan struct{}), status: make(chan chan Status)}
 }
 func (n *node) Stop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {
@@ -145,6 +163,8 @@ func (n *node) Stop() {
 	<-n.done
 }
 func (n *node) run(r *raft) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var propc chan pb.Message
@@ -259,6 +279,8 @@ func (n *node) run(r *raft) {
 func (n *node) Tick() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case n.tickc <- struct{}{}:
 	case <-n.done:
@@ -269,14 +291,20 @@ func (n *node) Tick() {
 func (n *node) Campaign(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return n.step(ctx, pb.Message{Type: pb.MsgHup})
 }
 func (n *node) Propose(ctx context.Context, data []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return n.step(ctx, pb.Message{Type: pb.MsgProp, Entries: []pb.Entry{{Data: data}}})
 }
 func (n *node) Step(ctx context.Context, m pb.Message) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if IsLocalMsg(m.Type) {
@@ -287,6 +315,8 @@ func (n *node) Step(ctx context.Context, m pb.Message) error {
 func (n *node) ProposeConfChange(ctx context.Context, cc pb.ConfChange) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data, err := cc.Marshal()
 	if err != nil {
 		return err
@@ -294,6 +324,8 @@ func (n *node) ProposeConfChange(ctx context.Context, cc pb.ConfChange) error {
 	return n.Step(ctx, pb.Message{Type: pb.MsgProp, Entries: []pb.Entry{{Type: pb.EntryConfChange, Data: data}}})
 }
 func (n *node) step(ctx context.Context, m pb.Message) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ch := n.recvc
@@ -312,9 +344,13 @@ func (n *node) step(ctx context.Context, m pb.Message) error {
 func (n *node) Ready() <-chan Ready {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return n.readyc
 }
 func (n *node) Advance() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {
@@ -323,6 +359,8 @@ func (n *node) Advance() {
 	}
 }
 func (n *node) ApplyConfChange(cc pb.ConfChange) *pb.ConfState {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var cs pb.ConfState
@@ -339,6 +377,8 @@ func (n *node) ApplyConfChange(cc pb.ConfChange) *pb.ConfState {
 func (n *node) Status() Status {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := make(chan Status)
 	select {
 	case n.status <- c:
@@ -350,12 +390,16 @@ func (n *node) Status() Status {
 func (n *node) ReportUnreachable(id uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case n.recvc <- pb.Message{Type: pb.MsgUnreachable, From: id}:
 	case <-n.done:
 	}
 }
 func (n *node) ReportSnapshot(id uint64, status SnapshotStatus) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rej := status == SnapshotFailure
@@ -367,6 +411,8 @@ func (n *node) ReportSnapshot(id uint64, status SnapshotStatus) {
 func (n *node) TransferLeadership(ctx context.Context, lead, transferee uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case n.recvc <- pb.Message{Type: pb.MsgTransferLeader, From: transferee, To: lead}:
 	case <-n.done:
@@ -376,9 +422,13 @@ func (n *node) TransferLeadership(ctx context.Context, lead, transferee uint64) 
 func (n *node) ReadIndex(ctx context.Context, rctx []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return n.step(ctx, pb.Message{Type: pb.MsgReadIndex, Entries: []pb.Entry{{Data: rctx}}})
 }
 func newReady(r *raft, prevSoftSt *SoftState, prevHardSt pb.HardState) Ready {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rd := Ready{Entries: r.raftLog.unstableEntries(), CommittedEntries: r.raftLog.nextEnts(), Messages: r.msgs}
@@ -398,6 +448,8 @@ func newReady(r *raft, prevSoftSt *SoftState, prevHardSt pb.HardState) Ready {
 	return rd
 }
 func MustSync(st, prevst pb.HardState, entsnum int) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return entsnum != 0 || st.Vote != prevst.Vote || st.Term != prevst.Term

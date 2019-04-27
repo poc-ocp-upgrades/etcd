@@ -21,6 +21,8 @@ const (
 func TestLessorGrant(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir, be := NewTestBackend(t)
 	defer os.RemoveAll(dir)
 	defer be.Close()
@@ -73,6 +75,8 @@ func TestLessorGrant(t *testing.T) {
 func TestLeaseConcurrentKeys(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir, be := NewTestBackend(t)
 	defer os.RemoveAll(dir)
 	defer be.Close()
@@ -110,6 +114,8 @@ func TestLeaseConcurrentKeys(t *testing.T) {
 	wg.Wait()
 }
 func TestLessorRevoke(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dir, be := NewTestBackend(t)
@@ -151,6 +157,8 @@ func TestLessorRevoke(t *testing.T) {
 func TestLessorRenew(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir, be := NewTestBackend(t)
 	defer be.Close()
 	defer os.RemoveAll(dir)
@@ -177,6 +185,8 @@ func TestLessorRenew(t *testing.T) {
 	}
 }
 func TestLessorRenewExtendPileup(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	oldRevokeRate := leaseRevokeRate
@@ -223,6 +233,8 @@ func TestLessorRenewExtendPileup(t *testing.T) {
 func TestLessorDetach(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir, be := NewTestBackend(t)
 	defer os.RemoveAll(dir)
 	defer be.Close()
@@ -253,6 +265,8 @@ func TestLessorDetach(t *testing.T) {
 func TestLessorRecover(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir, be := NewTestBackend(t)
 	defer os.RemoveAll(dir)
 	defer be.Close()
@@ -275,6 +289,8 @@ func TestLessorRecover(t *testing.T) {
 	}
 }
 func TestLessorExpire(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dir, be := NewTestBackend(t)
@@ -320,6 +336,8 @@ func TestLessorExpire(t *testing.T) {
 func TestLessorExpireAndDemote(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir, be := NewTestBackend(t)
 	defer os.RemoveAll(dir)
 	defer be.Close()
@@ -361,6 +379,8 @@ func TestLessorExpireAndDemote(t *testing.T) {
 func TestLessorMaxTTL(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir, be := NewTestBackend(t)
 	defer os.RemoveAll(dir)
 	defer be.Close()
@@ -380,6 +400,8 @@ type fakeDeleter struct {
 func newFakeDeleter(be backend.Backend) *fakeDeleter {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fd := &fakeDeleter{nil, be.BatchTx()}
 	fd.tx.Lock()
 	return fd
@@ -387,15 +409,21 @@ func newFakeDeleter(be backend.Backend) *fakeDeleter {
 func (fd *fakeDeleter) End() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fd.tx.Unlock()
 }
 func (fd *fakeDeleter) DeleteRange(key, end []byte) (int64, int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fd.deleted = append(fd.deleted, string(key)+"_"+string(end))
 	return 0, 0
 }
 func NewTestBackend(t *testing.T) (string, backend.Backend) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tmpPath, err := ioutil.TempDir("", "lease")

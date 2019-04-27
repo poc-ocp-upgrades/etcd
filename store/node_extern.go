@@ -20,6 +20,8 @@ type NodeExtern struct {
 func (eNode *NodeExtern) loadInternalNode(n *node, recursive, sorted bool, clock clockwork.Clock) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if n.IsDir() {
 		eNode.Dir = true
 		children, _ := n.List()
@@ -43,6 +45,8 @@ func (eNode *NodeExtern) loadInternalNode(n *node, recursive, sorted bool, clock
 	eNode.Expiration, eNode.TTL = n.expirationAndTTL(clock)
 }
 func (eNode *NodeExtern) Clone() *NodeExtern {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if eNode == nil {
@@ -71,14 +75,20 @@ type NodeExterns []*NodeExtern
 func (ns NodeExterns) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(ns)
 }
 func (ns NodeExterns) Less(i, j int) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ns[i].Key < ns[j].Key
 }
 func (ns NodeExterns) Swap(i, j int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ns[i], ns[j] = ns[j], ns[i]

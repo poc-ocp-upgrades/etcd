@@ -30,6 +30,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(hasLeader)
 	prometheus.MustRegister(isLeader)
 	prometheus.MustRegister(leaderChanges)
@@ -50,6 +52,8 @@ func init() {
 	currentGoVersion.With(prometheus.Labels{"server_go_version": goruntime.Version()}).Set(1)
 }
 func monitorFileDescriptor(done <-chan struct{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ticker := time.NewTicker(5 * time.Second)

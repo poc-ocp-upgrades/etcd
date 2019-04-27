@@ -17,6 +17,8 @@ const noOutputLineCount = 2
 func spawnCmd(args []string) (*expect.ExpectProcess, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if args[0] == binPath {
 		return spawnEtcd(args)
 	}
@@ -42,6 +44,8 @@ func spawnCmd(args []string) (*expect.ExpectProcess, error) {
 func spawnEtcd(args []string) (*expect.ExpectProcess, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	covArgs, err := getCovArgs()
 	if err != nil {
 		return nil, err
@@ -62,6 +66,8 @@ func spawnEtcd(args []string) (*expect.ExpectProcess, error) {
 func getCovArgs() ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	coverPath := os.Getenv("COVERDIR")
 	if !filepath.IsAbs(coverPath) {
 		coverPath = filepath.Join("..", coverPath)
@@ -73,6 +79,8 @@ func getCovArgs() ([]string, error) {
 	return covArgs, nil
 }
 func args2env(args []string) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var covEnvs []string

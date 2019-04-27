@@ -11,12 +11,16 @@ import (
 func TestCtlV3Lock(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	oldenv := os.Getenv("EXPECT_DEBUG")
 	defer os.Setenv("EXPECT_DEBUG", oldenv)
 	os.Setenv("EXPECT_DEBUG", "1")
 	testCtl(t, testLock)
 }
 func testLock(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	name := "a"
@@ -74,6 +78,8 @@ func testLock(cx ctlCtx) {
 	}
 }
 func ctlV3Lock(cx ctlCtx, name string) (*expect.ExpectProcess, <-chan string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "lock", name)

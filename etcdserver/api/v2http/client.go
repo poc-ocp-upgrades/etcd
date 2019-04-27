@@ -37,12 +37,16 @@ const (
 func NewClientHandler(server etcdserver.ServerPeer, timeout time.Duration) http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mux := http.NewServeMux()
 	etcdhttp.HandleBasic(mux, server)
 	handleV2(mux, server, timeout)
 	return requestLogger(mux)
 }
 func handleV2(mux *http.ServeMux, server etcdserver.ServerV2, timeout time.Duration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sec := auth.NewStore(server, timeout)
@@ -72,6 +76,8 @@ type keysHandler struct {
 }
 
 func (h *keysHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "HEAD", "GET", "PUT", "POST", "DELETE") {
@@ -121,6 +127,8 @@ type machinesHandler struct{ cluster api.Cluster }
 func (h *machinesHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET", "HEAD") {
 		return
 	}
@@ -138,6 +146,8 @@ type membersHandler struct {
 }
 
 func (h *membersHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET", "POST", "DELETE", "PUT") {
@@ -243,6 +253,8 @@ type statsHandler struct{ stats stats.Stats }
 func (h *statsHandler) serveStore(w http.ResponseWriter, r *http.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET") {
 		return
 	}
@@ -252,6 +264,8 @@ func (h *statsHandler) serveStore(w http.ResponseWriter, r *http.Request) {
 func (h *statsHandler) serveSelf(w http.ResponseWriter, r *http.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET") {
 		return
 	}
@@ -259,6 +273,8 @@ func (h *statsHandler) serveSelf(w http.ResponseWriter, r *http.Request) {
 	w.Write(h.stats.SelfStats())
 }
 func (h *statsHandler) serveLeader(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !allowMethod(w, r.Method, "GET") {
@@ -273,6 +289,8 @@ func (h *statsHandler) serveLeader(w http.ResponseWriter, r *http.Request) {
 	w.Write(stats)
 }
 func parseKeyRequest(r *http.Request, clock clockwork.Clock) (etcdserverpb.Request, bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var noValueOnSuccess bool
@@ -370,6 +388,8 @@ func parseKeyRequest(r *http.Request, clock clockwork.Clock) (etcdserverpb.Reque
 func writeKeyEvent(w http.ResponseWriter, resp etcdserver.Response, noValueOnSuccess bool) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ev := resp.Event
 	if ev == nil {
 		return errors.New("cannot write empty Event!")
@@ -391,10 +411,14 @@ func writeKeyEvent(w http.ResponseWriter, resp etcdserver.Response, noValueOnSuc
 func writeKeyNoAuth(w http.ResponseWriter) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	e := etcdErr.NewError(etcdErr.EcodeUnauthorized, "Insufficient credentials", 0)
 	e.WriteTo(w)
 }
 func writeKeyError(w http.ResponseWriter, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err == nil {
@@ -415,6 +439,8 @@ func writeKeyError(w http.ResponseWriter, err error) {
 	}
 }
 func handleKeyWatch(ctx context.Context, w http.ResponseWriter, resp etcdserver.Response, stream bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wa := resp.Watcher
@@ -455,6 +481,8 @@ func handleKeyWatch(ctx context.Context, w http.ResponseWriter, resp etcdserver.
 func trimEventPrefix(ev *store.Event, prefix string) *store.Event {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ev == nil {
 		return nil
 	}
@@ -464,6 +492,8 @@ func trimEventPrefix(ev *store.Event, prefix string) *store.Event {
 	return e
 }
 func trimNodeExternPrefix(n *store.NodeExtern, prefix string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if n == nil {
@@ -477,12 +507,16 @@ func trimNodeExternPrefix(n *store.NodeExtern, prefix string) {
 func trimErrorPrefix(err error, prefix string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if e, ok := err.(*etcdErr.Error); ok {
 		e.Cause = strings.TrimPrefix(e.Cause, prefix)
 	}
 	return err
 }
 func unmarshalRequest(r *http.Request, req json.Unmarshaler, w http.ResponseWriter) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctype := r.Header.Get("Content-Type")
@@ -508,6 +542,8 @@ func unmarshalRequest(r *http.Request, req json.Unmarshaler, w http.ResponseWrit
 func getID(p string, w http.ResponseWriter) (types.ID, bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	idStr := trimPrefix(p, membersPrefix)
 	if idStr == "" {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
@@ -523,12 +559,16 @@ func getID(p string, w http.ResponseWriter) (types.ID, bool) {
 func getUint64(form url.Values, key string) (i uint64, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if vals, ok := form[key]; ok {
 		i, err = strconv.ParseUint(vals[0], 10, 64)
 	}
 	return
 }
 func getBool(form url.Values, key string) (b bool, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if vals, ok := form[key]; ok {
@@ -539,11 +579,15 @@ func getBool(form url.Values, key string) (b bool, err error) {
 func trimPrefix(p, prefix string) (s string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s = strings.TrimPrefix(p, prefix)
 	s = strings.TrimPrefix(s, "/")
 	return
 }
 func newMemberCollection(ms []*membership.Member) *httptypes.MemberCollection {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := httptypes.MemberCollection(make([]httptypes.Member, len(ms)))
@@ -553,6 +597,8 @@ func newMemberCollection(ms []*membership.Member) *httptypes.MemberCollection {
 	return &c
 }
 func newMember(m *membership.Member) httptypes.Member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tm := httptypes.Member{ID: m.ID.String(), Name: m.Name, PeerURLs: make([]string, len(m.PeerURLs)), ClientURLs: make([]string, len(m.ClientURLs))}

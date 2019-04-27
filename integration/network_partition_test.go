@@ -10,6 +10,8 @@ import (
 func TestNetworkPartition5MembersLeaderInMinority(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 5})
 	defer clus.Terminate(t)
@@ -28,6 +30,8 @@ func TestNetworkPartition5MembersLeaderInMinority(t *testing.T) {
 func TestNetworkPartition5MembersLeaderInMajority(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err error
 	for i := 0; i < 3; i++ {
 		if err = testNetworkPartition5MembersLeaderInMajority(t); err == nil {
@@ -40,6 +44,8 @@ func TestNetworkPartition5MembersLeaderInMajority(t *testing.T) {
 	}
 }
 func testNetworkPartition5MembersLeaderInMajority(t *testing.T) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -65,6 +71,8 @@ func testNetworkPartition5MembersLeaderInMajority(t *testing.T) error {
 func TestNetworkPartition4Members(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := NewClusterV3(t, &ClusterConfig{Size: 4})
 	defer clus.Terminate(t)
@@ -82,6 +90,8 @@ func TestNetworkPartition4Members(t *testing.T) {
 func getMembersByIndexSlice(clus *cluster, idxs []int) []*member {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ms := make([]*member, len(idxs))
 	for i, idx := range idxs {
 		ms[i] = clus.Members[idx]
@@ -91,11 +101,15 @@ func getMembersByIndexSlice(clus *cluster, idxs []int) []*member {
 func injectPartition(t *testing.T, src, others []*member) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, m := range src {
 		m.InjectPartition(t, others...)
 	}
 }
 func recoverPartition(t *testing.T, src, others []*member) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, m := range src {

@@ -16,9 +16,13 @@ type kvOrdering struct {
 func NewKV(kv clientv3.KV, orderViolationFunc OrderViolationFunc) *kvOrdering {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &kvOrdering{kv, orderViolationFunc, 0, sync.RWMutex{}}
 }
 func (kv *kvOrdering) getPrevRev() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	kv.revMu.RLock()
@@ -28,6 +32,8 @@ func (kv *kvOrdering) getPrevRev() int64 {
 func (kv *kvOrdering) setPrevRev(currRev int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	kv.revMu.Lock()
 	defer kv.revMu.Unlock()
 	if currRev > kv.prevRev {
@@ -35,6 +41,8 @@ func (kv *kvOrdering) setPrevRev(currRev int64) {
 	}
 }
 func (kv *kvOrdering) Get(ctx context.Context, key string, opts ...clientv3.OpOption) (*clientv3.GetResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	prevRev := kv.getPrevRev()
@@ -60,6 +68,8 @@ func (kv *kvOrdering) Get(ctx context.Context, key string, opts ...clientv3.OpOp
 func (kv *kvOrdering) Txn(ctx context.Context) clientv3.Txn {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &txnOrdering{kv.KV.Txn(ctx), kv, ctx, sync.Mutex{}, []clientv3.Cmp{}, []clientv3.Op{}, []clientv3.Op{}}
 }
 
@@ -76,6 +86,8 @@ type txnOrdering struct {
 func (txn *txnOrdering) If(cs ...clientv3.Cmp) clientv3.Txn {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	txn.mu.Lock()
 	defer txn.mu.Unlock()
 	txn.cmps = cs
@@ -83,6 +95,8 @@ func (txn *txnOrdering) If(cs ...clientv3.Cmp) clientv3.Txn {
 	return txn
 }
 func (txn *txnOrdering) Then(ops ...clientv3.Op) clientv3.Txn {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	txn.mu.Lock()
@@ -94,6 +108,8 @@ func (txn *txnOrdering) Then(ops ...clientv3.Op) clientv3.Txn {
 func (txn *txnOrdering) Else(ops ...clientv3.Op) clientv3.Txn {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	txn.mu.Lock()
 	defer txn.mu.Unlock()
 	txn.elseOps = ops
@@ -101,6 +117,8 @@ func (txn *txnOrdering) Else(ops ...clientv3.Op) clientv3.Txn {
 	return txn
 }
 func (txn *txnOrdering) Commit() (*clientv3.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	prevRev := txn.getPrevRev()

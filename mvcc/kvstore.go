@@ -58,6 +58,8 @@ type store struct {
 func NewStore(b backend.Backend, le lease.Lessor, ig ConsistentIndexGetter) *store {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := &store{b: b, ig: ig, kvindex: newTreeIndex(), le: le, currentRev: 1, compactMainRev: -1, bytesBuf8: make([]byte, 8), fifoSched: schedule.NewFIFOScheduler(), stopc: make(chan struct{})}
 	s.ReadView = &readView{s}
 	s.WriteView = &writeView{s}
@@ -80,6 +82,8 @@ func NewStore(b backend.Backend, le lease.Lessor, ig ConsistentIndexGetter) *sto
 func (s *store) compactBarrier(ctx context.Context, ch chan struct{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ctx == nil || ctx.Err() != nil {
 		s.mu.Lock()
 		select {
@@ -98,6 +102,8 @@ func (s *store) compactBarrier(ctx context.Context, ch chan struct{}) {
 func (s *store) Hash() (hash uint32, revision int64, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	start := time.Now()
 	s.b.ForceCommit()
 	h, err := s.b.Hash(DefaultIgnores)
@@ -105,6 +111,8 @@ func (s *store) Hash() (hash uint32, revision int64, err error) {
 	return h, s.currentRev, err
 }
 func (s *store) HashByRev(rev int64) (hash uint32, currentRev int64, compactRev int64, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	start := time.Now()
@@ -150,6 +158,8 @@ func (s *store) HashByRev(rev int64) (hash uint32, currentRev int64, compactRev 
 	return hash, currentRev, compactRev, err
 }
 func (s *store) Compact(rev int64) (<-chan struct{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.mu.Lock()
@@ -199,9 +209,13 @@ var DefaultIgnores map[backend.IgnoreKey]struct{}
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	DefaultIgnores = map[backend.IgnoreKey]struct{}{{Bucket: string(metaBucketName), Key: string(consistentIndexKeyName)}: {}}
 }
 func (s *store) Commit() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.mu.Lock()
@@ -213,6 +227,8 @@ func (s *store) Commit() {
 	s.b.ForceCommit()
 }
 func (s *store) Restore(b backend.Backend) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.mu.Lock()
@@ -229,6 +245,8 @@ func (s *store) Restore(b backend.Backend) error {
 	return s.restore()
 }
 func (s *store) restore() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b := s.b
@@ -307,6 +325,8 @@ type revKeyValue struct {
 func restoreIntoIndex(idx index) (chan<- revKeyValue, <-chan int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rkvc, revc := make(chan revKeyValue, restoreChunkKeys), make(chan int64, 1)
 	go func() {
 		currentRev := int64(1)
@@ -352,6 +372,8 @@ func restoreIntoIndex(idx index) (chan<- revKeyValue, <-chan int64) {
 func restoreChunk(kvc chan<- revKeyValue, keys, vals [][]byte, keyToLease map[string]lease.LeaseID) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i, key := range keys {
 		rkv := revKeyValue{key: key}
 		if err := rkv.kv.Unmarshal(vals[i]); err != nil {
@@ -371,11 +393,15 @@ func restoreChunk(kvc chan<- revKeyValue, keys, vals [][]byte, keyToLease map[st
 func (s *store) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	close(s.stopc)
 	s.fifoSched.Stop()
 	return nil
 }
 func (s *store) saveIndex(tx backend.BatchTx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.ig == nil {
@@ -388,6 +414,8 @@ func (s *store) saveIndex(tx backend.BatchTx) {
 	atomic.StoreUint64(&s.consistentIndex, ci)
 }
 func (s *store) ConsistentIndex() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ci := atomic.LoadUint64(&s.consistentIndex); ci > 0 {
@@ -407,12 +435,16 @@ func (s *store) ConsistentIndex() uint64 {
 func appendMarkTombstone(b []byte) []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(b) != revBytesLen {
 		plog.Panicf("cannot append mark to non normal revision bytes")
 	}
 	return append(b, markTombstone)
 }
 func isTombstone(b []byte) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return len(b) == markedRevBytesLen && b[markBytePosition] == markTombstone

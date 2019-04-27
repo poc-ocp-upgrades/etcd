@@ -23,6 +23,8 @@ const (
 func TryLockFile(path string, flag int, perm os.FileMode) (*LockedFile, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f, err := open(path, flag, perm)
 	if err != nil {
 		return nil, err
@@ -36,6 +38,8 @@ func TryLockFile(path string, flag int, perm os.FileMode) (*LockedFile, error) {
 func LockFile(path string, flag int, perm os.FileMode) (*LockedFile, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f, err := open(path, flag, perm)
 	if err != nil {
 		return nil, err
@@ -47,6 +51,8 @@ func LockFile(path string, flag int, perm os.FileMode) (*LockedFile, error) {
 	return &LockedFile{f}, nil
 }
 func open(path string, flag int, perm os.FileMode) (*os.File, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if path == "" {
@@ -74,6 +80,8 @@ func open(path string, flag int, perm os.FileMode) (*os.File, error) {
 func lockFile(fd syscall.Handle, flags uint32) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var flag uint32 = LOCKFILE_EXCLUSIVE_LOCK
 	flag |= flags
 	if fd == syscall.InvalidHandle {
@@ -90,6 +98,8 @@ func lockFile(fd syscall.Handle, flags uint32) error {
 	return nil
 }
 func lockFileEx(h syscall.Handle, flags, locklow, lockhigh uint32, ol *syscall.Overlapped) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var reserved uint32 = 0

@@ -11,6 +11,8 @@ import (
 func NewSetCommand() cli.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cli.Command{Name: "set", Usage: "set the value of a key", ArgsUsage: "<key> <value>", Description: `Set sets the value of a key.
 
    When <value> begins with '-', <value> is interpreted as a flag.
@@ -22,6 +24,8 @@ func NewSetCommand() cli.Command {
 	}}
 }
 func setCommandFunc(c *cli.Context, ki client.KeysAPI) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(c.Args()) == 0 {

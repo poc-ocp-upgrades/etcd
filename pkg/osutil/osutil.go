@@ -14,6 +14,8 @@ var (
 func Unsetenv(key string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	envs := os.Environ()
 	os.Clearenv()
 	for _, e := range envs {

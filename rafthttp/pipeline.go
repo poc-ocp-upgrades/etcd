@@ -37,6 +37,8 @@ type pipeline struct {
 func (p *pipeline) start() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.stopc = make(chan struct{})
 	p.msgc = make(chan raftpb.Message, pipelineBufSize)
 	p.wg.Add(connPerPipeline)
@@ -48,11 +50,15 @@ func (p *pipeline) start() {
 func (p *pipeline) stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	close(p.stopc)
 	p.wg.Wait()
 	plog.Infof("stopped HTTP pipelining with peer %s", p.peerID)
 }
 func (p *pipeline) handle() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer p.wg.Done()
@@ -88,6 +94,8 @@ func (p *pipeline) handle() {
 	}
 }
 func (p *pipeline) post(data []byte) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u := p.picker.pick()
@@ -126,6 +134,8 @@ func (p *pipeline) post(data []byte) (err error) {
 	return nil
 }
 func waitSchedule() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	time.Sleep(time.Millisecond)

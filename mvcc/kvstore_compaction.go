@@ -8,6 +8,8 @@ import (
 func (s *store) scheduleCompaction(compactMainRev int64, keep map[revision]struct{}) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	totalStart := time.Now()
 	defer dbCompactionTotalDurations.Observe(float64(time.Since(totalStart) / time.Millisecond))
 	keyCompactions := 0

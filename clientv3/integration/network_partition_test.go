@@ -16,6 +16,8 @@ var errExpected = errors.New("expected error")
 func TestBalancerUnderNetworkPartitionPut(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testBalancerUnderNetworkPartition(t, func(cli *clientv3.Client, ctx context.Context) error {
 		_, err := cli.Put(ctx, "a", "b")
 		if err == context.DeadlineExceeded || isServerCtxTimeout(err) || err == rpctypes.ErrTimeout {
@@ -25,6 +27,8 @@ func TestBalancerUnderNetworkPartitionPut(t *testing.T) {
 	}, time.Second)
 }
 func TestBalancerUnderNetworkPartitionDelete(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testBalancerUnderNetworkPartition(t, func(cli *clientv3.Client, ctx context.Context) error {
@@ -38,6 +42,8 @@ func TestBalancerUnderNetworkPartitionDelete(t *testing.T) {
 func TestBalancerUnderNetworkPartitionTxn(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testBalancerUnderNetworkPartition(t, func(cli *clientv3.Client, ctx context.Context) error {
 		_, err := cli.Txn(ctx).If(clientv3.Compare(clientv3.Version("foo"), "=", 0)).Then(clientv3.OpPut("foo", "bar")).Else(clientv3.OpPut("foo", "baz")).Commit()
 		if err == context.DeadlineExceeded || isServerCtxTimeout(err) || err == rpctypes.ErrTimeout {
@@ -49,12 +55,16 @@ func TestBalancerUnderNetworkPartitionTxn(t *testing.T) {
 func TestBalancerUnderNetworkPartitionLinearizableGetWithLongTimeout(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testBalancerUnderNetworkPartition(t, func(cli *clientv3.Client, ctx context.Context) error {
 		_, err := cli.Get(ctx, "a")
 		return err
 	}, 7*time.Second)
 }
 func TestBalancerUnderNetworkPartitionLinearizableGetWithShortTimeout(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testBalancerUnderNetworkPartition(t, func(cli *clientv3.Client, ctx context.Context) error {
@@ -68,12 +78,16 @@ func TestBalancerUnderNetworkPartitionLinearizableGetWithShortTimeout(t *testing
 func TestBalancerUnderNetworkPartitionSerializableGet(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testBalancerUnderNetworkPartition(t, func(cli *clientv3.Client, ctx context.Context) error {
 		_, err := cli.Get(ctx, "a", clientv3.WithSerializable())
 		return err
 	}, time.Second)
 }
 func testBalancerUnderNetworkPartition(t *testing.T, op func(*clientv3.Client, context.Context) error, timeout time.Duration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -110,6 +124,8 @@ func testBalancerUnderNetworkPartition(t *testing.T, op func(*clientv3.Client, c
 func TestBalancerUnderNetworkPartitionLinearizableGetLeaderElection(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 3, SkipCreatingClient: true})
 	defer clus.Terminate(t)
@@ -134,14 +150,20 @@ func TestBalancerUnderNetworkPartitionLinearizableGetLeaderElection(t *testing.T
 func TestBalancerUnderNetworkPartitionWatchLeader(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testBalancerUnderNetworkPartitionWatch(t, true)
 }
 func TestBalancerUnderNetworkPartitionWatchFollower(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testBalancerUnderNetworkPartitionWatch(t, false)
 }
 func testBalancerUnderNetworkPartitionWatch(t *testing.T, isolateLeader bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

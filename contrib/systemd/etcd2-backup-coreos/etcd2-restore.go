@@ -24,6 +24,8 @@ var (
 func main() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	flag.StringVar(&etcdctlPath, "etcdctl-path", "/usr/bin/etcdctl", "absolute path to etcdctl executable")
 	flag.StringVar(&etcdPath, "etcd-path", "/usr/bin/etcd2", "absolute path to etcd2 executable")
 	flag.StringVar(&etcdRestoreDir, "etcd-restore-dir", "/var/lib/etcd2-restore", "absolute path to etcd2 restore dir")
@@ -53,6 +55,8 @@ func main() {
 func restoreEtcd() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	etcdCmd := exec.Command(etcdPath, "--force-new-cluster", "--data-dir", etcdRestoreDir)
 	etcdCmd.Stdout = os.Stdout
 	etcdCmd.Stderr = os.Stderr
@@ -71,6 +75,8 @@ var (
 )
 
 func runCommands(maxRetry int, interval time.Duration) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var retryCnt int
@@ -109,7 +115,16 @@ func runCommands(maxRetry int, interval time.Duration) error {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

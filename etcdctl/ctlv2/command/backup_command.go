@@ -24,9 +24,13 @@ import (
 func NewBackupCommand() cli.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cli.Command{Name: "backup", Usage: "backup an etcd directory", ArgsUsage: " ", Flags: []cli.Flag{cli.StringFlag{Name: "data-dir", Value: "", Usage: "Path to the etcd data dir"}, cli.StringFlag{Name: "wal-dir", Value: "", Usage: "Path to the etcd wal dir"}, cli.StringFlag{Name: "backup-dir", Value: "", Usage: "Path to the backup dir"}, cli.StringFlag{Name: "backup-wal-dir", Value: "", Usage: "Path to the backup wal dir"}, cli.BoolFlag{Name: "with-v3", Usage: "Backup v3 backend data"}}, Action: handleBackup}
 }
 func handleBackup(c *cli.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var srcWAL string
@@ -69,6 +73,8 @@ func handleBackup(c *cli.Context) error {
 func saveSnap(destSnap, srcSnap string) (walsnap walpb.Snapshot) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ss := snap.New(srcSnap)
 	snapshot, err := ss.Load()
 	if err != nil && err != snap.ErrNoSnapshot {
@@ -84,6 +90,8 @@ func saveSnap(destSnap, srcSnap string) (walsnap walpb.Snapshot) {
 	return walsnap
 }
 func loadWAL(srcWAL string, walsnap walpb.Snapshot, v3 bool) (etcdserverpb.Metadata, raftpb.HardState, []raftpb.Entry) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	w, err := wal.OpenForRead(srcWAL, walsnap)
@@ -144,6 +152,8 @@ func loadWAL(srcWAL string, walsnap walpb.Snapshot, v3 bool) (etcdserverpb.Metad
 	return metadata, state, ents
 }
 func saveDB(destDB, srcDB string, idx uint64, v3 bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if v3 {

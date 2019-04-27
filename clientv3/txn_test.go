@@ -9,6 +9,8 @@ import (
 func TestTxnPanics(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	kv := &kv{}
 	errc := make(chan string)

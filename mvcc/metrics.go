@@ -50,6 +50,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(rangeCounter)
 	prometheus.MustRegister(putCounter)
 	prometheus.MustRegister(deleteCounter)
@@ -71,6 +73,8 @@ func init() {
 	prometheus.MustRegister(hashRevDurations)
 }
 func ReportEventReceived(n int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pendingEventsGauge.Sub(float64(n))

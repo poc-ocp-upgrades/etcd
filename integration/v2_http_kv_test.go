@@ -18,6 +18,8 @@ import (
 func TestV2Set(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	cl := NewCluster(t, 1)
 	cl.Launch(t)
@@ -53,6 +55,8 @@ func TestV2Set(t *testing.T) {
 func TestV2CreateUpdate(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	cl := NewCluster(t, 1)
 	cl.Launch(t)
@@ -81,6 +85,8 @@ func TestV2CreateUpdate(t *testing.T) {
 func TestV2CAS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	cl := NewCluster(t, 1)
 	cl.Launch(t)
@@ -107,6 +113,8 @@ func TestV2CAS(t *testing.T) {
 	}
 }
 func TestV2Delete(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -153,6 +161,8 @@ func TestV2Delete(t *testing.T) {
 func TestV2CAD(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	cl := NewCluster(t, 1)
 	cl.Launch(t)
@@ -192,6 +202,8 @@ func TestV2CAD(t *testing.T) {
 func TestV2Unique(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	cl := NewCluster(t, 1)
 	cl.Launch(t)
@@ -218,6 +230,8 @@ func TestV2Unique(t *testing.T) {
 	}
 }
 func TestV2Get(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -257,6 +271,8 @@ func TestV2Get(t *testing.T) {
 func TestV2QuorumGet(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	cl := NewCluster(t, 1)
 	cl.Launch(t)
@@ -294,6 +310,8 @@ func TestV2QuorumGet(t *testing.T) {
 func TestV2Watch(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	cl := NewCluster(t, 1)
 	cl.Launch(t)
@@ -318,6 +336,8 @@ func TestV2Watch(t *testing.T) {
 	}
 }
 func TestV2WatchWithIndex(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -371,6 +391,8 @@ func TestV2WatchWithIndex(t *testing.T) {
 func TestV2WatchKeyInDir(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	cl := NewCluster(t, 1)
 	cl.Launch(t)
@@ -415,6 +437,8 @@ func TestV2WatchKeyInDir(t *testing.T) {
 func TestV2Head(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	cl := NewCluster(t, 1)
 	cl.Launch(t)
@@ -455,6 +479,8 @@ func TestV2Head(t *testing.T) {
 func checkBody(body map[string]interface{}, w map[string]interface{}) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if body["node"] != nil {
 		if w["node"] != nil {
 			wn := w["node"].(map[string]interface{})
@@ -491,11 +517,15 @@ type testHttpClient struct{ *http.Client }
 func NewTestClient() *testHttpClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tr, _ := transport.NewTransport(transport.TLSInfo{}, time.Second)
 	tr.DisableKeepAlives = true
 	return &testHttpClient{&http.Client{Transport: tr}}
 }
 func (t *testHttpClient) ReadBody(resp *http.Response) []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if resp == nil {
@@ -508,6 +538,8 @@ func (t *testHttpClient) ReadBody(resp *http.Response) []byte {
 func (t *testHttpClient) ReadBodyJSON(resp *http.Response) map[string]interface{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := make(map[string]interface{})
 	b := t.ReadBody(resp)
 	if err := json.Unmarshal(b, &m); err != nil {
@@ -518,9 +550,13 @@ func (t *testHttpClient) ReadBodyJSON(resp *http.Response) map[string]interface{
 func (t *testHttpClient) Head(url string) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return t.send("HEAD", url, "application/json", nil)
 }
 func (t *testHttpClient) Get(url string) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return t.send("GET", url, "application/json", nil)
@@ -528,9 +564,13 @@ func (t *testHttpClient) Get(url string) (*http.Response, error) {
 func (t *testHttpClient) Post(url string, bodyType string, body io.Reader) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return t.send("POST", url, bodyType, body)
 }
 func (t *testHttpClient) PostForm(url string, data url.Values) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return t.Post(url, "application/x-www-form-urlencoded", strings.NewReader(data.Encode()))
@@ -538,9 +578,13 @@ func (t *testHttpClient) PostForm(url string, data url.Values) (*http.Response, 
 func (t *testHttpClient) Put(url string, bodyType string, body io.Reader) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return t.send("PUT", url, bodyType, body)
 }
 func (t *testHttpClient) PutForm(url string, data url.Values) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return t.Put(url, "application/x-www-form-urlencoded", strings.NewReader(data.Encode()))
@@ -548,14 +592,20 @@ func (t *testHttpClient) PutForm(url string, data url.Values) (*http.Response, e
 func (t *testHttpClient) Delete(url string, bodyType string, body io.Reader) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return t.send("DELETE", url, bodyType, body)
 }
 func (t *testHttpClient) DeleteForm(url string, data url.Values) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return t.Delete(url, "application/x-www-form-urlencoded", strings.NewReader(data.Encode()))
 }
 func (t *testHttpClient) send(method string, url string, bodyType string, body io.Reader) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	req, err := http.NewRequest(method, url, body)

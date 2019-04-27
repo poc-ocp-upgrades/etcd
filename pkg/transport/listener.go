@@ -22,6 +22,8 @@ import (
 func NewListener(addr, scheme string, tlsinfo *TLSInfo) (l net.Listener, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if l, err = newListener(addr, scheme); err != nil {
 		return nil, err
 	}
@@ -30,12 +32,16 @@ func NewListener(addr, scheme string, tlsinfo *TLSInfo) (l net.Listener, err err
 func newListener(addr string, scheme string) (net.Listener, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if scheme == "unix" || scheme == "unixs" {
 		return NewUnixListener(addr)
 	}
 	return net.Listen("tcp", addr)
 }
 func wrapTLS(addr, scheme string, tlsinfo *TLSInfo, l net.Listener) (net.Listener, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if scheme != "https" && scheme != "unixs" {
@@ -63,14 +69,20 @@ type TLSInfo struct {
 func (info TLSInfo) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("cert = %s, key = %s, ca = %s, trusted-ca = %s, client-cert-auth = %v, crl-file = %s", info.CertFile, info.KeyFile, info.CAFile, info.TrustedCAFile, info.ClientCertAuth, info.CRLFile)
 }
 func (info TLSInfo) Empty() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return info.CertFile == "" && info.KeyFile == ""
 }
 func SelfCert(dirpath string, hosts []string) (info TLSInfo, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err = os.MkdirAll(dirpath, 0700); err != nil {
@@ -129,6 +141,8 @@ func SelfCert(dirpath string, hosts []string) (info TLSInfo, err error) {
 func (info TLSInfo) baseConfig() (*tls.Config, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if info.KeyFile == "" || info.CertFile == "" {
 		return nil, fmt.Errorf("KeyFile and CertFile must both be present[key: %v, cert: %v]", info.KeyFile, info.CertFile)
 	}
@@ -163,6 +177,8 @@ func (info TLSInfo) baseConfig() (*tls.Config, error) {
 func (info TLSInfo) cafiles() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cs := make([]string, 0)
 	if info.CAFile != "" {
 		cs = append(cs, info.CAFile)
@@ -173,6 +189,8 @@ func (info TLSInfo) cafiles() []string {
 	return cs
 }
 func (info TLSInfo) ServerConfig() (*tls.Config, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfg, err := info.baseConfig()
@@ -195,6 +213,8 @@ func (info TLSInfo) ServerConfig() (*tls.Config, error) {
 	return cfg, nil
 }
 func (info TLSInfo) ClientConfig() (*tls.Config, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var cfg *tls.Config
@@ -221,6 +241,8 @@ func (info TLSInfo) ClientConfig() (*tls.Config, error) {
 	return cfg, nil
 }
 func IsClosedConnError(err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return err != nil && strings.Contains(err.Error(), "closed")

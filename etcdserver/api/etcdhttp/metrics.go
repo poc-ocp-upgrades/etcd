@@ -20,6 +20,8 @@ const (
 func HandleMetricsHealth(mux *http.ServeMux, srv etcdserver.ServerV2) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mux.Handle(PathMetrics, promhttp.Handler())
 	mux.Handle(PathHealth, NewHealthHandler(func() Health {
 		return checkHealth(srv)
@@ -28,9 +30,13 @@ func HandleMetricsHealth(mux *http.ServeMux, srv etcdserver.ServerV2) {
 func HandlePrometheus(mux *http.ServeMux) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mux.Handle(PathMetrics, promhttp.Handler())
 }
 func NewHealthHandler(hfunc func() Health) http.HandlerFunc {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -58,6 +64,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(healthSuccess)
 	prometheus.MustRegister(healthFailed)
 }
@@ -67,6 +75,8 @@ type Health struct {
 }
 
 func checkHealth(srv etcdserver.ServerV2) Health {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h := Health{Health: "true"}

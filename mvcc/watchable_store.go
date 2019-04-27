@@ -33,9 +33,13 @@ type cancelFunc func()
 func New(b backend.Backend, le lease.Lessor, ig ConsistentIndexGetter) ConsistentWatchableKV {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newWatchableStore(b, le, ig)
 }
 func newWatchableStore(b backend.Backend, le lease.Lessor, ig ConsistentIndexGetter) *watchableStore {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := &watchableStore{store: NewStore(b, le, ig), victimc: make(chan struct{}, 1), unsynced: newWatcherGroup(), synced: newWatcherGroup(), stopc: make(chan struct{})}
@@ -54,6 +58,8 @@ func newWatchableStore(b backend.Backend, le lease.Lessor, ig ConsistentIndexGet
 func (s *watchableStore) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	close(s.stopc)
 	s.wg.Wait()
 	return s.store.Close()
@@ -61,10 +67,14 @@ func (s *watchableStore) Close() error {
 func (s *watchableStore) NewWatchStream() WatchStream {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	watchStreamGauge.Inc()
 	return &watchStream{watchable: s, ch: make(chan WatchResponse, chanBufLen), cancels: make(map[WatchID]cancelFunc), watchers: make(map[WatchID]*watcher)}
 }
 func (s *watchableStore) watch(key, end []byte, startRev int64, id WatchID, ch chan<- WatchResponse, fcs ...FilterFunc) (*watcher, cancelFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wa := &watcher{key: key, end: end, minRev: startRev, id: id, ch: ch, fcs: fcs}
@@ -91,6 +101,8 @@ func (s *watchableStore) watch(key, end []byte, startRev int64, id WatchID, ch c
 	}
 }
 func (s *watchableStore) cancelWatcher(wa *watcher) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -130,6 +142,8 @@ func (s *watchableStore) cancelWatcher(wa *watcher) {
 func (s *watchableStore) Restore(b backend.Backend) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	err := s.store.Restore(b)
@@ -144,6 +158,8 @@ func (s *watchableStore) Restore(b backend.Backend) error {
 	return nil
 }
 func (s *watchableStore) syncWatchersLoop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer s.wg.Done()
@@ -171,6 +187,8 @@ func (s *watchableStore) syncWatchersLoop() {
 func (s *watchableStore) syncVictimsLoop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer s.wg.Done()
 	for {
 		for s.moveVictims() != 0 {
@@ -191,6 +209,8 @@ func (s *watchableStore) syncVictimsLoop() {
 	}
 }
 func (s *watchableStore) moveVictims() (moved int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.mu.Lock()
@@ -241,6 +261,8 @@ func (s *watchableStore) moveVictims() (moved int) {
 	return moved
 }
 func (s *watchableStore) syncWatchers() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.mu.Lock()
@@ -303,6 +325,8 @@ func (s *watchableStore) syncWatchers() int {
 func kvsToEvents(wg *watcherGroup, revs, vals [][]byte) (evs []mvccpb.Event) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i, v := range vals {
 		var kv mvccpb.KeyValue
 		if err := kv.Unmarshal(v); err != nil {
@@ -321,6 +345,8 @@ func kvsToEvents(wg *watcherGroup, revs, vals [][]byte) (evs []mvccpb.Event) {
 	return evs
 }
 func (s *watchableStore) notify(rev int64, evs []mvccpb.Event) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var victim watcherBatch
@@ -346,6 +372,8 @@ func (s *watchableStore) notify(rev int64, evs []mvccpb.Event) {
 func (s *watchableStore) addVictim(victim watcherBatch) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if victim == nil {
 		return
 	}
@@ -358,9 +386,13 @@ func (s *watchableStore) addVictim(victim watcherBatch) {
 func (s *watchableStore) rev() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.store.Rev()
 }
 func (s *watchableStore) progress(w *watcher) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.mu.RLock()
@@ -383,6 +415,8 @@ type watcher struct {
 }
 
 func (w *watcher) send(wr WatchResponse) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	progressEvent := len(wr.Events) == 0

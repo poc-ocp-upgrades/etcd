@@ -10,6 +10,8 @@ import (
 func TestLockAndUnlock(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f, err := ioutil.TempFile("", "lock")
 	if err != nil {
 		t.Fatal(err)

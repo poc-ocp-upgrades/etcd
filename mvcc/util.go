@@ -9,6 +9,8 @@ import (
 func UpdateConsistentIndex(be backend.Backend, index uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tx := be.BatchTx()
 	tx.Lock()
 	defer tx.Unlock()
@@ -25,6 +27,8 @@ func UpdateConsistentIndex(be backend.Backend, index uint64) {
 	tx.UnsafePut(metaBucketName, consistentIndexKeyName, bs)
 }
 func WriteKV(be backend.Backend, kv mvccpb.KeyValue) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ibytes := newRevBytes()

@@ -12,14 +12,20 @@ import (
 func TestTLSClientCipherSuitesValid(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testTLSCipherSuites(t, true)
 }
 func TestTLSClientCipherSuitesMismatch(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testTLSCipherSuites(t, false)
 }
 func testTLSCipherSuites(t *testing.T, valid bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)

@@ -34,6 +34,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	raft.SetLogger(capnslog.NewPackageLogger("github.com/coreos/etcd", "raft"))
 	expvar.Publish("raft.status", expvar.Func(func() interface{} {
 		raftStatusMu.Lock()
@@ -77,6 +79,8 @@ type raftNodeConfig struct {
 func newRaftNode(cfg raftNodeConfig) *raftNode {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := &raftNode{tickMu: new(sync.Mutex), raftNodeConfig: cfg, td: contention.NewTimeoutDetector(2 * cfg.heartbeat), readStateC: make(chan raft.ReadState, 1), msgSnapC: make(chan raftpb.Message, maxInFlightMsgSnap), applyc: make(chan apply), stopped: make(chan struct{}), done: make(chan struct{})}
 	if r.heartbeat == 0 {
 		r.ticker = &time.Ticker{}
@@ -88,11 +92,15 @@ func newRaftNode(cfg raftNodeConfig) *raftNode {
 func (r *raftNode) tick() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.tickMu.Lock()
 	r.Tick()
 	r.tickMu.Unlock()
 }
 func (r *raftNode) start(rh *raftReadyHandler) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	internalTimeout := time.Second
@@ -190,6 +198,8 @@ func (r *raftNode) start(rh *raftReadyHandler) {
 func updateCommittedIndex(ap *apply, rh *raftReadyHandler) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var ci uint64
 	if len(ap.entries) != 0 {
 		ci = ap.entries[len(ap.entries)-1].Index
@@ -202,6 +212,8 @@ func updateCommittedIndex(ap *apply, rh *raftReadyHandler) {
 	}
 }
 func (r *raftNode) processMessages(ms []raftpb.Message) []raftpb.Message {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sentAppResp := false
@@ -237,15 +249,21 @@ func (r *raftNode) processMessages(ms []raftpb.Message) []raftpb.Message {
 func (r *raftNode) apply() chan apply {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.applyc
 }
 func (r *raftNode) stop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r.stopped <- struct{}{}
 	<-r.done
 }
 func (r *raftNode) onStop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r.Stop()
@@ -259,10 +277,14 @@ func (r *raftNode) onStop() {
 func (r *raftNode) pauseSending() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p := r.transport.(rafthttp.Pausable)
 	p.Pause()
 }
 func (r *raftNode) resumeSending() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p := r.transport.(rafthttp.Pausable)
@@ -271,11 +293,15 @@ func (r *raftNode) resumeSending() {
 func (r *raftNode) advanceTicks(ticks int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i := 0; i < ticks; i++ {
 		r.tick()
 	}
 }
 func startNode(cfg ServerConfig, cl *membership.RaftCluster, ids []types.ID) (id types.ID, n raft.Node, s *raft.MemoryStorage, w *wal.WAL) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -305,6 +331,8 @@ func startNode(cfg ServerConfig, cl *membership.RaftCluster, ids []types.ID) (id
 func restartNode(cfg ServerConfig, snapshot *raftpb.Snapshot) (types.ID, *membership.RaftCluster, raft.Node, *raft.MemoryStorage, *wal.WAL) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var walsnap walpb.Snapshot
 	if snapshot != nil {
 		walsnap.Index, walsnap.Term = snapshot.Metadata.Index, snapshot.Metadata.Term
@@ -327,6 +355,8 @@ func restartNode(cfg ServerConfig, snapshot *raftpb.Snapshot) (types.ID, *member
 	return id, cl, n, s, w
 }
 func restartAsStandaloneNode(cfg ServerConfig, snapshot *raftpb.Snapshot) (types.ID, *membership.RaftCluster, raft.Node, *raft.MemoryStorage, *wal.WAL) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var walsnap walpb.Snapshot
@@ -367,6 +397,8 @@ func restartAsStandaloneNode(cfg ServerConfig, snapshot *raftpb.Snapshot) (types
 func getIDs(snap *raftpb.Snapshot, ents []raftpb.Entry) []uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ids := make(map[uint64]bool)
 	if snap != nil {
 		for _, id := range snap.Metadata.ConfState.Nodes {
@@ -397,6 +429,8 @@ func getIDs(snap *raftpb.Snapshot, ents []raftpb.Entry) []uint64 {
 	return []uint64(sids)
 }
 func createConfigChangeEnts(ids []uint64, self uint64, term, index uint64) []raftpb.Entry {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ents := make([]raftpb.Entry, 0)

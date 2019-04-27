@@ -26,14 +26,20 @@ type readTx struct {
 func (rt *readTx) Lock() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rt.mu.RLock()
 }
 func (rt *readTx) Unlock() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rt.mu.RUnlock()
 }
 func (rt *readTx) UnsafeRange(bucketName, key, endKey []byte, limit int64) ([][]byte, [][]byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if endKey == nil {
@@ -71,6 +77,8 @@ func (rt *readTx) UnsafeRange(bucketName, key, endKey []byte, limit int64) ([][]
 func (rt *readTx) UnsafeForEach(bucketName []byte, visitor func(k, v []byte) error) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dups := make(map[string]struct{})
 	getDups := func(k, v []byte) error {
 		dups[string(k)] = struct{}{}
@@ -94,6 +102,8 @@ func (rt *readTx) UnsafeForEach(bucketName []byte, visitor func(k, v []byte) err
 	return rt.buf.ForEach(bucketName, visitor)
 }
 func (rt *readTx) reset() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rt.buf.reset()

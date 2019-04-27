@@ -8,6 +8,8 @@ import (
 func TestFIFOSchedule(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := NewFIFOScheduler()
 	defer s.Stop()
 	next := 0

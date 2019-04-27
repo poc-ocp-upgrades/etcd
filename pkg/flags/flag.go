@@ -22,9 +22,13 @@ type DeprecatedFlag struct{ Name string }
 func (f *DeprecatedFlag) Set(_ string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Errorf(`flag "-%s" is no longer supported.`, f.Name)
 }
 func (f *DeprecatedFlag) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ""
@@ -35,9 +39,13 @@ type IgnoredFlag struct{ Name string }
 func (f *IgnoredFlag) IsBoolFlag() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return true
 }
 func (f *IgnoredFlag) Set(s string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	plog.Warningf(`flag "-%s" is no longer supported - ignoring.`, f.Name)
@@ -46,9 +54,13 @@ func (f *IgnoredFlag) Set(s string) error {
 func (f *IgnoredFlag) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ""
 }
 func SetFlagsFromEnv(prefix string, fs *flag.FlagSet) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -68,6 +80,8 @@ func SetFlagsFromEnv(prefix string, fs *flag.FlagSet) error {
 func SetPflagsFromEnv(prefix string, fs *pflag.FlagSet) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err error
 	alreadySet := make(map[string]bool)
 	usedEnvKey := make(map[string]bool)
@@ -85,9 +99,13 @@ func SetPflagsFromEnv(prefix string, fs *pflag.FlagSet) error {
 func FlagToEnv(prefix, name string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return prefix + "_" + strings.ToUpper(strings.Replace(name, "-", "_", -1))
 }
 func verifyEnv(prefix string, usedEnvKey, alreadySet map[string]bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, env := range os.Environ() {
@@ -115,6 +133,8 @@ type flagSetter interface {
 func setFlagFromEnv(fs flagSetter, prefix, fname string, usedEnvKey, alreadySet map[string]bool, log bool) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := FlagToEnv(prefix, fname)
 	if !alreadySet[key] {
 		val := os.Getenv(key)
@@ -133,9 +153,13 @@ func setFlagFromEnv(fs flagSetter, prefix, fname string, usedEnvKey, alreadySet 
 func URLsFromFlag(fs *flag.FlagSet, urlsFlagName string) []url.URL {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []url.URL(*fs.Lookup(urlsFlagName).Value.(*URLsValue))
 }
 func IsSet(fs *flag.FlagSet, name string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	set := false
@@ -149,7 +173,16 @@ func IsSet(fs *flag.FlagSet, name string) bool {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

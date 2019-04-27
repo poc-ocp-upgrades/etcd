@@ -19,9 +19,13 @@ type proxyEtcdProcess struct {
 func newEtcdProcess(cfg *etcdServerProcessConfig) (etcdProcess, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newProxyEtcdProcess(cfg)
 }
 func newProxyEtcdProcess(cfg *etcdServerProcessConfig) (*proxyEtcdProcess, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ep, err := newEtcdServerProcess(cfg)
@@ -34,9 +38,13 @@ func newProxyEtcdProcess(cfg *etcdServerProcessConfig) (*proxyEtcdProcess, error
 func (p *proxyEtcdProcess) Config() *etcdServerProcessConfig {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return p.etcdProc.Config()
 }
 func (p *proxyEtcdProcess) EndpointsV2() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return p.proxyV2.endpoints()
@@ -44,14 +52,20 @@ func (p *proxyEtcdProcess) EndpointsV2() []string {
 func (p *proxyEtcdProcess) EndpointsV3() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return p.proxyV3.endpoints()
 }
 func (p *proxyEtcdProcess) EndpointsMetrics() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	panic("not implemented; proxy doesn't provide health information")
 }
 func (p *proxyEtcdProcess) Start() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := p.etcdProc.Start(); err != nil {
@@ -65,6 +79,8 @@ func (p *proxyEtcdProcess) Start() error {
 func (p *proxyEtcdProcess) Restart() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := p.etcdProc.Restart(); err != nil {
 		return err
 	}
@@ -74,6 +90,8 @@ func (p *proxyEtcdProcess) Restart() error {
 	return p.proxyV3.Restart()
 }
 func (p *proxyEtcdProcess) Stop() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := p.proxyV2.Stop()
@@ -90,6 +108,8 @@ func (p *proxyEtcdProcess) Stop() error {
 func (p *proxyEtcdProcess) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := p.proxyV2.Close()
 	if v3err := p.proxyV3.Close(); err == nil {
 		err = v3err
@@ -102,6 +122,8 @@ func (p *proxyEtcdProcess) Close() error {
 	return err
 }
 func (p *proxyEtcdProcess) WithStopSignal(sig os.Signal) os.Signal {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	p.proxyV3.WithStopSignal(sig)
@@ -121,9 +143,13 @@ type proxyProc struct {
 func (pp *proxyProc) endpoints() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []string{pp.ep}
 }
 func (pp *proxyProc) start() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if pp.proc != nil {
@@ -139,10 +165,14 @@ func (pp *proxyProc) start() error {
 func (pp *proxyProc) waitReady(readyStr string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer close(pp.donec)
 	return waitReadyExpectProc(pp.proc, []string{readyStr})
 }
 func (pp *proxyProc) Stop() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if pp.proc == nil {
@@ -159,11 +189,15 @@ func (pp *proxyProc) Stop() error {
 func (pp *proxyProc) WithStopSignal(sig os.Signal) os.Signal {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ret := pp.proc.StopSignal
 	pp.proc.StopSignal = sig
 	return ret
 }
 func (pp *proxyProc) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return pp.Stop()
@@ -175,6 +209,8 @@ type proxyV2Proc struct {
 }
 
 func proxyListenURL(cfg *etcdServerProcessConfig, portOffset int) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u, err := url.Parse(cfg.acurl)
@@ -189,12 +225,16 @@ func proxyListenURL(cfg *etcdServerProcessConfig, portOffset int) string {
 func newProxyV2Proc(cfg *etcdServerProcessConfig) *proxyV2Proc {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	listenAddr := proxyListenURL(cfg, 2)
 	name := fmt.Sprintf("testname-proxy-%p", cfg)
 	args := []string{"--name", name, "--proxy", "on", "--listen-client-urls", listenAddr, "--initial-cluster", cfg.name + "=" + cfg.purl.String()}
 	return &proxyV2Proc{proxyProc{execPath: cfg.execPath, args: append(args, cfg.tlsArgs...), ep: listenAddr, donec: make(chan struct{})}, name + ".etcd"}
 }
 func (v2p *proxyV2Proc) Start() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	os.RemoveAll(v2p.dataDir)
@@ -206,12 +246,16 @@ func (v2p *proxyV2Proc) Start() error {
 func (v2p *proxyV2Proc) Restart() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := v2p.Stop(); err != nil {
 		return err
 	}
 	return v2p.Start()
 }
 func (v2p *proxyV2Proc) Stop() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := v2p.proxyProc.Stop(); err != nil {
@@ -223,6 +267,8 @@ func (v2p *proxyV2Proc) Stop() error {
 type proxyV3Proc struct{ proxyProc }
 
 func newProxyV3Proc(cfg *etcdServerProcessConfig) *proxyV3Proc {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	listenAddr := proxyListenURL(cfg, 3)
@@ -258,12 +304,16 @@ func newProxyV3Proc(cfg *etcdServerProcessConfig) *proxyV3Proc {
 func (v3p *proxyV3Proc) Restart() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := v3p.Stop(); err != nil {
 		return err
 	}
 	return v3p.Start()
 }
 func (v3p *proxyV3Proc) Start() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := v3p.start(); err != nil {

@@ -10,6 +10,8 @@ import (
 func printResponseKey(resp *client.Response, format string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch format {
 	case "simple":
 		if resp.Action != "delete" {

@@ -13,6 +13,8 @@ type watchRange struct{ key, end string }
 func (wr *watchRange) valid() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(wr.end) == 0 || wr.end > wr.key || (wr.end[0] == 0 && len(wr.end) == 1)
 }
 
@@ -28,6 +30,8 @@ type watcher struct {
 }
 
 func (w *watcher) send(wr clientv3.WatchResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if wr.IsProgressNotify() && !w.progress {
@@ -75,6 +79,8 @@ func (w *watcher) send(wr clientv3.WatchResponse) {
 	w.post(&pb.WatchResponse{Header: &wr.Header, Created: wr.Created, CompactRevision: wr.CompactRevision, Canceled: wr.Canceled, WatchId: w.id, Events: events})
 }
 func (w *watcher) post(wr *pb.WatchResponse) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {

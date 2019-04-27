@@ -15,6 +15,8 @@ import (
 func TestTransportSend(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	peer1 := newFakePeer()
 	peer2 := newFakePeer()
 	tr := &Transport{ServerStats: stats.NewServerStats("", ""), peers: map[types.ID]Peer{types.ID(1): peer1, types.ID(2): peer2}, pipelineProber: probing.NewProber(nil), streamProber: probing.NewProber(nil)}
@@ -34,6 +36,8 @@ func TestTransportSend(t *testing.T) {
 func TestTransportCutMend(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	peer1 := newFakePeer()
 	peer2 := newFakePeer()
 	tr := &Transport{ServerStats: stats.NewServerStats("", ""), peers: map[types.ID]Peer{types.ID(1): peer1, types.ID(2): peer2}, pipelineProber: probing.NewProber(nil), streamProber: probing.NewProber(nil)}
@@ -50,6 +54,8 @@ func TestTransportCutMend(t *testing.T) {
 	}
 }
 func TestTransportAdd(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ls := stats.NewLeaderStats("")
@@ -73,6 +79,8 @@ func TestTransportAdd(t *testing.T) {
 func TestTransportRemove(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tr := &Transport{LeaderStats: stats.NewLeaderStats(""), streamRt: &roundTripperRecorder{}, peers: make(map[types.ID]Peer), pipelineProber: probing.NewProber(nil), streamProber: probing.NewProber(nil)}
 	tr.AddPeer(1, []string{"http://localhost:2380"})
 	tr.RemovePeer(types.ID(1))
@@ -82,6 +90,8 @@ func TestTransportRemove(t *testing.T) {
 	}
 }
 func TestTransportUpdate(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	peer := newFakePeer()
@@ -94,6 +104,8 @@ func TestTransportUpdate(t *testing.T) {
 	}
 }
 func TestTransportErrorc(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	errorc := make(chan error, 1)

@@ -9,6 +9,8 @@ import (
 func TestReadWriteTimeoutDialer(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	stop := make(chan struct{})
 	ln, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
@@ -64,6 +66,8 @@ type testBlockingServer struct {
 }
 
 func (ts *testBlockingServer) Start(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := 0; i < ts.n; i++ {

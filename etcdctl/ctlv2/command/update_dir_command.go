@@ -10,12 +10,16 @@ import (
 func NewUpdateDirCommand() cli.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cli.Command{Name: "updatedir", Usage: "update an existing directory", ArgsUsage: "<key> <value>", Flags: []cli.Flag{cli.IntFlag{Name: "ttl", Value: 0, Usage: "key time-to-live in seconds"}}, Action: func(c *cli.Context) error {
 		updatedirCommandFunc(c, mustNewKeyAPI(c))
 		return nil
 	}}
 }
 func updatedirCommandFunc(c *cli.Context, ki client.KeysAPI) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(c.Args()) == 0 {

@@ -11,12 +11,16 @@ import (
 func NewGetCommand() cli.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cli.Command{Name: "get", Usage: "retrieve the value of a key", ArgsUsage: "<key>", Flags: []cli.Flag{cli.BoolFlag{Name: "sort", Usage: "returns result in sorted order"}, cli.BoolFlag{Name: "quorum, q", Usage: "require quorum for get request"}}, Action: func(c *cli.Context) error {
 		getCommandFunc(c, mustNewKeyAPI(c))
 		return nil
 	}}
 }
 func getCommandFunc(c *cli.Context, ki client.KeysAPI) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(c.Args()) == 0 {

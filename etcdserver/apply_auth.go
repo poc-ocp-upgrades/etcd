@@ -19,9 +19,13 @@ type authApplierV3 struct {
 func newAuthApplierV3(as auth.AuthStore, base applierV3, lessor lease.Lessor) *authApplierV3 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &authApplierV3{applierV3: base, as: as, lessor: lessor}
 }
 func (aa *authApplierV3) Apply(r *pb.InternalRaftRequest) *applyResult {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	aa.mu.Lock()
@@ -45,6 +49,8 @@ func (aa *authApplierV3) Apply(r *pb.InternalRaftRequest) *applyResult {
 func (aa *authApplierV3) Put(txn mvcc.TxnWrite, r *pb.PutRequest) (*pb.PutResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := aa.as.IsPutPermitted(&aa.authInfo, r.Key); err != nil {
 		return nil, err
 	}
@@ -62,12 +68,16 @@ func (aa *authApplierV3) Put(txn mvcc.TxnWrite, r *pb.PutRequest) (*pb.PutRespon
 func (aa *authApplierV3) Range(txn mvcc.TxnRead, r *pb.RangeRequest) (*pb.RangeResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := aa.as.IsRangePermitted(&aa.authInfo, r.Key, r.RangeEnd); err != nil {
 		return nil, err
 	}
 	return aa.applierV3.Range(txn, r)
 }
 func (aa *authApplierV3) DeleteRange(txn mvcc.TxnWrite, r *pb.DeleteRangeRequest) (*pb.DeleteRangeResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := aa.as.IsDeleteRangePermitted(&aa.authInfo, r.Key, r.RangeEnd); err != nil {
@@ -82,6 +92,8 @@ func (aa *authApplierV3) DeleteRange(txn mvcc.TxnWrite, r *pb.DeleteRangeRequest
 	return aa.applierV3.DeleteRange(txn, r)
 }
 func checkTxnReqsPermission(as auth.AuthStore, ai *auth.AuthInfo, reqs []*pb.RequestOp) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, requ := range reqs {
@@ -121,6 +133,8 @@ func checkTxnReqsPermission(as auth.AuthStore, ai *auth.AuthInfo, reqs []*pb.Req
 func checkTxnAuth(as auth.AuthStore, ai *auth.AuthInfo, rt *pb.TxnRequest) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, c := range rt.Compare {
 		if err := as.IsRangePermitted(ai, c.Key, c.RangeEnd); err != nil {
 			return err
@@ -137,6 +151,8 @@ func checkTxnAuth(as auth.AuthStore, ai *auth.AuthInfo, rt *pb.TxnRequest) error
 func (aa *authApplierV3) Txn(rt *pb.TxnRequest) (*pb.TxnResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := checkTxnAuth(aa.as, &aa.authInfo, rt); err != nil {
 		return nil, err
 	}
@@ -145,12 +161,16 @@ func (aa *authApplierV3) Txn(rt *pb.TxnRequest) (*pb.TxnResponse, error) {
 func (aa *authApplierV3) LeaseRevoke(lc *pb.LeaseRevokeRequest) (*pb.LeaseRevokeResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := aa.checkLeasePuts(lease.LeaseID(lc.ID)); err != nil {
 		return nil, err
 	}
 	return aa.applierV3.LeaseRevoke(lc)
 }
 func (aa *authApplierV3) checkLeasePuts(leaseID lease.LeaseID) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lease := aa.lessor.Lookup(leaseID)
@@ -166,6 +186,8 @@ func (aa *authApplierV3) checkLeasePuts(leaseID lease.LeaseID) error {
 func (aa *authApplierV3) UserGet(r *pb.AuthUserGetRequest) (*pb.AuthUserGetResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := aa.as.IsAdminPermitted(&aa.authInfo)
 	if err != nil && r.Name != aa.authInfo.Username {
 		aa.authInfo.Username = ""
@@ -177,6 +199,8 @@ func (aa *authApplierV3) UserGet(r *pb.AuthUserGetRequest) (*pb.AuthUserGetRespo
 func (aa *authApplierV3) RoleGet(r *pb.AuthRoleGetRequest) (*pb.AuthRoleGetResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := aa.as.IsAdminPermitted(&aa.authInfo)
 	if err != nil && !aa.as.HasRole(aa.authInfo.Username, r.Role) {
 		aa.authInfo.Username = ""
@@ -186,6 +210,8 @@ func (aa *authApplierV3) RoleGet(r *pb.AuthRoleGetRequest) (*pb.AuthRoleGetRespo
 	return aa.applierV3.RoleGet(r)
 }
 func needAdminPermission(r *pb.InternalRaftRequest) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch {

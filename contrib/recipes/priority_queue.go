@@ -16,9 +16,13 @@ type PriorityQueue struct {
 func NewPriorityQueue(client *v3.Client, key string) *PriorityQueue {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &PriorityQueue{client, context.TODO(), key + "/"}
 }
 func (q *PriorityQueue) Enqueue(val string, pr uint16) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	prefix := fmt.Sprintf("%s%05d", q.key, pr)
@@ -26,6 +30,8 @@ func (q *PriorityQueue) Enqueue(val string, pr uint16) error {
 	return err
 }
 func (q *PriorityQueue) Dequeue() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := q.client.Get(q.ctx, q.key, v3.WithFirstKey()...)

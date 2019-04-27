@@ -20,6 +20,8 @@ const (
 func addPeerToProber(p probing.Prober, id string, us []string, roundTripperName string, rttSecProm *prometheus.HistogramVec) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	hus := make([]string, len(us))
 	for i := range us {
 		hus[i] = us[i] + ProbingPrefix
@@ -33,6 +35,8 @@ func addPeerToProber(p probing.Prober, id string, us []string, roundTripperName 
 	}
 }
 func monitorProbingStatus(s probing.Status, id string, roundTripperName string, rttSecProm *prometheus.HistogramVec) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	interval := statusErrorInterval

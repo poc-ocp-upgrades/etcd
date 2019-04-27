@@ -9,6 +9,8 @@ import (
 func (st StateType) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []byte(fmt.Sprintf("%q", st.String())), nil
 }
 
@@ -17,9 +19,13 @@ type uint64Slice []uint64
 func (p uint64Slice) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(p)
 }
 func (p uint64Slice) Less(i, j int) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return p[i] < p[j]
@@ -27,9 +33,13 @@ func (p uint64Slice) Less(i, j int) bool {
 func (p uint64Slice) Swap(i, j int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p[i], p[j] = p[j], p[i]
 }
 func min(a, b uint64) uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if a > b {
@@ -40,6 +50,8 @@ func min(a, b uint64) uint64 {
 func max(a, b uint64) uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if a > b {
 		return a
 	}
@@ -48,14 +60,20 @@ func max(a, b uint64) uint64 {
 func IsLocalMsg(msgt pb.MessageType) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return msgt == pb.MsgHup || msgt == pb.MsgBeat || msgt == pb.MsgUnreachable || msgt == pb.MsgSnapStatus || msgt == pb.MsgCheckQuorum
 }
 func IsResponseMsg(msgt pb.MessageType) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return msgt == pb.MsgAppResp || msgt == pb.MsgVoteResp || msgt == pb.MsgHeartbeatResp || msgt == pb.MsgUnreachable || msgt == pb.MsgPreVoteResp
 }
 func voteRespMsgType(msgt pb.MessageType) pb.MessageType {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch msgt {
@@ -71,6 +89,8 @@ func voteRespMsgType(msgt pb.MessageType) pb.MessageType {
 type EntryFormatter func([]byte) string
 
 func DescribeMessage(m pb.Message, f EntryFormatter) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var buf bytes.Buffer
@@ -102,6 +122,8 @@ func DescribeMessage(m pb.Message, f EntryFormatter) string {
 func DescribeEntry(e pb.Entry, f EntryFormatter) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var formatted string
 	if e.Type == pb.EntryNormal && f != nil {
 		formatted = f(e.Data)
@@ -111,6 +133,8 @@ func DescribeEntry(e pb.Entry, f EntryFormatter) string {
 	return fmt.Sprintf("%d/%d %s %s", e.Term, e.Index, e.Type, formatted)
 }
 func limitSize(ents []pb.Entry, maxSize uint64) []pb.Entry {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(ents) == 0 {

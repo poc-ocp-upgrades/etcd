@@ -9,6 +9,8 @@ import (
 func TestNewTimeoutListener(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l, err := NewTimeoutListener("127.0.0.1:0", "http", nil, time.Hour, time.Hour)
 	if err != nil {
 		t.Fatalf("unexpected NewTimeoutListener error: %v", err)
@@ -23,6 +25,8 @@ func TestNewTimeoutListener(t *testing.T) {
 	}
 }
 func TestWriteReadTimeoutListener(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ln, err := net.Listen("tcp", "127.0.0.1:0")

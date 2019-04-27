@@ -25,14 +25,20 @@ type fakeCluster struct {
 func (c *fakeCluster) ID() types.ID {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return types.ID(c.id)
 }
 func (c *fakeCluster) ClientURLs() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.clientURLs
 }
 func (c *fakeCluster) Members() []*membership.Member {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var ms membership.MembersByID
@@ -45,9 +51,13 @@ func (c *fakeCluster) Members() []*membership.Member {
 func (c *fakeCluster) Member(id types.ID) *membership.Member {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.members[uint64(id)]
 }
 func (c *fakeCluster) Version() *semver.Version {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -61,9 +71,13 @@ type errServer struct {
 func (fs *errServer) Do(ctx context.Context, r etcdserverpb.Request) (etcdserver.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return etcdserver.Response{}, fs.err
 }
 func (fs *errServer) Process(ctx context.Context, m raftpb.Message) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fs.err
@@ -71,9 +85,13 @@ func (fs *errServer) Process(ctx context.Context, m raftpb.Message) error {
 func (fs *errServer) AddMember(ctx context.Context, m membership.Member) ([]*membership.Member, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, fs.err
 }
 func (fs *errServer) RemoveMember(ctx context.Context, id uint64) ([]*membership.Member, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil, fs.err
@@ -81,9 +99,13 @@ func (fs *errServer) RemoveMember(ctx context.Context, id uint64) ([]*membership
 func (fs *errServer) UpdateMember(ctx context.Context, m membership.Member) ([]*membership.Member, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, fs.err
 }
 func TestWriteError(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rec := httptest.NewRecorder()
@@ -114,6 +136,8 @@ func TestWriteError(t *testing.T) {
 	}
 }
 func TestAllowMethod(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {

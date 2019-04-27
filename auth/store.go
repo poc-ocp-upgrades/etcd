@@ -112,6 +112,8 @@ type authStore struct {
 func (as *authStore) AuthEnable() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	as.enabledMu.Lock()
 	defer as.enabledMu.Unlock()
 	if as.enabled {
@@ -143,6 +145,8 @@ func (as *authStore) AuthEnable() error {
 func (as *authStore) AuthDisable() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	as.enabledMu.Lock()
 	defer as.enabledMu.Unlock()
 	if !as.enabled {
@@ -162,6 +166,8 @@ func (as *authStore) AuthDisable() {
 func (as *authStore) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	as.enabledMu.Lock()
 	defer as.enabledMu.Unlock()
 	if !as.enabled {
@@ -171,6 +177,8 @@ func (as *authStore) Close() error {
 	return nil
 }
 func (as *authStore) Authenticate(ctx context.Context, username, password string) (*pb.AuthenticateResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !as.isAuthEnabled() {
@@ -193,6 +201,8 @@ func (as *authStore) Authenticate(ctx context.Context, username, password string
 func (as *authStore) CheckPassword(username, password string) (uint64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !as.isAuthEnabled() {
 		return 0, ErrAuthNotEnabled
 	}
@@ -212,6 +222,8 @@ func (as *authStore) CheckPassword(username, password string) (uint64, error) {
 func (as *authStore) Recover(be backend.Backend) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	enabled := false
 	as.be = be
 	tx := be.BatchTx()
@@ -229,6 +241,8 @@ func (as *authStore) Recover(be backend.Backend) {
 	as.enabledMu.Unlock()
 }
 func (as *authStore) UserAdd(r *pb.AuthUserAddRequest) (*pb.AuthUserAddResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(r.Name) == 0 {
@@ -255,6 +269,8 @@ func (as *authStore) UserAdd(r *pb.AuthUserAddRequest) (*pb.AuthUserAddResponse,
 func (as *authStore) UserDelete(r *pb.AuthUserDeleteRequest) (*pb.AuthUserDeleteResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if as.enabled && strings.Compare(r.Name, rootUser) == 0 {
 		plog.Errorf("the user root must not be deleted")
 		return nil, ErrInvalidAuthMgmt
@@ -274,6 +290,8 @@ func (as *authStore) UserDelete(r *pb.AuthUserDeleteRequest) (*pb.AuthUserDelete
 	return &pb.AuthUserDeleteResponse{}, nil
 }
 func (as *authStore) UserChangePassword(r *pb.AuthUserChangePasswordRequest) (*pb.AuthUserChangePasswordResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	hashed, err := bcrypt.GenerateFromPassword([]byte(r.Password), BcryptCost)
@@ -297,6 +315,8 @@ func (as *authStore) UserChangePassword(r *pb.AuthUserChangePasswordRequest) (*p
 	return &pb.AuthUserChangePasswordResponse{}, nil
 }
 func (as *authStore) UserGrantRole(r *pb.AuthUserGrantRoleRequest) (*pb.AuthUserGrantRoleResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tx := as.be.BatchTx()
@@ -328,6 +348,8 @@ func (as *authStore) UserGrantRole(r *pb.AuthUserGrantRoleRequest) (*pb.AuthUser
 func (as *authStore) UserGet(r *pb.AuthUserGetRequest) (*pb.AuthUserGetResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tx := as.be.BatchTx()
 	tx.Lock()
 	user := getUser(tx, r.Name)
@@ -342,6 +364,8 @@ func (as *authStore) UserGet(r *pb.AuthUserGetRequest) (*pb.AuthUserGetResponse,
 func (as *authStore) UserList(r *pb.AuthUserListRequest) (*pb.AuthUserListResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tx := as.be.BatchTx()
 	tx.Lock()
 	users := getAllUsers(tx)
@@ -353,6 +377,8 @@ func (as *authStore) UserList(r *pb.AuthUserListRequest) (*pb.AuthUserListRespon
 	return resp, nil
 }
 func (as *authStore) UserRevokeRole(r *pb.AuthUserRevokeRoleRequest) (*pb.AuthUserRevokeRoleResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if as.enabled && strings.Compare(r.Name, rootUser) == 0 && strings.Compare(r.Role, rootRole) == 0 {
@@ -384,6 +410,8 @@ func (as *authStore) UserRevokeRole(r *pb.AuthUserRevokeRoleRequest) (*pb.AuthUs
 func (as *authStore) RoleGet(r *pb.AuthRoleGetRequest) (*pb.AuthRoleGetResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tx := as.be.BatchTx()
 	tx.Lock()
 	defer tx.Unlock()
@@ -398,6 +426,8 @@ func (as *authStore) RoleGet(r *pb.AuthRoleGetRequest) (*pb.AuthRoleGetResponse,
 func (as *authStore) RoleList(r *pb.AuthRoleListRequest) (*pb.AuthRoleListResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tx := as.be.BatchTx()
 	tx.Lock()
 	roles := getAllRoles(tx)
@@ -409,6 +439,8 @@ func (as *authStore) RoleList(r *pb.AuthRoleListRequest) (*pb.AuthRoleListRespon
 	return resp, nil
 }
 func (as *authStore) RoleRevokePermission(r *pb.AuthRoleRevokePermissionRequest) (*pb.AuthRoleRevokePermissionResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tx := as.be.BatchTx()
@@ -434,6 +466,8 @@ func (as *authStore) RoleRevokePermission(r *pb.AuthRoleRevokePermissionRequest)
 	return &pb.AuthRoleRevokePermissionResponse{}, nil
 }
 func (as *authStore) RoleDelete(r *pb.AuthRoleDeleteRequest) (*pb.AuthRoleDeleteResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if as.enabled && strings.Compare(r.Role, rootRole) == 0 {
@@ -469,6 +503,8 @@ func (as *authStore) RoleDelete(r *pb.AuthRoleDeleteRequest) (*pb.AuthRoleDelete
 func (as *authStore) RoleAdd(r *pb.AuthRoleAddRequest) (*pb.AuthRoleAddResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tx := as.be.BatchTx()
 	tx.Lock()
 	defer tx.Unlock()
@@ -485,6 +521,8 @@ func (as *authStore) RoleAdd(r *pb.AuthRoleAddRequest) (*pb.AuthRoleAddResponse,
 func (as *authStore) authInfoFromToken(ctx context.Context, token string) (*AuthInfo, bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return as.tokenProvider.info(ctx, token, as.Revision())
 }
 
@@ -493,9 +531,13 @@ type permSlice []*authpb.Permission
 func (perms permSlice) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(perms)
 }
 func (perms permSlice) Less(i, j int) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return bytes.Compare(perms[i].Key, perms[j].Key) < 0
@@ -503,9 +545,13 @@ func (perms permSlice) Less(i, j int) bool {
 func (perms permSlice) Swap(i, j int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	perms[i], perms[j] = perms[j], perms[i]
 }
 func (as *authStore) RoleGrantPermission(r *pb.AuthRoleGrantPermissionRequest) (*pb.AuthRoleGrantPermissionResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tx := as.be.BatchTx()
@@ -532,6 +578,8 @@ func (as *authStore) RoleGrantPermission(r *pb.AuthRoleGrantPermissionRequest) (
 	return &pb.AuthRoleGrantPermissionResponse{}, nil
 }
 func (as *authStore) isOpPermitted(userName string, revision uint64, key, rangeEnd []byte, permTyp authpb.Permission_Type) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !as.isAuthEnabled() {
@@ -562,9 +610,13 @@ func (as *authStore) isOpPermitted(userName string, revision uint64, key, rangeE
 func (as *authStore) IsPutPermitted(authInfo *AuthInfo, key []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return as.isOpPermitted(authInfo.Username, authInfo.Revision, key, nil, authpb.WRITE)
 }
 func (as *authStore) IsRangePermitted(authInfo *AuthInfo, key, rangeEnd []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return as.isOpPermitted(authInfo.Username, authInfo.Revision, key, rangeEnd, authpb.READ)
@@ -572,9 +624,13 @@ func (as *authStore) IsRangePermitted(authInfo *AuthInfo, key, rangeEnd []byte) 
 func (as *authStore) IsDeleteRangePermitted(authInfo *AuthInfo, key, rangeEnd []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return as.isOpPermitted(authInfo.Username, authInfo.Revision, key, rangeEnd, authpb.WRITE)
 }
 func (as *authStore) IsAdminPermitted(authInfo *AuthInfo) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !as.isAuthEnabled() {
@@ -598,6 +654,8 @@ func (as *authStore) IsAdminPermitted(authInfo *AuthInfo) error {
 func getUser(tx backend.BatchTx, username string) *authpb.User {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, vs := tx.UnsafeRange(authUsersBucketName, []byte(username), nil, 0)
 	if len(vs) == 0 {
 		return nil
@@ -610,6 +668,8 @@ func getUser(tx backend.BatchTx, username string) *authpb.User {
 	return user
 }
 func getAllUsers(tx backend.BatchTx) []*authpb.User {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, vs := tx.UnsafeRange(authUsersBucketName, []byte{0}, []byte{0xff}, -1)
@@ -630,6 +690,8 @@ func getAllUsers(tx backend.BatchTx) []*authpb.User {
 func putUser(tx backend.BatchTx, user *authpb.User) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, err := user.Marshal()
 	if err != nil {
 		plog.Panicf("failed to marshal user struct (name: %s): %s", user.Name, err)
@@ -639,9 +701,13 @@ func putUser(tx backend.BatchTx, user *authpb.User) {
 func delUser(tx backend.BatchTx, username string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tx.UnsafeDelete(authUsersBucketName, []byte(username))
 }
 func getRole(tx backend.BatchTx, rolename string) *authpb.Role {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, vs := tx.UnsafeRange(authRolesBucketName, []byte(rolename), nil, 0)
@@ -656,6 +722,8 @@ func getRole(tx backend.BatchTx, rolename string) *authpb.Role {
 	return role
 }
 func getAllRoles(tx backend.BatchTx) []*authpb.Role {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, vs := tx.UnsafeRange(authRolesBucketName, []byte{0}, []byte{0xff}, -1)
@@ -676,6 +744,8 @@ func getAllRoles(tx backend.BatchTx) []*authpb.Role {
 func putRole(tx backend.BatchTx, role *authpb.Role) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, err := role.Marshal()
 	if err != nil {
 		plog.Panicf("failed to marshal role struct (name: %s): %s", role.Name, err)
@@ -685,9 +755,13 @@ func putRole(tx backend.BatchTx, role *authpb.Role) {
 func delRole(tx backend.BatchTx, rolename string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tx.UnsafeDelete(authRolesBucketName, []byte(rolename))
 }
 func (as *authStore) isAuthEnabled() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	as.enabledMu.RLock()
@@ -695,6 +769,8 @@ func (as *authStore) isAuthEnabled() bool {
 	return as.enabled
 }
 func NewAuthStore(be backend.Backend, tp TokenProvider) *authStore {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tx := be.BatchTx()
@@ -723,10 +799,14 @@ func NewAuthStore(be backend.Backend, tp TokenProvider) *authStore {
 func hasRootRole(u *authpb.User) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	idx := sort.SearchStrings(u.Roles, rootRole)
 	return idx != len(u.Roles) && u.Roles[idx] == rootRole
 }
 func (as *authStore) commitRevision(tx backend.BatchTx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	atomic.AddUint64(&as.revision, 1)
@@ -735,6 +815,8 @@ func (as *authStore) commitRevision(tx backend.BatchTx) {
 	tx.UnsafePut(authBucketName, revisionKey, revBytes)
 }
 func getRevision(tx backend.BatchTx) uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, vs := tx.UnsafeRange(authBucketName, []byte(revisionKey), nil, 0)
@@ -746,14 +828,20 @@ func getRevision(tx backend.BatchTx) uint64 {
 func (as *authStore) setRevision(rev uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	atomic.StoreUint64(&as.revision, rev)
 }
 func (as *authStore) Revision() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return atomic.LoadUint64(&as.revision)
 }
 func (as *authStore) AuthInfoFromTLS(ctx context.Context) *AuthInfo {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	peer, ok := peer.FromContext(ctx)
@@ -771,6 +859,8 @@ func (as *authStore) AuthInfoFromTLS(ctx context.Context) *AuthInfo {
 	return nil
 }
 func (as *authStore) AuthInfoFromCtx(ctx context.Context) (*AuthInfo, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	md, ok := metadata.FromIncomingContext(ctx)
@@ -795,9 +885,13 @@ func (as *authStore) AuthInfoFromCtx(ctx context.Context) (*AuthInfo, error) {
 func (as *authStore) GenTokenPrefix() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return as.tokenProvider.genTokenPrefix()
 }
 func decomposeOpts(optstr string) (string, map[string]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	opts := strings.Split(optstr, ",")
@@ -820,6 +914,8 @@ func decomposeOpts(optstr string) (string, map[string]string, error) {
 func NewTokenProvider(tokenOpts string, indexWaiter func(uint64) <-chan struct{}) (TokenProvider, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tokenType, typeSpecificOpts, err := decomposeOpts(tokenOpts)
 	if err != nil {
 		return nil, ErrInvalidAuthOpts
@@ -838,6 +934,8 @@ func NewTokenProvider(tokenOpts string, indexWaiter func(uint64) <-chan struct{}
 	}
 }
 func (as *authStore) WithRoot(ctx context.Context) context.Context {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !as.isAuthEnabled() {
@@ -865,6 +963,8 @@ func (as *authStore) WithRoot(ctx context.Context) context.Context {
 	return metadata.NewIncomingContext(ctx, tokenMD)
 }
 func (as *authStore) HasRole(user, role string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tx := as.be.BatchTx()

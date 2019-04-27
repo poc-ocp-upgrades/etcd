@@ -24,9 +24,13 @@ type Periodic struct {
 func NewPeriodic(h time.Duration, rg RevGetter, c Compactable) *Periodic {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newPeriodic(clockwork.NewRealClock(), h, rg, c)
 }
 func newPeriodic(clock clockwork.Clock, h time.Duration, rg RevGetter, c Compactable) *Periodic {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t := &Periodic{clock: clock, period: h, rg: rg, c: c, revs: make([]int64, 0)}
@@ -34,6 +38,8 @@ func newPeriodic(clock clockwork.Clock, h time.Duration, rg RevGetter, c Compact
 	return t
 }
 func (t *Periodic) Run() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	compactInterval := t.getCompactInterval()
@@ -80,6 +86,8 @@ func (t *Periodic) Run() {
 func (t *Periodic) getCompactInterval() time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	itv := t.period
 	if itv > time.Hour {
 		itv = time.Hour
@@ -89,12 +97,16 @@ func (t *Periodic) getCompactInterval() time.Duration {
 func (t *Periodic) getRetentions() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return int(t.period/t.getRetryInterval()) + 1
 }
 
 const retryDivisor = 10
 
 func (t *Periodic) getRetryInterval() time.Duration {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	itv := t.period
@@ -106,9 +118,13 @@ func (t *Periodic) getRetryInterval() time.Duration {
 func (t *Periodic) Stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.cancel()
 }
 func (t *Periodic) Pause() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.mu.Lock()
@@ -116,6 +132,8 @@ func (t *Periodic) Pause() {
 	t.paused = true
 }
 func (t *Periodic) Resume() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.mu.Lock()

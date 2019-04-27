@@ -10,6 +10,8 @@ import (
 func mustWaitPinReady(t *testing.T, cli *clientv3.Client) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	_, err := cli.Get(ctx, "foo")
 	cancel()

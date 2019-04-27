@@ -16,21 +16,31 @@ type tokenJWT struct {
 func (t *tokenJWT) enable() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (t *tokenJWT) disable() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (t *tokenJWT) invalidateUser(string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (t *tokenJWT) genTokenPrefix() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return "", nil
 }
 func (t *tokenJWT) info(ctx context.Context, token string, rev uint64) (*AuthInfo, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var (
@@ -58,6 +68,8 @@ func (t *tokenJWT) info(ctx context.Context, token string, rev uint64) (*AuthInf
 func (t *tokenJWT) assign(ctx context.Context, username string, revision uint64) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tk := jwt.NewWithClaims(jwt.GetSigningMethod(t.signMethod), jwt.MapClaims{"username": username, "revision": revision})
 	token, err := tk.SignedString(t.signKey)
 	if err != nil {
@@ -68,6 +80,8 @@ func (t *tokenJWT) assign(ctx context.Context, username string, revision uint64)
 	return token, err
 }
 func prepareOpts(opts map[string]string) (jwtSignMethod, jwtPubKeyPath, jwtPrivKeyPath string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for k, v := range opts {
@@ -89,6 +103,8 @@ func prepareOpts(opts map[string]string) (jwtSignMethod, jwtPubKeyPath, jwtPrivK
 	return jwtSignMethod, jwtPubKeyPath, jwtPrivKeyPath, nil
 }
 func newTokenProviderJWT(opts map[string]string) (*tokenJWT, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	jwtSignMethod, jwtPubKeyPath, jwtPrivKeyPath, err := prepareOpts(opts)

@@ -45,6 +45,8 @@ var dialOpts = []grpc.DialOption{grpc.WithInsecure(), grpc.WithTimeout(5 * time.
 func NewCluster(lg *zap.Logger, fpath string) (*Cluster, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clus, err := read(lg, fpath)
 	if err != nil {
 		return nil, err
@@ -85,6 +87,8 @@ func NewCluster(lg *zap.Logger, fpath string) (*Cluster, error) {
 func (clus *Cluster) EtcdClientEndpoints() (css []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	css = make([]string, len(clus.Members))
 	for i := range clus.Members {
 		css[i] = clus.Members[i].EtcdClientEndpoint
@@ -92,6 +96,8 @@ func (clus *Cluster) EtcdClientEndpoints() (css []string) {
 	return css
 }
 func (clus *Cluster) serveTesterServer() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus.lg.Info("started tester HTTP server", zap.String("tester-address", clus.Tester.Addr))
@@ -102,6 +108,8 @@ func (clus *Cluster) serveTesterServer() {
 	}
 }
 func (clus *Cluster) updateCases() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, cs := range clus.Tester.Cases {
@@ -182,6 +190,8 @@ func (clus *Cluster) updateCases() {
 func (clus *Cluster) listCases() (css []string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	css = make([]string, len(clus.cases))
 	for i := range clus.cases {
 		css[i] = clus.cases[i].Desc()
@@ -189,6 +199,8 @@ func (clus *Cluster) listCases() (css []string) {
 	return css
 }
 func (clus *Cluster) UpdateDelayLatencyMs() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rand.Seed(time.Now().UnixNano())
@@ -199,6 +211,8 @@ func (clus *Cluster) UpdateDelayLatencyMs() {
 	}
 }
 func (clus *Cluster) setStresserChecker() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	css := &compositeStresser{}
@@ -240,6 +254,8 @@ func (clus *Cluster) setStresserChecker() {
 func (clus *Cluster) runCheckers(exceptions ...rpcpb.Checker) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer func() {
 		if err != nil {
 			return
@@ -270,9 +286,13 @@ func (clus *Cluster) runCheckers(exceptions ...rpcpb.Checker) (err error) {
 func (clus *Cluster) Send_INITIAL_START_ETCD() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return clus.broadcast(rpcpb.Operation_INITIAL_START_ETCD)
 }
 func (clus *Cluster) send_SIGQUIT_ETCD_AND_ARCHIVE_DATA() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return clus.broadcast(rpcpb.Operation_SIGQUIT_ETCD_AND_ARCHIVE_DATA)
@@ -280,9 +300,13 @@ func (clus *Cluster) send_SIGQUIT_ETCD_AND_ARCHIVE_DATA() error {
 func (clus *Cluster) send_RESTART_ETCD() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return clus.broadcast(rpcpb.Operation_RESTART_ETCD)
 }
 func (clus *Cluster) broadcast(op rpcpb.Operation) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var wg sync.WaitGroup
@@ -327,10 +351,14 @@ func (clus *Cluster) broadcast(op rpcpb.Operation) error {
 func (clus *Cluster) sendOp(idx int, op rpcpb.Operation) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := clus.sendOpWithResp(idx, op)
 	return err
 }
 func (clus *Cluster) sendOpWithResp(idx int, op rpcpb.Operation) (*rpcpb.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clus.agentRequests[idx] = &rpcpb.Request{Operation: op, Member: clus.Members[idx], Tester: clus.Tester}
@@ -402,6 +430,8 @@ func (clus *Cluster) sendOpWithResp(idx int, op rpcpb.Operation) (*rpcpb.Respons
 func (clus *Cluster) Send_SIGQUIT_ETCD_AND_REMOVE_DATA_AND_STOP_AGENT() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := clus.broadcast(rpcpb.Operation_SIGQUIT_ETCD_AND_REMOVE_DATA_AND_STOP_AGENT)
 	if err != nil {
 		clus.lg.Warn("destroying etcd/agents FAIL", zap.Error(err))
@@ -420,6 +450,8 @@ func (clus *Cluster) Send_SIGQUIT_ETCD_AND_REMOVE_DATA_AND_STOP_AGENT() {
 	}
 }
 func (clus *Cluster) WaitHealth() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -442,6 +474,8 @@ func (clus *Cluster) WaitHealth() error {
 func (clus *Cluster) GetLeader() (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i, m := range clus.Members {
 		isLeader, err := m.IsLeader()
 		if isLeader || err != nil {
@@ -451,6 +485,8 @@ func (clus *Cluster) GetLeader() (int, error) {
 	return 0, fmt.Errorf("no leader found")
 }
 func (clus *Cluster) maxRev() (rev int64, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx, cancel := context.WithTimeout(context.TODO(), time.Second)
@@ -476,6 +512,8 @@ func (clus *Cluster) maxRev() (rev int64, err error) {
 func (clus *Cluster) getRevisionHash() (map[string]int64, map[string]int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	revs := make(map[string]int64)
 	hashes := make(map[string]int64)
 	for _, m := range clus.Members {
@@ -489,6 +527,8 @@ func (clus *Cluster) getRevisionHash() (map[string]int64, map[string]int64, erro
 	return revs, hashes, nil
 }
 func (clus *Cluster) compactKV(rev int64, timeout time.Duration) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if rev <= 0 {
@@ -517,6 +557,8 @@ func (clus *Cluster) compactKV(rev int64, timeout time.Duration) (err error) {
 func (clus *Cluster) checkCompact(rev int64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if rev == 0 {
 		return nil
 	}
@@ -528,6 +570,8 @@ func (clus *Cluster) checkCompact(rev int64) error {
 	return nil
 }
 func (clus *Cluster) defrag() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, m := range clus.Members {
@@ -543,9 +587,13 @@ func (clus *Cluster) defrag() error {
 func (clus *Cluster) GetCaseDelayDuration() time.Duration {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return time.Duration(clus.Tester.CaseDelayMs) * time.Millisecond
 }
 func (clus *Cluster) Report() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return clus.stresser.ModifiedKeys()

@@ -19,6 +19,8 @@ type watchBroadcast struct {
 func newWatchBroadcast(wp *watchProxy, w *watcher, update func(*watchBroadcast)) *watchBroadcast {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cctx, cancel := context.WithCancel(wp.ctx)
 	wb := &watchBroadcast{cancel: cancel, nextrev: w.nextrev, receivers: make(map[*watcher]struct{}), donec: make(chan struct{})}
 	wb.add(w)
@@ -37,6 +39,8 @@ func newWatchBroadcast(wp *watchProxy, w *watcher, update func(*watchBroadcast))
 func (wb *watchBroadcast) bcast(wr clientv3.WatchResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wb.mu.Lock()
 	defer wb.mu.Unlock()
 	if wb.responses > 0 || wb.nextrev == 0 {
@@ -51,6 +55,8 @@ func (wb *watchBroadcast) bcast(wr clientv3.WatchResponse) {
 	}
 }
 func (wb *watchBroadcast) add(w *watcher) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	wb.mu.Lock()
@@ -73,6 +79,8 @@ func (wb *watchBroadcast) add(w *watcher) bool {
 func (wb *watchBroadcast) delete(w *watcher) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wb.mu.Lock()
 	defer wb.mu.Unlock()
 	if _, ok := wb.receivers[w]; !ok {
@@ -86,6 +94,8 @@ func (wb *watchBroadcast) delete(w *watcher) {
 func (wb *watchBroadcast) size() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	wb.mu.RLock()
 	defer wb.mu.RUnlock()
 	return len(wb.receivers)
@@ -93,9 +103,13 @@ func (wb *watchBroadcast) size() int {
 func (wb *watchBroadcast) empty() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return wb.size() == 0
 }
 func (wb *watchBroadcast) stop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !wb.empty() {

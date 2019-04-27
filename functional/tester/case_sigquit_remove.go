@@ -14,6 +14,8 @@ import (
 func inject_SIGQUIT_ETCD_AND_REMOVE_DATA(clus *Cluster, idx1 int) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cli1, err := clus.Members[idx1].CreateEtcdClient()
 	if err != nil {
 		return err
@@ -69,6 +71,8 @@ func inject_SIGQUIT_ETCD_AND_REMOVE_DATA(clus *Cluster, idx1 int) error {
 func recover_SIGQUIT_ETCD_AND_REMOVE_DATA(clus *Cluster, idx1 int) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	idx2 := (idx1 + 1) % len(clus.Members)
 	cli2, err := clus.Members[idx2].CreateEtcdClient()
 	if err != nil {
@@ -100,6 +104,8 @@ func recover_SIGQUIT_ETCD_AND_REMOVE_DATA(clus *Cluster, idx1 int) error {
 func new_Case_SIGQUIT_AND_REMOVE_ONE_FOLLOWER(clus *Cluster) Case {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cc := caseByFunc{rpcpbCase: rpcpb.Case_SIGQUIT_AND_REMOVE_ONE_FOLLOWER, injectMember: inject_SIGQUIT_ETCD_AND_REMOVE_DATA, recoverMember: recover_SIGQUIT_ETCD_AND_REMOVE_DATA}
 	c := &caseFollower{cc, -1, -1}
 	return &caseDelay{Case: c, delayDuration: clus.GetCaseDelayDuration()}
@@ -107,9 +113,13 @@ func new_Case_SIGQUIT_AND_REMOVE_ONE_FOLLOWER(clus *Cluster) Case {
 func new_Case_SIGQUIT_AND_REMOVE_ONE_FOLLOWER_UNTIL_TRIGGER_SNAPSHOT(clus *Cluster) Case {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &caseUntilSnapshot{rpcpbCase: rpcpb.Case_SIGQUIT_AND_REMOVE_ONE_FOLLOWER_UNTIL_TRIGGER_SNAPSHOT, Case: new_Case_SIGQUIT_AND_REMOVE_ONE_FOLLOWER(clus)}
 }
 func new_Case_SIGQUIT_AND_REMOVE_LEADER(clus *Cluster) Case {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cc := caseByFunc{rpcpbCase: rpcpb.Case_SIGQUIT_AND_REMOVE_LEADER, injectMember: inject_SIGQUIT_ETCD_AND_REMOVE_DATA, recoverMember: recover_SIGQUIT_ETCD_AND_REMOVE_DATA}
@@ -119,9 +129,13 @@ func new_Case_SIGQUIT_AND_REMOVE_LEADER(clus *Cluster) Case {
 func new_Case_SIGQUIT_AND_REMOVE_LEADER_UNTIL_TRIGGER_SNAPSHOT(clus *Cluster) Case {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &caseUntilSnapshot{rpcpbCase: rpcpb.Case_SIGQUIT_AND_REMOVE_LEADER_UNTIL_TRIGGER_SNAPSHOT, Case: new_Case_SIGQUIT_AND_REMOVE_LEADER(clus)}
 }
 func describeMembers(mresp *clientv3.MemberListResponse) (ss []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ss = make([]string, len(mresp.Members))

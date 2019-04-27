@@ -10,6 +10,8 @@ import (
 func TestStartEtcdWrongToken(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tdir, err := ioutil.TempDir(os.TempDir(), "token-test")
 	if err != nil {
 		t.Fatal(err)

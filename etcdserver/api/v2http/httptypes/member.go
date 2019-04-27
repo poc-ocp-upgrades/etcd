@@ -17,6 +17,8 @@ type MemberUpdateRequest struct{ MemberCreateRequest }
 func (m *MemberCreateRequest) UnmarshalJSON(data []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := struct {
 		PeerURLs []string `json:"peerURLs"`
 	}{}
@@ -35,6 +37,8 @@ func (m *MemberCreateRequest) UnmarshalJSON(data []byte) error {
 type MemberCollection []Member
 
 func (c *MemberCollection) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	d := struct {

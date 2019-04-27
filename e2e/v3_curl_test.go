@@ -17,9 +17,13 @@ import (
 func TestV3CurlPutGetNoTLSAlpha(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCurlPutGetGRPCGateway(t, &configNoTLS, "/v3alpha")
 }
 func TestV3CurlPutGetNoTLSBeta(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCurlPutGetGRPCGateway(t, &configNoTLS, "/v3beta")
@@ -27,9 +31,13 @@ func TestV3CurlPutGetNoTLSBeta(t *testing.T) {
 func TestV3CurlPutGetAutoTLSAlpha(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCurlPutGetGRPCGateway(t, &configAutoTLS, "/v3alpha")
 }
 func TestV3CurlPutGetAutoTLSBeta(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCurlPutGetGRPCGateway(t, &configAutoTLS, "/v3beta")
@@ -37,9 +45,13 @@ func TestV3CurlPutGetAutoTLSBeta(t *testing.T) {
 func TestV3CurlPutGetAllTLSAlpha(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCurlPutGetGRPCGateway(t, &configTLS, "/v3alpha")
 }
 func TestV3CurlPutGetAllTLSBeta(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCurlPutGetGRPCGateway(t, &configTLS, "/v3beta")
@@ -47,9 +59,13 @@ func TestV3CurlPutGetAllTLSBeta(t *testing.T) {
 func TestV3CurlPutGetPeerTLSAlpha(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCurlPutGetGRPCGateway(t, &configPeerTLS, "/v3alpha")
 }
 func TestV3CurlPutGetPeerTLSBeta(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testCurlPutGetGRPCGateway(t, &configPeerTLS, "/v3beta")
@@ -57,14 +73,20 @@ func TestV3CurlPutGetPeerTLSBeta(t *testing.T) {
 func TestV3CurlPutGetClientTLSAlpha(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCurlPutGetGRPCGateway(t, &configClientTLS, "/v3alpha")
 }
 func TestV3CurlPutGetClientTLSBeta(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCurlPutGetGRPCGateway(t, &configClientTLS, "/v3beta")
 }
 func testCurlPutGetGRPCGateway(t *testing.T, cfg *etcdProcessClusterConfig, pathPrefix string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -106,14 +128,20 @@ func testCurlPutGetGRPCGateway(t *testing.T, cfg *etcdProcessClusterConfig, path
 func TestV3CurlWatchAlpha(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testV3CurlWatch(t, "/v3alpha")
 }
 func TestV3CurlWatchBeta(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testV3CurlWatch(t, "/v3beta")
 }
 func testV3CurlWatch(t *testing.T, pathPrefix string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -146,14 +174,20 @@ func testV3CurlWatch(t *testing.T, pathPrefix string) {
 func TestV3CurlTxnAlpha(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testV3CurlTxn(t, "/v3alpha")
 }
 func TestV3CurlTxnBeta(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testV3CurlTxn(t, "/v3beta")
 }
 func testV3CurlTxn(t *testing.T, pathPrefix string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -184,14 +218,20 @@ func testV3CurlTxn(t *testing.T, pathPrefix string) {
 func TestV3CurlAuthAlpha(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testV3CurlAuth(t, "/v3alpha")
 }
 func TestV3CurlAuthBeta(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testV3CurlAuth(t, "/v3beta")
 }
 func testV3CurlAuth(t *testing.T, pathPrefix string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -255,14 +295,20 @@ func testV3CurlAuth(t *testing.T, pathPrefix string) {
 func TestV3CurlCampaignAlpha(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testV3CurlCampaign(t, "/v3alpha")
 }
 func TestV3CurlCampaignBeta(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testV3CurlCampaign(t, "/v3beta")
 }
 func testV3CurlCampaign(t *testing.T, pathPrefix string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
@@ -312,9 +358,13 @@ func testV3CurlCampaign(t *testing.T, pathPrefix string) {
 func TestV3CurlProclaimMissiongLeaderKeyNoTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, testV3CurlProclaimMissiongLeaderKey, withCfg(configNoTLS))
 }
 func testV3CurlProclaimMissiongLeaderKey(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pdata, err := json.Marshal(&epb.ProclaimRequest{Value: []byte("v2")})
@@ -331,9 +381,13 @@ func testV3CurlProclaimMissiongLeaderKey(cx ctlCtx) {
 func TestV3CurlResignMissiongLeaderKeyNoTLS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCtl(t, testV3CurlResignMissiongLeaderKey, withCfg(configNoTLS))
 }
 func testV3CurlResignMissiongLeaderKey(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := cURLPost(cx.epc, cURLReq{endpoint: path.Join("/v3beta", "/election/resign"), value: `{}`, expected: `{"error":"\"leader\" field must be provided","code":2}`}); err != nil {
@@ -353,14 +407,20 @@ type campaignResponse struct {
 func TestV3CurlCipherSuitesValid(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testV3CurlCipherSuites(t, true)
 }
 func TestV3CurlCipherSuitesMismatch(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testV3CurlCipherSuites(t, false)
 }
 func testV3CurlCipherSuites(t *testing.T, valid bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cc := configClientTLS
@@ -375,11 +435,15 @@ func testV3CurlCipherSuites(t *testing.T, valid bool) {
 func cipherSuiteTestValid(cx ctlCtx) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := cURLGet(cx.epc, cURLReq{endpoint: "/metrics", expected: fmt.Sprintf(`etcd_server_version{server_version="%s"} 1`, version.Version), metricsURLScheme: cx.cfg.metricsURLScheme, ciphers: "ECDHE-RSA-AES128-GCM-SHA256"}); err != nil {
 		cx.t.Logf("failed get with curl (%v)", err)
 	}
 }
 func cipherSuiteTestMismatch(cx ctlCtx) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := cURLGet(cx.epc, cURLReq{endpoint: "/metrics", expected: "alert handshake failure", metricsURLScheme: cx.cfg.metricsURLScheme, ciphers: "ECDHE-RSA-DES-CBC3-SHA"}); err != nil {

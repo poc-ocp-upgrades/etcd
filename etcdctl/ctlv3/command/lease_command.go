@@ -11,6 +11,8 @@ import (
 func NewLeaseCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lc := &cobra.Command{Use: "lease <subcommand>", Short: "Lease related commands"}
 	lc.AddCommand(NewLeaseGrantCommand())
 	lc.AddCommand(NewLeaseRevokeCommand())
@@ -22,10 +24,14 @@ func NewLeaseCommand() *cobra.Command {
 func NewLeaseGrantCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lc := &cobra.Command{Use: "grant <ttl>", Short: "Creates leases", Run: leaseGrantCommandFunc}
 	return lc
 }
 func leaseGrantCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {
@@ -46,10 +52,14 @@ func leaseGrantCommandFunc(cmd *cobra.Command, args []string) {
 func NewLeaseRevokeCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lc := &cobra.Command{Use: "revoke <leaseID>", Short: "Revokes leases", Run: leaseRevokeCommandFunc}
 	return lc
 }
 func leaseRevokeCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {
@@ -70,11 +80,15 @@ var timeToLiveKeys bool
 func NewLeaseTimeToLiveCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lc := &cobra.Command{Use: "timetolive <leaseID> [options]", Short: "Get lease information", Run: leaseTimeToLiveCommandFunc}
 	lc.Flags().BoolVar(&timeToLiveKeys, "keys", false, "Get keys attached to this lease")
 	return lc
 }
 func leaseTimeToLiveCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {
@@ -93,10 +107,14 @@ func leaseTimeToLiveCommandFunc(cmd *cobra.Command, args []string) {
 func NewLeaseListCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lc := &cobra.Command{Use: "list", Short: "List all active leases", Run: leaseListCommandFunc}
 	return lc
 }
 func leaseListCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, rerr := mustClientFromCmd(cmd).Leases(context.TODO())
@@ -113,11 +131,15 @@ var (
 func NewLeaseKeepAliveCommand() *cobra.Command {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lc := &cobra.Command{Use: "keep-alive [options] <leaseID>", Short: "Keeps leases alive (renew)", Run: leaseKeepAliveCommandFunc}
 	lc.Flags().BoolVar(&leaseKeepAliveOnce, "once", false, "Resets the keep-alive time to its original value and exits immediately")
 	return lc
 }
 func leaseKeepAliveCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(args) != 1 {
@@ -144,6 +166,8 @@ func leaseKeepAliveCommandFunc(cmd *cobra.Command, args []string) {
 	}
 }
 func leaseFromArgs(arg string) v3.LeaseID {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	id, err := strconv.ParseInt(arg, 16, 64)

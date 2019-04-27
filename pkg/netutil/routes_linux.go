@@ -17,6 +17,8 @@ var errNoDefaultInterface = fmt.Errorf("could not find default interface")
 func GetDefaultHost() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rmsgs, rerr := getDefaultRoutes()
 	if rerr != nil {
 		return "", rerr
@@ -43,6 +45,8 @@ func GetDefaultHost() (string, error) {
 func chooseHost(family uint8, rmsg *syscall.NetlinkMessage) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	host, oif, err := parsePREFSRC(rmsg)
 	if host != "" || err != nil {
 		return host, err
@@ -63,6 +67,8 @@ func chooseHost(family uint8, rmsg *syscall.NetlinkMessage) (string, error) {
 	return "", nil
 }
 func getDefaultRoutes() (map[uint8]*syscall.NetlinkMessage, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dat, err := syscall.NetlinkRIB(syscall.RTM_GETROUTE, syscall.AF_UNSPEC)
@@ -96,6 +102,8 @@ func getDefaultRoutes() (map[uint8]*syscall.NetlinkMessage, error) {
 func getIfaceAddr(idx uint32, family uint8) (*syscall.NetlinkMessage, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dat, err := syscall.NetlinkRIB(syscall.RTM_GETADDR, int(family))
 	if err != nil {
 		return nil, err
@@ -122,6 +130,8 @@ func getIfaceAddr(idx uint32, family uint8) (*syscall.NetlinkMessage, error) {
 func getIfaceLink(idx uint32) (*syscall.NetlinkMessage, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dat, err := syscall.NetlinkRIB(syscall.RTM_GETLINK, syscall.AF_UNSPEC)
 	if err != nil {
 		return nil, err
@@ -146,6 +156,8 @@ func getIfaceLink(idx uint32) (*syscall.NetlinkMessage, error) {
 	return nil, fmt.Errorf("could not find link for interface index %v", idx)
 }
 func GetDefaultInterfaces() (map[string]uint8, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	interfaces := make(map[string]uint8)
@@ -178,6 +190,8 @@ func GetDefaultInterfaces() (map[string]uint8, error) {
 	return interfaces, errNoDefaultInterface
 }
 func parsePREFSRC(m *syscall.NetlinkMessage) (host string, oif uint32, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var attrs []syscall.NetlinkRouteAttr

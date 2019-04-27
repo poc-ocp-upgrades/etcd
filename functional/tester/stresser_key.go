@@ -43,6 +43,8 @@ type keyStresser struct {
 func (s *keyStresser) Stress() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err error
 	s.cli, err = s.m.CreateEtcdClient(grpc.WithBackoffMaxDelay(1 * time.Second))
 	if err != nil {
@@ -67,6 +69,8 @@ func (s *keyStresser) Stress() error {
 	return nil
 }
 func (s *keyStresser) run() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer s.wg.Done()
@@ -106,9 +110,13 @@ func (s *keyStresser) run() {
 func (s *keyStresser) Pause() map[string]int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.Close()
 }
 func (s *keyStresser) Close() map[string]int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.cancel()
@@ -123,6 +131,8 @@ func (s *keyStresser) Close() map[string]int {
 	return ess
 }
 func (s *keyStresser) ModifiedKeys() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return atomic.LoadInt64(&s.atomicModifiedKeys)
@@ -141,6 +151,8 @@ type stressTable struct {
 func createStressTable(entries []stressEntry) *stressTable {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	st := stressTable{entries: entries}
 	for _, entry := range st.entries {
 		st.sumWeights += entry.weight
@@ -148,6 +160,8 @@ func createStressTable(entries []stressEntry) *stressTable {
 	return &st
 }
 func (st *stressTable) choose() stressFunc {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	v := rand.Float32() * st.sumWeights
@@ -165,12 +179,16 @@ func (st *stressTable) choose() stressFunc {
 func newStressPut(cli *clientv3.Client, keySuffixRange, keySize int) stressFunc {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(ctx context.Context) (error, int64) {
 		_, err := cli.Put(ctx, fmt.Sprintf("foo%016x", rand.Intn(keySuffixRange)), string(randBytes(keySize)))
 		return err, 1
 	}
 }
 func newStressTxn(cli *clientv3.Client, keyTxnSuffixRange, txnOps int) stressFunc {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	keys := make([]string, keyTxnSuffixRange)
@@ -180,6 +198,8 @@ func newStressTxn(cli *clientv3.Client, keyTxnSuffixRange, txnOps int) stressFun
 	return writeTxn(cli, keys, txnOps)
 }
 func writeTxn(cli *clientv3.Client, keys []string, txnOps int) stressFunc {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(ctx context.Context) (error, int64) {
@@ -208,6 +228,8 @@ func writeTxn(cli *clientv3.Client, keys []string, txnOps int) stressFunc {
 func getTxnOps(k, v string) (cmp clientv3.Cmp, dop clientv3.Op, pop clientv3.Op) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmp = clientv3.Compare(clientv3.Version(k), ">", 0)
 	dop = clientv3.OpDelete(k)
 	pop = clientv3.OpPut(k, v)
@@ -216,12 +238,16 @@ func getTxnOps(k, v string) (cmp clientv3.Cmp, dop clientv3.Op, pop clientv3.Op)
 func newStressRange(cli *clientv3.Client, keySuffixRange int) stressFunc {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(ctx context.Context) (error, int64) {
 		_, err := cli.Get(ctx, fmt.Sprintf("foo%016x", rand.Intn(keySuffixRange)))
 		return err, 0
 	}
 }
 func newStressRangeInterval(cli *clientv3.Client, keySuffixRange int) stressFunc {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(ctx context.Context) (error, int64) {
@@ -234,12 +260,16 @@ func newStressRangeInterval(cli *clientv3.Client, keySuffixRange int) stressFunc
 func newStressDelete(cli *clientv3.Client, keySuffixRange int) stressFunc {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(ctx context.Context) (error, int64) {
 		_, err := cli.Delete(ctx, fmt.Sprintf("foo%016x", rand.Intn(keySuffixRange)))
 		return err, 1
 	}
 }
 func newStressDeleteInterval(cli *clientv3.Client, keySuffixRange int) stressFunc {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(ctx context.Context) (error, int64) {

@@ -17,9 +17,13 @@ type RWMutex struct {
 func NewRWMutex(s *concurrency.Session, prefix string) *RWMutex {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &RWMutex{s, context.TODO(), prefix + "/", nil}
 }
 func (rwm *RWMutex) RLock() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rk, err := newUniqueEphemeralKey(rwm.s, rwm.pfx+"read")
@@ -36,6 +40,8 @@ func (rwm *RWMutex) RLock() error {
 func (rwm *RWMutex) Lock() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rk, err := newUniqueEphemeralKey(rwm.s, rwm.pfx+"write")
 	if err != nil {
 		return err
@@ -48,6 +54,8 @@ func (rwm *RWMutex) Lock() error {
 	}
 }
 func (rwm *RWMutex) waitOnLastRev(pfx string) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client := rwm.s.Client()
@@ -65,9 +73,13 @@ func (rwm *RWMutex) waitOnLastRev(pfx string) (bool, error) {
 func (rwm *RWMutex) RUnlock() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return rwm.myKey.Delete()
 }
 func (rwm *RWMutex) Unlock() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return rwm.myKey.Delete()

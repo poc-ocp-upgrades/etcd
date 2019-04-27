@@ -27,6 +27,8 @@ var (
 func mustSaveMemberToBackend(be backend.Backend, m *Member) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mkey := backendMemberKey(m.ID)
 	mvalue, err := json.Marshal(m)
 	if err != nil {
@@ -40,6 +42,8 @@ func mustSaveMemberToBackend(be backend.Backend, m *Member) {
 func mustDeleteMemberFromBackend(be backend.Backend, id types.ID) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mkey := backendMemberKey(id)
 	tx := be.BatchTx()
 	tx.Lock()
@@ -50,6 +54,8 @@ func mustDeleteMemberFromBackend(be backend.Backend, id types.ID) {
 func mustSaveClusterVersionToBackend(be backend.Backend, ver *semver.Version) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ckey := backendClusterVersionKey()
 	tx := be.BatchTx()
 	tx.Lock()
@@ -57,6 +63,8 @@ func mustSaveClusterVersionToBackend(be backend.Backend, ver *semver.Version) {
 	tx.UnsafePut(clusterBucketName, ckey, []byte(ver.String()))
 }
 func mustSaveMemberToStore(s store.Store, m *Member) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, err := json.Marshal(m.RaftAttributes)
@@ -71,6 +79,8 @@ func mustSaveMemberToStore(s store.Store, m *Member) {
 func mustDeleteMemberFromStore(s store.Store, id types.ID) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, err := s.Delete(MemberStoreKey(id), true, true); err != nil {
 		plog.Panicf("delete member should never fail: %v", err)
 	}
@@ -79,6 +89,8 @@ func mustDeleteMemberFromStore(s store.Store, id types.ID) {
 	}
 }
 func mustUpdateMemberInStore(s store.Store, m *Member) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, err := json.Marshal(m.RaftAttributes)
@@ -93,6 +105,8 @@ func mustUpdateMemberInStore(s store.Store, m *Member) {
 func mustUpdateMemberAttrInStore(s store.Store, m *Member) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, err := json.Marshal(m.Attributes)
 	if err != nil {
 		plog.Panicf("marshal raftAttributes should never fail: %v", err)
@@ -105,11 +119,15 @@ func mustUpdateMemberAttrInStore(s store.Store, m *Member) {
 func mustSaveClusterVersionToStore(s store.Store, ver *semver.Version) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, err := s.Set(StoreClusterVersionKey(), false, ver.String(), store.TTLOptionSet{ExpireTime: store.Permanent}); err != nil {
 		plog.Panicf("save cluster version should never fail: %v", err)
 	}
 }
 func nodeToMember(n *store.NodeExtern) (*Member, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := &Member{ID: MustParseMemberIDFromKey(n.Key)}
@@ -139,14 +157,20 @@ func nodeToMember(n *store.NodeExtern) (*Member, error) {
 func backendMemberKey(id types.ID) []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []byte(id.String())
 }
 func backendClusterVersionKey() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []byte("clusterVersion")
 }
 func mustCreateBackendBuckets(be backend.Backend) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tx := be.BatchTx()
@@ -159,9 +183,13 @@ func mustCreateBackendBuckets(be backend.Backend) {
 func MemberStoreKey(id types.ID) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return path.Join(StoreMembersPrefix, id.String())
 }
 func StoreClusterVersionKey() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return path.Join(storePrefix, "version")
@@ -169,9 +197,13 @@ func StoreClusterVersionKey() string {
 func MemberAttributesStorePath(id types.ID) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return path.Join(MemberStoreKey(id), attributesSuffix)
 }
 func MustParseMemberIDFromKey(key string) types.ID {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	id, err := types.IDFromString(path.Base(key))
@@ -181,6 +213,8 @@ func MustParseMemberIDFromKey(key string) types.ID {
 	return id
 }
 func RemovedMemberStoreKey(id types.ID) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return path.Join(storeRemovedMembersPrefix, id.String())

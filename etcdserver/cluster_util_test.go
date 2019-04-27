@@ -11,6 +11,8 @@ import (
 func TestDecideClusterVersion(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		vers	map[string]*version.Versions
 		wdver	*semver.Version
@@ -23,6 +25,8 @@ func TestDecideClusterVersion(t *testing.T) {
 	}
 }
 func TestIsCompatibleWithVers(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {

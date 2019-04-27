@@ -19,6 +19,8 @@ type Session struct {
 func NewSession(client *v3.Client, opts ...SessionOption) (*Session, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ops := &sessionOptions{ttl: defaultSessionTTL, ctx: client.Ctx()}
 	for _, opt := range opts {
 		opt(ops)
@@ -49,9 +51,13 @@ func NewSession(client *v3.Client, opts ...SessionOption) (*Session, error) {
 func (s *Session) Client() *v3.Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.client
 }
 func (s *Session) Lease() v3.LeaseID {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.id
@@ -59,15 +65,21 @@ func (s *Session) Lease() v3.LeaseID {
 func (s *Session) Done() <-chan struct{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.donec
 }
 func (s *Session) Orphan() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.cancel()
 	<-s.donec
 }
 func (s *Session) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.Orphan()
@@ -87,6 +99,8 @@ type SessionOption func(*sessionOptions)
 func WithTTL(ttl int) SessionOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(so *sessionOptions) {
 		if ttl > 0 {
 			so.ttl = ttl
@@ -96,11 +110,15 @@ func WithTTL(ttl int) SessionOption {
 func WithLease(leaseID v3.LeaseID) SessionOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(so *sessionOptions) {
 		so.leaseID = leaseID
 	}
 }
 func WithContext(ctx context.Context) SessionOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(so *sessionOptions) {

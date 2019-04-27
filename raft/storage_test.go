@@ -10,6 +10,8 @@ import (
 func TestStorageTerm(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ents := []pb.Entry{{Index: 3, Term: 3}, {Index: 4, Term: 4}, {Index: 5, Term: 5}}
 	tests := []struct {
 		i	uint64
@@ -40,6 +42,8 @@ func TestStorageTerm(t *testing.T) {
 func TestStorageEntries(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ents := []pb.Entry{{Index: 3, Term: 3}, {Index: 4, Term: 4}, {Index: 5, Term: 5}, {Index: 6, Term: 6}}
 	tests := []struct {
 		lo, hi, maxsize	uint64
@@ -58,6 +62,8 @@ func TestStorageEntries(t *testing.T) {
 	}
 }
 func TestStorageLastIndex(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ents := []pb.Entry{{Index: 3, Term: 3}, {Index: 4, Term: 4}, {Index: 5, Term: 5}}
@@ -81,6 +87,8 @@ func TestStorageLastIndex(t *testing.T) {
 func TestStorageFirstIndex(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ents := []pb.Entry{{Index: 3, Term: 3}, {Index: 4, Term: 4}, {Index: 5, Term: 5}}
 	s := &MemoryStorage{ents: ents}
 	first, err := s.FirstIndex()
@@ -100,6 +108,8 @@ func TestStorageFirstIndex(t *testing.T) {
 	}
 }
 func TestStorageCompact(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ents := []pb.Entry{{Index: 3, Term: 3}, {Index: 4, Term: 4}, {Index: 5, Term: 5}}
@@ -130,6 +140,8 @@ func TestStorageCompact(t *testing.T) {
 func TestStorageCreateSnapshot(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ents := []pb.Entry{{Index: 3, Term: 3}, {Index: 4, Term: 4}, {Index: 5, Term: 5}}
 	cs := &pb.ConfState{Nodes: []uint64{1, 2, 3}}
 	data := []byte("data")
@@ -152,6 +164,8 @@ func TestStorageCreateSnapshot(t *testing.T) {
 func TestStorageAppend(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ents := []pb.Entry{{Index: 3, Term: 3}, {Index: 4, Term: 4}, {Index: 5, Term: 5}}
 	tests := []struct {
 		entries		[]pb.Entry
@@ -170,6 +184,8 @@ func TestStorageAppend(t *testing.T) {
 	}
 }
 func TestStorageApplySnapshot(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cs := &pb.ConfState{Nodes: []uint64{1, 2, 3}}

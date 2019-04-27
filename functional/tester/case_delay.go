@@ -13,6 +13,8 @@ type caseDelay struct {
 func (c *caseDelay) Inject(clus *Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := c.Case.Inject(clus); err != nil {
 		return err
 	}

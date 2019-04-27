@@ -67,6 +67,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rand.Seed(time.Now().UnixNano())
 	expvar.Publish("file_descriptor_limit", expvar.Func(func() interface{} {
 		n, _ := runtime.FDLimit()
@@ -94,6 +96,8 @@ type ServerV3 interface {
 }
 
 func (s *EtcdServer) ClientCertAuthEnabled() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.Cfg.ClientCertAuthEnabled
@@ -155,6 +159,8 @@ type EtcdServer struct {
 }
 
 func NewServer(cfg ServerConfig) (srv *EtcdServer, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	st := store.New(StoreClusterPrefix, StoreKeysPrefix)
@@ -360,6 +366,8 @@ func NewServer(cfg ServerConfig) (srv *EtcdServer, err error) {
 func (s *EtcdServer) adjustTicks() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clusterN := len(s.cluster.Members())
 	if clusterN == 1 {
 		ticks := s.Cfg.ElectionTicks - 1
@@ -391,6 +399,8 @@ func (s *EtcdServer) adjustTicks() {
 func (s *EtcdServer) Start() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.start()
 	s.goAttach(func() {
 		s.adjustTicks()
@@ -407,6 +417,8 @@ func (s *EtcdServer) Start() {
 	s.goAttach(s.monitorKVHash)
 }
 func (s *EtcdServer) start() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.Cfg.SnapCount == 0 {
@@ -431,6 +443,8 @@ func (s *EtcdServer) start() {
 func (s *EtcdServer) purgeFile() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var dberrc, serrc, werrc <-chan error
 	if s.Cfg.MaxSnapFiles > 0 {
 		dberrc = fileutil.PurgeFile(s.Cfg.SnapDir(), "snap.db", s.Cfg.MaxSnapFiles, purgeFileInterval, s.done)
@@ -453,14 +467,20 @@ func (s *EtcdServer) purgeFile() {
 func (s *EtcdServer) ID() types.ID {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.id
 }
 func (s *EtcdServer) Cluster() api.Cluster {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.cluster
 }
 func (s *EtcdServer) ApplyWait() <-chan struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.applyWait.Wait(s.getCommittedIndex())
@@ -475,6 +495,8 @@ type ServerPeer interface {
 func (s *EtcdServer) LeaseHandler() http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.lessor == nil {
 		return nil
 	}
@@ -483,9 +505,13 @@ func (s *EtcdServer) LeaseHandler() http.Handler {
 func (s *EtcdServer) RaftHandler() http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.r.transport.Handler()
 }
 func (s *EtcdServer) Process(ctx context.Context, m raftpb.Message) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.cluster.IsIDRemoved(types.ID(m.From)) {
@@ -500,14 +526,20 @@ func (s *EtcdServer) Process(ctx context.Context, m raftpb.Message) error {
 func (s *EtcdServer) IsIDRemoved(id uint64) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.cluster.IsIDRemoved(types.ID(id))
 }
 func (s *EtcdServer) ReportUnreachable(id uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.r.ReportUnreachable(id)
 }
 func (s *EtcdServer) ReportSnapshot(id uint64, status raft.SnapshotStatus) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.r.ReportSnapshot(id, status)
@@ -525,6 +557,8 @@ type raftReadyHandler struct {
 }
 
 func (s *EtcdServer) run() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sn, err := s.r.raftStorage.Snapshot()
@@ -654,6 +688,8 @@ func (s *EtcdServer) run() {
 func (s *EtcdServer) applyAll(ep *etcdProgress, apply *apply) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.applySnapshot(ep, apply)
 	s.applyEntries(ep, apply)
 	proposalsApplied.Set(float64(ep.appliedi))
@@ -668,6 +704,8 @@ func (s *EtcdServer) applyAll(ep *etcdProgress, apply *apply) {
 	}
 }
 func (s *EtcdServer) applySnapshot(ep *etcdProgress, apply *apply) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if raft.IsEmptySnap(apply.snapshot) {
@@ -745,6 +783,8 @@ func (s *EtcdServer) applySnapshot(ep *etcdProgress, apply *apply) {
 func (s *EtcdServer) applyEntries(ep *etcdProgress, apply *apply) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(apply.entries) == 0 {
 		return
 	}
@@ -767,6 +807,8 @@ func (s *EtcdServer) applyEntries(ep *etcdProgress, apply *apply) {
 func (s *EtcdServer) triggerSnapshot(ep *etcdProgress) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ep.appliedi-ep.snapi <= s.Cfg.SnapCount {
 		return
 	}
@@ -777,14 +819,20 @@ func (s *EtcdServer) triggerSnapshot(ep *etcdProgress) {
 func (s *EtcdServer) isMultiNode() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.cluster != nil && len(s.cluster.MemberIDs()) > 1
 }
 func (s *EtcdServer) isLeader() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return uint64(s.ID()) == s.Lead()
 }
 func (s *EtcdServer) MoveLeader(ctx context.Context, lead, transferee uint64) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	now := time.Now()
@@ -802,6 +850,8 @@ func (s *EtcdServer) MoveLeader(ctx context.Context, lead, transferee uint64) er
 	return nil
 }
 func (s *EtcdServer) TransferLeadership() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !s.isLeader() {
@@ -825,6 +875,8 @@ func (s *EtcdServer) TransferLeadership() error {
 func (s *EtcdServer) HardStop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case s.stop <- struct{}{}:
 	case <-s.done:
@@ -835,6 +887,8 @@ func (s *EtcdServer) HardStop() {
 func (s *EtcdServer) Stop() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := s.TransferLeadership(); err != nil {
 		plog.Warningf("%s failed to transfer leadership (%v)", s.ID(), err)
 	}
@@ -843,9 +897,13 @@ func (s *EtcdServer) Stop() {
 func (s *EtcdServer) ReadyNotify() <-chan struct{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.readych
 }
 func (s *EtcdServer) stopWithDelay(d time.Duration, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {
@@ -860,14 +918,20 @@ func (s *EtcdServer) stopWithDelay(d time.Duration, err error) {
 func (s *EtcdServer) StopNotify() <-chan struct{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.done
 }
 func (s *EtcdServer) SelfStats() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.stats.JSON()
 }
 func (s *EtcdServer) LeaderStats() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lead := atomic.LoadUint64(&s.r.lead)
@@ -879,9 +943,13 @@ func (s *EtcdServer) LeaderStats() []byte {
 func (s *EtcdServer) StoreStats() []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.store.JsonStats()
 }
 func (s *EtcdServer) checkMembershipOperationPermission(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.authStore == nil {
@@ -894,6 +962,8 @@ func (s *EtcdServer) checkMembershipOperationPermission(ctx context.Context) err
 	return s.AuthStore().IsAdminPermitted(authInfo)
 }
 func (s *EtcdServer) AddMember(ctx context.Context, memb membership.Member) ([]*membership.Member, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := s.checkMembershipOperationPermission(ctx); err != nil {
@@ -919,6 +989,8 @@ func (s *EtcdServer) AddMember(ctx context.Context, memb membership.Member) ([]*
 func (s *EtcdServer) RemoveMember(ctx context.Context, id uint64) ([]*membership.Member, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := s.checkMembershipOperationPermission(ctx); err != nil {
 		return nil, err
 	}
@@ -929,6 +1001,8 @@ func (s *EtcdServer) RemoveMember(ctx context.Context, id uint64) ([]*membership
 	return s.configure(ctx, cc)
 }
 func (s *EtcdServer) mayRemoveMember(id types.ID) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !s.Cfg.StrictReconfigCheck {
@@ -952,6 +1026,8 @@ func (s *EtcdServer) mayRemoveMember(id types.ID) error {
 func (s *EtcdServer) UpdateMember(ctx context.Context, memb membership.Member) ([]*membership.Member, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, merr := json.Marshal(memb)
 	if merr != nil {
 		return nil, merr
@@ -965,9 +1041,13 @@ func (s *EtcdServer) UpdateMember(ctx context.Context, memb membership.Member) (
 func (s *EtcdServer) Index() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return atomic.LoadUint64(&s.r.index)
 }
 func (s *EtcdServer) Term() uint64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return atomic.LoadUint64(&s.r.term)
@@ -975,9 +1055,13 @@ func (s *EtcdServer) Term() uint64 {
 func (s *EtcdServer) Lead() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return atomic.LoadUint64(&s.r.lead)
 }
 func (s *EtcdServer) Leader() types.ID {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return types.ID(s.Lead())
@@ -989,6 +1073,8 @@ type confChangeResponse struct {
 }
 
 func (s *EtcdServer) configure(ctx context.Context, cc raftpb.ConfChange) ([]*membership.Member, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cc.ID = s.reqIDGen.Next()
@@ -1015,6 +1101,8 @@ func (s *EtcdServer) configure(ctx context.Context, cc raftpb.ConfChange) ([]*me
 func (s *EtcdServer) sync(timeout time.Duration) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req := pb.Request{Method: "SYNC", ID: s.reqIDGen.Next(), Time: time.Now().UnixNano()}
 	data := pbutil.MustMarshal(&req)
 	ctx, cancel := context.WithTimeout(s.ctx, timeout)
@@ -1024,6 +1112,8 @@ func (s *EtcdServer) sync(timeout time.Duration) {
 	})
 }
 func (s *EtcdServer) publish(timeout time.Duration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, err := json.Marshal(s.attributes)
@@ -1052,6 +1142,8 @@ func (s *EtcdServer) publish(timeout time.Duration) {
 func (s *EtcdServer) sendMergedSnap(merged snap.Message) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	atomic.AddInt64(&s.inflightSnapshots, 1)
 	s.r.transport.SendSnapshot(merged)
 	s.goAttach(func() {
@@ -1070,6 +1162,8 @@ func (s *EtcdServer) sendMergedSnap(merged snap.Message) {
 	})
 }
 func (s *EtcdServer) apply(es []raftpb.Entry, confState *raftpb.ConfState) (appliedt uint64, appliedi uint64, shouldStop bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i := range es {
@@ -1098,6 +1192,8 @@ func (s *EtcdServer) apply(es []raftpb.Entry, confState *raftpb.ConfState) (appl
 	return appliedt, appliedi, shouldStop
 }
 func (s *EtcdServer) applyEntryNormal(e *raftpb.Entry) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	shouldApplyV3 := false
@@ -1161,6 +1257,8 @@ func (s *EtcdServer) applyEntryNormal(e *raftpb.Entry) {
 func (s *EtcdServer) applyConfChange(cc raftpb.ConfChange, confState *raftpb.ConfState) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := s.cluster.ValidateConfigurationChange(cc); err != nil {
 		cc.NodeID = raft.None
 		s.r.ApplyConfChange(cc)
@@ -1205,6 +1303,8 @@ func (s *EtcdServer) applyConfChange(cc raftpb.ConfChange, confState *raftpb.Con
 func (s *EtcdServer) snapshot(snapi uint64, confState raftpb.ConfState) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clone := s.store.Clone()
 	s.KV().Commit()
 	s.goAttach(func() {
@@ -1244,12 +1344,16 @@ func (s *EtcdServer) snapshot(snapi uint64, confState raftpb.ConfState) {
 func (s *EtcdServer) CutPeer(id types.ID) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tr, ok := s.r.transport.(*rafthttp.Transport)
 	if ok {
 		tr.CutPeer(id)
 	}
 }
 func (s *EtcdServer) MendPeer(id types.ID) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tr, ok := s.r.transport.(*rafthttp.Transport)
@@ -1260,14 +1364,20 @@ func (s *EtcdServer) MendPeer(id types.ID) {
 func (s *EtcdServer) PauseSending() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.r.pauseSending()
 }
 func (s *EtcdServer) ResumeSending() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.r.resumeSending()
 }
 func (s *EtcdServer) ClusterVersion() *semver.Version {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.cluster == nil {
@@ -1276,6 +1386,8 @@ func (s *EtcdServer) ClusterVersion() *semver.Version {
 	return s.cluster.Version()
 }
 func (s *EtcdServer) monitorVersions() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -1312,6 +1424,8 @@ func (s *EtcdServer) monitorVersions() {
 func (s *EtcdServer) updateClusterVersion(ver string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.cluster.Version() == nil {
 		plog.Infof("setting up the initial cluster version to %s", version.Cluster(ver))
 	} else {
@@ -1332,6 +1446,8 @@ func (s *EtcdServer) updateClusterVersion(ver string) {
 	}
 }
 func (s *EtcdServer) parseProposeCtxErr(err error, start time.Time) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch err {
@@ -1365,9 +1481,13 @@ func (s *EtcdServer) parseProposeCtxErr(err error, start time.Time) error {
 func (s *EtcdServer) KV() mvcc.ConsistentWatchableKV {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.kv
 }
 func (s *EtcdServer) Backend() backend.Backend {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.bemu.Lock()
@@ -1377,9 +1497,13 @@ func (s *EtcdServer) Backend() backend.Backend {
 func (s *EtcdServer) AuthStore() auth.AuthStore {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.authStore
 }
 func (s *EtcdServer) restoreAlarms() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.applyV3 = s.newApplierV3()
@@ -1399,9 +1523,13 @@ func (s *EtcdServer) restoreAlarms() error {
 func (s *EtcdServer) getAppliedIndex() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return atomic.LoadUint64(&s.appliedIndex)
 }
 func (s *EtcdServer) setAppliedIndex(v uint64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	atomic.StoreUint64(&s.appliedIndex, v)
@@ -1409,14 +1537,20 @@ func (s *EtcdServer) setAppliedIndex(v uint64) {
 func (s *EtcdServer) getCommittedIndex() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return atomic.LoadUint64(&s.committedIndex)
 }
 func (s *EtcdServer) setCommittedIndex(v uint64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	atomic.StoreUint64(&s.committedIndex, v)
 }
 func (s *EtcdServer) goAttach(f func()) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.wgMu.RLock()
@@ -1434,6 +1568,8 @@ func (s *EtcdServer) goAttach(f func()) {
 	}()
 }
 func (s *EtcdServer) Alarms() []*pb.AlarmMember {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.alarmStore.Get(pb.AlarmType_NONE)

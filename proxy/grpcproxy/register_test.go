@@ -13,6 +13,8 @@ import (
 func TestRegister(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer testutil.AfterTest(t)
 	clus := integration.NewClusterV3(t, &integration.ClusterConfig{Size: 1})
 	defer clus.Terminate(t)
@@ -47,6 +49,8 @@ func TestRegister(t *testing.T) {
 	}
 }
 func createWatcher(t *testing.T, c *clientv3.Client, prefix string) gnaming.Watcher {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	gr := &naming.GRPCResolver{Client: c}

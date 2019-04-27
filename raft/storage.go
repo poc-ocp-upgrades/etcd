@@ -29,14 +29,20 @@ type MemoryStorage struct {
 func NewMemoryStorage() *MemoryStorage {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &MemoryStorage{ents: make([]pb.Entry, 1)}
 }
 func (ms *MemoryStorage) InitialState() (pb.HardState, pb.ConfState, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ms.hardState, ms.snapshot.Metadata.ConfState, nil
 }
 func (ms *MemoryStorage) SetHardState(st pb.HardState) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ms.Lock()
@@ -45,6 +51,8 @@ func (ms *MemoryStorage) SetHardState(st pb.HardState) error {
 	return nil
 }
 func (ms *MemoryStorage) Entries(lo, hi, maxSize uint64) ([]pb.Entry, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ms.Lock()
@@ -65,6 +73,8 @@ func (ms *MemoryStorage) Entries(lo, hi, maxSize uint64) ([]pb.Entry, error) {
 func (ms *MemoryStorage) Term(i uint64) (uint64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ms.Lock()
 	defer ms.Unlock()
 	offset := ms.ents[0].Index
@@ -79,6 +89,8 @@ func (ms *MemoryStorage) Term(i uint64) (uint64, error) {
 func (ms *MemoryStorage) LastIndex() (uint64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ms.Lock()
 	defer ms.Unlock()
 	return ms.lastIndex(), nil
@@ -86,9 +98,13 @@ func (ms *MemoryStorage) LastIndex() (uint64, error) {
 func (ms *MemoryStorage) lastIndex() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ms.ents[0].Index + uint64(len(ms.ents)) - 1
 }
 func (ms *MemoryStorage) FirstIndex() (uint64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ms.Lock()
@@ -98,9 +114,13 @@ func (ms *MemoryStorage) FirstIndex() (uint64, error) {
 func (ms *MemoryStorage) firstIndex() uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ms.ents[0].Index + 1
 }
 func (ms *MemoryStorage) Snapshot() (pb.Snapshot, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ms.Lock()
@@ -108,6 +128,8 @@ func (ms *MemoryStorage) Snapshot() (pb.Snapshot, error) {
 	return ms.snapshot, nil
 }
 func (ms *MemoryStorage) ApplySnapshot(snap pb.Snapshot) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ms.Lock()
@@ -122,6 +144,8 @@ func (ms *MemoryStorage) ApplySnapshot(snap pb.Snapshot) error {
 	return nil
 }
 func (ms *MemoryStorage) CreateSnapshot(i uint64, cs *pb.ConfState, data []byte) (pb.Snapshot, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ms.Lock()
@@ -144,6 +168,8 @@ func (ms *MemoryStorage) CreateSnapshot(i uint64, cs *pb.ConfState, data []byte)
 func (ms *MemoryStorage) Compact(compactIndex uint64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ms.Lock()
 	defer ms.Unlock()
 	offset := ms.ents[0].Index
@@ -162,6 +188,8 @@ func (ms *MemoryStorage) Compact(compactIndex uint64) error {
 	return nil
 }
 func (ms *MemoryStorage) Append(entries []pb.Entry) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(entries) == 0 {

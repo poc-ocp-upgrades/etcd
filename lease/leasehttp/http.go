@@ -24,6 +24,8 @@ var (
 func NewHandler(l lease.Lessor, waitch func() <-chan struct{}) http.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &leaseHandler{l, waitch}
 }
 
@@ -33,6 +35,8 @@ type leaseHandler struct {
 }
 
 func (h *leaseHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if r.Method != "POST" {
@@ -114,6 +118,8 @@ func (h *leaseHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func RenewHTTP(ctx context.Context, id lease.LeaseID, url string, rt http.RoundTripper) (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lreq, err := (&pb.LeaseKeepAliveRequest{ID: int64(id)}).Marshal()
 	if err != nil {
 		return -1, err
@@ -152,6 +158,8 @@ func RenewHTTP(ctx context.Context, id lease.LeaseID, url string, rt http.RoundT
 	return lresp.TTL, nil
 }
 func TimeToLiveHTTP(ctx context.Context, id lease.LeaseID, keys bool, url string, rt http.RoundTripper) (*leasepb.LeaseInternalResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lreq, err := (&leasepb.LeaseInternalRequest{LeaseTimeToLiveRequest: &pb.LeaseTimeToLiveRequest{ID: int64(id), Keys: keys}}).Marshal()
@@ -193,6 +201,8 @@ func TimeToLiveHTTP(ctx context.Context, id lease.LeaseID, keys bool, url string
 	return lresp, nil
 }
 func readResponse(resp *http.Response) (b []byte, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, err = ioutil.ReadAll(resp.Body)

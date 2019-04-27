@@ -30,6 +30,8 @@ type txn struct {
 func (txn *txn) If(cs ...Cmp) Txn {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	txn.mu.Lock()
 	defer txn.mu.Unlock()
 	if txn.cif {
@@ -50,6 +52,8 @@ func (txn *txn) If(cs ...Cmp) Txn {
 func (txn *txn) Then(ops ...Op) Txn {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	txn.mu.Lock()
 	defer txn.mu.Unlock()
 	if txn.cthen {
@@ -68,6 +72,8 @@ func (txn *txn) Then(ops ...Op) Txn {
 func (txn *txn) Else(ops ...Op) Txn {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	txn.mu.Lock()
 	defer txn.mu.Unlock()
 	if txn.celse {
@@ -81,6 +87,8 @@ func (txn *txn) Else(ops ...Op) Txn {
 	return txn
 }
 func (txn *txn) Commit() (*TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	txn.mu.Lock()

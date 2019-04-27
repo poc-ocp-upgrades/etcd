@@ -10,6 +10,8 @@ import (
 func NewCertPool(CAFiles []string) (*x509.CertPool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	certPool := x509.NewCertPool()
 	for _, CAFile := range CAFiles {
 		pemByte, err := ioutil.ReadFile(CAFile)
@@ -32,6 +34,8 @@ func NewCertPool(CAFiles []string) (*x509.CertPool, error) {
 	return certPool, nil
 }
 func NewCert(certfile, keyfile string, parseFunc func([]byte, []byte) (tls.Certificate, error)) (*tls.Certificate, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cert, err := ioutil.ReadFile(certfile)

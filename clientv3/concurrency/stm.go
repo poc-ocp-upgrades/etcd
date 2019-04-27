@@ -34,11 +34,15 @@ type stmOption func(*stmOptions)
 func WithIsolation(lvl Isolation) stmOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(so *stmOptions) {
 		so.iso = lvl
 	}
 }
 func WithAbortContext(ctx context.Context) stmOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(so *stmOptions) {
@@ -48,11 +52,15 @@ func WithAbortContext(ctx context.Context) stmOption {
 func WithPrefetch(keys ...string) stmOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(so *stmOptions) {
 		so.prefetch = append(so.prefetch, keys...)
 	}
 }
 func NewSTM(c *v3.Client, apply func(STM) error, so ...stmOption) (*v3.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	opts := &stmOptions{ctx: c.Ctx()}
@@ -69,6 +77,8 @@ func NewSTM(c *v3.Client, apply func(STM) error, so ...stmOption) (*v3.TxnRespon
 	return runSTM(mkSTM(c, opts), apply)
 }
 func mkSTM(c *v3.Client, opts *stmOptions) STM {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch opts.iso {
@@ -107,6 +117,8 @@ type stmResponse struct {
 }
 
 func runSTM(s STM, apply func(STM) error) (*v3.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	outc := make(chan stmResponse, 1)
@@ -153,11 +165,15 @@ type readSet map[string]*v3.GetResponse
 func (rs readSet) add(keys []string, txnresp *v3.TxnResponse) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i, resp := range txnresp.Responses {
 		rs[keys[i]] = (*v3.GetResponse)(resp.GetResponseRange())
 	}
 }
 func (rs readSet) first() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ret := int64(math.MaxInt64 - 1)
@@ -169,6 +185,8 @@ func (rs readSet) first() int64 {
 	return ret
 }
 func (rs readSet) cmps() []v3.Cmp {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmps := make([]v3.Cmp, 0, len(rs))
@@ -183,6 +201,8 @@ type writeSet map[string]stmPut
 func (ws writeSet) get(keys ...string) *stmPut {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, key := range keys {
 		if wv, ok := ws[key]; ok {
 			return &wv
@@ -191,6 +211,8 @@ func (ws writeSet) get(keys ...string) *stmPut {
 	return nil
 }
 func (ws writeSet) cmps(rev int64) []v3.Cmp {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmps := make([]v3.Cmp, 0, len(ws))
@@ -202,6 +224,8 @@ func (ws writeSet) cmps(rev int64) []v3.Cmp {
 func (ws writeSet) puts() []v3.Op {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	puts := make([]v3.Op, 0, len(ws))
 	for _, v := range ws {
 		puts = append(puts, v.op)
@@ -209,6 +233,8 @@ func (ws writeSet) puts() []v3.Op {
 	return puts
 }
 func (s *stm) Get(keys ...string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if wv := s.wset.get(keys...); wv != nil {
@@ -219,14 +245,20 @@ func (s *stm) Get(keys ...string) string {
 func (s *stm) Put(key, val string, opts ...v3.OpOption) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.wset[key] = stmPut{val, v3.OpPut(key, val, opts...)}
 }
 func (s *stm) Del(key string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.wset[key] = stmPut{"", v3.OpDelete(key)}
 }
 func (s *stm) Rev(key string) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if resp := s.fetch(key); resp != nil && len(resp.Kvs) != 0 {
@@ -235,6 +267,8 @@ func (s *stm) Rev(key string) int64 {
 	return 0
 }
 func (s *stm) commit() *v3.TxnResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	txnresp, err := s.client.Txn(s.ctx).If(s.conflicts()...).Then(s.wset.puts()...).Commit()
@@ -247,6 +281,8 @@ func (s *stm) commit() *v3.TxnResponse {
 	return nil
 }
 func (s *stm) fetch(keys ...string) *v3.GetResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(keys) == 0 {
@@ -269,6 +305,8 @@ func (s *stm) fetch(keys ...string) *v3.GetResponse {
 func (s *stm) reset() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.rset = make(map[string]*v3.GetResponse)
 	s.wset = make(map[string]stmPut)
 }
@@ -279,6 +317,8 @@ type stmSerializable struct {
 }
 
 func (s *stmSerializable) Get(keys ...string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if wv := s.wset.get(keys...); wv != nil {
@@ -300,10 +340,14 @@ func (s *stmSerializable) Get(keys ...string) string {
 func (s *stmSerializable) Rev(key string) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.Get(key)
 	return s.stm.Rev(key)
 }
 func (s *stmSerializable) gets() ([]string, []v3.Op) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	keys := make([]string, 0, len(s.rset))
@@ -315,6 +359,8 @@ func (s *stmSerializable) gets() ([]string, []v3.Op) {
 	return keys, ops
 }
 func (s *stmSerializable) commit() *v3.TxnResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	keys, getops := s.gets()
@@ -334,12 +380,16 @@ func (s *stmSerializable) commit() *v3.TxnResponse {
 func isKeyCurrent(k string, r *v3.GetResponse) v3.Cmp {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(r.Kvs) != 0 {
 		return v3.Compare(v3.ModRevision(k), "=", r.Kvs[0].ModRevision)
 	}
 	return v3.Compare(v3.ModRevision(k), "=", 0)
 }
 func respToValue(resp *v3.GetResponse) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if resp == nil || len(resp.Kvs) == 0 {
@@ -350,14 +400,20 @@ func respToValue(resp *v3.GetResponse) string {
 func NewSTMRepeatable(ctx context.Context, c *v3.Client, apply func(STM) error) (*v3.TxnResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewSTM(c, apply, WithAbortContext(ctx), WithIsolation(RepeatableReads))
 }
 func NewSTMSerializable(ctx context.Context, c *v3.Client, apply func(STM) error) (*v3.TxnResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewSTM(c, apply, WithAbortContext(ctx), WithIsolation(Serializable))
 }
 func NewSTMReadCommitted(ctx context.Context, c *v3.Client, apply func(STM) error) (*v3.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return NewSTM(c, apply, WithAbortContext(ctx), WithIsolation(ReadCommitted))

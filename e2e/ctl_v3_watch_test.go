@@ -10,6 +10,8 @@ type kvExec struct {
 func setupWatchArgs(cx ctlCtx, args []string) []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmdArgs := append(cx.PrefixArgs(), "watch")
 	if cx.interactive {
 		cmdArgs = append(cmdArgs, "--interactive")
@@ -19,6 +21,8 @@ func setupWatchArgs(cx ctlCtx, args []string) []string {
 	return cmdArgs
 }
 func ctlV3Watch(cx ctlCtx, args []string, kvs ...kvExec) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := setupWatchArgs(cx, args)
@@ -48,6 +52,8 @@ func ctlV3Watch(cx ctlCtx, args []string, kvs ...kvExec) error {
 	return proc.Stop()
 }
 func ctlV3WatchFailPerm(cx ctlCtx, args []string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmdArgs := setupWatchArgs(cx, args)

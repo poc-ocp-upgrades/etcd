@@ -55,6 +55,8 @@ type Authenticator interface {
 func (s *EtcdServer) Range(ctx context.Context, r *pb.RangeRequest) (*pb.RangeResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var resp *pb.RangeResponse
 	var err error
 	defer func(start time.Time) {
@@ -81,6 +83,8 @@ func (s *EtcdServer) Range(ctx context.Context, r *pb.RangeRequest) (*pb.RangeRe
 func (s *EtcdServer) Put(ctx context.Context, r *pb.PutRequest) (*pb.PutResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{Put: r})
 	if err != nil {
 		return nil, err
@@ -90,6 +94,8 @@ func (s *EtcdServer) Put(ctx context.Context, r *pb.PutRequest) (*pb.PutResponse
 func (s *EtcdServer) DeleteRange(ctx context.Context, r *pb.DeleteRangeRequest) (*pb.DeleteRangeResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{DeleteRange: r})
 	if err != nil {
 		return nil, err
@@ -97,6 +103,8 @@ func (s *EtcdServer) DeleteRange(ctx context.Context, r *pb.DeleteRangeRequest) 
 	return resp.(*pb.DeleteRangeResponse), nil
 }
 func (s *EtcdServer) Txn(ctx context.Context, r *pb.TxnRequest) (*pb.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if isTxnReadonly(r) {
@@ -131,6 +139,8 @@ func (s *EtcdServer) Txn(ctx context.Context, r *pb.TxnRequest) (*pb.TxnResponse
 func isTxnSerializable(r *pb.TxnRequest) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, u := range r.Success {
 		if r := u.GetRequestRange(); r == nil || !r.Serializable {
 			return false
@@ -146,6 +156,8 @@ func isTxnSerializable(r *pb.TxnRequest) bool {
 func isTxnReadonly(r *pb.TxnRequest) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, u := range r.Success {
 		if r := u.GetRequestRange(); r == nil {
 			return false
@@ -159,6 +171,8 @@ func isTxnReadonly(r *pb.TxnRequest) bool {
 	return true
 }
 func (s *EtcdServer) Compact(ctx context.Context, r *pb.CompactionRequest) (*pb.CompactionResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result, err := s.processInternalRaftRequestOnce(ctx, pb.InternalRaftRequest{Compaction: r})
@@ -185,6 +199,8 @@ func (s *EtcdServer) Compact(ctx context.Context, r *pb.CompactionRequest) (*pb.
 func (s *EtcdServer) LeaseGrant(ctx context.Context, r *pb.LeaseGrantRequest) (*pb.LeaseGrantResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for r.ID == int64(lease.NoLease) {
 		r.ID = int64(s.reqIDGen.Next() & ((1 << 63) - 1))
 	}
@@ -197,6 +213,8 @@ func (s *EtcdServer) LeaseGrant(ctx context.Context, r *pb.LeaseGrantRequest) (*
 func (s *EtcdServer) LeaseRevoke(ctx context.Context, r *pb.LeaseRevokeRequest) (*pb.LeaseRevokeResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.raftRequestOnce(ctx, pb.InternalRaftRequest{LeaseRevoke: r})
 	if err != nil {
 		return nil, err
@@ -204,6 +222,8 @@ func (s *EtcdServer) LeaseRevoke(ctx context.Context, r *pb.LeaseRevokeRequest) 
 	return resp.(*pb.LeaseRevokeResponse), nil
 }
 func (s *EtcdServer) LeaseRenew(ctx context.Context, id lease.LeaseID) (int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ttl, err := s.lessor.Renew(id)
@@ -231,6 +251,8 @@ func (s *EtcdServer) LeaseRenew(ctx context.Context, id lease.LeaseID) (int64, e
 	return -1, ErrTimeout
 }
 func (s *EtcdServer) LeaseTimeToLive(ctx context.Context, r *pb.LeaseTimeToLiveRequest) (*pb.LeaseTimeToLiveResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.Leader() == s.ID() {
@@ -272,6 +294,8 @@ func (s *EtcdServer) LeaseTimeToLive(ctx context.Context, r *pb.LeaseTimeToLiveR
 func (s *EtcdServer) LeaseLeases(ctx context.Context, r *pb.LeaseLeasesRequest) (*pb.LeaseLeasesResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ls := s.lessor.Leases()
 	lss := make([]*pb.LeaseStatus, len(ls))
 	for i := range ls {
@@ -280,6 +304,8 @@ func (s *EtcdServer) LeaseLeases(ctx context.Context, r *pb.LeaseLeasesRequest) 
 	return &pb.LeaseLeasesResponse{Header: newHeader(s), Leases: lss}, nil
 }
 func (s *EtcdServer) waitLeader(ctx context.Context) (*membership.Member, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	leader := s.cluster.Member(s.Leader())
@@ -302,6 +328,8 @@ func (s *EtcdServer) waitLeader(ctx context.Context) (*membership.Member, error)
 func (s *EtcdServer) Alarm(ctx context.Context, r *pb.AlarmRequest) (*pb.AlarmResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.raftRequestOnce(ctx, pb.InternalRaftRequest{Alarm: r})
 	if err != nil {
 		return nil, err
@@ -309,6 +337,8 @@ func (s *EtcdServer) Alarm(ctx context.Context, r *pb.AlarmRequest) (*pb.AlarmRe
 	return resp.(*pb.AlarmResponse), nil
 }
 func (s *EtcdServer) AuthEnable(ctx context.Context, r *pb.AuthEnableRequest) (*pb.AuthEnableResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := s.raftRequestOnce(ctx, pb.InternalRaftRequest{AuthEnable: r})
@@ -320,6 +350,8 @@ func (s *EtcdServer) AuthEnable(ctx context.Context, r *pb.AuthEnableRequest) (*
 func (s *EtcdServer) AuthDisable(ctx context.Context, r *pb.AuthDisableRequest) (*pb.AuthDisableResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{AuthDisable: r})
 	if err != nil {
 		return nil, err
@@ -327,6 +359,8 @@ func (s *EtcdServer) AuthDisable(ctx context.Context, r *pb.AuthDisableRequest) 
 	return resp.(*pb.AuthDisableResponse), nil
 }
 func (s *EtcdServer) Authenticate(ctx context.Context, r *pb.AuthenticateRequest) (*pb.AuthenticateResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := s.linearizableReadNotify(ctx); err != nil {
@@ -360,6 +394,8 @@ func (s *EtcdServer) Authenticate(ctx context.Context, r *pb.AuthenticateRequest
 func (s *EtcdServer) UserAdd(ctx context.Context, r *pb.AuthUserAddRequest) (*pb.AuthUserAddResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{AuthUserAdd: r})
 	if err != nil {
 		return nil, err
@@ -367,6 +403,8 @@ func (s *EtcdServer) UserAdd(ctx context.Context, r *pb.AuthUserAddRequest) (*pb
 	return resp.(*pb.AuthUserAddResponse), nil
 }
 func (s *EtcdServer) UserDelete(ctx context.Context, r *pb.AuthUserDeleteRequest) (*pb.AuthUserDeleteResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{AuthUserDelete: r})
@@ -378,6 +416,8 @@ func (s *EtcdServer) UserDelete(ctx context.Context, r *pb.AuthUserDeleteRequest
 func (s *EtcdServer) UserChangePassword(ctx context.Context, r *pb.AuthUserChangePasswordRequest) (*pb.AuthUserChangePasswordResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{AuthUserChangePassword: r})
 	if err != nil {
 		return nil, err
@@ -385,6 +425,8 @@ func (s *EtcdServer) UserChangePassword(ctx context.Context, r *pb.AuthUserChang
 	return resp.(*pb.AuthUserChangePasswordResponse), nil
 }
 func (s *EtcdServer) UserGrantRole(ctx context.Context, r *pb.AuthUserGrantRoleRequest) (*pb.AuthUserGrantRoleResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{AuthUserGrantRole: r})
@@ -396,6 +438,8 @@ func (s *EtcdServer) UserGrantRole(ctx context.Context, r *pb.AuthUserGrantRoleR
 func (s *EtcdServer) UserGet(ctx context.Context, r *pb.AuthUserGetRequest) (*pb.AuthUserGetResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{AuthUserGet: r})
 	if err != nil {
 		return nil, err
@@ -403,6 +447,8 @@ func (s *EtcdServer) UserGet(ctx context.Context, r *pb.AuthUserGetRequest) (*pb
 	return resp.(*pb.AuthUserGetResponse), nil
 }
 func (s *EtcdServer) UserList(ctx context.Context, r *pb.AuthUserListRequest) (*pb.AuthUserListResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{AuthUserList: r})
@@ -414,6 +460,8 @@ func (s *EtcdServer) UserList(ctx context.Context, r *pb.AuthUserListRequest) (*
 func (s *EtcdServer) UserRevokeRole(ctx context.Context, r *pb.AuthUserRevokeRoleRequest) (*pb.AuthUserRevokeRoleResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{AuthUserRevokeRole: r})
 	if err != nil {
 		return nil, err
@@ -421,6 +469,8 @@ func (s *EtcdServer) UserRevokeRole(ctx context.Context, r *pb.AuthUserRevokeRol
 	return resp.(*pb.AuthUserRevokeRoleResponse), nil
 }
 func (s *EtcdServer) RoleAdd(ctx context.Context, r *pb.AuthRoleAddRequest) (*pb.AuthRoleAddResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{AuthRoleAdd: r})
@@ -432,6 +482,8 @@ func (s *EtcdServer) RoleAdd(ctx context.Context, r *pb.AuthRoleAddRequest) (*pb
 func (s *EtcdServer) RoleGrantPermission(ctx context.Context, r *pb.AuthRoleGrantPermissionRequest) (*pb.AuthRoleGrantPermissionResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{AuthRoleGrantPermission: r})
 	if err != nil {
 		return nil, err
@@ -439,6 +491,8 @@ func (s *EtcdServer) RoleGrantPermission(ctx context.Context, r *pb.AuthRoleGran
 	return resp.(*pb.AuthRoleGrantPermissionResponse), nil
 }
 func (s *EtcdServer) RoleGet(ctx context.Context, r *pb.AuthRoleGetRequest) (*pb.AuthRoleGetResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{AuthRoleGet: r})
@@ -450,6 +504,8 @@ func (s *EtcdServer) RoleGet(ctx context.Context, r *pb.AuthRoleGetRequest) (*pb
 func (s *EtcdServer) RoleList(ctx context.Context, r *pb.AuthRoleListRequest) (*pb.AuthRoleListResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{AuthRoleList: r})
 	if err != nil {
 		return nil, err
@@ -457,6 +513,8 @@ func (s *EtcdServer) RoleList(ctx context.Context, r *pb.AuthRoleListRequest) (*
 	return resp.(*pb.AuthRoleListResponse), nil
 }
 func (s *EtcdServer) RoleRevokePermission(ctx context.Context, r *pb.AuthRoleRevokePermissionRequest) (*pb.AuthRoleRevokePermissionResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{AuthRoleRevokePermission: r})
@@ -468,6 +526,8 @@ func (s *EtcdServer) RoleRevokePermission(ctx context.Context, r *pb.AuthRoleRev
 func (s *EtcdServer) RoleDelete(ctx context.Context, r *pb.AuthRoleDeleteRequest) (*pb.AuthRoleDeleteResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{AuthRoleDelete: r})
 	if err != nil {
 		return nil, err
@@ -475,6 +535,8 @@ func (s *EtcdServer) RoleDelete(ctx context.Context, r *pb.AuthRoleDeleteRequest
 	return resp.(*pb.AuthRoleDeleteResponse), nil
 }
 func (s *EtcdServer) raftRequestOnce(ctx context.Context, r pb.InternalRaftRequest) (proto.Message, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result, err := s.processInternalRaftRequestOnce(ctx, r)
@@ -489,6 +551,8 @@ func (s *EtcdServer) raftRequestOnce(ctx context.Context, r pb.InternalRaftReque
 func (s *EtcdServer) raftRequest(ctx context.Context, r pb.InternalRaftRequest) (proto.Message, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		resp, err := s.raftRequestOnce(ctx, r)
 		if err != auth.ErrAuthOldRevision {
@@ -497,6 +561,8 @@ func (s *EtcdServer) raftRequest(ctx context.Context, r pb.InternalRaftRequest) 
 	}
 }
 func (s *EtcdServer) doSerialize(ctx context.Context, chk func(*auth.AuthInfo) error, get func()) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {
@@ -520,6 +586,8 @@ func (s *EtcdServer) doSerialize(ctx context.Context, chk func(*auth.AuthInfo) e
 	}
 }
 func (s *EtcdServer) processInternalRaftRequestOnce(ctx context.Context, r pb.InternalRaftRequest) (*applyResult, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ai := s.getAppliedIndex()
@@ -568,9 +636,13 @@ func (s *EtcdServer) processInternalRaftRequestOnce(ctx context.Context, r pb.In
 func (s *EtcdServer) Watchable() mvcc.WatchableKV {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.KV()
 }
 func (s *EtcdServer) linearizableReadLoop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var rs raft.ReadState
@@ -641,6 +713,8 @@ func (s *EtcdServer) linearizableReadLoop() {
 func (s *EtcdServer) linearizableReadNotify(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.readMu.RLock()
 	nc := s.readNotifier
 	s.readMu.RUnlock()
@@ -658,6 +732,8 @@ func (s *EtcdServer) linearizableReadNotify(ctx context.Context) error {
 	}
 }
 func (s *EtcdServer) AuthInfoFromCtx(ctx context.Context) (*auth.AuthInfo, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	authInfo, err := s.AuthStore().AuthInfoFromCtx(ctx)

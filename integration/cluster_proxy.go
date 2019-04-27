@@ -25,6 +25,8 @@ type grpcClientProxy struct {
 func toGRPC(c *clientv3.Client) grpcAPI {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pmu.Lock()
 	defer pmu.Unlock()
 	if v, ok := proxies[c]; ok {
@@ -57,6 +59,8 @@ type proxyCloser struct {
 func (pc *proxyCloser) Close() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	<-pc.kvdonec
 	err := pc.Watcher.Close()
 	<-pc.wdonec
@@ -65,6 +69,8 @@ func (pc *proxyCloser) Close() error {
 	return err
 }
 func newClientV3(cfg clientv3.Config) (*clientv3.Client, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c, err := clientv3.New(cfg)

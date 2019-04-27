@@ -18,9 +18,13 @@ type EventHistory struct {
 func newEventHistory(capacity int) *EventHistory {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &EventHistory{Queue: eventQueue{Capacity: capacity, Events: make([]*Event, capacity)}}
 }
 func (eh *EventHistory) addEvent(e *Event) *Event {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	eh.rwl.Lock()
@@ -31,6 +35,8 @@ func (eh *EventHistory) addEvent(e *Event) *Event {
 	return e
 }
 func (eh *EventHistory) scan(key string, recursive bool, index uint64) (*Event, *etcdErr.Error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	eh.rwl.RLock()
@@ -68,6 +74,8 @@ func (eh *EventHistory) scan(key string, recursive bool, index uint64) (*Event, 
 	}
 }
 func (eh *EventHistory) clone() *EventHistory {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clonedQueue := eventQueue{Capacity: eh.Queue.Capacity, Events: make([]*Event, eh.Queue.Capacity), Size: eh.Queue.Size, Front: eh.Queue.Front, Back: eh.Queue.Back}

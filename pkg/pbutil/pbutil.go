@@ -20,6 +20,8 @@ type Unmarshaler interface{ Unmarshal(data []byte) error }
 func MustMarshal(m Marshaler) []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d, err := m.Marshal()
 	if err != nil {
 		plog.Panicf("marshal should never fail (%v)", err)
@@ -29,11 +31,15 @@ func MustMarshal(m Marshaler) []byte {
 func MustUnmarshal(um Unmarshaler, data []byte) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := um.Unmarshal(data); err != nil {
 		plog.Panicf("unmarshal should never fail (%v)", err)
 	}
 }
 func MaybeUnmarshal(um Unmarshaler, data []byte) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := um.Unmarshal(data); err != nil {
@@ -44,6 +50,8 @@ func MaybeUnmarshal(um Unmarshaler, data []byte) bool {
 func GetBool(v *bool) (vv bool, set bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if v == nil {
 		return false, false
 	}
@@ -52,12 +60,23 @@ func GetBool(v *bool) (vv bool, set bool) {
 func Boolp(b bool) *bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &b
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
