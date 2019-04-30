@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package snap
 
 import (
@@ -24,13 +10,11 @@ import (
 	"sort"
 	"strings"
 	"time"
-
 	"go.etcd.io/etcd/etcdserver/api/snap/snappb"
 	pioutil "go.etcd.io/etcd/pkg/ioutil"
 	"go.etcd.io/etcd/pkg/pbutil"
 	"go.etcd.io/etcd/raft"
 	"go.etcd.io/etcd/raft/raftpb"
-
 	"github.com/coreos/pkg/capnslog"
 	"go.uber.org/zap"
 )
@@ -38,41 +22,36 @@ import (
 const snapSuffix = ".snap"
 
 var (
-	plog = capnslog.NewPackageLogger("go.etcd.io/etcd", "snap")
-
-	ErrNoSnapshot    = errors.New("snap: no available snapshot")
-	ErrEmptySnapshot = errors.New("snap: empty snapshot")
-	ErrCRCMismatch   = errors.New("snap: crc mismatch")
-	crcTable         = crc32.MakeTable(crc32.Castagnoli)
-
-	// A map of valid files that can be present in the snap folder.
-	validFiles = map[string]bool{
-		"db": true,
-	}
+	plog			= capnslog.NewPackageLogger("go.etcd.io/etcd", "snap")
+	ErrNoSnapshot		= errors.New("snap: no available snapshot")
+	ErrEmptySnapshot	= errors.New("snap: empty snapshot")
+	ErrCRCMismatch		= errors.New("snap: crc mismatch")
+	crcTable		= crc32.MakeTable(crc32.Castagnoli)
+	validFiles		= map[string]bool{"db": true}
 )
 
 type Snapshotter struct {
-	lg  *zap.Logger
-	dir string
+	lg	*zap.Logger
+	dir	string
 }
 
 func New(lg *zap.Logger, dir string) *Snapshotter {
-	return &Snapshotter{
-		lg:  lg,
-		dir: dir,
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return &Snapshotter{lg: lg, dir: dir}
 }
-
 func (s *Snapshotter) SaveSnap(snapshot raftpb.Snapshot) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if raft.IsEmptySnap(snapshot) {
 		return nil
 	}
 	return s.save(&snapshot)
 }
-
 func (s *Snapshotter) save(snapshot *raftpb.Snapshot) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	start := time.Now()
-
 	fname := fmt.Sprintf("%016x-%016x%s", snapshot.Metadata.Term, snapshot.Metadata.Index, snapSuffix)
 	b := pbutil.MustMarshal(snapshot)
 	crc := crc32.Update(0, crcTable, b)
@@ -82,13 +61,10 @@ func (s *Snapshotter) save(snapshot *raftpb.Snapshot) error {
 		return err
 	}
 	snapMarshallingSec.Observe(time.Since(start).Seconds())
-
 	spath := filepath.Join(s.dir, fname)
-
 	fsyncStart := time.Now()
 	err = pioutil.WriteAndSyncFile(spath, d, 0666)
 	snapFsyncSec.Observe(time.Since(fsyncStart).Seconds())
-
 	if err != nil {
 		if s.lg != nil {
 			s.lg.Warn("failed to write a snap file", zap.String("path", spath), zap.Error(err))
@@ -103,12 +79,12 @@ func (s *Snapshotter) save(snapshot *raftpb.Snapshot) error {
 		}
 		return err
 	}
-
 	snapSaveSec.Observe(time.Since(start).Seconds())
 	return nil
 }
-
 func (s *Snapshotter) Load() (*raftpb.Snapshot, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	names, err := s.snapNames()
 	if err != nil {
 		return nil, err
@@ -124,8 +100,9 @@ func (s *Snapshotter) Load() (*raftpb.Snapshot, error) {
 	}
 	return snap, nil
 }
-
 func loadSnap(lg *zap.Logger, dir, name string) (*raftpb.Snapshot, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fpath := filepath.Join(dir, name)
 	snap, err := Read(lg, fpath)
 	if err != nil {
@@ -147,9 +124,9 @@ func loadSnap(lg *zap.Logger, dir, name string) (*raftpb.Snapshot, error) {
 	}
 	return snap, err
 }
-
-// Read reads the snapshot named by snapname and returns the snapshot.
 func Read(lg *zap.Logger, snapname string) (*raftpb.Snapshot, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, err := ioutil.ReadFile(snapname)
 	if err != nil {
 		if lg != nil {
@@ -159,7 +136,6 @@ func Read(lg *zap.Logger, snapname string) (*raftpb.Snapshot, error) {
 		}
 		return nil, err
 	}
-
 	if len(b) == 0 {
 		if lg != nil {
 			lg.Warn("failed to read empty snapshot file", zap.String("path", snapname))
@@ -168,7 +144,6 @@ func Read(lg *zap.Logger, snapname string) (*raftpb.Snapshot, error) {
 		}
 		return nil, ErrEmptySnapshot
 	}
-
 	var serializedSnap snappb.Snapshot
 	if err = serializedSnap.Unmarshal(b); err != nil {
 		if lg != nil {
@@ -178,7 +153,6 @@ func Read(lg *zap.Logger, snapname string) (*raftpb.Snapshot, error) {
 		}
 		return nil, err
 	}
-
 	if len(serializedSnap.Data) == 0 || serializedSnap.Crc == 0 {
 		if lg != nil {
 			lg.Warn("failed to read empty snapshot data", zap.String("path", snapname))
@@ -187,21 +161,15 @@ func Read(lg *zap.Logger, snapname string) (*raftpb.Snapshot, error) {
 		}
 		return nil, ErrEmptySnapshot
 	}
-
 	crc := crc32.Update(0, crcTable, serializedSnap.Data)
 	if crc != serializedSnap.Crc {
 		if lg != nil {
-			lg.Warn("snap file is corrupt",
-				zap.String("path", snapname),
-				zap.Uint32("prev-crc", serializedSnap.Crc),
-				zap.Uint32("new-crc", crc),
-			)
+			lg.Warn("snap file is corrupt", zap.String("path", snapname), zap.Uint32("prev-crc", serializedSnap.Crc), zap.Uint32("new-crc", crc))
 		} else {
 			plog.Errorf("corrupted snapshot file %v: crc mismatch", snapname)
 		}
 		return nil, ErrCRCMismatch
 	}
-
 	var snap raftpb.Snapshot
 	if err = snap.Unmarshal(serializedSnap.Data); err != nil {
 		if lg != nil {
@@ -213,10 +181,9 @@ func Read(lg *zap.Logger, snapname string) (*raftpb.Snapshot, error) {
 	}
 	return &snap, nil
 }
-
-// snapNames returns the filename of the snapshots in logical time order (from newest to oldest).
-// If there is no available snapshots, an ErrNoSnapshot will be returned.
 func (s *Snapshotter) snapNames() ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir, err := os.Open(s.dir)
 	if err != nil {
 		return nil, err
@@ -233,15 +200,14 @@ func (s *Snapshotter) snapNames() ([]string, error) {
 	sort.Sort(sort.Reverse(sort.StringSlice(snaps)))
 	return snaps, nil
 }
-
 func checkSuffix(lg *zap.Logger, names []string) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	snaps := []string{}
 	for i := range names {
 		if strings.HasSuffix(names[i], snapSuffix) {
 			snaps = append(snaps, names[i])
 		} else {
-			// If we find a file which is not a snapshot then check if it's
-			// a vaild file. If not throw out a warning.
 			if _, ok := validFiles[names[i]]; !ok {
 				if lg != nil {
 					lg.Warn("found unexpected non-snap file; skipping", zap.String("path", names[i]))

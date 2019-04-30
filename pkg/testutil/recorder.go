@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package testutil
 
 import (
@@ -22,44 +8,39 @@ import (
 )
 
 type Action struct {
-	Name   string
-	Params []interface{}
+	Name	string
+	Params	[]interface{}
 }
-
 type Recorder interface {
-	// Record publishes an Action (e.g., function call) which will
-	// be reflected by Wait() or Chan()
 	Record(a Action)
-	// Wait waits until at least n Actions are available or returns with error
 	Wait(n int) ([]Action, error)
-	// Action returns immediately available Actions
 	Action() []Action
-	// Chan returns the channel for actions published by Record
 	Chan() <-chan Action
 }
-
-// RecorderBuffered appends all Actions to a slice
 type RecorderBuffered struct {
 	sync.Mutex
-	actions []Action
+	actions	[]Action
 }
 
 func (r *RecorderBuffered) Record(a Action) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.Lock()
 	r.actions = append(r.actions, a)
 	r.Unlock()
 }
-
 func (r *RecorderBuffered) Action() []Action {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.Lock()
 	cpy := make([]Action, len(r.actions))
 	copy(cpy, r.actions)
 	r.Unlock()
 	return cpy
 }
-
 func (r *RecorderBuffered) Wait(n int) (acts []Action, err error) {
-	// legacy racey behavior
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	WaitSchedule()
 	acts = r.Action()
 	if len(acts) < n {
@@ -67,8 +48,9 @@ func (r *RecorderBuffered) Wait(n int) (acts []Action, err error) {
 	}
 	return acts, err
 }
-
 func (r *RecorderBuffered) Chan() <-chan Action {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ch := make(chan Action)
 	go func() {
 		acts := r.Action()
@@ -80,20 +62,21 @@ func (r *RecorderBuffered) Chan() <-chan Action {
 	return ch
 }
 
-// RecorderStream writes all Actions to an unbuffered channel
-type recorderStream struct {
-	ch chan Action
-}
+type recorderStream struct{ ch chan Action }
 
 func NewRecorderStream() Recorder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &recorderStream{ch: make(chan Action)}
 }
-
 func (r *recorderStream) Record(a Action) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.ch <- a
 }
-
 func (r *recorderStream) Action() (acts []Action) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		select {
 		case act := <-r.ch:
@@ -103,12 +86,14 @@ func (r *recorderStream) Action() (acts []Action) {
 		}
 	}
 }
-
 func (r *recorderStream) Chan() <-chan Action {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.ch
 }
-
 func (r *recorderStream) Wait(n int) ([]Action, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	acts := make([]Action, n)
 	timeoutC := time.After(5 * time.Second)
 	for i := 0; i < n; i++ {
@@ -119,7 +104,6 @@ func (r *recorderStream) Wait(n int) ([]Action, error) {
 			return acts, newLenErr(n, i)
 		}
 	}
-	// extra wait to catch any Action spew
 	select {
 	case act := <-r.ch:
 		acts = append(acts, act)
@@ -127,8 +111,9 @@ func (r *recorderStream) Wait(n int) ([]Action, error) {
 	}
 	return acts, nil
 }
-
 func newLenErr(expected int, actual int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := fmt.Sprintf("len(actions) = %d, expected >= %d", actual, expected)
 	return errors.New(s)
 }

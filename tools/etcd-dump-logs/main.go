@@ -1,17 +1,3 @@
-// Copyright 2018 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package main
 
 import (
@@ -27,7 +13,6 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
-
 	"go.etcd.io/etcd/etcdserver/api/snap"
 	"go.etcd.io/etcd/etcdserver/etcdserverpb"
 	"go.etcd.io/etcd/pkg/pbutil"
@@ -35,11 +20,12 @@ import (
 	"go.etcd.io/etcd/raft/raftpb"
 	"go.etcd.io/etcd/wal"
 	"go.etcd.io/etcd/wal/walpb"
-
 	"go.uber.org/zap"
 )
 
 func main() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	snapfile := flag.String("start-snap", "", "The base name of snapshot file to start dumping")
 	index := flag.Uint64("start-index", 0, "The index to start dumping")
 	entrytype := flag.String("entry-type", "", `If set, filters output by entry type. Must be one or more than one of:
@@ -49,26 +35,20 @@ func main() {
 	streamdecoder := flag.String("stream-decoder", "", `The name of an executable decoding tool, the executable must process
 	hex encoded lines of binary input (from etcd-dump-logs)
 	and output a hex encoded line of binary for each input line`)
-
 	flag.Parse()
-
 	if len(flag.Args()) != 1 {
 		log.Fatalf("Must provide data-dir argument (got %+v)", flag.Args())
 	}
 	dataDir := flag.Args()[0]
-
 	if *snapfile != "" && *index != 0 {
 		log.Fatal("start-snap and start-index flags cannot be used together.")
 	}
-
 	var (
-		walsnap  walpb.Snapshot
-		snapshot *raftpb.Snapshot
-		err      error
+		walsnap		walpb.Snapshot
+		snapshot	*raftpb.Snapshot
+		err		error
 	)
-
 	isIndex := *index != 0
-
 	if isIndex {
 		fmt.Printf("Start dumping log entries from index %d.\n", *index)
 		walsnap.Index = *index
@@ -79,13 +59,11 @@ func main() {
 		} else {
 			snapshot, err = snap.Read(zap.NewExample(), filepath.Join(snapDir(dataDir), *snapfile))
 		}
-
 		switch err {
 		case nil:
 			walsnap.Index, walsnap.Term = snapshot.Metadata.Index, snapshot.Metadata.Term
 			nodes := genIDSlice(snapshot.Metadata.ConfState.Nodes)
-			fmt.Printf("Snapshot:\nterm=%d index=%d nodes=%s\n",
-				walsnap.Term, walsnap.Index, nodes)
+			fmt.Printf("Snapshot:\nterm=%d index=%d nodes=%s\n", walsnap.Term, walsnap.Index, nodes)
 		case snap.ErrNoSnapshot:
 			fmt.Printf("Snapshot:\nempty\n")
 		default:
@@ -93,7 +71,6 @@ func main() {
 		}
 		fmt.Println("Start dupmping log entries from snapshot.")
 	}
-
 	w, err := wal.OpenForRead(zap.NewExample(), walDir(dataDir), walsnap)
 	if err != nil {
 		log.Fatalf("Failed opening WAL: %v", err)
@@ -105,44 +82,47 @@ func main() {
 	}
 	id, cid := parseWALMetadata(wmetadata)
 	vid := types.ID(state.Vote)
-	fmt.Printf("WAL metadata:\nnodeID=%s clusterID=%s term=%d commitIndex=%d vote=%s\n",
-		id, cid, state.Term, state.Commit, vid)
-
+	fmt.Printf("WAL metadata:\nnodeID=%s clusterID=%s term=%d commitIndex=%d vote=%s\n", id, cid, state.Term, state.Commit, vid)
 	fmt.Printf("WAL entries:\n")
 	fmt.Printf("lastIndex=%d\n", ents[len(ents)-1].Index)
-
 	fmt.Printf("%4s\t%10s\ttype\tdata", "term", "index")
 	if *streamdecoder != "" {
 		fmt.Printf("\tdecoder_status\tdecoded_data")
 	}
 	fmt.Println()
-
 	listEntriesType(*entrytype, *streamdecoder, ents)
 }
-
-func walDir(dataDir string) string { return filepath.Join(dataDir, "member", "wal") }
-
-func snapDir(dataDir string) string { return filepath.Join(dataDir, "member", "snap") }
-
+func walDir(dataDir string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return filepath.Join(dataDir, "member", "wal")
+}
+func snapDir(dataDir string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return filepath.Join(dataDir, "member", "snap")
+}
 func parseWALMetadata(b []byte) (id, cid types.ID) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var metadata etcdserverpb.Metadata
 	pbutil.MustUnmarshal(&metadata, b)
 	id = types.ID(metadata.NodeID)
 	cid = types.ID(metadata.ClusterID)
 	return id, cid
 }
-
 func genIDSlice(a []uint64) []types.ID {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ids := make([]types.ID, len(a))
 	for i, id := range a {
 		ids[i] = types.ID(id)
 	}
 	return ids
 }
-
-// excerpt replaces middle part with ellipsis and returns a double-quoted
-// string safely escaped with Go syntax.
 func excerpt(str string, pre, suf int) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if pre+suf > len(str) {
 		return fmt.Sprintf("%q", str)
 	}
@@ -151,64 +131,75 @@ func excerpt(str string, pre, suf int) string {
 
 type EntryFilter func(e raftpb.Entry) (bool, string)
 
-// The 9 pass functions below takes the raftpb.Entry and return if the entry should be printed and the type of entry,
-// the type of the entry will used in the following print function
 func passConfChange(entry raftpb.Entry) (bool, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return entry.Type == raftpb.EntryConfChange, "ConfigChange"
 }
-
 func passInternalRaftRequest(entry raftpb.Entry) (bool, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rr etcdserverpb.InternalRaftRequest
 	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil, "InternalRaftRequest"
 }
-
 func passUnknownNormal(entry raftpb.Entry) (bool, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rr1 etcdserverpb.Request
 	var rr2 etcdserverpb.InternalRaftRequest
 	return (entry.Type == raftpb.EntryNormal) && (rr1.Unmarshal(entry.Data) != nil) && (rr2.Unmarshal(entry.Data) != nil), "UnknownNormal"
 }
-
 func passIRRRange(entry raftpb.Entry) (bool, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rr etcdserverpb.InternalRaftRequest
 	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.Range != nil, "InternalRaftRequest"
 }
-
 func passIRRPut(entry raftpb.Entry) (bool, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rr etcdserverpb.InternalRaftRequest
 	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.Put != nil, "InternalRaftRequest"
 }
-
 func passIRRDeleteRange(entry raftpb.Entry) (bool, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rr etcdserverpb.InternalRaftRequest
 	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.DeleteRange != nil, "InternalRaftRequest"
 }
-
 func passIRRTxn(entry raftpb.Entry) (bool, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rr etcdserverpb.InternalRaftRequest
 	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.Txn != nil, "InternalRaftRequest"
 }
-
 func passIRRCompaction(entry raftpb.Entry) (bool, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rr etcdserverpb.InternalRaftRequest
 	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.Compaction != nil, "InternalRaftRequest"
 }
-
 func passIRRLeaseGrant(entry raftpb.Entry) (bool, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rr etcdserverpb.InternalRaftRequest
 	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.LeaseGrant != nil, "InternalRaftRequest"
 }
-
 func passIRRLeaseRevoke(entry raftpb.Entry) (bool, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rr etcdserverpb.InternalRaftRequest
 	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.LeaseRevoke != nil, "InternalRaftRequest"
 }
-
 func passIRRLeaseCheckpoint(entry raftpb.Entry) (bool, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rr etcdserverpb.InternalRaftRequest
 	return entry.Type == raftpb.EntryNormal && rr.Unmarshal(entry.Data) == nil && rr.LeaseCheckpoint != nil, "InternalRaftRequest"
 }
-
 func passRequest(entry raftpb.Entry) (bool, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rr1 etcdserverpb.Request
 	var rr2 etcdserverpb.InternalRaftRequest
 	return entry.Type == raftpb.EntryNormal && rr1.Unmarshal(entry.Data) == nil && rr2.Unmarshal(entry.Data) != nil, "Request"
@@ -216,22 +207,22 @@ func passRequest(entry raftpb.Entry) (bool, string) {
 
 type EntryPrinter func(e raftpb.Entry)
 
-// The 4 print functions below print the entry format based on there types
-
-// printInternalRaftRequest is used to print entry information for IRRRange, IRRPut,
-// IRRDeleteRange and IRRTxn entries
 func printInternalRaftRequest(entry raftpb.Entry) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rr etcdserverpb.InternalRaftRequest
 	if err := rr.Unmarshal(entry.Data); err == nil {
 		fmt.Printf("%4d\t%10d\tnorm\t%s", entry.Term, entry.Index, rr.String())
 	}
 }
-
 func printUnknownNormal(entry raftpb.Entry) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("%4d\t%10d\tnorm\t???", entry.Term, entry.Index)
 }
-
 func printConfChange(entry raftpb.Entry) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("%4d\t%10d", entry.Term, entry.Index)
 	fmt.Printf("\tconf")
 	var r raftpb.ConfChange
@@ -241,8 +232,9 @@ func printConfChange(entry raftpb.Entry) {
 		fmt.Printf("\tmethod=%s id=%s", r.Type, types.ID(r.NodeID))
 	}
 }
-
 func printRequest(entry raftpb.Entry) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var r etcdserverpb.Request
 	if err := r.Unmarshal(entry.Data); err == nil {
 		fmt.Printf("%4d\t%10d\tnorm", entry.Term, entry.Index)
@@ -258,27 +250,14 @@ func printRequest(entry raftpb.Entry) {
 		}
 	}
 }
-
-// evaluateEntrytypeFlag evaluates entry-type flag and choose proper filter/filters to filter entries
 func evaluateEntrytypeFlag(entrytype string) []EntryFilter {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var entrytypelist []string
 	if entrytype != "" {
 		entrytypelist = strings.Split(entrytype, ",")
 	}
-
-	validRequest := map[string][]EntryFilter{"ConfigChange": {passConfChange},
-		"Normal":              {passInternalRaftRequest, passRequest, passUnknownNormal},
-		"Request":             {passRequest},
-		"InternalRaftRequest": {passInternalRaftRequest},
-		"IRRRange":            {passIRRRange},
-		"IRRPut":              {passIRRPut},
-		"IRRDeleteRange":      {passIRRDeleteRange},
-		"IRRTxn":              {passIRRTxn},
-		"IRRCompaction":       {passIRRCompaction},
-		"IRRLeaseGrant":       {passIRRLeaseGrant},
-		"IRRLeaseRevoke":      {passIRRLeaseRevoke},
-		"IRRLeaseCheckpoint":  {passIRRLeaseCheckpoint},
-	}
+	validRequest := map[string][]EntryFilter{"ConfigChange": {passConfChange}, "Normal": {passInternalRaftRequest, passRequest, passUnknownNormal}, "Request": {passRequest}, "InternalRaftRequest": {passInternalRaftRequest}, "IRRRange": {passIRRRange}, "IRRPut": {passIRRPut}, "IRRDeleteRange": {passIRRDeleteRange}, "IRRTxn": {passIRRTxn}, "IRRCompaction": {passIRRCompaction}, "IRRLeaseGrant": {passIRRLeaseGrant}, "IRRLeaseRevoke": {passIRRLeaseRevoke}, "IRRLeaseCheckpoint": {passIRRLeaseCheckpoint}}
 	filters := make([]EntryFilter, 0)
 	if len(entrytypelist) == 0 {
 		filters = append(filters, passInternalRaftRequest)
@@ -297,17 +276,13 @@ IRRRange, IRRPut, IRRDeleteRange, IRRTxn,
 IRRCompaction, IRRLeaseGrant, IRRLeaseRevoke, IRRLeaseCheckpoint`, et)
 		}
 	}
-
 	return filters
 }
-
-//  listEntriesType filters and prints entries based on the entry-type flag,
 func listEntriesType(entrytype string, streamdecoder string, ents []raftpb.Entry) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	entryFilters := evaluateEntrytypeFlag(entrytype)
-	printerMap := map[string]EntryPrinter{"InternalRaftRequest": printInternalRaftRequest,
-		"Request":       printRequest,
-		"ConfigChange":  printConfChange,
-		"UnknownNormal": printUnknownNormal}
+	printerMap := map[string]EntryPrinter{"InternalRaftRequest": printInternalRaftRequest, "Request": printRequest, "ConfigChange": printConfChange, "UnknownNormal": printUnknownNormal}
 	var stderr bytes.Buffer
 	args := strings.Split(streamdecoder, " ")
 	cmd := exec.Command(args[0], args[1:]...)
@@ -326,9 +301,7 @@ func listEntriesType(entrytype string, streamdecoder string, ents []raftpb.Entry
 			log.Panic(err)
 		}
 	}
-
 	cnt := 0
-
 	for _, e := range ents {
 		passed := false
 		currtype := ""
@@ -346,8 +319,6 @@ func listEntriesType(entrytype string, streamdecoder string, ents []raftpb.Entry
 				fmt.Println()
 				continue
 			}
-
-			// if decoder is set, pass the e.Data to stdin and read the stdout from decoder
 			io.WriteString(stdin, hex.EncodeToString(e.Data))
 			io.WriteString(stdin, "\n")
 			outputReader := bufio.NewReader(stdout)
@@ -356,13 +327,10 @@ func listEntriesType(entrytype string, streamdecoder string, ents []raftpb.Entry
 				fmt.Println(currerr)
 				return
 			}
-
 			decoder_status, decoded_data := parseDecoderOutput(decoderoutput)
-
 			fmt.Printf("\t%s\t%s", decoder_status, decoded_data)
 		}
 	}
-
 	stdin.Close()
 	err = cmd.Wait()
 	if streamdecoder != "" {
@@ -373,11 +341,11 @@ func listEntriesType(entrytype string, streamdecoder string, ents []raftpb.Entry
 			os.Stderr.WriteString("decoder stderr: " + stderr.String())
 		}
 	}
-
 	fmt.Printf("\nEntry types (%s) count is : %d", entrytype, cnt)
 }
-
 func parseDecoderOutput(decoderoutput string) (string, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var decoder_status string
 	var decoded_data string
 	output := strings.Split(decoderoutput, "|")

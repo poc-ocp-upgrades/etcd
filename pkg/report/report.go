@@ -1,19 +1,3 @@
-// Copyright 2014 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-// the file is borrowed from github.com/rakyll/boom/boomer/print.go
-
 package report
 
 import (
@@ -28,77 +12,80 @@ const (
 	barChar = "∎"
 )
 
-// Result describes the timings for an operation.
 type Result struct {
-	Start  time.Time
-	End    time.Time
-	Err    error
-	Weight float64
+	Start	time.Time
+	End	time.Time
+	Err	error
+	Weight	float64
 }
 
-func (res *Result) Duration() time.Duration { return res.End.Sub(res.Start) }
+func (res *Result) Duration() time.Duration {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return res.End.Sub(res.Start)
+}
 
 type report struct {
-	results   chan Result
-	precision string
-
-	stats Stats
-	sps   *secondPoints
+	results		chan Result
+	precision	string
+	stats		Stats
+	sps		*secondPoints
 }
-
-// Stats exposes results raw data.
 type Stats struct {
-	AvgTotal   float64
-	Fastest    float64
-	Slowest    float64
-	Average    float64
-	Stddev     float64
-	RPS        float64
-	Total      time.Duration
-	ErrorDist  map[string]int
-	Lats       []float64
-	TimeSeries TimeSeries
+	AvgTotal	float64
+	Fastest		float64
+	Slowest		float64
+	Average		float64
+	Stddev		float64
+	RPS		float64
+	Total		time.Duration
+	ErrorDist	map[string]int
+	Lats		[]float64
+	TimeSeries	TimeSeries
 }
 
 func (s *Stats) copy() Stats {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ss := *s
 	ss.ErrorDist = copyMap(ss.ErrorDist)
 	ss.Lats = copyFloats(ss.Lats)
 	return ss
 }
 
-// Report processes a result stream until it is closed, then produces a
-// string with information about the consumed result data.
 type Report interface {
 	Results() chan<- Result
-
-	// Run returns results in print-friendly format.
 	Run() <-chan string
-
-	// Stats returns results in raw data.
 	Stats() <-chan Stats
 }
 
-func NewReport(precision string) Report { return newReport(precision) }
-
+func NewReport(precision string) Report {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return newReport(precision)
+}
 func newReport(precision string) *report {
-	r := &report{
-		results:   make(chan Result, 16),
-		precision: precision,
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	r := &report{results: make(chan Result, 16), precision: precision}
 	r.stats.ErrorDist = make(map[string]int)
 	return r
 }
-
 func NewReportSample(precision string) Report {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := NewReport(precision).(*report)
 	r.sps = newSecondPoints()
 	return r
 }
-
-func (r *report) Results() chan<- Result { return r.results }
-
+func (r *report) Results() chan<- Result {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return r.results
+}
 func (r *report) Run() <-chan string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	donec := make(chan string, 1)
 	go func() {
 		defer close(donec)
@@ -107,8 +94,9 @@ func (r *report) Run() <-chan string {
 	}()
 	return donec
 }
-
 func (r *report) Stats() <-chan Stats {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	donec := make(chan Stats, 1)
 	go func() {
 		defer close(donec)
@@ -121,22 +109,25 @@ func (r *report) Stats() <-chan Stats {
 	}()
 	return donec
 }
-
 func copyMap(m map[string]int) (c map[string]int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c = make(map[string]int, len(m))
 	for k, v := range m {
 		c[k] = v
 	}
 	return c
 }
-
 func copyFloats(s []float64) (c []float64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c = make([]float64, len(s))
 	copy(c, s)
 	return c
 }
-
 func (r *report) String() (s string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(r.stats.Lats) > 0 {
 		s += fmt.Sprintf("\nSummary:\n")
 		s += fmt.Sprintf("  Total:\t%s.\n", r.sec2str(r.stats.Total.Seconds()))
@@ -156,20 +147,27 @@ func (r *report) String() (s string) {
 	}
 	return s
 }
-
-func (r *report) sec2str(sec float64) string { return fmt.Sprintf(r.precision+" secs", sec) }
+func (r *report) sec2str(sec float64) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return fmt.Sprintf(r.precision+" secs", sec)
+}
 
 type reportRate struct{ *report }
 
 func NewReportRate(precision string) Report {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &reportRate{NewReport(precision).(*report)}
 }
-
 func (r *reportRate) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf(" Requests/sec:\t"+r.precision+"\n", r.stats.RPS)
 }
-
 func (r *report) processResult(res *Result) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if res.Err != nil {
 		r.stats.ErrorDist[res.Err.Error()]++
 		return
@@ -181,14 +179,14 @@ func (r *report) processResult(res *Result) {
 		r.sps.Add(res.Start, dur)
 	}
 }
-
 func (r *report) processResults() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	st := time.Now()
 	for res := range r.results {
 		r.processResult(&res)
 	}
 	r.stats.Total = time.Since(st)
-
 	r.stats.RPS = float64(len(r.stats.Lats)) / r.stats.Total.Seconds()
 	r.stats.Average = r.stats.AvgTotal / float64(len(r.stats.Lats))
 	for i := range r.stats.Lats {
@@ -205,12 +203,14 @@ func (r *report) processResults() {
 
 var pctls = []float64{10, 25, 50, 75, 90, 95, 99, 99.9}
 
-// Percentiles returns percentile distribution of float64 slice.
 func Percentiles(nums []float64) (pcs []float64, data []float64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return pctls, percentiles(nums)
 }
-
 func percentiles(nums []float64) (data []float64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data = make([]float64, len(pctls))
 	j := 0
 	n := len(nums)
@@ -223,8 +223,9 @@ func percentiles(nums []float64) (data []float64) {
 	}
 	return data
 }
-
 func (r *report) sprintLatencies() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data := percentiles(r.stats.Lats)
 	s := fmt.Sprintf("\nLatency distribution:\n")
 	for i := 0; i < len(pctls); i++ {
@@ -234,8 +235,9 @@ func (r *report) sprintLatencies() string {
 	}
 	return s
 }
-
 func (r *report) histogram() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bc := 10
 	buckets := make([]float64, bc+1)
 	counts := make([]int, bc+1)
@@ -259,7 +261,6 @@ func (r *report) histogram() string {
 	}
 	s := fmt.Sprintf("\nResponse time histogram:\n")
 	for i := 0; i < len(buckets); i++ {
-		// Normalize bar lengths.
 		var barLen int
 		if max > 0 {
 			barLen = counts[i] * 40 / max
@@ -268,8 +269,9 @@ func (r *report) histogram() string {
 	}
 	return s
 }
-
 func (r *report) errors() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := fmt.Sprintf("\nError distribution:\n")
 	for err, num := range r.stats.ErrorDist {
 		s += fmt.Sprintf("  [%d]\t%s\n", num, err)

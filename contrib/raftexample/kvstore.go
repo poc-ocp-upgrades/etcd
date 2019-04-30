@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package main
 
 import (
@@ -20,52 +6,50 @@ import (
 	"encoding/json"
 	"log"
 	"sync"
-
 	"go.etcd.io/etcd/etcdserver/api/snap"
 )
 
-// a key-value store backed by raft
 type kvstore struct {
-	proposeC    chan<- string // channel for proposing updates
-	mu          sync.RWMutex
-	kvStore     map[string]string // current committed key-value pairs
-	snapshotter *snap.Snapshotter
+	proposeC	chan<- string
+	mu		sync.RWMutex
+	kvStore		map[string]string
+	snapshotter	*snap.Snapshotter
 }
-
 type kv struct {
-	Key string
-	Val string
+	Key	string
+	Val	string
 }
 
 func newKVStore(snapshotter *snap.Snapshotter, proposeC chan<- string, commitC <-chan *string, errorC <-chan error) *kvstore {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := &kvstore{proposeC: proposeC, kvStore: make(map[string]string), snapshotter: snapshotter}
-	// replay log into key-value map
 	s.readCommits(commitC, errorC)
-	// read commits from raft into kvStore map until error
 	go s.readCommits(commitC, errorC)
 	return s
 }
-
 func (s *kvstore) Lookup(key string) (string, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	v, ok := s.kvStore[key]
 	return v, ok
 }
-
 func (s *kvstore) Propose(k string, v string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var buf bytes.Buffer
 	if err := gob.NewEncoder(&buf).Encode(kv{k, v}); err != nil {
 		log.Fatal(err)
 	}
 	s.proposeC <- buf.String()
 }
-
 func (s *kvstore) readCommits(commitC <-chan *string, errorC <-chan error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for data := range commitC {
 		if data == nil {
-			// done replaying log; new data incoming
-			// OR signaled to load snapshot
 			snapshot, err := s.snapshotter.Load()
 			if err == snap.ErrNoSnapshot {
 				return
@@ -79,7 +63,6 @@ func (s *kvstore) readCommits(commitC <-chan *string, errorC <-chan error) {
 			}
 			continue
 		}
-
 		var dataKv kv
 		dec := gob.NewDecoder(bytes.NewBufferString(*data))
 		if err := dec.Decode(&dataKv); err != nil {
@@ -93,14 +76,16 @@ func (s *kvstore) readCommits(commitC <-chan *string, errorC <-chan error) {
 		log.Fatal(err)
 	}
 }
-
 func (s *kvstore) getSnapshot() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	return json.Marshal(s.kvStore)
 }
-
 func (s *kvstore) recoverFromSnapshot(snapshot []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var store map[string]string
 	if err := json.Unmarshal(snapshot, &store); err != nil {
 		return err

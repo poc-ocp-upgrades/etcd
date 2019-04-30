@@ -1,55 +1,34 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package cmd
 
 import (
 	"context"
 	"fmt"
 	"time"
-
 	v3 "go.etcd.io/etcd/clientv3"
 	"go.etcd.io/etcd/pkg/report"
-
 	"github.com/spf13/cobra"
 	"gopkg.in/cheggaaa/pb.v1"
 )
 
-var leaseKeepaliveCmd = &cobra.Command{
-	Use:   "lease-keepalive",
-	Short: "Benchmark lease keepalive",
-
-	Run: leaseKeepaliveFunc,
-}
-
+var leaseKeepaliveCmd = &cobra.Command{Use: "lease-keepalive", Short: "Benchmark lease keepalive", Run: leaseKeepaliveFunc}
 var (
 	leaseKeepaliveTotal int
 )
 
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	RootCmd.AddCommand(leaseKeepaliveCmd)
 	leaseKeepaliveCmd.Flags().IntVar(&leaseKeepaliveTotal, "total", 10000, "Total number of lease keepalive requests")
 }
-
 func leaseKeepaliveFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	requests := make(chan struct{})
 	clients := mustCreateClients(totalClients, totalConns)
-
 	bar = pb.New(leaseKeepaliveTotal)
 	bar.Format("Bom !")
 	bar.Start()
-
 	r := newReport()
 	for i := range clients {
 		wg.Add(1)
@@ -67,7 +46,6 @@ func leaseKeepaliveFunc(cmd *cobra.Command, args []string) {
 			}
 		}(clients[i])
 	}
-
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
@@ -76,7 +54,6 @@ func leaseKeepaliveFunc(cmd *cobra.Command, args []string) {
 		}
 		close(requests)
 	}()
-
 	rc := r.Run()
 	wg.Wait()
 	close(r.Results())

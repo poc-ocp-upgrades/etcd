@@ -1,22 +1,10 @@
-// Copyright 2018 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package main
 
 import "sort"
 
 func aggSort(ss []string) (sorted []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	set := make(map[string]struct{})
 	for _, s := range ss {
 		set[s] = struct{}{}
@@ -28,8 +16,9 @@ func aggSort(ss []string) (sorted []string) {
 	sort.Strings(sorted)
 	return sorted
 }
-
 func sortMap(set map[string]struct{}) (sorted []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sorted = make([]string, 0, len(set))
 	for k := range set {
 		sorted = append(sorted, k)

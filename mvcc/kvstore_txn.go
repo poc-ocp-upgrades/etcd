@@ -1,17 +1,3 @@
-// Copyright 2017 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package mvcc
 
 import (
@@ -22,87 +8,94 @@ import (
 )
 
 type storeTxnRead struct {
-	s  *store
-	tx backend.ReadTx
-
-	firstRev int64
-	rev      int64
+	s		*store
+	tx		backend.ReadTx
+	firstRev	int64
+	rev		int64
 }
 
 func (s *store) Read() TxnRead {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.mu.RLock()
 	tx := s.b.ReadTx()
 	s.revMu.RLock()
-	// tx.RLock() blocks txReadBuffer for reading, which could potentially block the following two operations:
-	// A) writeback from txWriteBuffer to txReadBuffer at the end of a write transaction (TxnWrite).
-	// B) starting of a new backend batch transaction, where the pending changes need to be committed to boltdb
-	// and txReadBuffer needs to be reset.
 	tx.RLock()
 	firstRev, rev := s.compactMainRev, s.currentRev
 	s.revMu.RUnlock()
 	return newMetricsTxnRead(&storeTxnRead{s, tx, firstRev, rev})
 }
-
-func (tr *storeTxnRead) FirstRev() int64 { return tr.firstRev }
-func (tr *storeTxnRead) Rev() int64      { return tr.rev }
-
+func (tr *storeTxnRead) FirstRev() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return tr.firstRev
+}
+func (tr *storeTxnRead) Rev() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return tr.rev
+}
 func (tr *storeTxnRead) Range(key, end []byte, ro RangeOptions) (r *RangeResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return tr.rangeKeys(key, end, tr.Rev(), ro)
 }
-
 func (tr *storeTxnRead) End() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tr.tx.RUnlock()
 	tr.s.mu.RUnlock()
 }
 
 type storeTxnWrite struct {
 	storeTxnRead
-	tx backend.BatchTx
-	// beginRev is the revision where the txn begins; it will write to the next revision.
-	beginRev int64
-	changes  []mvccpb.KeyValue
+	tx		backend.BatchTx
+	beginRev	int64
+	changes		[]mvccpb.KeyValue
 }
 
 func (s *store) Write() TxnWrite {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.mu.RLock()
 	tx := s.b.BatchTx()
 	tx.Lock()
-	tw := &storeTxnWrite{
-		storeTxnRead: storeTxnRead{s, tx, 0, 0},
-		tx:           tx,
-		beginRev:     s.currentRev,
-		changes:      make([]mvccpb.KeyValue, 0, 4),
-	}
+	tw := &storeTxnWrite{storeTxnRead: storeTxnRead{s, tx, 0, 0}, tx: tx, beginRev: s.currentRev, changes: make([]mvccpb.KeyValue, 0, 4)}
 	return newMetricsTxnWrite(tw)
 }
-
-func (tw *storeTxnWrite) Rev() int64 { return tw.beginRev }
-
+func (tw *storeTxnWrite) Rev() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return tw.beginRev
+}
 func (tw *storeTxnWrite) Range(key, end []byte, ro RangeOptions) (r *RangeResult, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rev := tw.beginRev
 	if len(tw.changes) > 0 {
 		rev++
 	}
 	return tw.rangeKeys(key, end, rev, ro)
 }
-
 func (tw *storeTxnWrite) DeleteRange(key, end []byte) (int64, int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if n := tw.deleteRange(key, end); n != 0 || len(tw.changes) > 0 {
 		return n, tw.beginRev + 1
 	}
 	return 0, tw.beginRev
 }
-
 func (tw *storeTxnWrite) Put(key, value []byte, lease lease.LeaseID) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tw.put(key, value, lease)
 	return tw.beginRev + 1
 }
-
 func (tw *storeTxnWrite) End() {
-	// only update index if the txn modifies the mvcc state.
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(tw.changes) != 0 {
 		tw.s.saveIndex(tw.tx)
-		// hold revMu lock to prevent new read txns from opening until writeback.
 		tw.s.revMu.Lock()
 		tw.s.currentRev++
 	}
@@ -112,8 +105,9 @@ func (tw *storeTxnWrite) End() {
 	}
 	tw.s.mu.RUnlock()
 }
-
 func (tr *storeTxnRead) rangeKeys(key, end []byte, curRev int64, ro RangeOptions) (*RangeResult, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rev := ro.Rev
 	if rev > curRev {
 		return &RangeResult{KVs: nil, Count: -1, Rev: curRev}, ErrFutureRev
@@ -124,7 +118,6 @@ func (tr *storeTxnRead) rangeKeys(key, end []byte, curRev int64, ro RangeOptions
 	if rev < tr.s.compactMainRev {
 		return &RangeResult{KVs: nil, Count: -1, Rev: 0}, ErrCompacted
 	}
-
 	revpairs := tr.s.kvindex.Revisions(key, end, rev)
 	if len(revpairs) == 0 {
 		return &RangeResult{KVs: nil, Count: 0, Rev: curRev}, nil
@@ -132,12 +125,10 @@ func (tr *storeTxnRead) rangeKeys(key, end []byte, curRev int64, ro RangeOptions
 	if ro.Count {
 		return &RangeResult{KVs: nil, Count: len(revpairs), Rev: curRev}, nil
 	}
-
 	limit := int(ro.Limit)
 	if limit <= 0 || limit > len(revpairs) {
 		limit = len(revpairs)
 	}
-
 	kvs := make([]mvccpb.KeyValue, limit)
 	revBytes := newRevBytes()
 	for i, revpair := range revpairs[:len(kvs)] {
@@ -145,21 +136,14 @@ func (tr *storeTxnRead) rangeKeys(key, end []byte, curRev int64, ro RangeOptions
 		_, vs := tr.tx.UnsafeRange(keyBucketName, revBytes, nil, 0)
 		if len(vs) != 1 {
 			if tr.s.lg != nil {
-				tr.s.lg.Fatal(
-					"range failed to find revision pair",
-					zap.Int64("revision-main", revpair.main),
-					zap.Int64("revision-sub", revpair.sub),
-				)
+				tr.s.lg.Fatal("range failed to find revision pair", zap.Int64("revision-main", revpair.main), zap.Int64("revision-sub", revpair.sub))
 			} else {
 				plog.Fatalf("range cannot find rev (%d,%d)", revpair.main, revpair.sub)
 			}
 		}
 		if err := kvs[i].Unmarshal(vs[0]); err != nil {
 			if tr.s.lg != nil {
-				tr.s.lg.Fatal(
-					"failed to unmarshal mvccpb.KeyValue",
-					zap.Error(err),
-				)
+				tr.s.lg.Fatal("failed to unmarshal mvccpb.KeyValue", zap.Error(err))
 			} else {
 				plog.Fatalf("cannot unmarshal event: %v", err)
 			}
@@ -167,50 +151,33 @@ func (tr *storeTxnRead) rangeKeys(key, end []byte, curRev int64, ro RangeOptions
 	}
 	return &RangeResult{KVs: kvs, Count: len(revpairs), Rev: curRev}, nil
 }
-
 func (tw *storeTxnWrite) put(key, value []byte, leaseID lease.LeaseID) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rev := tw.beginRev + 1
 	c := rev
 	oldLease := lease.NoLease
-
-	// if the key exists before, use its previous created and
-	// get its previous leaseID
 	_, created, ver, err := tw.s.kvindex.Get(key, rev)
 	if err == nil {
 		c = created.main
 		oldLease = tw.s.le.GetLease(lease.LeaseItem{Key: string(key)})
 	}
-
 	ibytes := newRevBytes()
 	idxRev := revision{main: rev, sub: int64(len(tw.changes))}
 	revToBytes(idxRev, ibytes)
-
 	ver = ver + 1
-	kv := mvccpb.KeyValue{
-		Key:            key,
-		Value:          value,
-		CreateRevision: c,
-		ModRevision:    rev,
-		Version:        ver,
-		Lease:          int64(leaseID),
-	}
-
+	kv := mvccpb.KeyValue{Key: key, Value: value, CreateRevision: c, ModRevision: rev, Version: ver, Lease: int64(leaseID)}
 	d, err := kv.Marshal()
 	if err != nil {
 		if tw.storeTxnRead.s.lg != nil {
-			tw.storeTxnRead.s.lg.Fatal(
-				"failed to marshal mvccpb.KeyValue",
-				zap.Error(err),
-			)
+			tw.storeTxnRead.s.lg.Fatal("failed to marshal mvccpb.KeyValue", zap.Error(err))
 		} else {
 			plog.Fatalf("cannot marshal event: %v", err)
 		}
 	}
-
 	tw.tx.UnsafeSeqPut(keyBucketName, ibytes, d)
 	tw.s.kvindex.Put(key, idxRev)
 	tw.changes = append(tw.changes, kv)
-
 	if oldLease != lease.NoLease {
 		if tw.s.le == nil {
 			panic("no lessor to detach lease")
@@ -218,10 +185,7 @@ func (tw *storeTxnWrite) put(key, value []byte, leaseID lease.LeaseID) {
 		err = tw.s.le.Detach(oldLease, []lease.LeaseItem{{Key: string(key)}})
 		if err != nil {
 			if tw.storeTxnRead.s.lg != nil {
-				tw.storeTxnRead.s.lg.Fatal(
-					"failed to detach old lease from a key",
-					zap.Error(err),
-				)
+				tw.storeTxnRead.s.lg.Fatal("failed to detach old lease from a key", zap.Error(err))
 			} else {
 				plog.Errorf("unexpected error from lease detach: %v", err)
 			}
@@ -237,8 +201,9 @@ func (tw *storeTxnWrite) put(key, value []byte, leaseID lease.LeaseID) {
 		}
 	}
 }
-
 func (tw *storeTxnWrite) deleteRange(key, end []byte) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rrev := tw.beginRev
 	if len(tw.changes) > 0 {
 		rrev++
@@ -252,64 +217,51 @@ func (tw *storeTxnWrite) deleteRange(key, end []byte) int64 {
 	}
 	return int64(len(keys))
 }
-
 func (tw *storeTxnWrite) delete(key []byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ibytes := newRevBytes()
 	idxRev := revision{main: tw.beginRev + 1, sub: int64(len(tw.changes))}
 	revToBytes(idxRev, ibytes)
-
 	if tw.storeTxnRead.s != nil && tw.storeTxnRead.s.lg != nil {
 		ibytes = appendMarkTombstone(tw.storeTxnRead.s.lg, ibytes)
 	} else {
-		// TODO: remove this in v3.5
 		ibytes = appendMarkTombstone(nil, ibytes)
 	}
-
 	kv := mvccpb.KeyValue{Key: key}
-
 	d, err := kv.Marshal()
 	if err != nil {
 		if tw.storeTxnRead.s.lg != nil {
-			tw.storeTxnRead.s.lg.Fatal(
-				"failed to marshal mvccpb.KeyValue",
-				zap.Error(err),
-			)
+			tw.storeTxnRead.s.lg.Fatal("failed to marshal mvccpb.KeyValue", zap.Error(err))
 		} else {
 			plog.Fatalf("cannot marshal event: %v", err)
 		}
 	}
-
 	tw.tx.UnsafeSeqPut(keyBucketName, ibytes, d)
 	err = tw.s.kvindex.Tombstone(key, idxRev)
 	if err != nil {
 		if tw.storeTxnRead.s.lg != nil {
-			tw.storeTxnRead.s.lg.Fatal(
-				"failed to tombstone an existing key",
-				zap.String("key", string(key)),
-				zap.Error(err),
-			)
+			tw.storeTxnRead.s.lg.Fatal("failed to tombstone an existing key", zap.String("key", string(key)), zap.Error(err))
 		} else {
 			plog.Fatalf("cannot tombstone an existing key (%s): %v", string(key), err)
 		}
 	}
 	tw.changes = append(tw.changes, kv)
-
 	item := lease.LeaseItem{Key: string(key)}
 	leaseID := tw.s.le.GetLease(item)
-
 	if leaseID != lease.NoLease {
 		err = tw.s.le.Detach(leaseID, []lease.LeaseItem{item})
 		if err != nil {
 			if tw.storeTxnRead.s.lg != nil {
-				tw.storeTxnRead.s.lg.Fatal(
-					"failed to detach old lease from a key",
-					zap.Error(err),
-				)
+				tw.storeTxnRead.s.lg.Fatal("failed to detach old lease from a key", zap.Error(err))
 			} else {
 				plog.Errorf("cannot detach %v", err)
 			}
 		}
 	}
 }
-
-func (tw *storeTxnWrite) Changes() []mvccpb.KeyValue { return tw.changes }
+func (tw *storeTxnWrite) Changes() []mvccpb.KeyValue {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return tw.changes
+}

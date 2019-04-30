@@ -1,34 +1,17 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package etcdserver
 
 import (
 	"encoding/json"
 	"path"
 	"time"
-
 	"go.etcd.io/etcd/etcdserver/api"
 	"go.etcd.io/etcd/etcdserver/api/membership"
 	"go.etcd.io/etcd/etcdserver/api/v2store"
 	"go.etcd.io/etcd/pkg/pbutil"
-
 	"github.com/coreos/go-semver/semver"
 	"go.uber.org/zap"
 )
 
-// ApplierV2 is the interface for processing V2 raft messages
 type ApplierV2 interface {
 	Delete(r *RequestV2) Response
 	Post(r *RequestV2) Response
@@ -38,16 +21,20 @@ type ApplierV2 interface {
 }
 
 func NewApplierV2(lg *zap.Logger, s v2store.Store, c *membership.RaftCluster) ApplierV2 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &applierV2store{lg: lg, store: s, cluster: c}
 }
 
 type applierV2store struct {
-	lg      *zap.Logger
-	store   v2store.Store
-	cluster *membership.RaftCluster
+	lg	*zap.Logger
+	store	v2store.Store
+	cluster	*membership.RaftCluster
 }
 
 func (a *applierV2store) Delete(r *RequestV2) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch {
 	case r.PrevIndex > 0 || r.PrevValue != "":
 		return toResponse(a.store.CompareAndDelete(r.Path, r.PrevValue, r.PrevIndex))
@@ -55,12 +42,14 @@ func (a *applierV2store) Delete(r *RequestV2) Response {
 		return toResponse(a.store.Delete(r.Path, r.Dir, r.Recursive))
 	}
 }
-
 func (a *applierV2store) Post(r *RequestV2) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return toResponse(a.store.Create(r.Path, r.Dir, r.Val, true, r.TTLOptions()))
 }
-
 func (a *applierV2store) Put(r *RequestV2) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ttlOptions := r.TTLOptions()
 	exists, existsSet := pbutil.GetBool(r.PrevExist)
 	switch {
@@ -88,34 +77,32 @@ func (a *applierV2store) Put(r *RequestV2) Response {
 			if a.cluster != nil {
 				a.cluster.UpdateAttributes(id, attr)
 			}
-			// return an empty response since there is no consumer.
 			return Response{}
 		}
 		if r.Path == membership.StoreClusterVersionKey() {
 			if a.cluster != nil {
 				a.cluster.SetVersion(semver.Must(semver.NewVersion(r.Val)), api.UpdateCapability)
 			}
-			// return an empty response since there is no consumer.
 			return Response{}
 		}
 		return toResponse(a.store.Set(r.Path, r.Dir, r.Val, ttlOptions))
 	}
 }
-
 func (a *applierV2store) QGet(r *RequestV2) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return toResponse(a.store.Get(r.Path, r.Recursive, r.Sorted))
 }
-
 func (a *applierV2store) Sync(r *RequestV2) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	a.store.DeleteExpiredKeys(time.Unix(0, r.Time))
 	return Response{}
 }
-
-// applyV2Request interprets r as a call to v2store.X
-// and returns a Response interpreted from v2store.Event
 func (s *EtcdServer) applyV2Request(r *RequestV2) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer warnOfExpensiveRequest(s.getLogger(), time.Now(), r, nil, nil)
-
 	switch r.Method {
 	case "POST":
 		return s.applyV2.Post(r)
@@ -128,12 +115,12 @@ func (s *EtcdServer) applyV2Request(r *RequestV2) Response {
 	case "SYNC":
 		return s.applyV2.Sync(r)
 	default:
-		// This should never be reached, but just in case:
 		return Response{Err: ErrUnknownMethod}
 	}
 }
-
 func (r *RequestV2) TTLOptions() v2store.TTLOptionSet {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	refresh, _ := pbutil.GetBool(r.Refresh)
 	ttlOptions := v2store.TTLOptionSet{Refresh: refresh}
 	if r.Expiration != 0 {
@@ -141,7 +128,8 @@ func (r *RequestV2) TTLOptions() v2store.TTLOptionSet {
 	}
 	return ttlOptions
 }
-
 func toResponse(ev *v2store.Event, err error) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Response{Event: ev, Err: err}
 }

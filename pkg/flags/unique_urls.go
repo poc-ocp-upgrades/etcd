@@ -1,17 +1,3 @@
-// Copyright 2018 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package flags
 
 import (
@@ -19,22 +5,18 @@ import (
 	"net/url"
 	"sort"
 	"strings"
-
 	"go.etcd.io/etcd/pkg/types"
 )
 
-// UniqueURLs contains unique URLs
-// with non-URL exceptions.
 type UniqueURLs struct {
-	Values  map[string]struct{}
-	uss     []url.URL
-	Allowed map[string]struct{}
+	Values	map[string]struct{}
+	uss	[]url.URL
+	Allowed	map[string]struct{}
 }
 
-// Set parses a command line set of URLs formatted like:
-// http://127.0.0.1:2380,http://10.1.1.2:80
-// Implements "flag.Value" interface.
 func (us *UniqueURLs) Set(s string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, ok := us.Values[s]; ok {
 		return nil
 	}
@@ -54,9 +36,9 @@ func (us *UniqueURLs) Set(s string) error {
 	}
 	return nil
 }
-
-// String implements "flag.Value" interface.
 func (us *UniqueURLs) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	all := make([]string, 0, len(us.Values))
 	for u := range us.Values {
 		all = append(all, u)
@@ -64,10 +46,9 @@ func (us *UniqueURLs) String() string {
 	sort.Strings(all)
 	return strings.Join(all, ",")
 }
-
-// NewUniqueURLsWithExceptions implements "url.URL" slice as flag.Value interface.
-// Given value is to be separated by comma.
 func NewUniqueURLsWithExceptions(s string, exceptions ...string) *UniqueURLs {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	us := &UniqueURLs{Values: make(map[string]struct{}), Allowed: make(map[string]struct{})}
 	for _, v := range exceptions {
 		us.Allowed[v] = struct{}{}
@@ -80,13 +61,13 @@ func NewUniqueURLsWithExceptions(s string, exceptions ...string) *UniqueURLs {
 	}
 	return us
 }
-
-// UniqueURLsFromFlag returns a slice from urls got from the flag.
 func UniqueURLsFromFlag(fs *flag.FlagSet, urlsFlagName string) []url.URL {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return (*fs.Lookup(urlsFlagName).Value.(*UniqueURLs)).uss
 }
-
-// UniqueURLsMapFromFlag returns a map from url strings got from the flag.
 func UniqueURLsMapFromFlag(fs *flag.FlagSet, urlsFlagName string) map[string]struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return (*fs.Lookup(urlsFlagName).Value.(*UniqueURLs)).Values
 }

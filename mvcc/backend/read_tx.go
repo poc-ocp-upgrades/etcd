@@ -1,30 +1,12 @@
-// Copyright 2017 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package backend
 
 import (
 	"bytes"
 	"math"
 	"sync"
-
 	bolt "go.etcd.io/bbolt"
 )
 
-// safeRangeBucket is a hack to avoid inadvertently reading duplicate keys;
-// overwrites on a bucket should only fetch with limit=1, but safeRangeBucket
-// is known to never overwrite any key so range is safe.
 var safeRangeBucket = []byte("key")
 
 type ReadTx interface {
@@ -32,30 +14,41 @@ type ReadTx interface {
 	Unlock()
 	RLock()
 	RUnlock()
-
 	UnsafeRange(bucketName []byte, key, endKey []byte, limit int64) (keys [][]byte, vals [][]byte)
 	UnsafeForEach(bucketName []byte, visitor func(k, v []byte) error) error
 }
-
 type readTx struct {
-	// mu protects accesses to the txReadBuffer
-	mu  sync.RWMutex
-	buf txReadBuffer
-
-	// txmu protects accesses to buckets and tx on Range requests.
-	txmu    sync.RWMutex
-	tx      *bolt.Tx
-	buckets map[string]*bolt.Bucket
+	mu	sync.RWMutex
+	buf	txReadBuffer
+	txmu	sync.RWMutex
+	tx	*bolt.Tx
+	buckets	map[string]*bolt.Bucket
 }
 
-func (rt *readTx) Lock()    { rt.mu.Lock() }
-func (rt *readTx) Unlock()  { rt.mu.Unlock() }
-func (rt *readTx) RLock()   { rt.mu.RLock() }
-func (rt *readTx) RUnlock() { rt.mu.RUnlock() }
-
+func (rt *readTx) Lock() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	rt.mu.Lock()
+}
+func (rt *readTx) Unlock() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	rt.mu.Unlock()
+}
+func (rt *readTx) RLock() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	rt.mu.RLock()
+}
+func (rt *readTx) RUnlock() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	rt.mu.RUnlock()
+}
 func (rt *readTx) UnsafeRange(bucketName, key, endKey []byte, limit int64) ([][]byte, [][]byte) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if endKey == nil {
-		// forbid duplicates for single keys
 		limit = 1
 	}
 	if limit <= 0 {
@@ -68,8 +61,6 @@ func (rt *readTx) UnsafeRange(bucketName, key, endKey []byte, limit int64) ([][]
 	if int64(len(keys)) == limit {
 		return keys, vals
 	}
-
-	// find/cache bucket
 	bn := string(bucketName)
 	rt.txmu.RLock()
 	bucket, ok := rt.buckets[bn]
@@ -80,20 +71,18 @@ func (rt *readTx) UnsafeRange(bucketName, key, endKey []byte, limit int64) ([][]
 		rt.buckets[bn] = bucket
 		rt.txmu.Unlock()
 	}
-
-	// ignore missing bucket since may have been created in this batch
 	if bucket == nil {
 		return keys, vals
 	}
 	rt.txmu.Lock()
 	c := bucket.Cursor()
 	rt.txmu.Unlock()
-
 	k2, v2 := unsafeRange(c, key, endKey, limit-int64(len(keys)))
 	return append(k2, keys...), append(v2, vals...)
 }
-
 func (rt *readTx) UnsafeForEach(bucketName []byte, visitor func(k, v []byte) error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dups := make(map[string]struct{})
 	getDups := func(k, v []byte) error {
 		dups[string(k)] = struct{}{}
@@ -116,8 +105,9 @@ func (rt *readTx) UnsafeForEach(bucketName []byte, visitor func(k, v []byte) err
 	}
 	return rt.buf.ForEach(bucketName, visitor)
 }
-
 func (rt *readTx) reset() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rt.buf.reset()
 	rt.buckets = make(map[string]*bolt.Bucket)
 	rt.tx = nil

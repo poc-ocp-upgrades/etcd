@@ -1,17 +1,3 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package clientv3
 
 import (
@@ -25,7 +11,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-
 	"github.com/google/uuid"
 	"go.etcd.io/etcd/clientv3/balancer"
 	"go.etcd.io/etcd/clientv3/balancer/picker"
@@ -42,29 +27,25 @@ import (
 )
 
 var (
-	ErrNoAvailableEndpoints = errors.New("etcdclient: no available endpoints")
-	ErrOldCluster           = errors.New("etcdclient: old cluster version")
-
-	roundRobinBalancerName = fmt.Sprintf("etcd-%s", picker.RoundrobinBalanced.String())
+	ErrNoAvailableEndpoints	= errors.New("etcdclient: no available endpoints")
+	ErrOldCluster		= errors.New("etcdclient: old cluster version")
+	roundRobinBalancerName	= fmt.Sprintf("etcd-%s", picker.RoundrobinBalanced.String())
 )
 
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lg := zap.NewNop()
 	if os.Getenv("ETCD_CLIENT_DEBUG") != "" {
 		var err error
-		lg, err = zap.NewProductionConfig().Build() // info level logging
+		lg, err = zap.NewProductionConfig().Build()
 		if err != nil {
 			panic(err)
 		}
 	}
-	balancer.RegisterBuilder(balancer.Config{
-		Policy: picker.RoundrobinBalanced,
-		Name:   roundRobinBalancerName,
-		Logger: lg,
-	})
+	balancer.RegisterBuilder(balancer.Config{Policy: picker.RoundrobinBalanced, Name: roundRobinBalancerName, Logger: lg})
 }
 
-// Client provides and manages an etcd v3 client session.
 type Client struct {
 	Cluster
 	KV
@@ -72,59 +53,48 @@ type Client struct {
 	Watcher
 	Auth
 	Maintenance
-
-	conn *grpc.ClientConn
-
-	cfg           Config
-	creds         *credentials.TransportCredentials
-	balancer      balancer.Balancer
-	resolverGroup *endpoint.ResolverGroup
-	mu            *sync.Mutex
-
-	ctx    context.Context
-	cancel context.CancelFunc
-
-	// Username is a user name for authentication.
-	Username string
-	// Password is a password for authentication.
-	Password string
-	// tokenCred is an instance of WithPerRPCCredentials()'s argument
-	tokenCred *authTokenCredential
-
-	callOpts []grpc.CallOption
-
-	lg *zap.Logger
+	conn		*grpc.ClientConn
+	cfg		Config
+	creds		*credentials.TransportCredentials
+	balancer	balancer.Balancer
+	resolverGroup	*endpoint.ResolverGroup
+	mu		*sync.Mutex
+	ctx		context.Context
+	cancel		context.CancelFunc
+	Username	string
+	Password	string
+	tokenCred	*authTokenCredential
+	callOpts	[]grpc.CallOption
+	lg		*zap.Logger
 }
 
-// New creates a new etcdv3 client from a given configuration.
 func New(cfg Config) (*Client, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(cfg.Endpoints) == 0 {
 		return nil, ErrNoAvailableEndpoints
 	}
-
 	return newClient(&cfg)
 }
-
-// NewCtxClient creates a client with a context but no underlying grpc
-// connection. This is useful for embedded cases that override the
-// service interface implementations and do not need connection management.
 func NewCtxClient(ctx context.Context) *Client {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cctx, cancel := context.WithCancel(ctx)
 	return &Client{ctx: cctx, cancel: cancel}
 }
-
-// NewFromURL creates a new etcdv3 client from a URL.
 func NewFromURL(url string) (*Client, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return New(Config{Endpoints: []string{url}})
 }
-
-// NewFromURLs creates a new etcdv3 client from URLs.
 func NewFromURLs(urls []string) (*Client, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return New(Config{Endpoints: urls})
 }
-
-// Close shuts down the client's etcd connections.
 func (c *Client) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.cancel()
 	c.Watcher.Close()
 	c.Lease.Close()
@@ -136,30 +106,29 @@ func (c *Client) Close() error {
 	}
 	return c.ctx.Err()
 }
-
-// Ctx is a context for "out of band" messages (e.g., for sending
-// "clean up" message when another context is canceled). It is
-// canceled on client Close().
-func (c *Client) Ctx() context.Context { return c.ctx }
-
-// Endpoints lists the registered endpoints for the client.
+func (c *Client) Ctx() context.Context {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return c.ctx
+}
 func (c *Client) Endpoints() (eps []string) {
-	// copy the slice; protect original endpoints from being changed
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	eps = make([]string, len(c.cfg.Endpoints))
 	copy(eps, c.cfg.Endpoints)
 	return
 }
-
-// SetEndpoints updates client's endpoints.
 func (c *Client) SetEndpoints(eps ...string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	c.cfg.Endpoints = eps
 	c.resolverGroup.SetEndpoints(eps)
 }
-
-// Sync synchronizes client's endpoints with the known endpoints from the etcd membership.
 func (c *Client) Sync(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mresp, err := c.MemberList(ctx)
 	if err != nil {
 		return err
@@ -171,12 +140,12 @@ func (c *Client) Sync(ctx context.Context) error {
 	c.SetEndpoints(eps...)
 	return nil
 }
-
 func (c *Client) autoSync() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.cfg.AutoSyncInterval == time.Duration(0) {
 		return
 	}
-
 	for {
 		select {
 		case <-c.ctx.Done():
@@ -193,23 +162,25 @@ func (c *Client) autoSync() {
 }
 
 type authTokenCredential struct {
-	token   string
-	tokenMu *sync.RWMutex
+	token	string
+	tokenMu	*sync.RWMutex
 }
 
 func (cred authTokenCredential) RequireTransportSecurity() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return false
 }
-
 func (cred authTokenCredential) GetRequestMetadata(ctx context.Context, s ...string) (map[string]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cred.tokenMu.RLock()
 	defer cred.tokenMu.RUnlock()
-	return map[string]string{
-		rpctypes.TokenFieldNameGRPC: cred.token,
-	}, nil
+	return map[string]string{rpctypes.TokenFieldNameGRPC: cred.token}, nil
 }
-
 func (c *Client) processCreds(scheme string) (creds *credentials.TransportCredentials) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	creds = c.creds
 	switch scheme {
 	case "unix":
@@ -227,20 +198,14 @@ func (c *Client) processCreds(scheme string) (creds *credentials.TransportCreden
 	}
 	return creds
 }
-
-// dialSetupOpts gives the dial opts prior to any authentication.
 func (c *Client) dialSetupOpts(creds *credentials.TransportCredentials, dopts ...grpc.DialOption) (opts []grpc.DialOption, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.cfg.DialKeepAliveTime > 0 {
-		params := keepalive.ClientParameters{
-			Time:                c.cfg.DialKeepAliveTime,
-			Timeout:             c.cfg.DialKeepAliveTimeout,
-			PermitWithoutStream: c.cfg.PermitWithoutStream,
-		}
+		params := keepalive.ClientParameters{Time: c.cfg.DialKeepAliveTime, Timeout: c.cfg.DialKeepAliveTimeout, PermitWithoutStream: c.cfg.PermitWithoutStream}
 		opts = append(opts, grpc.WithKeepaliveParams(params))
 	}
 	opts = append(opts, dopts...)
-
-	// Provide a net dialer that supports cancelation and timeout.
 	f := func(dialEp string, t time.Duration) (net.Conn, error) {
 		proto, host, _ := endpoint.ParseEndpoint(dialEp)
 		select {
@@ -252,45 +217,28 @@ func (c *Client) dialSetupOpts(creds *credentials.TransportCredentials, dopts ..
 		return dialer.DialContext(c.ctx, proto, host)
 	}
 	opts = append(opts, grpc.WithDialer(f))
-
 	if creds != nil {
 		opts = append(opts, grpc.WithTransportCredentials(*creds))
 	} else {
 		opts = append(opts, grpc.WithInsecure())
 	}
-
-	// Interceptor retry and backoff.
-	// TODO: Replace all of clientv3/retry.go with interceptor based retry, or with
-	// https://github.com/grpc/proposal/blob/master/A6-client-retries.md#retry-policy
-	// once it is available.
 	rrBackoff := withBackoff(c.roundRobinQuorumBackoff(defaultBackoffWaitBetween, defaultBackoffJitterFraction))
-	opts = append(opts,
-		// Disable stream retry by default since go-grpc-middleware/retry does not support client streams.
-		// Streams that are safe to retry are enabled individually.
-		grpc.WithStreamInterceptor(c.streamClientInterceptor(c.lg, withMax(0), rrBackoff)),
-		grpc.WithUnaryInterceptor(c.unaryClientInterceptor(c.lg, withMax(defaultUnaryMaxRetries), rrBackoff)),
-	)
-
+	opts = append(opts, grpc.WithStreamInterceptor(c.streamClientInterceptor(c.lg, withMax(0), rrBackoff)), grpc.WithUnaryInterceptor(c.unaryClientInterceptor(c.lg, withMax(defaultUnaryMaxRetries), rrBackoff)))
 	return opts, nil
 }
-
-// Dial connects to a single endpoint using the client's config.
 func (c *Client) Dial(ep string) (*grpc.ClientConn, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	creds := c.directDialCreds(ep)
-	// Use the grpc passthrough resolver to directly dial a single endpoint.
-	// This resolver passes through the 'unix' and 'unixs' endpoints schemes used
-	// by etcd without modification, allowing us to directly dial endpoints and
-	// using the same dial functions that we use for load balancer dialing.
 	return c.dial(fmt.Sprintf("passthrough:///%s", ep), creds)
 }
-
 func (c *Client) getToken(ctx context.Context) error {
-	var err error // return last error in a case of fail
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	var err error
 	var auth *authenticator
-
 	for i := 0; i < len(c.cfg.Endpoints); i++ {
 		ep := c.cfg.Endpoints[i]
-		// use dial options without dopts to avoid reusing the client balancer
 		var dOpts []grpc.DialOption
 		_, host, _ := endpoint.ParseEndpoint(ep)
 		target := c.resolverGroup.Target(host)
@@ -306,53 +254,43 @@ func (c *Client) getToken(ctx context.Context) error {
 			continue
 		}
 		defer auth.close()
-
 		var resp *AuthenticateResponse
 		resp, err = auth.authenticate(ctx, c.Username, c.Password)
 		if err != nil {
-			// return err without retrying other endpoints
 			if err == rpctypes.ErrAuthNotEnabled {
 				return err
 			}
 			continue
 		}
-
 		c.tokenCred.tokenMu.Lock()
 		c.tokenCred.token = resp.Token
 		c.tokenCred.tokenMu.Unlock()
-
 		return nil
 	}
-
 	return err
 }
-
-// dialWithBalancer dials the client's current load balanced resolver group.  The scheme of the host
-// of the provided endpoint determines the scheme used for all endpoints of the client connection.
 func (c *Client) dialWithBalancer(ep string, dopts ...grpc.DialOption) (*grpc.ClientConn, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, host, _ := endpoint.ParseEndpoint(ep)
 	target := c.resolverGroup.Target(host)
 	creds := c.dialWithBalancerCreds(ep)
 	return c.dial(target, creds, dopts...)
 }
-
-// dial configures and dials any grpc balancer target.
 func (c *Client) dial(target string, creds *credentials.TransportCredentials, dopts ...grpc.DialOption) (*grpc.ClientConn, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	opts, err := c.dialSetupOpts(creds, dopts...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to configure dialer: %v", err)
 	}
-
 	if c.Username != "" && c.Password != "" {
-		c.tokenCred = &authTokenCredential{
-			tokenMu: &sync.RWMutex{},
+		c.tokenCred = &authTokenCredential{tokenMu: &sync.RWMutex{}}
+		ctx, cancel := c.ctx, func() {
 		}
-
-		ctx, cancel := c.ctx, func() {}
 		if c.cfg.DialTimeout > 0 {
 			ctx, cancel = context.WithTimeout(ctx, c.cfg.DialTimeout)
 		}
-
 		err = c.getToken(ctx)
 		if err != nil {
 			if toErr(ctx, err) != rpctypes.ErrAuthNotEnabled {
@@ -367,24 +305,22 @@ func (c *Client) dial(target string, creds *credentials.TransportCredentials, do
 		}
 		cancel()
 	}
-
 	opts = append(opts, c.cfg.DialOptions...)
-
 	dctx := c.ctx
 	if c.cfg.DialTimeout > 0 {
 		var cancel context.CancelFunc
 		dctx, cancel = context.WithTimeout(c.ctx, c.cfg.DialTimeout)
-		defer cancel() // TODO: Is this right for cases where grpc.WithBlock() is not set on the dial options?
+		defer cancel()
 	}
-
 	conn, err := grpc.DialContext(dctx, target, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return conn, nil
 }
-
 func (c *Client) directDialCreds(ep string) *credentials.TransportCredentials {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, hostPort, scheme := endpoint.ParseEndpoint(ep)
 	creds := c.creds
 	if len(scheme) != 0 {
@@ -392,9 +328,6 @@ func (c *Client) directDialCreds(ep string) *credentials.TransportCredentials {
 		if creds != nil {
 			c := *creds
 			clone := c.Clone()
-			// Set the server name must to the endpoint hostname without port since grpc
-			// otherwise attempts to check if x509 cert is valid for the full endpoint
-			// including the scheme and port, which fails.
 			host, _ := endpoint.ParseHostPort(hostPort)
 			clone.OverrideServerName(host)
 			creds = &clone
@@ -402,8 +335,9 @@ func (c *Client) directDialCreds(ep string) *credentials.TransportCredentials {
 	}
 	return creds
 }
-
 func (c *Client) dialWithBalancerCreds(ep string) *credentials.TransportCredentials {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, _, scheme := endpoint.ParseEndpoint(ep)
 	creds := c.creds
 	if len(scheme) != 0 {
@@ -411,15 +345,15 @@ func (c *Client) dialWithBalancerCreds(ep string) *credentials.TransportCredenti
 	}
 	return creds
 }
-
-// WithRequireLeader requires client requests to only succeed
-// when the cluster has a leader.
 func WithRequireLeader(ctx context.Context) context.Context {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	md := metadata.Pairs(rpctypes.MetadataRequireLeaderKey, rpctypes.MetadataHasLeader)
 	return metadata.NewOutgoingContext(ctx, md)
 }
-
 func newClient(cfg *Config) (*Client, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if cfg == nil {
 		cfg = &Config{}
 	}
@@ -428,24 +362,12 @@ func newClient(cfg *Config) (*Client, error) {
 		c := credentials.NewTLS(cfg.TLS)
 		creds = &c
 	}
-
-	// use a temporary skeleton client to bootstrap first connection
 	baseCtx := context.TODO()
 	if cfg.Context != nil {
 		baseCtx = cfg.Context
 	}
-
 	ctx, cancel := context.WithCancel(baseCtx)
-	client := &Client{
-		conn:     nil,
-		cfg:      *cfg,
-		creds:    creds,
-		ctx:      ctx,
-		cancel:   cancel,
-		mu:       new(sync.Mutex),
-		callOpts: defaultCallOpts,
-	}
-
+	client := &Client{conn: nil, cfg: *cfg, creds: creds, ctx: ctx, cancel: cancel, mu: new(sync.Mutex), callOpts: defaultCallOpts}
 	lcfg := logutil.DefaultZapLoggerConfig
 	if cfg.LogConfig != nil {
 		lcfg = *cfg.LogConfig
@@ -455,7 +377,6 @@ func newClient(cfg *Config) (*Client, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	if cfg.Username != "" && cfg.Password != "" {
 		client.Username = cfg.Username
 		client.Password = cfg.Password
@@ -464,11 +385,7 @@ func newClient(cfg *Config) (*Client, error) {
 		if cfg.MaxCallRecvMsgSize > 0 && cfg.MaxCallSendMsgSize > cfg.MaxCallRecvMsgSize {
 			return nil, fmt.Errorf("gRPC message recv limit (%d bytes) must be greater than send limit (%d bytes)", cfg.MaxCallRecvMsgSize, cfg.MaxCallSendMsgSize)
 		}
-		callOpts := []grpc.CallOption{
-			defaultFailFast,
-			defaultMaxCallSendMsgSize,
-			defaultMaxCallRecvMsgSize,
-		}
+		callOpts := []grpc.CallOption{defaultFailFast, defaultMaxCallSendMsgSize, defaultMaxCallRecvMsgSize}
 		if cfg.MaxCallSendMsgSize > 0 {
 			callOpts[1] = grpc.MaxCallSendMsgSize(cfg.MaxCallSendMsgSize)
 		}
@@ -477,56 +394,42 @@ func newClient(cfg *Config) (*Client, error) {
 		}
 		client.callOpts = callOpts
 	}
-
-	// Prepare a 'endpoint://<unique-client-id>/' resolver for the client and create a endpoint target to pass
-	// to dial so the client knows to use this resolver.
 	client.resolverGroup, err = endpoint.NewResolverGroup(fmt.Sprintf("client-%s", uuid.New().String()))
 	if err != nil {
 		client.cancel()
 		return nil, err
 	}
 	client.resolverGroup.SetEndpoints(cfg.Endpoints)
-
 	if len(cfg.Endpoints) < 1 {
 		return nil, fmt.Errorf("at least one Endpoint must is required in client config")
 	}
 	dialEndpoint := cfg.Endpoints[0]
-
-	// Use a provided endpoint target so that for https:// without any tls config given, then
-	// grpc will assume the certificate server name is the endpoint host.
 	conn, err := client.dialWithBalancer(dialEndpoint, grpc.WithBalancerName(roundRobinBalancerName))
 	if err != nil {
 		client.cancel()
 		client.resolverGroup.Close()
 		return nil, err
 	}
-	// TODO: With the old grpc balancer interface, we waited until the dial timeout
-	// for the balancer to be ready. Is there an equivalent wait we should do with the new grpc balancer interface?
 	client.conn = conn
-
 	client.Cluster = NewCluster(client)
 	client.KV = NewKV(client)
 	client.Lease = NewLease(client)
 	client.Watcher = NewWatcher(client)
 	client.Auth = NewAuth(client)
 	client.Maintenance = NewMaintenance(client)
-
 	if cfg.RejectOldCluster {
 		if err := client.checkVersion(); err != nil {
 			client.Close()
 			return nil, err
 		}
 	}
-
 	go client.autoSync()
 	return client, nil
 }
-
-// roundRobinQuorumBackoff retries against quorum between each backoff.
-// This is intended for use with a round robin load balancer.
 func (c *Client) roundRobinQuorumBackoff(waitBetween time.Duration, jitterFraction float64) backoffFunc {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(attempt uint) time.Duration {
-		// after each round robin across quorum, backoff for our wait between duration
 		n := uint(len(c.Endpoints()))
 		quorum := (n/2 + 1)
 		if attempt%quorum == 0 {
@@ -537,8 +440,9 @@ func (c *Client) roundRobinQuorumBackoff(waitBetween time.Duration, jitterFracti
 		return 0
 	}
 }
-
 func (c *Client) checkVersion() (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var wg sync.WaitGroup
 	errc := make(chan error, len(c.cfg.Endpoints))
 	ctx, cancel := context.WithCancel(c.ctx)
@@ -547,7 +451,6 @@ func (c *Client) checkVersion() (err error) {
 	}
 	wg.Add(len(c.cfg.Endpoints))
 	for _, ep := range c.cfg.Endpoints {
-		// if cluster is current, any endpoint gives a recent version
 		go func(e string) {
 			defer wg.Done()
 			resp, rerr := c.Status(ctx, e)
@@ -567,7 +470,6 @@ func (c *Client) checkVersion() (err error) {
 			errc <- rerr
 		}(ep)
 	}
-	// wait for success
 	for i := 0; i < len(c.cfg.Endpoints); i++ {
 		if err = <-errc; err == nil {
 			break
@@ -577,13 +479,14 @@ func (c *Client) checkVersion() (err error) {
 	wg.Wait()
 	return err
 }
-
-// ActiveConnection returns the current in-use connection
-func (c *Client) ActiveConnection() *grpc.ClientConn { return c.conn }
-
-// isHaltErr returns true if the given error and context indicate no forward
-// progress can be made, even after reconnecting.
+func (c *Client) ActiveConnection() *grpc.ClientConn {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return c.conn
+}
 func isHaltErr(ctx context.Context, err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ctx != nil && ctx.Err() != nil {
 		return true
 	}
@@ -591,17 +494,11 @@ func isHaltErr(ctx context.Context, err error) bool {
 		return false
 	}
 	ev, _ := status.FromError(err)
-	// Unavailable codes mean the system will be right back.
-	// (e.g., can't connect, lost leader)
-	// Treat Internal codes as if something failed, leaving the
-	// system in an inconsistent state, but retrying could make progress.
-	// (e.g., failed in middle of send, corrupted frame)
-	// TODO: are permanent Internal errors possible from grpc?
 	return ev.Code() != codes.Unavailable && ev.Code() != codes.Internal
 }
-
-// isUnavailableErr returns true if the given error is an unavailable error
 func isUnavailableErr(ctx context.Context, err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ctx != nil && ctx.Err() != nil {
 		return false
 	}
@@ -609,12 +506,11 @@ func isUnavailableErr(ctx context.Context, err error) bool {
 		return false
 	}
 	ev, _ := status.FromError(err)
-	// Unavailable codes mean the system will be right back.
-	// (e.g., can't connect, lost leader)
 	return ev.Code() == codes.Unavailable
 }
-
 func toErr(ctx context.Context, err error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err == nil {
 		return nil
 	}
@@ -638,31 +534,26 @@ func toErr(ctx context.Context, err error) error {
 	}
 	return err
 }
-
 func canceledByCaller(stopCtx context.Context, err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if stopCtx.Err() == nil || err == nil {
 		return false
 	}
-
 	return err == context.Canceled || err == context.DeadlineExceeded
 }
-
-// IsConnCanceled returns true, if error is from a closed gRPC connection.
-// ref. https://github.com/grpc/grpc-go/pull/1854
 func IsConnCanceled(err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err == nil {
 		return false
 	}
-	// >= gRPC v1.10.x
 	s, ok := status.FromError(err)
 	if ok {
-		// connection is canceled or server has already closed the connection
 		return s.Code() == codes.Canceled || s.Message() == "transport is closing"
 	}
-	// >= gRPC v1.10.x
 	if err == context.Canceled {
 		return true
 	}
-	// <= gRPC v1.7.x returns 'errors.New("grpc: the client connection is closing")'
 	return strings.Contains(err.Error(), "grpc: the client connection is closing")
 }

@@ -1,28 +1,11 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-// Package v3rpc implements etcd v3 RPC system based on gRPC.
 package v3rpc
 
 import (
 	"context"
-
 	"go.etcd.io/etcd/etcdserver"
 	"go.etcd.io/etcd/etcdserver/api/v3rpc/rpctypes"
 	pb "go.etcd.io/etcd/etcdserver/etcdserverpb"
 	"go.etcd.io/etcd/pkg/adt"
-
 	"github.com/coreos/pkg/capnslog"
 )
 
@@ -31,100 +14,95 @@ var (
 )
 
 type kvServer struct {
-	hdr header
-	kv  etcdserver.RaftKV
-	// maxTxnOps is the max operations per txn.
-	// e.g suppose maxTxnOps = 128.
-	// Txn.Success can have at most 128 operations,
-	// and Txn.Failure can have at most 128 operations.
-	maxTxnOps uint
+	hdr		header
+	kv		etcdserver.RaftKV
+	maxTxnOps	uint
 }
 
 func NewKVServer(s *etcdserver.EtcdServer) pb.KVServer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &kvServer{hdr: newHeader(s), kv: s, maxTxnOps: s.Cfg.MaxTxnOps}
 }
-
 func (s *kvServer) Range(ctx context.Context, r *pb.RangeRequest) (*pb.RangeResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := checkRangeRequest(r); err != nil {
 		return nil, err
 	}
-
 	resp, err := s.kv.Range(ctx, r)
 	if err != nil {
 		return nil, togRPCError(err)
 	}
-
 	s.hdr.fill(resp.Header)
 	return resp, nil
 }
-
 func (s *kvServer) Put(ctx context.Context, r *pb.PutRequest) (*pb.PutResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := checkPutRequest(r); err != nil {
 		return nil, err
 	}
-
 	resp, err := s.kv.Put(ctx, r)
 	if err != nil {
 		return nil, togRPCError(err)
 	}
-
 	s.hdr.fill(resp.Header)
 	return resp, nil
 }
-
 func (s *kvServer) DeleteRange(ctx context.Context, r *pb.DeleteRangeRequest) (*pb.DeleteRangeResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := checkDeleteRequest(r); err != nil {
 		return nil, err
 	}
-
 	resp, err := s.kv.DeleteRange(ctx, r)
 	if err != nil {
 		return nil, togRPCError(err)
 	}
-
 	s.hdr.fill(resp.Header)
 	return resp, nil
 }
-
 func (s *kvServer) Txn(ctx context.Context, r *pb.TxnRequest) (*pb.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := checkTxnRequest(r, int(s.maxTxnOps)); err != nil {
 		return nil, err
 	}
-	// check for forbidden put/del overlaps after checking request to avoid quadratic blowup
 	if _, _, err := checkIntervals(r.Success); err != nil {
 		return nil, err
 	}
 	if _, _, err := checkIntervals(r.Failure); err != nil {
 		return nil, err
 	}
-
 	resp, err := s.kv.Txn(ctx, r)
 	if err != nil {
 		return nil, togRPCError(err)
 	}
-
 	s.hdr.fill(resp.Header)
 	return resp, nil
 }
-
 func (s *kvServer) Compact(ctx context.Context, r *pb.CompactionRequest) (*pb.CompactionResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := s.kv.Compact(ctx, r)
 	if err != nil {
 		return nil, togRPCError(err)
 	}
-
 	s.hdr.fill(resp.Header)
 	return resp, nil
 }
-
 func checkRangeRequest(r *pb.RangeRequest) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(r.Key) == 0 {
 		return rpctypes.ErrGRPCEmptyKey
 	}
 	return nil
 }
-
 func checkPutRequest(r *pb.PutRequest) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(r.Key) == 0 {
 		return rpctypes.ErrGRPCEmptyKey
 	}
@@ -136,15 +114,17 @@ func checkPutRequest(r *pb.PutRequest) error {
 	}
 	return nil
 }
-
 func checkDeleteRequest(r *pb.DeleteRangeRequest) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(r.Key) == 0 {
 		return rpctypes.ErrGRPCEmptyKey
 	}
 	return nil
 }
-
 func checkTxnRequest(r *pb.TxnRequest, maxTxnOps int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	opc := len(r.Compare)
 	if opc < len(r.Success) {
 		opc = len(r.Success)
@@ -155,7 +135,6 @@ func checkTxnRequest(r *pb.TxnRequest, maxTxnOps int) error {
 	if opc > maxTxnOps {
 		return rpctypes.ErrGRPCTooManyOps
 	}
-
 	for _, c := range r.Compare {
 		if len(c.Key) == 0 {
 			return rpctypes.ErrGRPCEmptyKey
@@ -171,17 +150,12 @@ func checkTxnRequest(r *pb.TxnRequest, maxTxnOps int) error {
 			return err
 		}
 	}
-
 	return nil
 }
-
-// checkIntervals tests whether puts and deletes overlap for a list of ops. If
-// there is an overlap, returns an error. If no overlap, return put and delete
-// sets for recursive evaluation.
 func checkIntervals(reqs []*pb.RequestOp) (map[string]struct{}, adt.IntervalTree, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var dels adt.IntervalTree
-
-	// collect deletes from this level; build first to check lower level overlapped puts
 	for _, req := range reqs {
 		tv, ok := req.Request.(*pb.RequestOp_RequestDeleteRange)
 		if !ok {
@@ -199,8 +173,6 @@ func checkIntervals(reqs []*pb.RequestOp) (map[string]struct{}, adt.IntervalTree
 		}
 		dels.Insert(iv, struct{}{})
 	}
-
-	// collect children puts/deletes
 	puts := make(map[string]struct{})
 	for _, req := range reqs {
 		tv, ok := req.Request.(*pb.RequestOp_RequestTxn)
@@ -226,8 +198,6 @@ func checkIntervals(reqs []*pb.RequestOp) (map[string]struct{}, adt.IntervalTree
 		}
 		for k := range putsElse {
 			if _, ok := puts[k]; ok {
-				// if key is from putsThen, overlap is OK since
-				// either then/else are mutually exclusive
 				if _, isSafe := putsThen[k]; !isSafe {
 					return nil, dels, rpctypes.ErrGRPCDuplicateKey
 				}
@@ -240,8 +210,6 @@ func checkIntervals(reqs []*pb.RequestOp) (map[string]struct{}, adt.IntervalTree
 		dels.Union(delsThen, adt.NewStringAffineInterval("\x00", ""))
 		dels.Union(delsElse, adt.NewStringAffineInterval("\x00", ""))
 	}
-
-	// collect and check this level's puts
 	for _, req := range reqs {
 		tv, ok := req.Request.(*pb.RequestOp_RequestPut)
 		if !ok || tv.RequestPut == nil {
@@ -258,9 +226,9 @@ func checkIntervals(reqs []*pb.RequestOp) (map[string]struct{}, adt.IntervalTree
 	}
 	return puts, dels, nil
 }
-
 func checkRequestOp(u *pb.RequestOp, maxTxnOps int) error {
-	// TODO: ensure only one of the field is set.
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch uv := u.Request.(type) {
 	case *pb.RequestOp_RequestRange:
 		return checkRangeRequest(uv.RequestRange)
@@ -271,7 +239,6 @@ func checkRequestOp(u *pb.RequestOp, maxTxnOps int) error {
 	case *pb.RequestOp_RequestTxn:
 		return checkTxnRequest(uv.RequestTxn, maxTxnOps)
 	default:
-		// empty op / nil entry
 		return rpctypes.ErrGRPCKeyNotFound
 	}
 }

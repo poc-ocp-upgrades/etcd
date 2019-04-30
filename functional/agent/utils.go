@@ -1,17 +1,3 @@
-// Copyright 2018 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package agent
 
 import (
@@ -22,12 +8,12 @@ import (
 	"path/filepath"
 	"strconv"
 	"time"
-
 	"go.etcd.io/etcd/pkg/fileutil"
 )
 
-// TODO: support separate WAL directory
 func archive(baseDir, etcdLogPath, dataDir string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Join(baseDir, "etcd-failure-archive", time.Now().Format(time.RFC3339))
 	if existDir(dir) {
 		dir = filepath.Join(baseDir, "etcd-failure-archive", time.Now().Add(time.Second).Format(time.RFC3339))
@@ -35,7 +21,6 @@ func archive(baseDir, etcdLogPath, dataDir string) error {
 	if err := fileutil.TouchDirAll(dir); err != nil {
 		return err
 	}
-
 	if err := os.Rename(etcdLogPath, filepath.Join(dir, "etcd.log")); err != nil {
 		if !os.IsNotExist(err) {
 			return err
@@ -46,11 +31,11 @@ func archive(baseDir, etcdLogPath, dataDir string) error {
 			return err
 		}
 	}
-
 	return nil
 }
-
 func existDir(fpath string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	st, err := os.Stat(fpath)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -61,8 +46,9 @@ func existDir(fpath string) bool {
 	}
 	return false
 }
-
 func getURLAndPort(addr string) (urlAddr *url.URL, port int, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	urlAddr, err = url.Parse(addr)
 	if err != nil {
 		return nil, -1, err
@@ -78,10 +64,9 @@ func getURLAndPort(addr string) (urlAddr *url.URL, port int, err error) {
 	}
 	return urlAddr, port, err
 }
-
 func cleanPageCache() error {
-	// https://www.kernel.org/doc/Documentation/sysctl/vm.txt
-	// https://github.com/torvalds/linux/blob/master/fs/drop_caches.c
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := exec.Command("/bin/sh", "-c", `echo "echo 1 > /proc/sys/vm/drop_caches" | sudo sh`)
 	return cmd.Run()
 }

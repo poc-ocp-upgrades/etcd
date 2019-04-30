@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package v2store
 
 import (
@@ -20,7 +6,7 @@ import (
 )
 
 const (
-	SetSuccess = iota
+	SetSuccess	= iota
 	SetFail
 	DeleteSuccess
 	DeleteFail
@@ -38,78 +24,44 @@ const (
 )
 
 type Stats struct {
-	// Number of get requests
-
-	GetSuccess uint64 `json:"getsSuccess"`
-	GetFail    uint64 `json:"getsFail"`
-
-	// Number of sets requests
-
-	SetSuccess uint64 `json:"setsSuccess"`
-	SetFail    uint64 `json:"setsFail"`
-
-	// Number of delete requests
-
-	DeleteSuccess uint64 `json:"deleteSuccess"`
-	DeleteFail    uint64 `json:"deleteFail"`
-
-	// Number of update requests
-
-	UpdateSuccess uint64 `json:"updateSuccess"`
-	UpdateFail    uint64 `json:"updateFail"`
-
-	// Number of create requests
-
-	CreateSuccess uint64 `json:"createSuccess"`
-	CreateFail    uint64 `json:"createFail"`
-
-	// Number of testAndSet requests
-
-	CompareAndSwapSuccess uint64 `json:"compareAndSwapSuccess"`
-	CompareAndSwapFail    uint64 `json:"compareAndSwapFail"`
-
-	// Number of compareAndDelete requests
-
-	CompareAndDeleteSuccess uint64 `json:"compareAndDeleteSuccess"`
-	CompareAndDeleteFail    uint64 `json:"compareAndDeleteFail"`
-
-	ExpireCount uint64 `json:"expireCount"`
-
-	Watchers uint64 `json:"watchers"`
+	GetSuccess		uint64	`json:"getsSuccess"`
+	GetFail			uint64	`json:"getsFail"`
+	SetSuccess		uint64	`json:"setsSuccess"`
+	SetFail			uint64	`json:"setsFail"`
+	DeleteSuccess		uint64	`json:"deleteSuccess"`
+	DeleteFail		uint64	`json:"deleteFail"`
+	UpdateSuccess		uint64	`json:"updateSuccess"`
+	UpdateFail		uint64	`json:"updateFail"`
+	CreateSuccess		uint64	`json:"createSuccess"`
+	CreateFail		uint64	`json:"createFail"`
+	CompareAndSwapSuccess	uint64	`json:"compareAndSwapSuccess"`
+	CompareAndSwapFail	uint64	`json:"compareAndSwapFail"`
+	CompareAndDeleteSuccess	uint64	`json:"compareAndDeleteSuccess"`
+	CompareAndDeleteFail	uint64	`json:"compareAndDeleteFail"`
+	ExpireCount		uint64	`json:"expireCount"`
+	Watchers		uint64	`json:"watchers"`
 }
 
 func newStats() *Stats {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := new(Stats)
 	return s
 }
-
 func (s *Stats) clone() *Stats {
-	return &Stats{
-		GetSuccess:              s.GetSuccess,
-		GetFail:                 s.GetFail,
-		SetSuccess:              s.SetSuccess,
-		SetFail:                 s.SetFail,
-		DeleteSuccess:           s.DeleteSuccess,
-		DeleteFail:              s.DeleteFail,
-		UpdateSuccess:           s.UpdateSuccess,
-		UpdateFail:              s.UpdateFail,
-		CreateSuccess:           s.CreateSuccess,
-		CreateFail:              s.CreateFail,
-		CompareAndSwapSuccess:   s.CompareAndSwapSuccess,
-		CompareAndSwapFail:      s.CompareAndSwapFail,
-		CompareAndDeleteSuccess: s.CompareAndDeleteSuccess,
-		CompareAndDeleteFail:    s.CompareAndDeleteFail,
-		ExpireCount:             s.ExpireCount,
-		Watchers:                s.Watchers,
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return &Stats{GetSuccess: s.GetSuccess, GetFail: s.GetFail, SetSuccess: s.SetSuccess, SetFail: s.SetFail, DeleteSuccess: s.DeleteSuccess, DeleteFail: s.DeleteFail, UpdateSuccess: s.UpdateSuccess, UpdateFail: s.UpdateFail, CreateSuccess: s.CreateSuccess, CreateFail: s.CreateFail, CompareAndSwapSuccess: s.CompareAndSwapSuccess, CompareAndSwapFail: s.CompareAndSwapFail, CompareAndDeleteSuccess: s.CompareAndDeleteSuccess, CompareAndDeleteFail: s.CompareAndDeleteFail, ExpireCount: s.ExpireCount, Watchers: s.Watchers}
 }
-
 func (s *Stats) toJson() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, _ := json.Marshal(s)
 	return b
 }
-
 func (s *Stats) Inc(field int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch field {
 	case SetSuccess:
 		atomic.AddUint64(&s.SetSuccess, 1)

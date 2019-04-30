@@ -1,17 +1,3 @@
-// Copyright 2018 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package embed
 
 import (
@@ -22,9 +8,7 @@ import (
 	"os"
 	"reflect"
 	"sync"
-
 	"go.etcd.io/etcd/pkg/logutil"
-
 	"github.com/coreos/pkg/capnslog"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -32,30 +16,28 @@ import (
 	"google.golang.org/grpc/grpclog"
 )
 
-// GetLogger returns the logger.
 func (cfg Config) GetLogger() *zap.Logger {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg.loggerMu.RLock()
 	l := cfg.logger
 	cfg.loggerMu.RUnlock()
 	return l
 }
 
-// for testing
 var grpcLogOnce = new(sync.Once)
 
-// setupLogging initializes etcd logging.
-// Must be called after flag parsing or finishing configuring embed.Config.
 func (cfg *Config) setupLogging() error {
-	// handle "DeprecatedLogOutput" in v3.4
-	// TODO: remove "DeprecatedLogOutput" in v3.5
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	len1 := len(cfg.DeprecatedLogOutput)
 	len2 := len(cfg.LogOutputs)
 	if len1 != len2 {
 		switch {
-		case len1 > len2: // deprecate "log-output" flag is used
+		case len1 > len2:
 			fmt.Fprintln(os.Stderr, "'--log-output' flag has been deprecated! Please use '--log-outputs'!")
 			cfg.LogOutputs = cfg.DeprecatedLogOutput
-		case len1 < len2: // "--log-outputs" flag has been set with multiple writers
+		case len1 < len2:
 			cfg.DeprecatedLogOutput = []string{}
 		}
 	} else {
@@ -73,24 +55,18 @@ func (cfg *Config) setupLogging() error {
 			fmt.Fprintln(os.Stderr, "Please use '--log-outputs' flag")
 		}
 	}
-
 	switch cfg.Logger {
-	case "capnslog": // TODO: deprecate this in v3.5
+	case "capnslog":
 		cfg.ClientTLSInfo.HandshakeFailure = logTLSHandshakeFailure
 		cfg.PeerTLSInfo.HandshakeFailure = logTLSHandshakeFailure
-
 		if cfg.Debug {
 			capnslog.SetGlobalLogLevel(capnslog.DEBUG)
 			grpc.EnableTracing = true
-			// enable info, warning, error
 			grpclog.SetLoggerV2(grpclog.NewLoggerV2(os.Stderr, os.Stderr, os.Stderr))
 		} else {
 			capnslog.SetGlobalLogLevel(capnslog.INFO)
-			// only discard info
 			grpclog.SetLoggerV2(grpclog.NewLoggerV2(ioutil.Discard, os.Stderr, os.Stderr))
 		}
-
-		// TODO: deprecate with "capnslog"
 		if cfg.LogPkgLevels != "" {
 			repoLog := capnslog.MustRepoLogger("go.etcd.io/etcd")
 			settings, err := repoLog.ParseLogLevelConfig(cfg.LogPkgLevels)
@@ -100,13 +76,9 @@ func (cfg *Config) setupLogging() error {
 			}
 			repoLog.SetLogLevel(settings)
 		}
-
 		if len(cfg.LogOutputs) != 1 {
 			return fmt.Errorf("--logger=capnslog supports only 1 value in '--log-outputs', got %q", cfg.LogOutputs)
 		}
-		// capnslog initially SetFormatter(NewDefaultFormatter(os.Stderr))
-		// where NewDefaultFormatter returns NewJournaldFormatter when syscall.Getppid() == 1
-		// specify 'stdout' or 'stderr' to skip journald logging even when running under systemd
 		output := cfg.LogOutputs[0]
 		switch output {
 		case StdErrLogOutput:
@@ -117,7 +89,6 @@ func (cfg *Config) setupLogging() error {
 		default:
 			return fmt.Errorf("unknown log-output %q (only supports %q, %q, %q)", output, DefaultLogOutput, StdErrLogOutput, StdOutLogOutput)
 		}
-
 	case "zap":
 		if len(cfg.LogOutputs) == 0 {
 			cfg.LogOutputs = []string{DefaultLogOutput}
@@ -129,7 +100,6 @@ func (cfg *Config) setupLogging() error {
 				}
 			}
 		}
-
 		outputPaths, errOutputPaths := make([]string, 0), make([]string, 0)
 		isJournal := false
 		for _, v := range cfg.LogOutputs {
@@ -137,27 +107,21 @@ func (cfg *Config) setupLogging() error {
 			case DefaultLogOutput:
 				outputPaths = append(outputPaths, StdErrLogOutput)
 				errOutputPaths = append(errOutputPaths, StdErrLogOutput)
-
 			case JournalLogOutput:
 				isJournal = true
-
 			case StdErrLogOutput:
 				outputPaths = append(outputPaths, StdErrLogOutput)
 				errOutputPaths = append(errOutputPaths, StdErrLogOutput)
-
 			case StdOutLogOutput:
 				outputPaths = append(outputPaths, StdOutLogOutput)
 				errOutputPaths = append(errOutputPaths, StdOutLogOutput)
-
 			default:
 				outputPaths = append(outputPaths, v)
 				errOutputPaths = append(errOutputPaths, v)
 			}
 		}
-
 		if !isJournal {
 			copied := logutil.AddOutputPaths(logutil.DefaultZapLoggerConfig, outputPaths, errOutputPaths)
-
 			if cfg.Debug {
 				copied.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
 				grpc.EnableTracing = true
@@ -175,8 +139,6 @@ func (cfg *Config) setupLogging() error {
 					c.loggerCore = nil
 					c.loggerWriteSyncer = nil
 					grpcLogOnce.Do(func() {
-						// debug true, enable info, warning, error
-						// debug false, only discard info
 						var gl grpclog.LoggerV2
 						gl, err = logutil.NewGRPCLoggerV2(copied)
 						if err == nil {
@@ -194,26 +156,16 @@ func (cfg *Config) setupLogging() error {
 					}
 				}
 			}
-
-			// use stderr as fallback
 			syncer, lerr := getJournalWriteSyncer()
 			if lerr != nil {
 				return lerr
 			}
-
 			lvl := zap.NewAtomicLevelAt(zap.InfoLevel)
 			if cfg.Debug {
 				lvl = zap.NewAtomicLevelAt(zap.DebugLevel)
 				grpc.EnableTracing = true
 			}
-
-			// WARN: do not change field names in encoder config
-			// journald logging writer assumes field names of "level" and "caller"
-			cr := zapcore.NewCore(
-				zapcore.NewJSONEncoder(logutil.DefaultZapLoggerConfig.EncoderConfig),
-				syncer,
-				lvl,
-			)
+			cr := zapcore.NewCore(zapcore.NewJSONEncoder(logutil.DefaultZapLoggerConfig.EncoderConfig), syncer, lvl)
 			if cfg.ZapLoggerBuilder == nil {
 				cfg.ZapLoggerBuilder = func(c *Config) error {
 					c.logger = zap.New(cr, zap.AddCaller(), zap.ErrorOutput(syncer))
@@ -222,7 +174,6 @@ func (cfg *Config) setupLogging() error {
 					c.loggerConfig = nil
 					c.loggerCore = cr
 					c.loggerWriteSyncer = syncer
-
 					grpcLogOnce.Do(func() {
 						grpclog.SetLoggerV2(logutil.NewGRPCLoggerV2FromZapCore(cr, syncer))
 					})
@@ -230,12 +181,10 @@ func (cfg *Config) setupLogging() error {
 				}
 			}
 		}
-
 		err := cfg.ZapLoggerBuilder(cfg)
 		if err != nil {
 			return err
 		}
-
 		logTLSHandshakeFailure := func(conn *tls.Conn, err error) {
 			state := conn.ConnectionState()
 			remoteAddr := conn.RemoteAddr().String()
@@ -246,35 +195,21 @@ func (cfg *Config) setupLogging() error {
 				for i := range cert.IPAddresses {
 					ips[i] = cert.IPAddresses[i].String()
 				}
-				cfg.logger.Warn(
-					"rejected connection",
-					zap.String("remote-addr", remoteAddr),
-					zap.String("server-name", serverName),
-					zap.Strings("ip-addresses", ips),
-					zap.Strings("dns-names", cert.DNSNames),
-					zap.Error(err),
-				)
+				cfg.logger.Warn("rejected connection", zap.String("remote-addr", remoteAddr), zap.String("server-name", serverName), zap.Strings("ip-addresses", ips), zap.Strings("dns-names", cert.DNSNames), zap.Error(err))
 			} else {
-				cfg.logger.Warn(
-					"rejected connection",
-					zap.String("remote-addr", remoteAddr),
-					zap.String("server-name", serverName),
-					zap.Error(err),
-				)
+				cfg.logger.Warn("rejected connection", zap.String("remote-addr", remoteAddr), zap.String("server-name", serverName), zap.Error(err))
 			}
 		}
 		cfg.ClientTLSInfo.HandshakeFailure = logTLSHandshakeFailure
 		cfg.PeerTLSInfo.HandshakeFailure = logTLSHandshakeFailure
-
 	default:
 		return fmt.Errorf("unknown logger option %q", cfg.Logger)
 	}
-
 	return nil
 }
-
-// NewZapCoreLoggerBuilder generates a zap core logger builder.
 func NewZapCoreLoggerBuilder(lg *zap.Logger, cr zapcore.Core, syncer zapcore.WriteSyncer) func(*Config) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(cfg *Config) error {
 		cfg.loggerMu.Lock()
 		defer cfg.loggerMu.Unlock()
@@ -282,7 +217,6 @@ func NewZapCoreLoggerBuilder(lg *zap.Logger, cr zapcore.Core, syncer zapcore.Wri
 		cfg.loggerConfig = nil
 		cfg.loggerCore = cr
 		cfg.loggerWriteSyncer = syncer
-
 		grpcLogOnce.Do(func() {
 			grpclog.SetLoggerV2(logutil.NewGRPCLoggerV2FromZapCore(cr, syncer))
 		})

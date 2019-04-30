@@ -1,41 +1,23 @@
-// Copyright 2017 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package v3lock
 
 import (
 	"context"
-
 	"go.etcd.io/etcd/clientv3"
 	"go.etcd.io/etcd/clientv3/concurrency"
 	"go.etcd.io/etcd/etcdserver/api/v3lock/v3lockpb"
 )
 
-type lockServer struct {
-	c *clientv3.Client
-}
+type lockServer struct{ c *clientv3.Client }
 
 func NewLockServer(c *clientv3.Client) v3lockpb.LockServer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &lockServer{c}
 }
-
 func (ls *lockServer) Lock(ctx context.Context, req *v3lockpb.LockRequest) (*v3lockpb.LockResponse, error) {
-	s, err := concurrency.NewSession(
-		ls.c,
-		concurrency.WithLease(clientv3.LeaseID(req.Lease)),
-		concurrency.WithContext(ctx),
-	)
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	s, err := concurrency.NewSession(ls.c, concurrency.WithLease(clientv3.LeaseID(req.Lease)), concurrency.WithContext(ctx))
 	if err != nil {
 		return nil, err
 	}
@@ -46,8 +28,9 @@ func (ls *lockServer) Lock(ctx context.Context, req *v3lockpb.LockRequest) (*v3l
 	}
 	return &v3lockpb.LockResponse{Header: m.Header(), Key: []byte(m.Key())}, nil
 }
-
 func (ls *lockServer) Unlock(ctx context.Context, req *v3lockpb.UnlockRequest) (*v3lockpb.UnlockResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := ls.c.Delete(ctx, string(req.Key))
 	if err != nil {
 		return nil, err

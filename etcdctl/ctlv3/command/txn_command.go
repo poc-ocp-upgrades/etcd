@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package command
 
 import (
@@ -21,34 +7,27 @@ import (
 	"os"
 	"strconv"
 	"strings"
-
 	"go.etcd.io/etcd/clientv3"
 	pb "go.etcd.io/etcd/etcdserver/etcdserverpb"
-
 	"github.com/spf13/cobra"
 )
 
 var txnInteractive bool
 
-// NewTxnCommand returns the cobra command for "txn".
 func NewTxnCommand() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "txn [options]",
-		Short: "Txn processes all the requests in one transaction",
-		Run:   txnCommandFunc,
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	cmd := &cobra.Command{Use: "txn [options]", Short: "Txn processes all the requests in one transaction", Run: txnCommandFunc}
 	cmd.Flags().BoolVarP(&txnInteractive, "interactive", "i", false, "Input transaction in interactive mode")
 	return cmd
 }
-
-// txnCommandFunc executes the "txn" command.
 func txnCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(args) != 0 {
 		ExitWithError(ExitBadArgs, fmt.Errorf("txn command does not accept argument"))
 	}
-
 	reader := bufio.NewReader(os.Stdin)
-
 	txn := mustClientFromCmd(cmd).Txn(context.Background())
 	promptInteractive("compares:")
 	txn.If(readCompares(reader)...)
@@ -56,75 +35,67 @@ func txnCommandFunc(cmd *cobra.Command, args []string) {
 	txn.Then(readOps(reader)...)
 	promptInteractive("failure requests (get, put, del):")
 	txn.Else(readOps(reader)...)
-
 	resp, err := txn.Commit()
 	if err != nil {
 		ExitWithError(ExitError, err)
 	}
-
 	display.Txn(*resp)
 }
-
 func promptInteractive(s string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if txnInteractive {
 		fmt.Println(s)
 	}
 }
-
 func readCompares(r *bufio.Reader) (cmps []clientv3.Cmp) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		line, err := r.ReadString('\n')
 		if err != nil {
 			ExitWithError(ExitInvalidInput, err)
 		}
-
-		// remove space from the line
 		line = strings.TrimSpace(line)
 		if len(line) == 0 {
 			break
 		}
-
 		cmp, err := parseCompare(line)
 		if err != nil {
 			ExitWithError(ExitInvalidInput, err)
 		}
 		cmps = append(cmps, *cmp)
 	}
-
 	return cmps
 }
-
 func readOps(r *bufio.Reader) (ops []clientv3.Op) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		line, err := r.ReadString('\n')
 		if err != nil {
 			ExitWithError(ExitInvalidInput, err)
 		}
-
-		// remove space from the line
 		line = strings.TrimSpace(line)
 		if len(line) == 0 {
 			break
 		}
-
 		op, err := parseRequestUnion(line)
 		if err != nil {
 			ExitWithError(ExitInvalidInput, err)
 		}
 		ops = append(ops, *op)
 	}
-
 	return ops
 }
-
 func parseRequestUnion(line string) (*clientv3.Op, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := argify(line)
 	if len(args) < 2 {
 		return nil, fmt.Errorf("invalid txn compare request: %s", line)
 	}
-
 	opc := make(chan clientv3.Op, 1)
-
 	put := NewPutCommand()
 	put.Run = func(cmd *cobra.Command, args []string) {
 		key, value, opts := getPutOp(args)
@@ -142,28 +113,25 @@ func parseRequestUnion(line string) (*clientv3.Op, error) {
 	}
 	cmds := &cobra.Command{SilenceErrors: true}
 	cmds.AddCommand(put, get, del)
-
 	cmds.SetArgs(args)
 	if err := cmds.Execute(); err != nil {
 		return nil, fmt.Errorf("invalid txn request: %s", line)
 	}
-
 	op := <-opc
 	return &op, nil
 }
-
 func parseCompare(line string) (*clientv3.Cmp, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var (
-		key string
-		op  string
-		val string
+		key	string
+		op	string
+		val	string
 	)
-
 	lparenSplit := strings.SplitN(line, "(", 2)
 	if len(lparenSplit) != 2 {
 		return nil, fmt.Errorf("malformed comparison: %s", line)
 	}
-
 	target := lparenSplit[0]
 	n, serr := fmt.Sscanf(lparenSplit[1], "%q) %s %q", &key, &op, &val)
 	if n != 3 {
@@ -172,11 +140,10 @@ func parseCompare(line string) (*clientv3.Cmp, error) {
 	if serr != nil {
 		return nil, fmt.Errorf("malformed comparison: %s (%v)", line, serr)
 	}
-
 	var (
-		v   int64
-		err error
-		cmp clientv3.Cmp
+		v	int64
+		err	error
+		cmp	clientv3.Cmp
 	)
 	switch target {
 	case "ver", "version":
@@ -198,10 +165,8 @@ func parseCompare(line string) (*clientv3.Cmp, error) {
 	default:
 		return nil, fmt.Errorf("malformed comparison: %s (unknown target %s)", line, target)
 	}
-
 	if err != nil {
 		return nil, fmt.Errorf("invalid txn compare request: %s", line)
 	}
-
 	return &cmp, nil
 }

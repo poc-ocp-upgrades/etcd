@@ -1,17 +1,3 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package cmd
 
 import (
@@ -22,43 +8,35 @@ import (
 	"math/rand"
 	"os"
 	"time"
-
 	v3 "go.etcd.io/etcd/clientv3"
 	v3sync "go.etcd.io/etcd/clientv3/concurrency"
 	"go.etcd.io/etcd/etcdserver/api/v3lock/v3lockpb"
 	"go.etcd.io/etcd/pkg/report"
-
 	"github.com/spf13/cobra"
 	"golang.org/x/time/rate"
 	"gopkg.in/cheggaaa/pb.v1"
 )
 
-// stmCmd represents the STM benchmark command
-var stmCmd = &cobra.Command{
-	Use:   "stm",
-	Short: "Benchmark STM",
-
-	Run: stmFunc,
-}
+var stmCmd = &cobra.Command{Use: "stm", Short: "Benchmark STM", Run: stmFunc}
 
 type stmApply func(v3sync.STM) error
 
 var (
-	stmIsolation string
-	stmIso       v3sync.Isolation
-
-	stmTotal        int
-	stmKeysPerTxn   int
-	stmKeyCount     int
-	stmValSize      int
-	stmWritePercent int
-	stmLocker       string
-	stmRate         int
+	stmIsolation	string
+	stmIso		v3sync.Isolation
+	stmTotal	int
+	stmKeysPerTxn	int
+	stmKeyCount	int
+	stmValSize	int
+	stmWritePercent	int
+	stmLocker	string
+	stmRate		int
 )
 
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	RootCmd.AddCommand(stmCmd)
-
 	stmCmd.Flags().StringVar(&stmIsolation, "isolation", "r", "Read Committed (c), Repeatable Reads (r), Serializable (s), or Snapshot (ss)")
 	stmCmd.Flags().IntVar(&stmKeyCount, "keys", 1, "Total unique keys accessible by the benchmark")
 	stmCmd.Flags().IntVar(&stmTotal, "total", 10000, "Total number of completed STM transactions")
@@ -68,23 +46,21 @@ func init() {
 	stmCmd.Flags().IntVar(&stmValSize, "val-size", 8, "Value size of each STM put request")
 	stmCmd.Flags().IntVar(&stmRate, "rate", 0, "Maximum STM transactions per second (0 is no limit)")
 }
-
 func stmFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if stmKeyCount <= 0 {
 		fmt.Fprintf(os.Stderr, "expected positive --keys, got (%v)", stmKeyCount)
 		os.Exit(1)
 	}
-
 	if stmWritePercent < 0 || stmWritePercent > 100 {
 		fmt.Fprintf(os.Stderr, "expected [0, 100] --txn-wr-percent, got (%v)", stmWritePercent)
 		os.Exit(1)
 	}
-
 	if stmKeysPerTxn < 0 || stmKeysPerTxn > stmKeyCount {
 		fmt.Fprintf(os.Stderr, "expected --keys-per-txn between 0 and %v, got (%v)", stmKeyCount, stmKeysPerTxn)
 		os.Exit(1)
 	}
-
 	switch stmIsolation {
 	case "c":
 		stmIso = v3sync.ReadCommitted
@@ -98,25 +74,20 @@ func stmFunc(cmd *cobra.Command, args []string) {
 		fmt.Fprintln(os.Stderr, cmd.Usage())
 		os.Exit(1)
 	}
-
 	if stmRate == 0 {
 		stmRate = math.MaxInt32
 	}
 	limit := rate.NewLimiter(rate.Limit(stmRate), 1)
-
 	requests := make(chan stmApply, totalClients)
 	clients := mustCreateClients(totalClients, totalConns)
-
 	bar = pb.New(stmTotal)
 	bar.Format("Bom !")
 	bar.Start()
-
 	r := newReport()
 	for i := range clients {
 		wg.Add(1)
 		go doSTM(clients[i], requests, r.Results())
 	}
-
 	go func() {
 		for i := 0; i < stmTotal; i++ {
 			kset := make(map[string]struct{})
@@ -126,7 +97,6 @@ func stmFunc(cmd *cobra.Command, args []string) {
 				s := string(k)
 				kset[s] = struct{}{}
 			}
-
 			applyf := func(s v3sync.STM) error {
 				limit.Wait(context.Background())
 				wrs := int(float32(len(kset)*stmWritePercent) / 100.0)
@@ -139,23 +109,25 @@ func stmFunc(cmd *cobra.Command, args []string) {
 				}
 				return nil
 			}
-
 			requests <- applyf
 		}
 		close(requests)
 	}()
-
 	rc := r.Run()
 	wg.Wait()
 	close(r.Results())
 	bar.Finish()
 	fmt.Printf("%s", <-rc)
 }
-
 func doSTM(client *v3.Client, requests <-chan stmApply, results chan<- report.Result) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer wg.Done()
-
-	lock, unlock := func() error { return nil }, func() error { return nil }
+	lock, unlock := func() error {
+		return nil
+	}, func() error {
+		return nil
+	}
 	switch stmLocker {
 	case "lock-client":
 		s, err := v3sync.NewSession(client)
@@ -164,8 +136,12 @@ func doSTM(client *v3.Client, requests <-chan stmApply, results chan<- report.Re
 		}
 		defer s.Close()
 		m := v3sync.NewMutex(s, "stmlock")
-		lock = func() error { return m.Lock(context.TODO()) }
-		unlock = func() error { return m.Unlock(context.TODO()) }
+		lock = func() error {
+			return m.Lock(context.TODO())
+		}
+		unlock = func() error {
+			return m.Unlock(context.TODO())
+		}
 	case "lock-rpc":
 		var lockKey []byte
 		s, err := v3sync.NewSession(client)
@@ -192,7 +168,6 @@ func doSTM(client *v3.Client, requests <-chan stmApply, results chan<- report.Re
 		fmt.Fprintf(os.Stderr, "unexpected stm locker %q\n", stmLocker)
 		os.Exit(1)
 	}
-
 	for applyf := range requests {
 		st := time.Now()
 		if lerr := lock(); lerr != nil {
