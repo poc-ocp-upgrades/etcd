@@ -1,39 +1,22 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package runner
 
 import (
 	"context"
 	"fmt"
+	"github.com/coreos/etcd/clientv3"
+	"github.com/spf13/cobra"
+	"golang.org/x/time/rate"
 	"log"
 	"sync"
 	"time"
-
-	"github.com/coreos/etcd/clientv3"
-
-	"github.com/spf13/cobra"
-	"golang.org/x/time/rate"
 )
 
-// shared flags
 var (
-	totalClientConnections int // total number of client connections to be made with server
+	totalClientConnections int
 	endpoints              []string
 	dialTimeout            time.Duration
-	rounds                 int // total number of rounds to run; set to <= 0 to run forever.
-	reqRate                int // maximum number of requests per second.
+	rounds                 int
+	reqRate                int
 )
 
 type roundClient struct {
@@ -45,19 +28,18 @@ type roundClient struct {
 }
 
 func newClient(eps []string, timeout time.Duration) *clientv3.Client {
-	c, err := clientv3.New(clientv3.Config{
-		Endpoints:   eps,
-		DialTimeout: time.Duration(timeout) * time.Second,
-	})
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	c, err := clientv3.New(clientv3.Config{Endpoints: eps, DialTimeout: time.Duration(timeout) * time.Second})
 	if err != nil {
 		log.Fatal(err)
 	}
 	return c
 }
-
 func doRounds(rcs []roundClient, rounds int, requests int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var wg sync.WaitGroup
-
 	wg.Add(len(rcs))
 	finished := make(chan struct{})
 	limiter := rate.NewLimiter(rate.Limit(reqRate), reqRate)
@@ -68,24 +50,19 @@ func doRounds(rcs []roundClient, rounds int, requests int) {
 				if err := limiter.WaitN(context.Background(), requests/len(rcs)); err != nil {
 					log.Panicf("rate limiter error %v", err)
 				}
-
-				for rc.acquire() != nil { /* spin */
+				for rc.acquire() != nil {
 				}
-
 				if err := rc.validate(); err != nil {
 					log.Fatal(err)
 				}
-
 				time.Sleep(10 * time.Millisecond)
 				rc.progress++
 				finished <- struct{}{}
-
-				for rc.release() != nil { /* spin */
+				for rc.release() != nil {
 				}
 			}
 		}(&rcs[i])
 	}
-
 	start := time.Now()
 	for i := 1; i < len(rcs)*rounds+1 || rounds <= 0; i++ {
 		select {
@@ -99,13 +76,13 @@ func doRounds(rcs []roundClient, rounds int, requests int) {
 		}
 	}
 	wg.Wait()
-
 	for _, rc := range rcs {
 		rc.c.Close()
 	}
 }
-
 func endpointsFromFlag(cmd *cobra.Command) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	eps, err := cmd.Flags().GetStringSlice("endpoints")
 	if err != nil {
 		ExitWithError(ExitError, err)

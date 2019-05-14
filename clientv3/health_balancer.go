@@ -1,31 +1,16 @@
-// Copyright 2017 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package clientv3
 
 import (
 	"context"
 	"errors"
-	"net/url"
-	"strings"
-	"sync"
-	"time"
-
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	healthpb "google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/status"
+	"net/url"
+	"strings"
+	"sync"
+	"time"
 )
 
 const (
@@ -33,13 +18,9 @@ const (
 	unknownService         = "unknown service grpc.health.v1.Health"
 )
 
-// ErrNoAddrAvilable is returned by Get() when the balancer does not have
-// any active connection to endpoints at the time.
-// This error is returned only when opts.BlockingWait is true.
 var ErrNoAddrAvilable = status.Error(codes.Unavailable, "there is no address available")
 
 type healthCheckFunc func(ep string) (bool, error)
-
 type notifyMsg int
 
 const (
@@ -47,83 +28,39 @@ const (
 	notifyNext
 )
 
-// healthBalancer does the bare minimum to expose multiple eps
-// to the grpc reconnection code path
 type healthBalancer struct {
-	// addrs are the client's endpoint addresses for grpc
-	addrs []grpc.Address
-
-	// eps holds the raw endpoints from the client
-	eps []string
-
-	// notifyCh notifies grpc of the set of addresses for connecting
-	notifyCh chan []grpc.Address
-
-	// readyc closes once the first connection is up
-	readyc    chan struct{}
-	readyOnce sync.Once
-
-	// healthCheck checks an endpoint's health.
+	addrs              []grpc.Address
+	eps                []string
+	notifyCh           chan []grpc.Address
+	readyc             chan struct{}
+	readyOnce          sync.Once
 	healthCheck        healthCheckFunc
 	healthCheckTimeout time.Duration
-
 	unhealthyMu        sync.RWMutex
 	unhealthyHostPorts map[string]time.Time
-
-	// mu protects all fields below.
-	mu sync.RWMutex
-
-	// upc closes when pinAddr transitions from empty to non-empty or the balancer closes.
-	upc chan struct{}
-
-	// downc closes when grpc calls down() on pinAddr
-	downc chan struct{}
-
-	// stopc is closed to signal updateNotifyLoop should stop.
-	stopc    chan struct{}
-	stopOnce sync.Once
-	wg       sync.WaitGroup
-
-	// donec closes when all goroutines are exited
-	donec chan struct{}
-
-	// updateAddrsC notifies updateNotifyLoop to update addrs.
-	updateAddrsC chan notifyMsg
-
-	// grpc issues TLS cert checks using the string passed into dial so
-	// that string must be the host. To recover the full scheme://host URL,
-	// have a map from hosts to the original endpoint.
-	hostPort2ep map[string]string
-
-	// pinAddr is the currently pinned address; set to the empty string on
-	// initialization and shutdown.
-	pinAddr string
-
-	closed bool
+	mu                 sync.RWMutex
+	upc                chan struct{}
+	downc              chan struct{}
+	stopc              chan struct{}
+	stopOnce           sync.Once
+	wg                 sync.WaitGroup
+	donec              chan struct{}
+	updateAddrsC       chan notifyMsg
+	hostPort2ep        map[string]string
+	pinAddr            string
+	closed             bool
 }
 
 func newHealthBalancer(eps []string, timeout time.Duration, hc healthCheckFunc) *healthBalancer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	notifyCh := make(chan []grpc.Address)
 	addrs := eps2addrs(eps)
-	hb := &healthBalancer{
-		addrs:              addrs,
-		eps:                eps,
-		notifyCh:           notifyCh,
-		readyc:             make(chan struct{}),
-		healthCheck:        hc,
-		unhealthyHostPorts: make(map[string]time.Time),
-		upc:                make(chan struct{}),
-		stopc:              make(chan struct{}),
-		downc:              make(chan struct{}),
-		donec:              make(chan struct{}),
-		updateAddrsC:       make(chan notifyMsg),
-		hostPort2ep:        getHostPort2ep(eps),
-	}
+	hb := &healthBalancer{addrs: addrs, eps: eps, notifyCh: notifyCh, readyc: make(chan struct{}), healthCheck: hc, unhealthyHostPorts: make(map[string]time.Time), upc: make(chan struct{}), stopc: make(chan struct{}), downc: make(chan struct{}), donec: make(chan struct{}), updateAddrsC: make(chan notifyMsg), hostPort2ep: getHostPort2ep(eps)}
 	if timeout < minHealthRetryDuration {
 		timeout = minHealthRetryDuration
 	}
 	hb.healthCheckTimeout = timeout
-
 	close(hb.downc)
 	go hb.updateNotifyLoop()
 	hb.wg.Add(1)
@@ -133,68 +70,80 @@ func newHealthBalancer(eps []string, timeout time.Duration, hc healthCheckFunc) 
 	}()
 	return hb
 }
-
-func (b *healthBalancer) Start(target string, config grpc.BalancerConfig) error { return nil }
-
+func (b *healthBalancer) Start(target string, config grpc.BalancerConfig) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return nil
+}
 func (b *healthBalancer) ConnectNotify() <-chan struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.mu.Lock()
 	defer b.mu.Unlock()
 	return b.upc
 }
-
-func (b *healthBalancer) ready() <-chan struct{} { return b.readyc }
-
+func (b *healthBalancer) ready() <-chan struct{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return b.readyc
+}
 func (b *healthBalancer) endpoint(hostPort string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.mu.RLock()
 	defer b.mu.RUnlock()
 	return b.hostPort2ep[hostPort]
 }
-
 func (b *healthBalancer) pinned() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.mu.RLock()
 	defer b.mu.RUnlock()
 	return b.pinAddr
 }
-
 func (b *healthBalancer) hostPortError(hostPort string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if b.endpoint(hostPort) == "" {
 		logger.Lvl(4).Infof("clientv3/balancer: %q is stale (skip marking as unhealthy on %q)", hostPort, err.Error())
 		return
 	}
-
 	b.unhealthyMu.Lock()
 	b.unhealthyHostPorts[hostPort] = time.Now()
 	b.unhealthyMu.Unlock()
 	logger.Lvl(4).Infof("clientv3/balancer: %q is marked unhealthy (%q)", hostPort, err.Error())
 }
-
 func (b *healthBalancer) removeUnhealthy(hostPort, msg string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if b.endpoint(hostPort) == "" {
 		logger.Lvl(4).Infof("clientv3/balancer: %q was not in unhealthy (%q)", hostPort, msg)
 		return
 	}
-
 	b.unhealthyMu.Lock()
 	delete(b.unhealthyHostPorts, hostPort)
 	b.unhealthyMu.Unlock()
 	logger.Lvl(4).Infof("clientv3/balancer: %q is removed from unhealthy (%q)", hostPort, msg)
 }
-
 func (b *healthBalancer) countUnhealthy() (count int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.unhealthyMu.RLock()
 	count = len(b.unhealthyHostPorts)
 	b.unhealthyMu.RUnlock()
 	return count
 }
-
 func (b *healthBalancer) isUnhealthy(hostPort string) (unhealthy bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.unhealthyMu.RLock()
 	_, unhealthy = b.unhealthyHostPorts[hostPort]
 	b.unhealthyMu.RUnlock()
 	return unhealthy
 }
-
 func (b *healthBalancer) cleanupUnhealthy() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.unhealthyMu.Lock()
 	for k, v := range b.unhealthyHostPorts {
 		if time.Since(v) > b.healthCheckTimeout {
@@ -204,13 +153,12 @@ func (b *healthBalancer) cleanupUnhealthy() {
 	}
 	b.unhealthyMu.Unlock()
 }
-
 func (b *healthBalancer) liveAddrs() ([]grpc.Address, map[string]struct{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	unhealthyCnt := b.countUnhealthy()
-
 	b.mu.RLock()
 	defer b.mu.RUnlock()
-
 	hbAddrs := b.addrs
 	if len(b.addrs) == 1 || unhealthyCnt == 0 || unhealthyCnt == len(b.addrs) {
 		liveHostPorts := make(map[string]struct{}, len(b.hostPort2ep))
@@ -219,7 +167,6 @@ func (b *healthBalancer) liveAddrs() ([]grpc.Address, map[string]struct{}) {
 		}
 		return hbAddrs, liveHostPorts
 	}
-
 	addrs := make([]grpc.Address, 0, len(b.addrs)-unhealthyCnt)
 	liveHostPorts := make(map[string]struct{}, len(addrs))
 	for _, addr := range b.addrs {
@@ -230,8 +177,9 @@ func (b *healthBalancer) liveAddrs() ([]grpc.Address, map[string]struct{}) {
 	}
 	return addrs, liveHostPorts
 }
-
 func (b *healthBalancer) updateUnhealthy() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		select {
 		case <-time.After(b.healthCheckTimeout):
@@ -249,13 +197,12 @@ func (b *healthBalancer) updateUnhealthy() {
 		}
 	}
 }
-
 func (b *healthBalancer) updateAddrs(eps ...string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	np := getHostPort2ep(eps)
-
 	b.mu.Lock()
 	defer b.mu.Unlock()
-
 	match := len(np) == len(b.hostPort2ep)
 	if match {
 		for k, v := range np {
@@ -266,19 +213,17 @@ func (b *healthBalancer) updateAddrs(eps ...string) {
 		}
 	}
 	if match {
-		// same endpoints, so no need to update address
 		return
 	}
-
 	b.hostPort2ep = np
 	b.addrs, b.eps = eps2addrs(eps), eps
-
 	b.unhealthyMu.Lock()
 	b.unhealthyHostPorts = make(map[string]time.Time)
 	b.unhealthyMu.Unlock()
 }
-
 func (b *healthBalancer) next() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.mu.RLock()
 	downc := b.downc
 	b.mu.RUnlock()
@@ -286,21 +231,19 @@ func (b *healthBalancer) next() {
 	case b.updateAddrsC <- notifyNext:
 	case <-b.stopc:
 	}
-	// wait until disconnect so new RPCs are not issued on old connection
 	select {
 	case <-downc:
 	case <-b.stopc:
 	}
 }
-
 func (b *healthBalancer) updateNotifyLoop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer close(b.donec)
-
 	for {
 		b.mu.RLock()
 		upc, downc, addr := b.upc, b.downc, b.pinAddr
 		b.mu.RUnlock()
-		// downc or upc should be closed
 		select {
 		case <-downc:
 			downc = nil
@@ -313,7 +256,6 @@ func (b *healthBalancer) updateNotifyLoop() {
 		}
 		switch {
 		case downc == nil && upc == nil:
-			// stale
 			select {
 			case <-b.stopc:
 				return
@@ -330,7 +272,6 @@ func (b *healthBalancer) updateNotifyLoop() {
 			}
 		case upc == nil:
 			select {
-			// close connections that are not the pinned address
 			case b.notifyCh <- []grpc.Address{{Addr: addr}}:
 			case <-downc:
 			case <-b.stopc:
@@ -347,8 +288,9 @@ func (b *healthBalancer) updateNotifyLoop() {
 		}
 	}
 }
-
 func (b *healthBalancer) notifyAddrs(msg notifyMsg) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if msg == notifyNext {
 		select {
 		case b.notifyCh <- []grpc.Address{}:
@@ -361,13 +303,11 @@ func (b *healthBalancer) notifyAddrs(msg notifyMsg) {
 	downc := b.downc
 	b.mu.RUnlock()
 	addrs, hostPorts := b.liveAddrs()
-
 	var waitDown bool
 	if pinAddr != "" {
 		_, ok := hostPorts[pinAddr]
 		waitDown = !ok
 	}
-
 	select {
 	case b.notifyCh <- addrs:
 		if waitDown {
@@ -379,49 +319,37 @@ func (b *healthBalancer) notifyAddrs(msg notifyMsg) {
 	case <-b.stopc:
 	}
 }
-
 func (b *healthBalancer) Up(addr grpc.Address) func(error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !b.mayPin(addr) {
-		return func(err error) {}
+		return func(err error) {
+		}
 	}
-
 	b.mu.Lock()
 	defer b.mu.Unlock()
-
-	// gRPC might call Up after it called Close. We add this check
-	// to "fix" it up at application layer. Otherwise, will panic
-	// if b.upc is already closed.
 	if b.closed {
-		return func(err error) {}
+		return func(err error) {
+		}
 	}
-
-	// gRPC might call Up on a stale address.
-	// Prevent updating pinAddr with a stale address.
 	if !hasAddr(b.addrs, addr.Addr) {
-		return func(err error) {}
+		return func(err error) {
+		}
 	}
-
 	if b.pinAddr != "" {
 		logger.Lvl(4).Infof("clientv3/balancer: %q is up but not pinned (already pinned %q)", addr.Addr, b.pinAddr)
-		return func(err error) {}
+		return func(err error) {
+		}
 	}
-
-	// notify waiting Get()s and pin first connected address
 	close(b.upc)
 	b.downc = make(chan struct{})
 	b.pinAddr = addr.Addr
 	logger.Lvl(4).Infof("clientv3/balancer: pin %q", addr.Addr)
-
-	// notify client that a connection is up
-	b.readyOnce.Do(func() { close(b.readyc) })
-
+	b.readyOnce.Do(func() {
+		close(b.readyc)
+	})
 	return func(err error) {
-		// If connected to a black hole endpoint or a killed server, the gRPC ping
-		// timeout will induce a network I/O error, and retrying until success;
-		// finding healthy endpoint on retry could take several timeouts and redials.
-		// To avoid wasting retries, gray-list unhealthy endpoints.
 		b.hostPortError(addr.Addr, err)
-
 		b.mu.Lock()
 		b.upc = make(chan struct{})
 		close(b.downc)
@@ -430,51 +358,40 @@ func (b *healthBalancer) Up(addr grpc.Address) func(error) {
 		logger.Lvl(4).Infof("clientv3/balancer: unpin %q (%q)", addr.Addr, err.Error())
 	}
 }
-
 func (b *healthBalancer) mayPin(addr grpc.Address) bool {
-	if b.endpoint(addr.Addr) == "" { // stale host:port
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	if b.endpoint(addr.Addr) == "" {
 		return false
 	}
-
 	b.unhealthyMu.RLock()
 	unhealthyCnt := len(b.unhealthyHostPorts)
 	failedTime, bad := b.unhealthyHostPorts[addr.Addr]
 	b.unhealthyMu.RUnlock()
-
 	b.mu.RLock()
 	skip := len(b.addrs) == 1 || unhealthyCnt == 0 || len(b.addrs) == unhealthyCnt
 	b.mu.RUnlock()
 	if skip || !bad {
 		return true
 	}
-
-	// prevent isolated member's endpoint from being infinitely retried, as follows:
-	//   1. keepalive pings detects GoAway with http2.ErrCodeEnhanceYourCalm
-	//   2. balancer 'Up' unpins with grpc: failed with network I/O error
-	//   3. grpc-healthcheck still SERVING, thus retry to pin
-	// instead, return before grpc-healthcheck if failed within healthcheck timeout
 	if elapsed := time.Since(failedTime); elapsed < b.healthCheckTimeout {
 		logger.Lvl(4).Infof("clientv3/balancer: %q is up but not pinned (failed %v ago, require minimum %v after failure)", addr.Addr, elapsed, b.healthCheckTimeout)
 		return false
 	}
-
 	if ok, _ := b.healthCheck(addr.Addr); ok {
 		b.removeUnhealthy(addr.Addr, "health check success")
 		return true
 	}
-
 	b.hostPortError(addr.Addr, errors.New("health check failed"))
 	return false
 }
-
 func (b *healthBalancer) Get(ctx context.Context, opts grpc.BalancerGetOptions) (grpc.Address, func(), error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var (
 		addr   string
 		closed bool
 	)
-
-	// If opts.BlockingWait is false (for fail-fast RPCs), it should return
-	// an address it has notified via Notify immediately instead of blocking.
 	if !opts.BlockingWait {
 		b.mu.RLock()
 		closed = b.closed
@@ -486,9 +403,9 @@ func (b *healthBalancer) Get(ctx context.Context, opts grpc.BalancerGetOptions) 
 		if addr == "" {
 			return grpc.Address{Addr: ""}, nil, ErrNoAddrAvilable
 		}
-		return grpc.Address{Addr: addr}, func() {}, nil
+		return grpc.Address{Addr: addr}, func() {
+		}, nil
 	}
-
 	for {
 		b.mu.RLock()
 		ch := b.upc
@@ -504,7 +421,6 @@ func (b *healthBalancer) Get(ctx context.Context, opts grpc.BalancerGetOptions) 
 		closed = b.closed
 		addr = b.pinAddr
 		b.mu.RUnlock()
-		// Close() which sets b.closed = true can be called before Get(), Get() must exit if balancer is closed.
 		if closed {
 			return grpc.Address{Addr: ""}, nil, grpc.ErrClientConnClosing
 		}
@@ -512,48 +428,42 @@ func (b *healthBalancer) Get(ctx context.Context, opts grpc.BalancerGetOptions) 
 			break
 		}
 	}
-	return grpc.Address{Addr: addr}, func() {}, nil
+	return grpc.Address{Addr: addr}, func() {
+	}, nil
 }
-
-func (b *healthBalancer) Notify() <-chan []grpc.Address { return b.notifyCh }
-
+func (b *healthBalancer) Notify() <-chan []grpc.Address {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return b.notifyCh
+}
 func (b *healthBalancer) Close() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.mu.Lock()
-	// In case gRPC calls close twice. TODO: remove the checking
-	// when we are sure that gRPC wont call close twice.
 	if b.closed {
 		b.mu.Unlock()
 		<-b.donec
 		return nil
 	}
 	b.closed = true
-	b.stopOnce.Do(func() { close(b.stopc) })
+	b.stopOnce.Do(func() {
+		close(b.stopc)
+	})
 	b.pinAddr = ""
-
-	// In the case of following scenario:
-	//	1. upc is not closed; no pinned address
-	// 	2. client issues an RPC, calling invoke(), which calls Get(), enters for loop, blocks
-	// 	3. client.conn.Close() calls balancer.Close(); closed = true
-	// 	4. for loop in Get() never exits since ctx is the context passed in by the client and may not be canceled
-	// we must close upc so Get() exits from blocking on upc
 	select {
 	case <-b.upc:
 	default:
-		// terminate all waiting Get()s
 		close(b.upc)
 	}
-
 	b.mu.Unlock()
 	b.wg.Wait()
-
-	// wait for updateNotifyLoop to finish
 	<-b.donec
 	close(b.notifyCh)
-
 	return nil
 }
-
 func grpcHealthCheck(client *Client, ep string) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	conn, err := client.dial(ep)
 	if err != nil {
 		return false, err
@@ -565,7 +475,7 @@ func grpcHealthCheck(client *Client, ep string) (bool, error) {
 	cancel()
 	if err != nil {
 		if s, ok := status.FromError(err); ok && s.Code() == codes.Unavailable {
-			if s.Message() == unknownService { // etcd < v3.3.0
+			if s.Message() == unknownService {
 				return true, nil
 			}
 		}
@@ -573,8 +483,9 @@ func grpcHealthCheck(client *Client, ep string) (bool, error) {
 	}
 	return resp.Status == healthpb.HealthCheckResponse_SERVING, nil
 }
-
 func hasAddr(addrs []grpc.Address, targetAddr string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, addr := range addrs {
 		if targetAddr == addr.Addr {
 			return true
@@ -582,24 +493,27 @@ func hasAddr(addrs []grpc.Address, targetAddr string) bool {
 	}
 	return false
 }
-
 func getHost(ep string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	url, uerr := url.Parse(ep)
 	if uerr != nil || !strings.Contains(ep, "://") {
 		return ep
 	}
 	return url.Host
 }
-
 func eps2addrs(eps []string) []grpc.Address {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	addrs := make([]grpc.Address, len(eps))
 	for i := range eps {
 		addrs[i].Addr = getHost(eps[i])
 	}
 	return addrs
 }
-
 func getHostPort2ep(eps []string) map[string]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	hm := make(map[string]string, len(eps))
 	for i := range eps {
 		_, host, _ := parseEndpoint(eps[i])

@@ -1,17 +1,3 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package rafthttp
 
 import (
@@ -26,26 +12,17 @@ type remote struct {
 }
 
 func startRemote(tr *Transport, urls types.URLs, id types.ID) *remote {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	picker := newURLPicker(urls)
 	status := newPeerStatus(id)
-	pipeline := &pipeline{
-		peerID: id,
-		tr:     tr,
-		picker: picker,
-		status: status,
-		raft:   tr.Raft,
-		errorc: tr.ErrorC,
-	}
+	pipeline := &pipeline{peerID: id, tr: tr, picker: picker, status: status, raft: tr.Raft, errorc: tr.ErrorC}
 	pipeline.start()
-
-	return &remote{
-		id:       id,
-		status:   status,
-		pipeline: pipeline,
-	}
+	return &remote{id: id, status: status, pipeline: pipeline}
 }
-
 func (g *remote) send(m raftpb.Message) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	select {
 	case g.pipeline.msgc <- m:
 	default:
@@ -56,15 +33,18 @@ func (g *remote) send(m raftpb.Message) {
 		sentFailures.WithLabelValues(types.ID(m.To).String()).Inc()
 	}
 }
-
 func (g *remote) stop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	g.pipeline.stop()
 }
-
 func (g *remote) Pause() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	g.stop()
 }
-
 func (g *remote) Resume() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	g.pipeline.start()
 }

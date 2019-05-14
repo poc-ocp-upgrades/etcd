@@ -1,17 +1,3 @@
-// Copyright 2018 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package auth
 
 import (
@@ -20,16 +6,35 @@ import (
 
 type tokenNop struct{}
 
-func (t *tokenNop) enable()                         {}
-func (t *tokenNop) disable()                        {}
-func (t *tokenNop) invalidateUser(string)           {}
-func (t *tokenNop) genTokenPrefix() (string, error) { return "", nil }
+func (t *tokenNop) enable() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+}
+func (t *tokenNop) disable() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+}
+func (t *tokenNop) invalidateUser(string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+}
+func (t *tokenNop) genTokenPrefix() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return "", nil
+}
 func (t *tokenNop) info(ctx context.Context, token string, rev uint64) (*AuthInfo, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, false
 }
 func (t *tokenNop) assign(ctx context.Context, username string, revision uint64) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "", ErrAuthFailed
 }
 func newTokenProviderNop() (*tokenNop, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &tokenNop{}, nil
 }

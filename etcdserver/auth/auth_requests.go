@@ -1,30 +1,17 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package auth
 
 import (
 	"context"
 	"encoding/json"
-	"path"
-
 	etcderr "github.com/coreos/etcd/error"
 	"github.com/coreos/etcd/etcdserver"
 	"github.com/coreos/etcd/etcdserver/etcdserverpb"
+	"path"
 )
 
 func (s *store) ensureAuthDirectories() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.ensuredOnce {
 		return nil
 	}
@@ -32,12 +19,7 @@ func (s *store) ensureAuthDirectories() error {
 		ctx, cancel := context.WithTimeout(context.Background(), s.timeout)
 		defer cancel()
 		pe := false
-		rr := etcdserverpb.Request{
-			Method:    "PUT",
-			Path:      res,
-			Dir:       true,
-			PrevExist: &pe,
-		}
+		rr := etcdserverpb.Request{Method: "PUT", Path: res, Dir: true, PrevExist: &pe}
 		_, err := s.server.Do(ctx, rr)
 		if err != nil {
 			if e, ok := err.(*etcderr.Error); ok {
@@ -52,12 +34,7 @@ func (s *store) ensureAuthDirectories() error {
 	ctx, cancel := context.WithTimeout(context.Background(), s.timeout)
 	defer cancel()
 	pe := false
-	rr := etcdserverpb.Request{
-		Method:    "PUT",
-		Path:      StorePermsPrefix + "/enabled",
-		Val:       "false",
-		PrevExist: &pe,
-	}
+	rr := etcdserverpb.Request{Method: "PUT", Path: StorePermsPrefix + "/enabled", Val: "false", PrevExist: &pe}
 	_, err := s.server.Do(ctx, rr)
 	if err != nil {
 		if e, ok := err.(*etcderr.Error); ok {
@@ -71,17 +48,21 @@ func (s *store) ensureAuthDirectories() error {
 	s.ensuredOnce = true
 	return nil
 }
-
 func (s *store) enableAuth() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := s.updateResource("/enabled", true)
 	return err
 }
 func (s *store) disableAuth() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := s.updateResource("/enabled", false)
 	return err
 }
-
 func (s *store) detectAuth() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.server == nil {
 		return false
 	}
@@ -95,7 +76,6 @@ func (s *store) detectAuth() bool {
 		plog.Errorf("failed to detect auth settings (%s)", err)
 		return false
 	}
-
 	var u bool
 	err = json.Unmarshal([]byte(*value.Event.Node.Value), &u)
 	if err != nil {
@@ -104,8 +84,9 @@ func (s *store) detectAuth() bool {
 	}
 	return u
 }
-
 func (s *store) requestResource(res string, dir, quorum bool) (etcdserver.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithTimeout(context.Background(), s.timeout)
 	defer cancel()
 	p := path.Join(StorePermsPrefix, res)
@@ -113,21 +94,22 @@ func (s *store) requestResource(res string, dir, quorum bool) (etcdserver.Respon
 	if quorum {
 		method = "QGET"
 	}
-	rr := etcdserverpb.Request{
-		Method: method,
-		Path:   p,
-		Dir:    dir,
-	}
+	rr := etcdserverpb.Request{Method: method, Path: p, Dir: dir}
 	return s.server.Do(ctx, rr)
 }
-
 func (s *store) updateResource(res string, value interface{}) (etcdserver.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.setResource(res, value, true)
 }
 func (s *store) createResource(res string, value interface{}) (etcdserver.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.setResource(res, value, false)
 }
 func (s *store) setResource(res string, value interface{}, prevexist bool) (etcdserver.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := s.ensureAuthDirectories()
 	if err != nil {
 		return etcdserver.Response{}, err
@@ -139,16 +121,12 @@ func (s *store) setResource(res string, value interface{}, prevexist bool) (etcd
 		return etcdserver.Response{}, err
 	}
 	p := path.Join(StorePermsPrefix, res)
-	rr := etcdserverpb.Request{
-		Method:    "PUT",
-		Path:      p,
-		Val:       string(data),
-		PrevExist: &prevexist,
-	}
+	rr := etcdserverpb.Request{Method: "PUT", Path: p, Val: string(data), PrevExist: &prevexist}
 	return s.server.Do(ctx, rr)
 }
-
 func (s *store) deleteResource(res string) (etcdserver.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := s.ensureAuthDirectories()
 	if err != nil {
 		return etcdserver.Response{}, err
@@ -157,10 +135,6 @@ func (s *store) deleteResource(res string) (etcdserver.Response, error) {
 	defer cancel()
 	pex := true
 	p := path.Join(StorePermsPrefix, res)
-	rr := etcdserverpb.Request{
-		Method:    "DELETE",
-		Path:      p,
-		PrevExist: &pex,
-	}
+	rr := etcdserverpb.Request{Method: "DELETE", Path: p, PrevExist: &pex}
 	return s.server.Do(ctx, rr)
 }

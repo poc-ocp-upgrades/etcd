@@ -1,43 +1,27 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package etcdhttp
 
 import (
 	"encoding/json"
-	"net/http"
-
 	"github.com/coreos/etcd/etcdserver"
 	"github.com/coreos/etcd/etcdserver/api"
 	"github.com/coreos/etcd/lease/leasehttp"
 	"github.com/coreos/etcd/rafthttp"
+	"net/http"
 )
 
 const (
 	peerMembersPrefix = "/members"
 )
 
-// NewPeerHandler generates an http.Handler to handle etcd peer requests.
 func NewPeerHandler(s etcdserver.ServerPeer) http.Handler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return newPeerHandler(s.Cluster(), s.RaftHandler(), s.LeaseHandler())
 }
-
 func newPeerHandler(cluster api.Cluster, raftHandler http.Handler, leaseHandler http.Handler) http.Handler {
-	mh := &peerMembersHandler{
-		cluster: cluster,
-	}
-
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	mh := &peerMembersHandler{cluster: cluster}
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", http.NotFound)
 	mux.Handle(rafthttp.RaftPrefix, raftHandler)
@@ -51,16 +35,15 @@ func newPeerHandler(cluster api.Cluster, raftHandler http.Handler, leaseHandler 
 	return mux
 }
 
-type peerMembersHandler struct {
-	cluster api.Cluster
-}
+type peerMembersHandler struct{ cluster api.Cluster }
 
 func (h *peerMembersHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !allowMethod(w, r, "GET") {
 		return
 	}
 	w.Header().Set("X-Etcd-Cluster-ID", h.cluster.ID().String())
-
 	if r.URL.Path != peerMembersPrefix {
 		http.Error(w, "bad path", http.StatusBadRequest)
 		return

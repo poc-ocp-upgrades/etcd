@@ -1,85 +1,53 @@
-// Copyright 2015 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package command
 
 import (
 	"fmt"
-	"os"
-	"sync"
-	"time"
-
 	v3 "github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes"
 	"github.com/coreos/etcd/pkg/flags"
-
 	"github.com/spf13/cobra"
+	"os"
+	"sync"
+	"time"
 )
 
 var epClusterEndpoints bool
 var epHashKVRev int64
 
-// NewEndpointCommand returns the cobra command for "endpoint".
 func NewEndpointCommand() *cobra.Command {
-	ec := &cobra.Command{
-		Use:   "endpoint <subcommand>",
-		Short: "Endpoint related commands",
-	}
-
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	ec := &cobra.Command{Use: "endpoint <subcommand>", Short: "Endpoint related commands"}
 	ec.PersistentFlags().BoolVar(&epClusterEndpoints, "cluster", false, "use all endpoints from the cluster member list")
 	ec.AddCommand(newEpHealthCommand())
 	ec.AddCommand(newEpStatusCommand())
 	ec.AddCommand(newEpHashKVCommand())
-
 	return ec
 }
-
 func newEpHealthCommand() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "health",
-		Short: "Checks the healthiness of endpoints specified in `--endpoints` flag",
-		Run:   epHealthCommandFunc,
-	}
-
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	cmd := &cobra.Command{Use: "health", Short: "Checks the healthiness of endpoints specified in `--endpoints` flag", Run: epHealthCommandFunc}
 	return cmd
 }
-
 func newEpStatusCommand() *cobra.Command {
-	return &cobra.Command{
-		Use:   "status",
-		Short: "Prints out the status of endpoints specified in `--endpoints` flag",
-		Long: `When --write-out is set to simple, this command prints out comma-separated status lists for each endpoint.
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return &cobra.Command{Use: "status", Short: "Prints out the status of endpoints specified in `--endpoints` flag", Long: `When --write-out is set to simple, this command prints out comma-separated status lists for each endpoint.
 The items in the lists are endpoint, ID, version, db size, is leader, raft term, raft index.
-`,
-		Run: epStatusCommandFunc,
-	}
+`, Run: epStatusCommandFunc}
 }
-
 func newEpHashKVCommand() *cobra.Command {
-	hc := &cobra.Command{
-		Use:   "hashkv",
-		Short: "Prints the KV history hash for each endpoint in --endpoints",
-		Run:   epHashKVCommandFunc,
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	hc := &cobra.Command{Use: "hashkv", Short: "Prints the KV history hash for each endpoint in --endpoints", Run: epHashKVCommandFunc}
 	hc.PersistentFlags().Int64Var(&epHashKVRev, "rev", 0, "maximum revision to hash (default: all revisions)")
 	return hc
 }
-
-// epHealthCommandFunc executes the "endpoint-health" command.
 func epHealthCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	flags.SetPflagsFromEnv("ETCDCTL", cmd.InheritedFlags())
-
 	sec := secureCfgFromCmd(cmd)
 	dt := dialTimeoutFromCmd(cmd)
 	ka := keepAliveTimeFromCmd(cmd)
@@ -93,7 +61,6 @@ func epHealthCommandFunc(cmd *cobra.Command, args []string) {
 		}
 		cfgs = append(cfgs, cfg)
 	}
-
 	var wg sync.WaitGroup
 	errc := make(chan error, len(cfgs))
 	for _, cfg := range cfgs {
@@ -107,12 +74,9 @@ func epHealthCommandFunc(cmd *cobra.Command, args []string) {
 				return
 			}
 			st := time.Now()
-			// get a random key. As long as we can get the response without an error, the
-			// endpoint is health.
 			ctx, cancel := commandCtx(cmd)
 			_, err = cli.Get(ctx, "health")
 			cancel()
-			// permission denied is OK since proposal goes through consensus to get it
 			if err == nil || err == rpctypes.ErrPermissionDenied {
 				fmt.Printf("%s is healthy: successfully committed proposal: took = %v\n", ep, time.Since(st))
 			} else {
@@ -120,10 +84,8 @@ func epHealthCommandFunc(cmd *cobra.Command, args []string) {
 			}
 		}(cfg)
 	}
-
 	wg.Wait()
 	close(errc)
-
 	errs := false
 	for err := range errc {
 		if err != nil {
@@ -142,8 +104,9 @@ type epStatus struct {
 }
 
 func epStatusCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := mustClientFromCmd(cmd)
-
 	statusList := []epStatus{}
 	var err error
 	for _, ep := range endpointsFromCluster(cmd) {
@@ -157,9 +120,7 @@ func epStatusCommandFunc(cmd *cobra.Command, args []string) {
 		}
 		statusList = append(statusList, epStatus{Ep: ep, Resp: resp})
 	}
-
 	display.EndpointStatus(statusList)
-
 	if err != nil {
 		os.Exit(ExitError)
 	}
@@ -171,8 +132,9 @@ type epHashKV struct {
 }
 
 func epHashKVCommandFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := mustClientFromCmd(cmd)
-
 	hashList := []epHashKV{}
 	var err error
 	for _, ep := range endpointsFromCluster(cmd) {
@@ -186,15 +148,14 @@ func epHashKVCommandFunc(cmd *cobra.Command, args []string) {
 		}
 		hashList = append(hashList, epHashKV{Ep: ep, Resp: resp})
 	}
-
 	display.EndpointHashKV(hashList)
-
 	if err != nil {
 		ExitWithError(ExitError, err)
 	}
 }
-
 func endpointsFromCluster(cmd *cobra.Command) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !epClusterEndpoints {
 		endpoints, err := cmd.Flags().GetStringSlice("endpoints")
 		if err != nil {
@@ -202,7 +163,6 @@ func endpointsFromCluster(cmd *cobra.Command) []string {
 		}
 		return endpoints
 	}
-
 	sec := secureCfgFromCmd(cmd)
 	dt := dialTimeoutFromCmd(cmd)
 	ka := keepAliveTimeFromCmd(cmd)
@@ -211,8 +171,6 @@ func endpointsFromCluster(cmd *cobra.Command) []string {
 	if err != nil {
 		ExitWithError(ExitError, err)
 	}
-	// exclude auth for not asking needless password (MemberList() doesn't need authentication)
-
 	cfg, err := newClientCfg(eps, dt, ka, kat, sec, nil)
 	if err != nil {
 		ExitWithError(ExitError, err)
@@ -221,7 +179,6 @@ func endpointsFromCluster(cmd *cobra.Command) []string {
 	if err != nil {
 		ExitWithError(ExitError, err)
 	}
-
 	ctx, cancel := commandCtx(cmd)
 	defer func() {
 		c.Close()
@@ -232,7 +189,6 @@ func endpointsFromCluster(cmd *cobra.Command) []string {
 		err = fmt.Errorf("failed to fetch endpoints from etcd cluster member list: %v", err)
 		ExitWithError(ExitError, err)
 	}
-
 	ret := []string{}
 	for _, m := range membs.Members {
 		ret = append(ret, m.ClientURLs...)

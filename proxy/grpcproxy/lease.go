@@ -1,59 +1,32 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package grpcproxy
 
 import (
 	"context"
+	"github.com/coreos/etcd/clientv3"
+	"github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes"
+	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 	"io"
 	"sync"
 	"sync/atomic"
 	"time"
-
-	"github.com/coreos/etcd/clientv3"
-	"github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes"
-	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
-
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/metadata"
 )
 
 type leaseProxy struct {
-	// leaseClient handles req from LeaseGrant() that requires a lease ID.
 	leaseClient pb.LeaseClient
-
-	lessor clientv3.Lease
-
-	ctx context.Context
-
-	leader *leader
-
-	// mu protects adding outstanding leaseProxyStream through wg.
-	mu sync.RWMutex
-
-	// wg waits until all outstanding leaseProxyStream quit.
-	wg sync.WaitGroup
+	lessor      clientv3.Lease
+	ctx         context.Context
+	leader      *leader
+	mu          sync.RWMutex
+	wg          sync.WaitGroup
 }
 
 func NewLeaseProxy(c *clientv3.Client) (pb.LeaseServer, <-chan struct{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cctx, cancel := context.WithCancel(c.Ctx())
-	lp := &leaseProxy{
-		leaseClient: pb.NewLeaseClient(c.ActiveConnection()),
-		lessor:      c.Lease,
-		ctx:         cctx,
-		leader:      newLeader(c.Ctx(), c.Watcher),
-	}
+	lp := &leaseProxy{leaseClient: pb.NewLeaseClient(c.ActiveConnection()), lessor: c.Lease, ctx: cctx, leader: newLeader(c.Ctx(), c.Watcher)}
 	ch := make(chan struct{})
 	go func() {
 		defer close(ch)
@@ -70,8 +43,9 @@ func NewLeaseProxy(c *clientv3.Client) (pb.LeaseServer, <-chan struct{}) {
 	}()
 	return lp, ch
 }
-
 func (lp *leaseProxy) LeaseGrant(ctx context.Context, cr *pb.LeaseGrantRequest) (*pb.LeaseGrantResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rp, err := lp.leaseClient.LeaseGrant(ctx, cr, grpc.FailFast(false))
 	if err != nil {
 		return nil, err
@@ -79,8 +53,9 @@ func (lp *leaseProxy) LeaseGrant(ctx context.Context, cr *pb.LeaseGrantRequest) 
 	lp.leader.gotLeader()
 	return rp, nil
 }
-
 func (lp *leaseProxy) LeaseRevoke(ctx context.Context, rr *pb.LeaseRevokeRequest) (*pb.LeaseRevokeResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r, err := lp.lessor.Revoke(ctx, clientv3.LeaseID(rr.ID))
 	if err != nil {
 		return nil, err
@@ -88,8 +63,9 @@ func (lp *leaseProxy) LeaseRevoke(ctx context.Context, rr *pb.LeaseRevokeRequest
 	lp.leader.gotLeader()
 	return (*pb.LeaseRevokeResponse)(r), nil
 }
-
 func (lp *leaseProxy) LeaseTimeToLive(ctx context.Context, rr *pb.LeaseTimeToLiveRequest) (*pb.LeaseTimeToLiveResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var (
 		r   *clientv3.LeaseTimeToLiveResponse
 		err error
@@ -102,17 +78,12 @@ func (lp *leaseProxy) LeaseTimeToLive(ctx context.Context, rr *pb.LeaseTimeToLiv
 	if err != nil {
 		return nil, err
 	}
-	rp := &pb.LeaseTimeToLiveResponse{
-		Header:     r.ResponseHeader,
-		ID:         int64(r.ID),
-		TTL:        r.TTL,
-		GrantedTTL: r.GrantedTTL,
-		Keys:       r.Keys,
-	}
+	rp := &pb.LeaseTimeToLiveResponse{Header: r.ResponseHeader, ID: int64(r.ID), TTL: r.TTL, GrantedTTL: r.GrantedTTL, Keys: r.Keys}
 	return rp, err
 }
-
 func (lp *leaseProxy) LeaseLeases(ctx context.Context, rr *pb.LeaseLeasesRequest) (*pb.LeaseLeasesResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r, err := lp.lessor.Leases(ctx)
 	if err != nil {
 		return nil, err
@@ -121,14 +92,12 @@ func (lp *leaseProxy) LeaseLeases(ctx context.Context, rr *pb.LeaseLeasesRequest
 	for i := range r.Leases {
 		leases[i] = &pb.LeaseStatus{ID: int64(r.Leases[i].ID)}
 	}
-	rp := &pb.LeaseLeasesResponse{
-		Header: r.ResponseHeader,
-		Leases: leases,
-	}
+	rp := &pb.LeaseLeasesResponse{Header: r.ResponseHeader, Leases: leases}
 	return rp, err
 }
-
 func (lp *leaseProxy) LeaseKeepAlive(stream pb.Lease_LeaseKeepAliveServer) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lp.mu.Lock()
 	select {
 	case <-lp.ctx.Done():
@@ -138,26 +107,14 @@ func (lp *leaseProxy) LeaseKeepAlive(stream pb.Lease_LeaseKeepAliveServer) error
 		lp.wg.Add(1)
 	}
 	lp.mu.Unlock()
-
 	ctx, cancel := context.WithCancel(stream.Context())
-	lps := leaseProxyStream{
-		stream:          stream,
-		lessor:          lp.lessor,
-		keepAliveLeases: make(map[int64]*atomicCounter),
-		respc:           make(chan *pb.LeaseKeepAliveResponse),
-		ctx:             ctx,
-		cancel:          cancel,
-	}
-
+	lps := leaseProxyStream{stream: stream, lessor: lp.lessor, keepAliveLeases: make(map[int64]*atomicCounter), respc: make(chan *pb.LeaseKeepAliveResponse), ctx: ctx, cancel: cancel}
 	errc := make(chan error, 2)
-
 	var lostLeaderC <-chan struct{}
 	if md, ok := metadata.FromOutgoingContext(stream.Context()); ok {
 		v := md[rpctypes.MetadataRequireLeaderKey]
 		if len(v) > 0 && v[0] == rpctypes.MetadataHasLeader {
 			lostLeaderC = lp.leader.lostNotify()
-			// if leader is known to be lost at creation time, avoid
-			// letting events through at all
 			select {
 			case <-lostLeaderC:
 				lp.wg.Done()
@@ -168,29 +125,31 @@ func (lp *leaseProxy) LeaseKeepAlive(stream pb.Lease_LeaseKeepAliveServer) error
 	}
 	stopc := make(chan struct{}, 3)
 	go func() {
-		defer func() { stopc <- struct{}{} }()
+		defer func() {
+			stopc <- struct{}{}
+		}()
 		if err := lps.recvLoop(); err != nil {
 			errc <- err
 		}
 	}()
-
 	go func() {
-		defer func() { stopc <- struct{}{} }()
+		defer func() {
+			stopc <- struct{}{}
+		}()
 		if err := lps.sendLoop(); err != nil {
 			errc <- err
 		}
 	}()
-
-	// tears down LeaseKeepAlive stream if leader goes down or entire leaseProxy is terminated.
 	go func() {
-		defer func() { stopc <- struct{}{} }()
+		defer func() {
+			stopc <- struct{}{}
+		}()
 		select {
 		case <-lostLeaderC:
 		case <-ctx.Done():
 		case <-lp.ctx.Done():
 		}
 	}()
-
 	var err error
 	select {
 	case <-stopc:
@@ -198,9 +157,6 @@ func (lp *leaseProxy) LeaseKeepAlive(stream pb.Lease_LeaseKeepAliveServer) error
 	case err = <-errc:
 	}
 	cancel()
-
-	// recv/send may only shutdown after function exits;
-	// this goroutine notifies lease proxy that the stream is through
 	go func() {
 		<-stopc
 		<-stopc
@@ -209,7 +165,6 @@ func (lp *leaseProxy) LeaseKeepAlive(stream pb.Lease_LeaseKeepAliveServer) error
 		close(errc)
 		lp.wg.Done()
 	}()
-
 	select {
 	case <-lostLeaderC:
 		return rpctypes.ErrNoLeader
@@ -224,23 +179,19 @@ func (lp *leaseProxy) LeaseKeepAlive(stream pb.Lease_LeaseKeepAliveServer) error
 }
 
 type leaseProxyStream struct {
-	stream pb.Lease_LeaseKeepAliveServer
-
-	lessor clientv3.Lease
-	// wg tracks keepAliveLoop goroutines
-	wg sync.WaitGroup
-	// mu protects keepAliveLeases
-	mu sync.RWMutex
-	// keepAliveLeases tracks how many outstanding keepalive requests which need responses are on a lease.
+	stream          pb.Lease_LeaseKeepAliveServer
+	lessor          clientv3.Lease
+	wg              sync.WaitGroup
+	mu              sync.RWMutex
 	keepAliveLeases map[int64]*atomicCounter
-	// respc receives lease keepalive responses from etcd backend
-	respc chan *pb.LeaseKeepAliveResponse
-
-	ctx    context.Context
-	cancel context.CancelFunc
+	respc           chan *pb.LeaseKeepAliveResponse
+	ctx             context.Context
+	cancel          context.CancelFunc
 }
 
 func (lps *leaseProxyStream) recvLoop() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		rr, err := lps.stream.Recv()
 		if err == io.EOF {
@@ -266,22 +217,20 @@ func (lps *leaseProxyStream) recvLoop() error {
 		lps.mu.Unlock()
 	}
 }
-
 func (lps *leaseProxyStream) keepAliveLoop(leaseID int64, neededResps *atomicCounter) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cctx, ccancel := context.WithCancel(lps.ctx)
 	defer ccancel()
 	respc, err := lps.lessor.KeepAlive(cctx, clientv3.LeaseID(leaseID))
 	if err != nil {
 		return err
 	}
-	// ticker expires when loop hasn't received keepalive within TTL
 	var ticker <-chan time.Time
 	for {
 		select {
 		case <-ticker:
 			lps.mu.Lock()
-			// if there are outstanding keepAlive reqs at the moment of ticker firing,
-			// don't close keepAliveLoop(), let it continuing to process the KeepAlive reqs.
 			if neededResps.get() > 0 {
 				lps.mu.Unlock()
 				ticker = nil
@@ -302,11 +251,7 @@ func (lps *leaseProxyStream) keepAliveLoop(leaseID int64, neededResps *atomicCou
 				if err != nil {
 					return err
 				}
-				r := &pb.LeaseKeepAliveResponse{
-					Header: ttlResp.ResponseHeader,
-					ID:     int64(ttlResp.ID),
-					TTL:    ttlResp.TTL,
-				}
+				r := &pb.LeaseKeepAliveResponse{Header: ttlResp.ResponseHeader, ID: int64(ttlResp.ID), TTL: ttlResp.TTL}
 				for neededResps.get() > 0 {
 					select {
 					case lps.respc <- r:
@@ -321,17 +266,14 @@ func (lps *leaseProxyStream) keepAliveLoop(leaseID int64, neededResps *atomicCou
 				continue
 			}
 			ticker = time.After(time.Duration(rp.TTL) * time.Second)
-			r := &pb.LeaseKeepAliveResponse{
-				Header: rp.ResponseHeader,
-				ID:     int64(rp.ID),
-				TTL:    rp.TTL,
-			}
+			r := &pb.LeaseKeepAliveResponse{Header: rp.ResponseHeader, ID: int64(rp.ID), TTL: rp.TTL}
 			lps.replyToClient(r, neededResps)
 		}
 	}
 }
-
 func (lps *leaseProxyStream) replyToClient(r *pb.LeaseKeepAliveResponse, neededResps *atomicCounter) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	timer := time.After(500 * time.Millisecond)
 	for neededResps.get() > 0 {
 		select {
@@ -344,8 +286,9 @@ func (lps *leaseProxyStream) replyToClient(r *pb.LeaseKeepAliveResponse, neededR
 		}
 	}
 }
-
 func (lps *leaseProxyStream) sendLoop() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		select {
 		case lrp, ok := <-lps.respc:
@@ -360,23 +303,23 @@ func (lps *leaseProxyStream) sendLoop() error {
 		}
 	}
 }
-
 func (lps *leaseProxyStream) close() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lps.cancel()
 	lps.wg.Wait()
-	// only close respc channel if all the keepAliveLoop() goroutines have finished
-	// this ensures those goroutines don't send resp to a closed resp channel
 	close(lps.respc)
 }
 
-type atomicCounter struct {
-	counter int64
-}
+type atomicCounter struct{ counter int64 }
 
 func (ac *atomicCounter) add(delta int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	atomic.AddInt64(&ac.counter, delta)
 }
-
 func (ac *atomicCounter) get() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return atomic.LoadInt64(&ac.counter)
 }

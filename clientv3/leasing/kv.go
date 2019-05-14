@@ -1,45 +1,27 @@
-// Copyright 2017 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package leasing
 
 import (
 	"context"
-	"strings"
-	"sync"
-	"time"
-
 	v3 "github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/clientv3/concurrency"
 	"github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes"
 	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
 	"github.com/coreos/etcd/mvcc/mvccpb"
-
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"strings"
+	"sync"
+	"time"
 )
 
 type leasingKV struct {
-	cl     *v3.Client
-	kv     v3.KV
-	pfx    string
-	leases leaseCache
-
-	ctx    context.Context
-	cancel context.CancelFunc
-	wg     sync.WaitGroup
-
+	cl          *v3.Client
+	kv          v3.KV
+	pfx         string
+	leases      leaseCache
+	ctx         context.Context
+	cancel      context.CancelFunc
+	wg          sync.WaitGroup
 	sessionOpts []concurrency.SessionOption
 	session     *concurrency.Session
 	sessionc    chan struct{}
@@ -48,23 +30,16 @@ type leasingKV struct {
 var closedCh chan struct{}
 
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	closedCh = make(chan struct{})
 	close(closedCh)
 }
-
-// NewKV wraps a KV instance so that all requests are wired through a leasing protocol.
 func NewKV(cl *v3.Client, pfx string, opts ...concurrency.SessionOption) (v3.KV, func(), error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cctx, cancel := context.WithCancel(cl.Ctx())
-	lkv := &leasingKV{
-		cl:          cl,
-		kv:          cl.KV,
-		pfx:         pfx,
-		leases:      leaseCache{revokes: make(map[string]time.Time)},
-		ctx:         cctx,
-		cancel:      cancel,
-		sessionOpts: opts,
-		sessionc:    make(chan struct{}),
-	}
+	lkv := &leasingKV{cl: cl, kv: cl.KV, pfx: pfx, leases: leaseCache{revokes: make(map[string]time.Time)}, ctx: cctx, cancel: cancel, sessionOpts: opts, sessionc: make(chan struct{})}
 	lkv.wg.Add(2)
 	go func() {
 		defer lkv.wg.Done()
@@ -76,25 +51,30 @@ func NewKV(cl *v3.Client, pfx string, opts ...concurrency.SessionOption) (v3.KV,
 	}()
 	return lkv, lkv.Close, lkv.waitSession(cctx)
 }
-
 func (lkv *leasingKV) Close() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lkv.cancel()
 	lkv.wg.Wait()
 }
-
 func (lkv *leasingKV) Get(ctx context.Context, key string, opts ...v3.OpOption) (*v3.GetResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return lkv.get(ctx, v3.OpGet(key, opts...))
 }
-
 func (lkv *leasingKV) Put(ctx context.Context, key, val string, opts ...v3.OpOption) (*v3.PutResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return lkv.put(ctx, v3.OpPut(key, val, opts...))
 }
-
 func (lkv *leasingKV) Delete(ctx context.Context, key string, opts ...v3.OpOption) (*v3.DeleteResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return lkv.delete(ctx, v3.OpDelete(key, opts...))
 }
-
 func (lkv *leasingKV) Do(ctx context.Context, op v3.Op) (v3.OpResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch {
 	case op.IsGet():
 		resp, err := lkv.get(ctx, op)
@@ -112,16 +92,19 @@ func (lkv *leasingKV) Do(ctx context.Context, op v3.Op) (v3.OpResponse, error) {
 	}
 	return v3.OpResponse{}, nil
 }
-
 func (lkv *leasingKV) Compact(ctx context.Context, rev int64, opts ...v3.CompactOption) (*v3.CompactResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return lkv.kv.Compact(ctx, rev, opts...)
 }
-
 func (lkv *leasingKV) Txn(ctx context.Context) v3.Txn {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &txnLeasing{Txn: lkv.kv.Txn(ctx), lkv: lkv, ctx: ctx}
 }
-
 func (lkv *leasingKV) monitorSession() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for lkv.ctx.Err() == nil {
 		if lkv.session != nil {
 			select {
@@ -138,20 +121,19 @@ func (lkv *leasingKV) monitorSession() {
 		}
 		lkv.leases.entries = make(map[string]*leaseKey)
 		lkv.leases.mu.Unlock()
-
 		s, err := concurrency.NewSession(lkv.cl, lkv.sessionOpts...)
 		if err != nil {
 			continue
 		}
-
 		lkv.leases.mu.Lock()
 		lkv.session = s
 		close(lkv.sessionc)
 		lkv.leases.mu.Unlock()
 	}
 }
-
 func (lkv *leasingKV) monitorLease(ctx context.Context, key string, rev int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cctx, cancel := context.WithCancel(lkv.ctx)
 	defer cancel()
 	for cctx.Err() == nil {
@@ -181,9 +163,9 @@ func (lkv *leasingKV) monitorLease(ctx context.Context, key string, rev int64) {
 		rev = 0
 	}
 }
-
-// rescind releases a lease from this client.
 func (lkv *leasingKV) rescind(ctx context.Context, key string, rev int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if lkv.leases.Evict(key) > rev {
 		return
 	}
@@ -195,8 +177,9 @@ func (lkv *leasingKV) rescind(ctx context.Context, key string, rev int64) {
 		}
 	}
 }
-
 func (lkv *leasingKV) waitRescind(ctx context.Context, key string, rev int64) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 	wch := lkv.cl.Watch(cctx, lkv.pfx+key, v3.WithRev(rev+1))
@@ -209,8 +192,9 @@ func (lkv *leasingKV) waitRescind(ctx context.Context, key string, rev int64) er
 	}
 	return ctx.Err()
 }
-
 func (lkv *leasingKV) tryModifyOp(ctx context.Context, op v3.Op) (*v3.TxnResponse, chan<- struct{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := string(op.KeyBytes())
 	wc, rev := lkv.leases.Lock(key)
 	cmp := v3.Compare(v3.CreateRevision(lkv.pfx+key), "<", rev+1)
@@ -227,8 +211,9 @@ func (lkv *leasingKV) tryModifyOp(ctx context.Context, op v3.Op) (*v3.TxnRespons
 	}
 	return resp, wc, nil
 }
-
 func (lkv *leasingKV) put(ctx context.Context, op v3.Op) (pr *v3.PutResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := lkv.waitSession(ctx); err != nil {
 		return nil, err
 	}
@@ -256,32 +241,22 @@ func (lkv *leasingKV) put(ctx context.Context, op v3.Op) (pr *v3.PutResponse, er
 	}
 	return nil, ctx.Err()
 }
-
 func (lkv *leasingKV) acquire(ctx context.Context, key string, op v3.Op) (*v3.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for ctx.Err() == nil {
 		if err := lkv.waitSession(ctx); err != nil {
 			return nil, err
 		}
 		lcmp := v3.Cmp{Key: []byte(key), Target: pb.Compare_LEASE}
-		resp, err := lkv.kv.Txn(ctx).If(
-			v3.Compare(v3.CreateRevision(lkv.pfx+key), "=", 0),
-			v3.Compare(lcmp, "=", 0)).
-			Then(
-				op,
-				v3.OpPut(lkv.pfx+key, "", v3.WithLease(lkv.leaseID()))).
-			Else(
-				op,
-				v3.OpGet(lkv.pfx+key),
-			).Commit()
+		resp, err := lkv.kv.Txn(ctx).If(v3.Compare(v3.CreateRevision(lkv.pfx+key), "=", 0), v3.Compare(lcmp, "=", 0)).Then(op, v3.OpPut(lkv.pfx+key, "", v3.WithLease(lkv.leaseID()))).Else(op, v3.OpGet(lkv.pfx+key)).Commit()
 		if err == nil {
 			if !resp.Succeeded {
 				kvs := resp.Responses[1].GetResponseRange().Kvs
-				// if txn failed since already owner, lease is acquired
 				resp.Succeeded = len(kvs) > 0 && v3.LeaseID(kvs[0].Lease) == lkv.leaseID()
 			}
 			return resp, nil
 		}
-		// retry if transient error
 		if _, ok := err.(rpctypes.EtcdError); ok {
 			return nil, err
 		}
@@ -291,8 +266,9 @@ func (lkv *leasingKV) acquire(ctx context.Context, key string, op v3.Op) (*v3.Tx
 	}
 	return nil, ctx.Err()
 }
-
 func (lkv *leasingKV) get(ctx context.Context, op v3.Op) (*v3.GetResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	do := func() (*v3.GetResponse, error) {
 		r, err := lkv.kv.Do(ctx, op)
 		return r.Get(), err
@@ -300,20 +276,16 @@ func (lkv *leasingKV) get(ctx context.Context, op v3.Op) (*v3.GetResponse, error
 	if !lkv.readySession() {
 		return do()
 	}
-
 	if resp, ok := lkv.leases.Get(ctx, op); resp != nil {
 		return resp, nil
 	} else if !ok || op.IsSerializable() {
-		// must be handled by server or can skip linearization
 		return do()
 	}
-
 	key := string(op.KeyBytes())
 	if !lkv.leases.MayAcquire(key) {
 		resp, err := lkv.kv.Do(ctx, op)
 		return resp.Get(), err
 	}
-
 	resp, err := lkv.acquire(ctx, key, v3.OpGet(key))
 	if err != nil {
 		return nil, err
@@ -330,15 +302,11 @@ func (lkv *leasingKV) get(ctx context.Context, op v3.Op) (*v3.GetResponse, error
 	}
 	return getResp, nil
 }
-
 func (lkv *leasingKV) deleteRangeRPC(ctx context.Context, maxLeaseRev int64, key, end string) (*v3.DeleteResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lkey, lend := lkv.pfx+key, lkv.pfx+end
-	resp, err := lkv.kv.Txn(ctx).If(
-		v3.Compare(v3.CreateRevision(lkey).WithRange(lend), "<", maxLeaseRev+1),
-	).Then(
-		v3.OpGet(key, v3.WithRange(end), v3.WithKeysOnly()),
-		v3.OpDelete(key, v3.WithRange(end)),
-	).Commit()
+	resp, err := lkv.kv.Txn(ctx).If(v3.Compare(v3.CreateRevision(lkey).WithRange(lend), "<", maxLeaseRev+1)).Then(v3.OpGet(key, v3.WithRange(end), v3.WithKeysOnly()), v3.OpDelete(key, v3.WithRange(end))).Commit()
 	if err != nil {
 		lkv.leases.EvictRange(key, end)
 		return nil, err
@@ -353,8 +321,9 @@ func (lkv *leasingKV) deleteRangeRPC(ctx context.Context, maxLeaseRev int64, key
 	delResp.Header = resp.Header
 	return delResp, nil
 }
-
 func (lkv *leasingKV) deleteRange(ctx context.Context, op v3.Op) (*v3.DeleteResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key, end := string(op.KeyBytes()), string(op.RangeBytes())
 	for ctx.Err() == nil {
 		maxLeaseRev, err := lkv.revokeRange(ctx, key, end)
@@ -370,8 +339,9 @@ func (lkv *leasingKV) deleteRange(ctx context.Context, op v3.Op) (*v3.DeleteResp
 	}
 	return nil, ctx.Err()
 }
-
 func (lkv *leasingKV) delete(ctx context.Context, op v3.Op) (dr *v3.DeleteResponse, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := lkv.waitSession(ctx); err != nil {
 		return nil, err
 	}
@@ -385,7 +355,6 @@ func (lkv *leasingKV) delete(ctx context.Context, op v3.Op) (dr *v3.DeleteRespon
 			resp, err = lkv.revoke(ctx, key, op)
 		}
 		if err != nil {
-			// don't know if delete was processed
 			lkv.leases.Evict(key)
 			return nil, err
 		}
@@ -403,8 +372,9 @@ func (lkv *leasingKV) delete(ctx context.Context, op v3.Op) (dr *v3.DeleteRespon
 	}
 	return nil, ctx.Err()
 }
-
 func (lkv *leasingKV) revoke(ctx context.Context, key string, op v3.Op) (*v3.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rev := lkv.leases.Rev(key)
 	txn := lkv.kv.Txn(ctx).If(v3.Compare(v3.CreateRevision(lkv.pfx+key), "<", rev+1)).Then(op)
 	resp, err := txn.Else(v3.OpPut(lkv.pfx+key, "REVOKE", v3.WithIgnoreLease())).Commit()
@@ -413,8 +383,9 @@ func (lkv *leasingKV) revoke(ctx context.Context, key string, op v3.Op) (*v3.Txn
 	}
 	return resp, lkv.waitRescind(ctx, key, resp.Header.Revision)
 }
-
 func (lkv *leasingKV) revokeRange(ctx context.Context, begin, end string) (int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lkey, lend := lkv.pfx+begin, ""
 	if len(end) > 0 {
 		lend = lkv.pfx + end
@@ -425,15 +396,15 @@ func (lkv *leasingKV) revokeRange(ctx context.Context, begin, end string) (int64
 	}
 	return lkv.revokeLeaseKvs(ctx, leaseKeys.Kvs)
 }
-
 func (lkv *leasingKV) revokeLeaseKvs(ctx context.Context, kvs []*mvccpb.KeyValue) (int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	maxLeaseRev := int64(0)
 	for _, kv := range kvs {
 		if rev := kv.CreateRevision; rev > maxLeaseRev {
 			maxLeaseRev = rev
 		}
 		if v3.LeaseID(kv.Lease) == lkv.leaseID() {
-			// don't revoke own keys
 			continue
 		}
 		key := strings.TrimPrefix(string(kv.Key), lkv.pfx)
@@ -443,8 +414,9 @@ func (lkv *leasingKV) revokeLeaseKvs(ctx context.Context, kvs []*mvccpb.KeyValue
 	}
 	return maxLeaseRev, nil
 }
-
 func (lkv *leasingKV) waitSession(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lkv.leases.mu.RLock()
 	sessionc := lkv.sessionc
 	lkv.leases.mu.RUnlock()
@@ -457,8 +429,9 @@ func (lkv *leasingKV) waitSession(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-
 func (lkv *leasingKV) readySession() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lkv.leases.mu.RLock()
 	defer lkv.leases.mu.RUnlock()
 	if lkv.session == nil {
@@ -471,8 +444,9 @@ func (lkv *leasingKV) readySession() bool {
 	}
 	return false
 }
-
 func (lkv *leasingKV) leaseID() v3.LeaseID {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lkv.leases.mu.RLock()
 	defer lkv.leases.mu.RUnlock()
 	return lkv.session.Lease()

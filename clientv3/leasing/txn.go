@@ -1,25 +1,10 @@
-// Copyright 2017 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package leasing
 
 import (
 	"context"
-	"strings"
-
 	v3 "github.com/coreos/etcd/clientv3"
 	v3pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
+	"strings"
 )
 
 type txnLeasing struct {
@@ -32,37 +17,41 @@ type txnLeasing struct {
 }
 
 func (txn *txnLeasing) If(cs ...v3.Cmp) v3.Txn {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	txn.cs = append(txn.cs, cs...)
 	txn.Txn = txn.Txn.If(cs...)
 	return txn
 }
-
 func (txn *txnLeasing) Then(ops ...v3.Op) v3.Txn {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	txn.opst = append(txn.opst, ops...)
 	txn.Txn = txn.Txn.Then(ops...)
 	return txn
 }
-
 func (txn *txnLeasing) Else(ops ...v3.Op) v3.Txn {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	txn.opse = append(txn.opse, ops...)
 	txn.Txn = txn.Txn.Else(ops...)
 	return txn
 }
-
 func (txn *txnLeasing) Commit() (*v3.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if resp, err := txn.eval(); resp != nil || err != nil {
 		return resp, err
 	}
 	return txn.serverTxn()
 }
-
 func (txn *txnLeasing) eval() (*v3.TxnResponse, error) {
-	// TODO: wait on keys in comparisons
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	thenOps, elseOps := gatherOps(txn.opst), gatherOps(txn.opse)
 	ops := make([]v3.Op, 0, len(thenOps)+len(elseOps))
 	ops = append(ops, thenOps...)
 	ops = append(ops, elseOps...)
-
 	for _, ch := range txn.lkv.leases.NotifyOps(ops) {
 		select {
 		case <-ch:
@@ -70,7 +59,6 @@ func (txn *txnLeasing) eval() (*v3.TxnResponse, error) {
 			return nil, txn.ctx.Err()
 		}
 	}
-
 	txn.lkv.leases.mu.RLock()
 	defer txn.lkv.leases.mu.RUnlock()
 	succeeded, ok := txn.lkv.leases.evalCmp(txn.cs)
@@ -80,17 +68,15 @@ func (txn *txnLeasing) eval() (*v3.TxnResponse, error) {
 	if ops = txn.opst; !succeeded {
 		ops = txn.opse
 	}
-
 	resps, ok := txn.lkv.leases.evalOps(ops)
 	if !ok {
 		return nil, nil
 	}
 	return &v3.TxnResponse{copyHeader(txn.lkv.leases.header), succeeded, resps}, nil
 }
-
-// fallback computes the ops to fetch all possible conflicting
-// leasing keys for a list of ops.
 func (txn *txnLeasing) fallback(ops []v3.Op) (fbOps []v3.Op) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, op := range ops {
 		if op.IsGet() {
 			continue
@@ -103,8 +89,9 @@ func (txn *txnLeasing) fallback(ops []v3.Op) (fbOps []v3.Op) {
 	}
 	return fbOps
 }
-
 func (txn *txnLeasing) guardKeys(ops []v3.Op) (cmps []v3.Cmp) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	seen := make(map[string]bool)
 	for _, op := range ops {
 		key := string(op.KeyBytes())
@@ -117,19 +104,18 @@ func (txn *txnLeasing) guardKeys(ops []v3.Op) (cmps []v3.Cmp) {
 	}
 	return cmps
 }
-
 func (txn *txnLeasing) guardRanges(ops []v3.Op) (cmps []v3.Cmp, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, op := range ops {
 		if op.IsGet() || len(op.RangeBytes()) == 0 {
 			continue
 		}
-
 		key, end := string(op.KeyBytes()), string(op.RangeBytes())
 		maxRevLK, err := txn.lkv.revokeRange(txn.ctx, key, end)
 		if err != nil {
 			return nil, err
 		}
-
 		opts := append(v3.WithLastRev(), v3.WithRange(end))
 		getResp, err := txn.lkv.kv.Get(txn.ctx, key, opts...)
 		if err != nil {
@@ -139,24 +125,22 @@ func (txn *txnLeasing) guardRanges(ops []v3.Op) (cmps []v3.Cmp, err error) {
 		if len(getResp.Kvs) > 0 {
 			maxModRev = getResp.Kvs[0].ModRevision
 		}
-
 		noKeyUpdate := v3.Compare(v3.ModRevision(key).WithRange(end), "<", maxModRev+1)
-		noLeaseUpdate := v3.Compare(
-			v3.CreateRevision(txn.lkv.pfx+key).WithRange(txn.lkv.pfx+end),
-			"<",
-			maxRevLK+1)
+		noLeaseUpdate := v3.Compare(v3.CreateRevision(txn.lkv.pfx+key).WithRange(txn.lkv.pfx+end), "<", maxRevLK+1)
 		cmps = append(cmps, noKeyUpdate, noLeaseUpdate)
 	}
 	return cmps, nil
 }
-
 func (txn *txnLeasing) guard(ops []v3.Op) ([]v3.Cmp, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmps := txn.guardKeys(ops)
 	rangeCmps, err := txn.guardRanges(ops)
 	return append(cmps, rangeCmps...), err
 }
-
 func (txn *txnLeasing) commitToCache(txnResp *v3pb.TxnResponse, userTxn v3.Op) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ops := gatherResponseOps(txnResp.Responses, []v3.Op{userTxn})
 	txn.lkv.leases.mu.Lock()
 	for _, op := range ops {
@@ -177,8 +161,9 @@ func (txn *txnLeasing) commitToCache(txnResp *v3pb.TxnResponse, userTxn v3.Op) {
 	}
 	txn.lkv.leases.mu.Unlock()
 }
-
 func (txn *txnLeasing) revokeFallback(fbResps []*v3pb.ResponseOp) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, resp := range fbResps {
 		_, err := txn.lkv.revokeLeaseKvs(txn.ctx, resp.GetResponseRange().Kvs)
 		if err != nil {
@@ -187,16 +172,15 @@ func (txn *txnLeasing) revokeFallback(fbResps []*v3pb.ResponseOp) error {
 	}
 	return nil
 }
-
 func (txn *txnLeasing) serverTxn() (*v3.TxnResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := txn.lkv.waitSession(txn.ctx); err != nil {
 		return nil, err
 	}
-
 	userOps := gatherOps(append(txn.opst, txn.opse...))
 	userTxn := v3.OpTxn(txn.cs, txn.opst, txn.opse)
 	fbOps := txn.fallback(userOps)
-
 	defer closeAll(txn.lkv.leases.LockWriteOps(userOps))
 	for {
 		cmps, err := txn.guard(userOps)

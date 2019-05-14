@@ -1,49 +1,32 @@
-// Copyright 2018 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package tester
 
 import (
 	"errors"
 	"fmt"
+	"github.com/coreos/etcd/functional/rpcpb"
+	"go.uber.org/zap"
+	yaml "gopkg.in/yaml.v2"
 	"io/ioutil"
 	"net/url"
 	"path/filepath"
 	"strings"
-
-	"github.com/coreos/etcd/functional/rpcpb"
-
-	"go.uber.org/zap"
-	yaml "gopkg.in/yaml.v2"
 )
 
 func read(lg *zap.Logger, fpath string) (*Cluster, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bts, err := ioutil.ReadFile(fpath)
 	if err != nil {
 		return nil, err
 	}
 	lg.Info("opened configuration file", zap.String("path", fpath))
-
 	clus := &Cluster{lg: lg}
 	if err = yaml.Unmarshal(bts, clus); err != nil {
 		return nil, err
 	}
-
 	if len(clus.Members) < 3 {
 		return nil, fmt.Errorf("len(clus.Members) expects at least 3, got %d", len(clus.Members))
 	}
-
 	for i, mem := range clus.Members {
 		if mem.BaseDir == "" {
 			return nil, fmt.Errorf("BaseDir cannot be empty (got %q)", mem.BaseDir)
@@ -51,7 +34,6 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 		if mem.EtcdLogPath == "" {
 			return nil, fmt.Errorf("EtcdLogPath cannot be empty (got %q)", mem.EtcdLogPath)
 		}
-
 		if mem.Etcd.Name == "" {
 			return nil, fmt.Errorf("'--name' cannot be empty (got %+v)", mem)
 		}
@@ -67,14 +49,12 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 		if mem.Etcd.WALDir == "" {
 			clus.Members[i].Etcd.WALDir = filepath.Join(mem.Etcd.DataDir, "member", "wal")
 		}
-
 		switch mem.Etcd.InitialClusterState {
 		case "new":
 		case "existing":
 		default:
 			return nil, fmt.Errorf("'--initial-cluster-state' got %q", mem.Etcd.InitialClusterState)
 		}
-
 		if mem.Etcd.HeartbeatIntervalMs == 0 {
 			return nil, fmt.Errorf("'--heartbeat-interval' cannot be 0 (got %+v)", mem.Etcd)
 		}
@@ -84,7 +64,6 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 		if int64(clus.Tester.DelayLatencyMs) <= mem.Etcd.ElectionTimeoutMs {
 			return nil, fmt.Errorf("delay latency %d ms must be greater than election timeout %d ms", clus.Tester.DelayLatencyMs, mem.Etcd.ElectionTimeoutMs)
 		}
-
 		port := ""
 		listenClientPorts := make([]string, len(clus.Members))
 		for i, u := range mem.Etcd.ListenClientURLs {
@@ -108,7 +87,6 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 				return nil, fmt.Errorf("clus.Members[%d] requires client port proxy, but advertise port %q conflicts with listener port %q", i, port, listenClientPorts[i])
 			}
 		}
-
 		listenPeerPorts := make([]string, len(clus.Members))
 		for i, u := range mem.Etcd.ListenPeerURLs {
 			if !isValidURL(u) {
@@ -131,21 +109,15 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 				return nil, fmt.Errorf("clus.Members[%d] requires peer port proxy, but advertise port %q conflicts with listener port %q", i, port, listenPeerPorts[j])
 			}
 		}
-
 		if !strings.HasPrefix(mem.EtcdLogPath, mem.BaseDir) {
 			return nil, fmt.Errorf("EtcdLogPath must be prefixed with BaseDir (got %q)", mem.EtcdLogPath)
 		}
 		if !strings.HasPrefix(mem.Etcd.DataDir, mem.BaseDir) {
 			return nil, fmt.Errorf("Etcd.DataDir must be prefixed with BaseDir (got %q)", mem.Etcd.DataDir)
 		}
-
-		// TODO: support separate WALDir that can be handled via failure-archive
 		if !strings.HasPrefix(mem.Etcd.WALDir, mem.BaseDir) {
 			return nil, fmt.Errorf("Etcd.WALDir must be prefixed with BaseDir (got %q)", mem.Etcd.WALDir)
 		}
-
-		// TODO: only support generated certs with TLS generator
-		// deprecate auto TLS
 		if mem.Etcd.PeerAutoTLS && mem.Etcd.PeerCertFile != "" {
 			return nil, fmt.Errorf("Etcd.PeerAutoTLS 'true', but Etcd.PeerCertFile is %q", mem.Etcd.PeerCertFile)
 		}
@@ -164,14 +136,12 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 		if mem.Etcd.ClientAutoTLS && mem.Etcd.ClientTrustedCAFile != "" {
 			return nil, fmt.Errorf("Etcd.ClientAutoTLS 'true', but Etcd.ClientTrustedCAFile is %q", mem.Etcd.ClientTrustedCAFile)
 		}
-
 		if mem.Etcd.PeerClientCertAuth && mem.Etcd.PeerCertFile == "" {
 			return nil, fmt.Errorf("Etcd.PeerClientCertAuth 'true', but Etcd.PeerCertFile is %q", mem.Etcd.PeerCertFile)
 		}
 		if mem.Etcd.PeerClientCertAuth && mem.Etcd.PeerKeyFile == "" {
 			return nil, fmt.Errorf("Etcd.PeerClientCertAuth 'true', but Etcd.PeerKeyFile is %q", mem.Etcd.PeerCertFile)
 		}
-		// only support self-signed certs
 		if mem.Etcd.PeerClientCertAuth && mem.Etcd.PeerTrustedCAFile == "" {
 			return nil, fmt.Errorf("Etcd.PeerClientCertAuth 'true', but Etcd.PeerTrustedCAFile is %q", mem.Etcd.PeerCertFile)
 		}
@@ -214,9 +184,7 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 		if (mem.Etcd.ClientCertFile == "") != (mem.Etcd.ClientKeyFile == "") {
 			return nil, fmt.Errorf("Both Etcd.ClientCertFile %q and Etcd.ClientKeyFile %q must be either empty or non-empty", mem.Etcd.ClientCertFile, mem.Etcd.ClientKeyFile)
 		}
-
-		peerTLS := mem.Etcd.PeerAutoTLS ||
-			(mem.Etcd.PeerClientCertAuth && mem.Etcd.PeerCertFile != "" && mem.Etcd.PeerKeyFile != "" && mem.Etcd.PeerTrustedCAFile != "")
+		peerTLS := mem.Etcd.PeerAutoTLS || (mem.Etcd.PeerClientCertAuth && mem.Etcd.PeerCertFile != "" && mem.Etcd.PeerKeyFile != "" && mem.Etcd.PeerTrustedCAFile != "")
 		if peerTLS {
 			for _, cu := range mem.Etcd.ListenPeerURLs {
 				var u *url.URL
@@ -224,7 +192,7 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 				if err != nil {
 					return nil, err
 				}
-				if u.Scheme != "https" { // TODO: support unix
+				if u.Scheme != "https" {
 					return nil, fmt.Errorf("peer TLS is enabled with wrong scheme %q", cu)
 				}
 			}
@@ -234,7 +202,7 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 				if err != nil {
 					return nil, err
 				}
-				if u.Scheme != "https" { // TODO: support unix
+				if u.Scheme != "https" {
 					return nil, fmt.Errorf("peer TLS is enabled with wrong scheme %q", cu)
 				}
 			}
@@ -266,9 +234,7 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 				clus.Members[i].PeerCertData = string(data)
 			}
 		}
-
-		clientTLS := mem.Etcd.ClientAutoTLS ||
-			(mem.Etcd.ClientCertAuth && mem.Etcd.ClientCertFile != "" && mem.Etcd.ClientKeyFile != "" && mem.Etcd.ClientTrustedCAFile != "")
+		clientTLS := mem.Etcd.ClientAutoTLS || (mem.Etcd.ClientCertAuth && mem.Etcd.ClientCertFile != "" && mem.Etcd.ClientKeyFile != "" && mem.Etcd.ClientTrustedCAFile != "")
 		if clientTLS {
 			for _, cu := range mem.Etcd.ListenClientURLs {
 				var u *url.URL
@@ -276,7 +242,7 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 				if err != nil {
 					return nil, err
 				}
-				if u.Scheme != "https" { // TODO: support unix
+				if u.Scheme != "https" {
 					return nil, fmt.Errorf("client TLS is enabled with wrong scheme %q", cu)
 				}
 			}
@@ -286,7 +252,7 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 				if err != nil {
 					return nil, err
 				}
-				if u.Scheme != "https" { // TODO: support unix
+				if u.Scheme != "https" {
 					return nil, fmt.Errorf("client TLS is enabled with wrong scheme %q", cu)
 				}
 			}
@@ -319,7 +285,6 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 			}
 		}
 	}
-
 	if len(clus.Tester.Cases) == 0 {
 		return nil, errors.New("Cases not found")
 	}
@@ -329,13 +294,11 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 	if clus.Tester.UpdatedDelayLatencyMs == 0 {
 		clus.Tester.UpdatedDelayLatencyMs = clus.Tester.DelayLatencyMs
 	}
-
 	for _, v := range clus.Tester.Cases {
 		if _, ok := rpcpb.Case_value[v]; !ok {
 			return nil, fmt.Errorf("%q is not defined in 'rpcpb.Case_value'", v)
 		}
 	}
-
 	for _, v := range clus.Tester.Stressers {
 		if _, ok := rpcpb.Stresser_value[v]; !ok {
 			return nil, fmt.Errorf("Stresser is unknown; got %q", v)
@@ -346,13 +309,11 @@ func read(lg *zap.Logger, fpath string) (*Cluster, error) {
 			return nil, fmt.Errorf("Checker is unknown; got %q", v)
 		}
 	}
-
 	if clus.Tester.StressKeySuffixRangeTxn > 100 {
 		return nil, fmt.Errorf("StressKeySuffixRangeTxn maximum value is 100, got %v", clus.Tester.StressKeySuffixRangeTxn)
 	}
 	if clus.Tester.StressKeyTxnOps > 64 {
 		return nil, fmt.Errorf("StressKeyTxnOps maximum value is 64, got %v", clus.Tester.StressKeyTxnOps)
 	}
-
 	return clus, err
 }

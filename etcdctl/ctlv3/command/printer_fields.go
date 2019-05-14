@@ -1,22 +1,7 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package command
 
 import (
 	"fmt"
-
 	v3 "github.com/coreos/etcd/clientv3"
 	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
 	spb "github.com/coreos/etcd/mvcc/mvccpb"
@@ -25,6 +10,8 @@ import (
 type fieldsPrinter struct{ printer }
 
 func (p *fieldsPrinter) kv(pfx string, kv *spb.KeyValue) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("\"%sKey\" : %q\n", pfx, string(kv.Key))
 	fmt.Printf("\"%sCreateRevision\" : %d\n", pfx, kv.CreateRevision)
 	fmt.Printf("\"%sModRevision\" : %d\n", pfx, kv.ModRevision)
@@ -32,23 +19,26 @@ func (p *fieldsPrinter) kv(pfx string, kv *spb.KeyValue) {
 	fmt.Printf("\"%sValue\" : %q\n", pfx, string(kv.Value))
 	fmt.Printf("\"%sLease\" : %d\n", pfx, kv.Lease)
 }
-
 func (p *fieldsPrinter) hdr(h *pb.ResponseHeader) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Println(`"ClusterID" :`, h.ClusterId)
 	fmt.Println(`"MemberID" :`, h.MemberId)
 	fmt.Println(`"Revision" :`, h.Revision)
 	fmt.Println(`"RaftTerm" :`, h.RaftTerm)
 }
-
 func (p *fieldsPrinter) Del(r v3.DeleteResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 	fmt.Println(`"Deleted" :`, r.Deleted)
 	for _, kv := range r.PrevKvs {
 		p.kv("Prev", kv)
 	}
 }
-
 func (p *fieldsPrinter) Get(r v3.GetResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 	for _, kv := range r.Kvs {
 		p.kv("", kv)
@@ -56,15 +46,17 @@ func (p *fieldsPrinter) Get(r v3.GetResponse) {
 	fmt.Println(`"More" :`, r.More)
 	fmt.Println(`"Count" :`, r.Count)
 }
-
 func (p *fieldsPrinter) Put(r v3.PutResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 	if r.PrevKv != nil {
 		p.kv("Prev", r.PrevKv)
 	}
 }
-
 func (p *fieldsPrinter) Txn(r v3.TxnResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 	fmt.Println(`"Succeeded" :`, r.Succeeded)
 	for _, resp := range r.Responses {
@@ -80,8 +72,9 @@ func (p *fieldsPrinter) Txn(r v3.TxnResponse) {
 		}
 	}
 }
-
 func (p *fieldsPrinter) Watch(resp v3.WatchResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(&resp.Header)
 	for _, e := range resp.Events {
 		fmt.Println(`"Type" :`, e.Type)
@@ -91,24 +84,28 @@ func (p *fieldsPrinter) Watch(resp v3.WatchResponse) {
 		p.kv("", e.Kv)
 	}
 }
-
 func (p *fieldsPrinter) Grant(r v3.LeaseGrantResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.ResponseHeader)
 	fmt.Println(`"ID" :`, r.ID)
 	fmt.Println(`"TTL" :`, r.TTL)
 }
-
 func (p *fieldsPrinter) Revoke(id v3.LeaseID, r v3.LeaseRevokeResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 }
-
 func (p *fieldsPrinter) KeepAlive(r v3.LeaseKeepAliveResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.ResponseHeader)
 	fmt.Println(`"ID" :`, r.ID)
 	fmt.Println(`"TTL" :`, r.TTL)
 }
-
 func (p *fieldsPrinter) TimeToLive(r v3.LeaseTimeToLiveResponse, keys bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.ResponseHeader)
 	fmt.Println(`"ID" :`, r.ID)
 	fmt.Println(`"TTL" :`, r.TTL)
@@ -117,15 +114,17 @@ func (p *fieldsPrinter) TimeToLive(r v3.LeaseTimeToLiveResponse, keys bool) {
 		fmt.Printf("\"Key\" : %q\n", string(k))
 	}
 }
-
 func (p *fieldsPrinter) Leases(r v3.LeaseLeasesResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.ResponseHeader)
 	for _, item := range r.Leases {
 		fmt.Println(`"ID" :`, item.ID)
 	}
 }
-
 func (p *fieldsPrinter) MemberList(r v3.MemberListResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 	for _, m := range r.Members {
 		fmt.Println(`"ID" :`, m.ID)
@@ -139,8 +138,9 @@ func (p *fieldsPrinter) MemberList(r v3.MemberListResponse) {
 		fmt.Println()
 	}
 }
-
 func (p *fieldsPrinter) EndpointStatus(eps []epStatus) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, ep := range eps {
 		p.hdr(ep.Resp.Header)
 		fmt.Printf("\"Version\" : %q\n", ep.Resp.Version)
@@ -152,8 +152,9 @@ func (p *fieldsPrinter) EndpointStatus(eps []epStatus) {
 		fmt.Println()
 	}
 }
-
 func (p *fieldsPrinter) EndpointHashKV(hs []epHashKV) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, h := range hs {
 		p.hdr(h.Resp.Header)
 		fmt.Printf("\"Endpoint\" : %q\n", h.Ep)
@@ -161,8 +162,9 @@ func (p *fieldsPrinter) EndpointHashKV(hs []epHashKV) {
 		fmt.Println()
 	}
 }
-
 func (p *fieldsPrinter) Alarm(r v3.AlarmResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 	for _, a := range r.Alarms {
 		fmt.Println(`"MemberID" :`, a.MemberID)
@@ -170,16 +172,22 @@ func (p *fieldsPrinter) Alarm(r v3.AlarmResponse) {
 		fmt.Println()
 	}
 }
-
 func (p *fieldsPrinter) DBStatus(r dbstatus) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Println(`"Hash" :`, r.Hash)
 	fmt.Println(`"Revision" :`, r.Revision)
 	fmt.Println(`"Keys" :`, r.TotalKey)
 	fmt.Println(`"Size" :`, r.TotalSize)
 }
-
-func (p *fieldsPrinter) RoleAdd(role string, r v3.AuthRoleAddResponse) { p.hdr(r.Header) }
+func (p *fieldsPrinter) RoleAdd(role string, r v3.AuthRoleAddResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	p.hdr(r.Header)
+}
 func (p *fieldsPrinter) RoleGet(role string, r v3.AuthRoleGetResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 	for _, p := range r.Perm {
 		fmt.Println(`"PermType" : `, p.PermType.String())
@@ -187,8 +195,14 @@ func (p *fieldsPrinter) RoleGet(role string, r v3.AuthRoleGetResponse) {
 		fmt.Printf("\"RangeEnd\" : %q\n", string(p.RangeEnd))
 	}
 }
-func (p *fieldsPrinter) RoleDelete(role string, r v3.AuthRoleDeleteResponse) { p.hdr(r.Header) }
+func (p *fieldsPrinter) RoleDelete(role string, r v3.AuthRoleDeleteResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	p.hdr(r.Header)
+}
 func (p *fieldsPrinter) RoleList(r v3.AuthRoleListResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 	fmt.Printf(`"Roles" :`)
 	for _, r := range r.Roles {
@@ -197,17 +211,37 @@ func (p *fieldsPrinter) RoleList(r v3.AuthRoleListResponse) {
 	fmt.Println()
 }
 func (p *fieldsPrinter) RoleGrantPermission(role string, r v3.AuthRoleGrantPermissionResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 }
 func (p *fieldsPrinter) RoleRevokePermission(role string, key string, end string, r v3.AuthRoleRevokePermissionResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 }
-func (p *fieldsPrinter) UserAdd(user string, r v3.AuthUserAddResponse)          { p.hdr(r.Header) }
-func (p *fieldsPrinter) UserChangePassword(r v3.AuthUserChangePasswordResponse) { p.hdr(r.Header) }
+func (p *fieldsPrinter) UserAdd(user string, r v3.AuthUserAddResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	p.hdr(r.Header)
+}
+func (p *fieldsPrinter) UserChangePassword(r v3.AuthUserChangePasswordResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	p.hdr(r.Header)
+}
 func (p *fieldsPrinter) UserGrantRole(user string, role string, r v3.AuthUserGrantRoleResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 }
 func (p *fieldsPrinter) UserRevokeRole(user string, role string, r v3.AuthUserRevokeRoleResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.hdr(r.Header)
 }
-func (p *fieldsPrinter) UserDelete(user string, r v3.AuthUserDeleteResponse) { p.hdr(r.Header) }
+func (p *fieldsPrinter) UserDelete(user string, r v3.AuthUserDeleteResponse) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	p.hdr(r.Header)
+}

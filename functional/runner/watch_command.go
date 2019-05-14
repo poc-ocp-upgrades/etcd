@@ -1,101 +1,73 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package runner
 
 import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/coreos/etcd/clientv3"
+	"github.com/coreos/etcd/pkg/stringutil"
+	"github.com/spf13/cobra"
+	"golang.org/x/time/rate"
 	"log"
 	"sync"
 	"time"
-
-	"github.com/coreos/etcd/clientv3"
-	"github.com/coreos/etcd/pkg/stringutil"
-
-	"github.com/spf13/cobra"
-	"golang.org/x/time/rate"
 )
 
 var (
-	runningTime    time.Duration // time for which operation should be performed
-	noOfPrefixes   int           // total number of prefixes which will be watched upon
-	watchPerPrefix int           // number of watchers per prefix
-	watchPrefix    string        // prefix append to keys in watcher
-	totalKeys      int           // total number of keys for operation
+	runningTime    time.Duration
+	noOfPrefixes   int
+	watchPerPrefix int
+	watchPrefix    string
+	totalKeys      int
 )
 
-// NewWatchCommand returns the cobra command for "watcher runner".
 func NewWatchCommand() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "watcher",
-		Short: "Performs watch operation",
-		Run:   runWatcherFunc,
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	cmd := &cobra.Command{Use: "watcher", Short: "Performs watch operation", Run: runWatcherFunc}
 	cmd.Flags().DurationVar(&runningTime, "running-time", 60, "number of seconds to run")
 	cmd.Flags().StringVar(&watchPrefix, "prefix", "", "the prefix to append on all keys")
 	cmd.Flags().IntVar(&noOfPrefixes, "total-prefixes", 10, "total no of prefixes to use")
 	cmd.Flags().IntVar(&watchPerPrefix, "watch-per-prefix", 10, "number of watchers per prefix")
 	cmd.Flags().IntVar(&totalKeys, "total-keys", 1000, "total number of keys to watch")
-
 	return cmd
 }
-
 func runWatcherFunc(cmd *cobra.Command, args []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(args) > 0 {
 		ExitWithError(ExitBadArgs, errors.New("watcher does not take any argument"))
 	}
-
 	ctx := context.Background()
 	for round := 0; round < rounds || rounds <= 0; round++ {
 		fmt.Println("round", round)
 		performWatchOnPrefixes(ctx, cmd, round)
 	}
 }
-
 func performWatchOnPrefixes(ctx context.Context, cmd *cobra.Command, round int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	keyPerPrefix := totalKeys / noOfPrefixes
 	prefixes := stringutil.UniqueStrings(5, noOfPrefixes)
 	keys := stringutil.RandomStrings(10, keyPerPrefix)
-
 	roundPrefix := fmt.Sprintf("%16x", round)
-
 	eps := endpointsFromFlag(cmd)
-
 	var (
 		revision int64
 		wg       sync.WaitGroup
 		gr       *clientv3.GetResponse
 		err      error
 	)
-
 	client := newClient(eps, dialTimeout)
 	defer client.Close()
-
 	gr, err = getKey(ctx, client, "non-existent")
 	if err != nil {
 		log.Fatalf("failed to get the initial revision: %v", err)
 	}
 	revision = gr.Header.Revision
-
 	ctxt, cancel := context.WithDeadline(ctx, time.Now().Add(runningTime*time.Second))
 	defer cancel()
-
-	// generate and put keys in cluster
 	limiter := rate.NewLimiter(rate.Limit(reqRate), reqRate)
-
 	go func() {
 		for _, key := range keys {
 			for _, prefix := range prefixes {
@@ -109,22 +81,16 @@ func performWatchOnPrefixes(ctx context.Context, cmd *cobra.Command, round int) 
 			}
 		}
 	}()
-
 	ctxc, cancelc := context.WithCancel(ctx)
-
 	wcs := make([]clientv3.WatchChan, 0)
 	rcs := make([]*clientv3.Client, 0)
-
 	for _, prefix := range prefixes {
 		for j := 0; j < watchPerPrefix; j++ {
 			rc := newClient(eps, dialTimeout)
 			rcs = append(rcs, rc)
-
 			wprefix := watchPrefix + "-" + roundPrefix + "-" + prefix
-
 			wc := rc.Watch(ctxc, wprefix, clientv3.WithPrefix(), clientv3.WithRev(revision))
 			wcs = append(wcs, wc)
-
 			wg.Add(1)
 			go func() {
 				defer wg.Done()
@@ -133,26 +99,22 @@ func performWatchOnPrefixes(ctx context.Context, cmd *cobra.Command, round int) 
 		}
 	}
 	wg.Wait()
-
 	cancelc()
-
-	// verify all watch channels are closed
 	for e, wc := range wcs {
 		if _, ok := <-wc; ok {
 			log.Fatalf("expected wc to be closed, but received %v", e)
 		}
 	}
-
 	for _, rc := range rcs {
 		rc.Close()
 	}
-
 	if err = deletePrefix(ctx, client, watchPrefix); err != nil {
 		log.Fatalf("failed to clean up keys after test: %v", err)
 	}
 }
-
 func checkWatchResponse(wc clientv3.WatchChan, prefix string, keys []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for n := 0; n < len(keys); {
 		wr, more := <-wc
 		if !more {
@@ -168,30 +130,28 @@ func checkWatchResponse(wc clientv3.WatchChan, prefix string, keys []string) {
 		}
 	}
 }
-
 func putKeyAtMostOnce(ctx context.Context, client *clientv3.Client, key string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	gr, err := getKey(ctx, client, key)
 	if err != nil {
 		return err
 	}
-
 	var modrev int64
 	if len(gr.Kvs) > 0 {
 		modrev = gr.Kvs[0].ModRevision
 	}
-
 	for ctx.Err() == nil {
 		_, err := client.Txn(ctx).If(clientv3.Compare(clientv3.ModRevision(key), "=", modrev)).Then(clientv3.OpPut(key, key)).Commit()
-
 		if err == nil {
 			return nil
 		}
 	}
-
 	return ctx.Err()
 }
-
 func deletePrefix(ctx context.Context, client *clientv3.Client, key string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for ctx.Err() == nil {
 		if _, err := client.Delete(ctx, key, clientv3.WithPrefix()); err == nil {
 			return nil
@@ -199,8 +159,9 @@ func deletePrefix(ctx context.Context, client *clientv3.Client, key string) erro
 	}
 	return ctx.Err()
 }
-
 func getKey(ctx context.Context, client *clientv3.Client, key string) (*clientv3.GetResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for ctx.Err() == nil {
 		if gr, err := client.Get(ctx, key); err == nil {
 			return gr, nil

@@ -1,81 +1,64 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package membership
 
 import (
 	"encoding/json"
 	"fmt"
-	"path"
-
 	"github.com/coreos/etcd/mvcc/backend"
 	"github.com/coreos/etcd/pkg/types"
 	"github.com/coreos/etcd/store"
-
 	"github.com/coreos/go-semver/semver"
+	"path"
 )
 
 const (
 	attributesSuffix     = "attributes"
 	raftAttributesSuffix = "raftAttributes"
-
-	// the prefix for stroing membership related information in store provided by store pkg.
-	storePrefix = "/0"
+	storePrefix          = "/0"
 )
 
 var (
-	membersBucketName        = []byte("members")
-	membersRemovedBucketName = []byte("members_removed")
-	clusterBucketName        = []byte("cluster")
-
+	membersBucketName         = []byte("members")
+	membersRemovedBucketName  = []byte("members_removed")
+	clusterBucketName         = []byte("cluster")
 	StoreMembersPrefix        = path.Join(storePrefix, "members")
 	storeRemovedMembersPrefix = path.Join(storePrefix, "removed_members")
 )
 
 func mustSaveMemberToBackend(be backend.Backend, m *Member) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mkey := backendMemberKey(m.ID)
 	mvalue, err := json.Marshal(m)
 	if err != nil {
 		plog.Panicf("marshal raftAttributes should never fail: %v", err)
 	}
-
 	tx := be.BatchTx()
 	tx.Lock()
 	tx.UnsafePut(membersBucketName, mkey, mvalue)
 	tx.Unlock()
 }
-
 func mustDeleteMemberFromBackend(be backend.Backend, id types.ID) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mkey := backendMemberKey(id)
-
 	tx := be.BatchTx()
 	tx.Lock()
 	tx.UnsafeDelete(membersBucketName, mkey)
 	tx.UnsafePut(membersRemovedBucketName, mkey, []byte("removed"))
 	tx.Unlock()
 }
-
 func mustSaveClusterVersionToBackend(be backend.Backend, ver *semver.Version) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ckey := backendClusterVersionKey()
-
 	tx := be.BatchTx()
 	tx.Lock()
 	defer tx.Unlock()
 	tx.UnsafePut(clusterBucketName, ckey, []byte(ver.String()))
 }
-
 func mustSaveMemberToStore(s store.Store, m *Member) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, err := json.Marshal(m.RaftAttributes)
 	if err != nil {
 		plog.Panicf("marshal raftAttributes should never fail: %v", err)
@@ -85,8 +68,9 @@ func mustSaveMemberToStore(s store.Store, m *Member) {
 		plog.Panicf("create raftAttributes should never fail: %v", err)
 	}
 }
-
 func mustDeleteMemberFromStore(s store.Store, id types.ID) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, err := s.Delete(MemberStoreKey(id), true, true); err != nil {
 		plog.Panicf("delete member should never fail: %v", err)
 	}
@@ -94,8 +78,9 @@ func mustDeleteMemberFromStore(s store.Store, id types.ID) {
 		plog.Panicf("create removedMember should never fail: %v", err)
 	}
 }
-
 func mustUpdateMemberInStore(s store.Store, m *Member) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, err := json.Marshal(m.RaftAttributes)
 	if err != nil {
 		plog.Panicf("marshal raftAttributes should never fail: %v", err)
@@ -105,8 +90,9 @@ func mustUpdateMemberInStore(s store.Store, m *Member) {
 		plog.Panicf("update raftAttributes should never fail: %v", err)
 	}
 }
-
 func mustUpdateMemberAttrInStore(s store.Store, m *Member) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, err := json.Marshal(m.Attributes)
 	if err != nil {
 		plog.Panicf("marshal raftAttributes should never fail: %v", err)
@@ -116,16 +102,16 @@ func mustUpdateMemberAttrInStore(s store.Store, m *Member) {
 		plog.Panicf("update raftAttributes should never fail: %v", err)
 	}
 }
-
 func mustSaveClusterVersionToStore(s store.Store, ver *semver.Version) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, err := s.Set(StoreClusterVersionKey(), false, ver.String(), store.TTLOptionSet{ExpireTime: store.Permanent}); err != nil {
 		plog.Panicf("save cluster version should never fail: %v", err)
 	}
 }
-
-// nodeToMember builds member from a key value node.
-// the child nodes of the given node MUST be sorted by key.
 func nodeToMember(n *store.NodeExtern) (*Member, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := &Member{ID: MustParseMemberIDFromKey(n.Key)}
 	attrs := make(map[string][]byte)
 	raftAttrKey := path.Join(n.Key, raftAttributesSuffix)
@@ -150,16 +136,19 @@ func nodeToMember(n *store.NodeExtern) (*Member, error) {
 	}
 	return m, nil
 }
-
 func backendMemberKey(id types.ID) []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []byte(id.String())
 }
-
 func backendClusterVersionKey() []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []byte("clusterVersion")
 }
-
 func mustCreateBackendBuckets(be backend.Backend) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tx := be.BatchTx()
 	tx.Lock()
 	defer tx.Unlock()
@@ -167,27 +156,32 @@ func mustCreateBackendBuckets(be backend.Backend) {
 	tx.UnsafeCreateBucket(membersRemovedBucketName)
 	tx.UnsafeCreateBucket(clusterBucketName)
 }
-
 func MemberStoreKey(id types.ID) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return path.Join(StoreMembersPrefix, id.String())
 }
-
 func StoreClusterVersionKey() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return path.Join(storePrefix, "version")
 }
-
 func MemberAttributesStorePath(id types.ID) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return path.Join(MemberStoreKey(id), attributesSuffix)
 }
-
 func MustParseMemberIDFromKey(key string) types.ID {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	id, err := types.IDFromString(path.Base(key))
 	if err != nil {
 		plog.Panicf("unexpected parse member id error: %v", err)
 	}
 	return id
 }
-
 func RemovedMemberStoreKey(id types.ID) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return path.Join(storeRemovedMembersPrefix, id.String())
 }

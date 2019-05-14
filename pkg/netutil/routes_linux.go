@@ -1,107 +1,78 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-// +build linux
-
 package netutil
 
 import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
+	"github.com/coreos/etcd/pkg/cpuutil"
 	"net"
 	"sort"
 	"syscall"
-
-	"github.com/coreos/etcd/pkg/cpuutil"
 )
 
 var errNoDefaultRoute = fmt.Errorf("could not find default route")
 var errNoDefaultHost = fmt.Errorf("could not find default host")
 var errNoDefaultInterface = fmt.Errorf("could not find default interface")
 
-// GetDefaultHost obtains the first IP address of machine from the routing table and returns the IP address as string.
-// An IPv4 address is preferred to an IPv6 address for backward compatibility.
 func GetDefaultHost() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rmsgs, rerr := getDefaultRoutes()
 	if rerr != nil {
 		return "", rerr
 	}
-
-	// prioritize IPv4
 	if rmsg, ok := rmsgs[syscall.AF_INET]; ok {
 		if host, err := chooseHost(syscall.AF_INET, rmsg); host != "" || err != nil {
 			return host, err
 		}
 		delete(rmsgs, syscall.AF_INET)
 	}
-
-	// sort so choice is deterministic
 	var families []int
 	for family := range rmsgs {
 		families = append(families, int(family))
 	}
 	sort.Ints(families)
-
 	for _, f := range families {
 		family := uint8(f)
 		if host, err := chooseHost(family, rmsgs[family]); host != "" || err != nil {
 			return host, err
 		}
 	}
-
 	return "", errNoDefaultHost
 }
-
 func chooseHost(family uint8, rmsg *syscall.NetlinkMessage) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	host, oif, err := parsePREFSRC(rmsg)
 	if host != "" || err != nil {
 		return host, err
 	}
-
-	// prefsrc not detected, fall back to getting address from iface
 	ifmsg, ierr := getIfaceAddr(oif, family)
 	if ierr != nil {
 		return "", ierr
 	}
-
 	attrs, aerr := syscall.ParseNetlinkRouteAttr(ifmsg)
 	if aerr != nil {
 		return "", aerr
 	}
-
 	for _, attr := range attrs {
-		// search for RTA_DST because ipv6 doesn't have RTA_SRC
 		if attr.Attr.Type == syscall.RTA_DST {
 			return net.IP(attr.Value).String(), nil
 		}
 	}
-
 	return "", nil
 }
-
 func getDefaultRoutes() (map[uint8]*syscall.NetlinkMessage, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dat, err := syscall.NetlinkRIB(syscall.RTM_GETROUTE, syscall.AF_UNSPEC)
 	if err != nil {
 		return nil, err
 	}
-
 	msgs, msgErr := syscall.ParseNetlinkMessage(dat)
 	if msgErr != nil {
 		return nil, msgErr
 	}
-
 	routes := make(map[uint8]*syscall.NetlinkMessage)
 	rtmsg := syscall.RtMsg{}
 	for _, m := range msgs {
@@ -113,31 +84,26 @@ func getDefaultRoutes() (map[uint8]*syscall.NetlinkMessage, error) {
 			continue
 		}
 		if rtmsg.Dst_len == 0 && rtmsg.Table == syscall.RT_TABLE_MAIN {
-			// zero-length Dst_len implies default route
 			msg := m
 			routes[rtmsg.Family] = &msg
 		}
 	}
-
 	if len(routes) > 0 {
 		return routes, nil
 	}
-
 	return nil, errNoDefaultRoute
 }
-
-// Used to get an address of interface.
 func getIfaceAddr(idx uint32, family uint8) (*syscall.NetlinkMessage, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dat, err := syscall.NetlinkRIB(syscall.RTM_GETADDR, int(family))
 	if err != nil {
 		return nil, err
 	}
-
 	msgs, msgErr := syscall.ParseNetlinkMessage(dat)
 	if msgErr != nil {
 		return nil, msgErr
 	}
-
 	ifaddrmsg := syscall.IfAddrmsg{}
 	for _, m := range msgs {
 		if m.Header.Type != syscall.RTM_NEWADDR {
@@ -151,23 +117,19 @@ func getIfaceAddr(idx uint32, family uint8) (*syscall.NetlinkMessage, error) {
 			return &m, nil
 		}
 	}
-
 	return nil, fmt.Errorf("could not find address for interface index %v", idx)
-
 }
-
-// Used to get a name of interface.
 func getIfaceLink(idx uint32) (*syscall.NetlinkMessage, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dat, err := syscall.NetlinkRIB(syscall.RTM_GETLINK, syscall.AF_UNSPEC)
 	if err != nil {
 		return nil, err
 	}
-
 	msgs, msgErr := syscall.ParseNetlinkMessage(dat)
 	if msgErr != nil {
 		return nil, msgErr
 	}
-
 	ifinfomsg := syscall.IfInfomsg{}
 	for _, m := range msgs {
 		if m.Header.Type != syscall.RTM_NEWLINK {
@@ -181,38 +143,31 @@ func getIfaceLink(idx uint32) (*syscall.NetlinkMessage, error) {
 			return &m, nil
 		}
 	}
-
 	return nil, fmt.Errorf("could not find link for interface index %v", idx)
 }
-
-// GetDefaultInterfaces gets names of interfaces and returns a map[interface]families.
 func GetDefaultInterfaces() (map[string]uint8, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	interfaces := make(map[string]uint8)
 	rmsgs, rerr := getDefaultRoutes()
 	if rerr != nil {
 		return interfaces, rerr
 	}
-
 	for family, rmsg := range rmsgs {
 		_, oif, err := parsePREFSRC(rmsg)
 		if err != nil {
 			return interfaces, err
 		}
-
 		ifmsg, ierr := getIfaceLink(oif)
 		if ierr != nil {
 			return interfaces, ierr
 		}
-
 		attrs, aerr := syscall.ParseNetlinkRouteAttr(ifmsg)
 		if aerr != nil {
 			return interfaces, aerr
 		}
-
 		for _, attr := range attrs {
 			if attr.Attr.Type == syscall.IFLA_IFNAME {
-				// key is an interface name
-				// possible values: 2 - AF_INET, 10 - AF_INET6, 12 - dualstack
 				interfaces[string(attr.Value[:len(attr.Value)-1])] += family
 			}
 		}
@@ -222,15 +177,14 @@ func GetDefaultInterfaces() (map[string]uint8, error) {
 	}
 	return interfaces, errNoDefaultInterface
 }
-
-// parsePREFSRC returns preferred source address and output interface index (RTA_OIF).
 func parsePREFSRC(m *syscall.NetlinkMessage) (host string, oif uint32, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var attrs []syscall.NetlinkRouteAttr
 	attrs, err = syscall.ParseNetlinkRouteAttr(m)
 	if err != nil {
 		return "", 0, err
 	}
-
 	for _, attr := range attrs {
 		if attr.Attr.Type == syscall.RTA_PREFSRC {
 			host = net.IP(attr.Value).String()
@@ -242,7 +196,6 @@ func parsePREFSRC(m *syscall.NetlinkMessage) (host string, oif uint32, err error
 			break
 		}
 	}
-
 	if oif == 0 {
 		err = errNoDefaultRoute
 	}

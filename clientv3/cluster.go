@@ -1,25 +1,9 @@
-// Copyright 2016 The etcd Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package clientv3
 
 import (
 	"context"
-
 	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
 	"github.com/coreos/etcd/pkg/types"
-
 	"google.golang.org/grpc"
 )
 
@@ -30,48 +14,41 @@ type (
 	MemberRemoveResponse pb.MemberRemoveResponse
 	MemberUpdateResponse pb.MemberUpdateResponse
 )
-
 type Cluster interface {
-	// MemberList lists the current cluster membership.
 	MemberList(ctx context.Context) (*MemberListResponse, error)
-
-	// MemberAdd adds a new member into the cluster.
 	MemberAdd(ctx context.Context, peerAddrs []string) (*MemberAddResponse, error)
-
-	// MemberRemove removes an existing member from the cluster.
 	MemberRemove(ctx context.Context, id uint64) (*MemberRemoveResponse, error)
-
-	// MemberUpdate updates the peer addresses of the member.
 	MemberUpdate(ctx context.Context, id uint64, peerAddrs []string) (*MemberUpdateResponse, error)
 }
-
 type cluster struct {
 	remote   pb.ClusterClient
 	callOpts []grpc.CallOption
 }
 
 func NewCluster(c *Client) Cluster {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	api := &cluster{remote: RetryClusterClient(c)}
 	if c != nil {
 		api.callOpts = c.callOpts
 	}
 	return api
 }
-
 func NewClusterFromClusterClient(remote pb.ClusterClient, c *Client) Cluster {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	api := &cluster{remote: remote}
 	if c != nil {
 		api.callOpts = c.callOpts
 	}
 	return api
 }
-
 func (c *cluster) MemberAdd(ctx context.Context, peerAddrs []string) (*MemberAddResponse, error) {
-	// fail-fast before panic in rafthttp
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, err := types.NewURLs(peerAddrs); err != nil {
 		return nil, err
 	}
-
 	r := &pb.MemberAddRequest{PeerURLs: peerAddrs}
 	resp, err := c.remote.MemberAdd(ctx, r, c.callOpts...)
 	if err != nil {
@@ -79,8 +56,9 @@ func (c *cluster) MemberAdd(ctx context.Context, peerAddrs []string) (*MemberAdd
 	}
 	return (*MemberAddResponse)(resp), nil
 }
-
 func (c *cluster) MemberRemove(ctx context.Context, id uint64) (*MemberRemoveResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := &pb.MemberRemoveRequest{ID: id}
 	resp, err := c.remote.MemberRemove(ctx, r, c.callOpts...)
 	if err != nil {
@@ -88,14 +66,12 @@ func (c *cluster) MemberRemove(ctx context.Context, id uint64) (*MemberRemoveRes
 	}
 	return (*MemberRemoveResponse)(resp), nil
 }
-
 func (c *cluster) MemberUpdate(ctx context.Context, id uint64, peerAddrs []string) (*MemberUpdateResponse, error) {
-	// fail-fast before panic in rafthttp
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, err := types.NewURLs(peerAddrs); err != nil {
 		return nil, err
 	}
-
-	// it is safe to retry on update.
 	r := &pb.MemberUpdateRequest{ID: id, PeerURLs: peerAddrs}
 	resp, err := c.remote.MemberUpdate(ctx, r, c.callOpts...)
 	if err == nil {
@@ -103,9 +79,9 @@ func (c *cluster) MemberUpdate(ctx context.Context, id uint64, peerAddrs []strin
 	}
 	return nil, toErr(ctx, err)
 }
-
 func (c *cluster) MemberList(ctx context.Context) (*MemberListResponse, error) {
-	// it is safe to retry on list.
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp, err := c.remote.MemberList(ctx, &pb.MemberListRequest{}, c.callOpts...)
 	if err == nil {
 		return (*MemberListResponse)(resp), nil
